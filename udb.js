@@ -10,10 +10,10 @@ var otherPeriodicals = {};
 var misc = {};
 var discredited = [];
 
-var debug = true;
+var DEBUG = true;
 
 function logDebug(msg) {
-  if (debug) console.log('logDebug: ' + msg);
+  if (DEBUG) console.log('DEBUG: ' + msg);
 }
 
 var lineReader = require('readline').createInterface({
@@ -73,20 +73,22 @@ lineReader
     countries[170] = 'Lebanon';
     countries[178] = 'Moon';
 
+    var recordSize = 112;
+    var buffer = new Buffer(recordSize);
+
     fs.open(dataFile, 'r', function (status, fd) {
       console.log('\nReading cases:');
       if (status) {
         console.log(status.message);
         return;
       }
-      var recordSize = 112;
-      var recordNumber = 92;
+      var recordNumber = 1;
       var position = recordNumber * recordSize;
 
       fs.fstat(fd, function (err, stats) {
         var fileSize = stats.size;
+        logDebug('File size=' + fileSize);
 
-        var buffer = new Buffer(recordSize);
         var count = 0;
         var recordPos;
 
@@ -112,13 +114,13 @@ lineReader
           var byteA = buffer[recordPos + 1];
           var byteB = buffer[recordPos];
           var sign = byteA & (1 << 7);
-          var int = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
+          var uInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
           if (sign) {
-            int = 0xFFFF0000 | int;  // fill in most significant bits with 1's
+            uInt = 0xFFFF0000 | uInt;  // fill in most significant bits with 1's
           }
-          logDebug('at ' + (position + recordPos) + ' read ' + int);
+          logDebug('at ' + (position + recordPos) + ' read ' + uInt);
           recordPos += 2;
-          return int;
+          return uInt;
         }
 
         function readLatLong() {
@@ -126,34 +128,30 @@ lineReader
           const semiCircles = degrees * ( 2 << 31 / 180 );
         }
 
-        while (position < fileSize && count < 10) {
-          if ((position + recordSize) > fileSize) {
-            recordSize = fileSize - position;
-          }
-          fs.readSync(fd, buffer, 0, recordSize, position);
+        function bufferToRecord() {
           recordPos = 0;
 
-          var year = readSignedInt();
+          var record = {};
+          record.year = readSignedInt();
           recordPos += 1;
-          var month = readByte();
-          var day = readByte();
+          record.month = readByte();
+          record.day = readByte();
 
           recordPos += 2;
-          var duration = readByte();
+          record.duration = readByte();
 
           recordPos += 10;
-          var countryCode = readByte();
-          var country = countries[countryCode] ? countries[countryCode] : 'country#' + countryCode;
-          var area = readString(3);
+          record.countryCode = readByte();
+          record.area = readString(3);
 
           recordPos += 9;
           var description = readString(78);
           var split = description.split(':');
-          var location = split[0] + ' (' + area + ', ' + country + ')';
-          var title = split[1];
-          description = split[2];
-          var description2 = split[3];
-          var description3 = split[4];
+          record.location = split[0];
+          record.title = split[1];
+          record.description = split[2];
+          record.description2 = split[3];
+          record.description3 = split[4];
 
           var ref = readByte();
           if (ref) {
@@ -163,23 +161,77 @@ lineReader
           } else {
             ref = '';
           }
-          var refIndex = readByte();
+          record.ref = ref;
+          record.refIndex = readByte();
+          return record;
+        }
 
-          var recordDesc = '\n- Title       : ' + title + '\n' +
-            '  Date        : ' + year + '/' + month + '/' + (day > 31 ? '--' : day) + '\n' +
-            '  Location    : ' + location + '\n' +
-            '  Description : ' + (description ? description : '') + '\n';
-          if (description2) {
-            recordDesc += '                ' + description2 + '\n';
+        function readRecord() {
+          fs.readSync(fd, buffer, 0, recordSize, position);
+          var hexBuffer = buffer.toString('hex');
+          var hexStr = '';
+          var rows = 4;
+          var rowLength = recordSize / rows;
+          for (var i = 0; i < rows; i++) {
+            var rowStr = hexBuffer.substring(i * rowLength, (i + 1) * rowLength);
+            hexStr += '\n' + rowStr;
           }
-          if (description3) {
-            recordDesc += '                ' + description3 + '\n';
+          logDebug('buffer (' + rowLength + ' bytes per line)' + hexStr);
+          return bufferToRecord(buffer);
+        }
+
+        function recordDesc(record) {
+          var country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
+          var desc = '\n- Title       : ' + record.title + '\n' +
+            '  Date        : ' + record.year + '/' + record.month + '/' + (record.day > 31 ? '--' : record.day) + '\n' +
+            '  Location    : ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+            '  Description : ' + (record.description ? record.description : '') + '\n';
+          if (record.description2) {
+            desc += '                ' + record.description2 + '\n';
           }
-          recordDesc += '  Duration    : ' + duration + ' mn\n';
-          recordDesc += '  Source      : ' + ref + '\n' + +'                at index #' + refIndex;
-          console.log(recordDesc);
-          count++;
-          position += recordSize;
+          if (record.description3) {
+            desc += '                ' + record.description3 + '\n';
+          }
+          desc += '  Duration    : ' + record.duration + ' mn\n';
+          desc += '  Source      : ' + record.ref + '\n'
+            + '                at index #' + record.refIndex;
+          return desc;
+        }
+
+        const MaxCountRecordEnumerator = function (maxCount) {
+          return {
+            hasNext: function () {
+              return count < maxCount;
+            },
+            next: function () {
+              count++;
+              position += recordSize;
+            }
+          }
+        };
+        const ArrayRecordEnumerator = function (records) {
+          position = records[count] * recordSize;
+          return {
+            hasNext: function () {
+              return count < records.length;
+            },
+            next: function () {
+              count++;
+              position = records[count] * recordSize;
+            }
+          }
+        };
+
+        //const recordEnumerator = new MaxCountRecordEnumerator(10);
+        const recordEnumerator = new ArrayRecordEnumerator([40, 80]);
+        while (position < fileSize && recordEnumerator.hasNext()) {
+          if ((position + recordSize) > fileSize) {
+            recordSize = fileSize - position;
+            logDebug('last recordSize=' + recordSize);
+          }
+          var record = readRecord();
+          console.log(recordDesc(record));
+          recordEnumerator.next();
         }
         console.log('\nRead ' + count + ' reports.');
         fs.close(fd);
