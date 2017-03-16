@@ -1,22 +1,23 @@
-var fs = require('fs');
+const fs = require('fs');
+const colors = require('colors');
 
-var sourcesFile = process.argv[2] || 'usources.txt';
-var dataFile = process.argv[4] || 'U.RND';
+const sourcesFile = process.argv[2] || 'usources.txt';
+const dataFile = process.argv[3] || 'U.RND';
 
-var primaryReferences = {};
-var newspapersAndFootnotes = {};
-var otherDatabasesAndWebsites = {};
-var otherPeriodicals = {};
-var misc = {};
-var discredited = [];
+const primaryReferences = {};
+const newspapersAndFootnotes = {};
+const otherDatabasesAndWebsites = {};
+const otherPeriodicals = {};
+const misc = {};
+const discredited = [];
 
-var DEBUG = true;
+const DEBUG = true;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
 }
 
-var lineReader = require('readline').createInterface({
+const lineReader = require('readline').createInterface({
   input: require('fs').createReadStream(sourcesFile)
 });
 
@@ -24,7 +25,7 @@ function addDiscredited(line) {
   discredited.push(line.substring(2));
 }
 function addSource(arr, line) {
-  var ref = line.substring(1, 4);
+  const ref = line.substring(1, 4);
   arr[ref] = line.substring(5);
 }
 lineReader
@@ -59,7 +60,7 @@ lineReader
     console.log('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
     console.log('- ' + discredited.length + ' discredited reports');
 
-    var countries = {};
+    const countries = {};
     countries[2] = 'USA';
     countries[20] = 'Argentina';
     countries[49] = 'Great Britain';
@@ -73,8 +74,16 @@ lineReader
     countries[170] = 'Lebanon';
     countries[178] = 'Moon';
 
-    var recordSize = 112;
-    var buffer = new Buffer(recordSize);
+    const locationKinds = {};
+    locationKinds[2] = 'Town & City';
+    locationKinds[3] = 'Farmlands';
+    locationKinds[4] = 'Pasture';
+    locationKinds[8] = 'Mountains';
+    locationKinds[18] = 'Military base';
+    locationKinds[20] = 'Road + rails';
+
+    let recordSize = 112;
+    const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (status, fd) {
       console.log('\nReading cases:');
@@ -82,21 +91,37 @@ lineReader
         console.log(status.message);
         return;
       }
-      var recordNumber = 1;
-      var position = recordNumber * recordSize;
+      const recordNumber = 1;
+      let position = recordNumber * recordSize;
 
       fs.fstat(fd, function (err, stats) {
-        var fileSize = stats.size;
-        logDebug('File size=' + fileSize);
+        const fileSize = stats.size;
+        // logDebug('File size=' + fileSize);
 
-        var count = 0;
-        var recordPos;
+        let count = 0;
+        let recordPos;
+        let recordHex;
 
+        function read(l) {
+          let max = recordPos + l;
+          for (; recordPos < max; ++recordPos) {
+            recordHex += 'rr ';
+          }
+        }
+
+        function skip(l) {
+          let max = recordPos + l;
+          for (; recordPos < max; ++recordPos) {
+            let value = buffer[recordPos];
+            recordHex += value < 0x10 ? '0' : '';
+            recordHex += value.toString(16) + ' ';
+          }
+        }
         function readString(length) {
-          var str = buffer.toString('utf8', recordPos, recordPos + length);
-          logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
-          recordPos += length;
-          var zeroEnd = str.indexOf('\u0000');
+          let str = buffer.toString('utf8', recordPos, recordPos + length);
+          // logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
+          read(length);
+          const zeroEnd = str.indexOf('\u0000');
           if (zeroEnd > 0) {
             str = str.substring(0, zeroEnd);
           }
@@ -104,22 +129,22 @@ lineReader
         }
 
         function readByte() {
-          var byte = buffer[recordPos];
-          logDebug('at ' + (position + recordPos) + ' read ' + byte);
-          recordPos++;
+          const byte = buffer[recordPos];
+          //logDebug('at ' + (position + recordPos) + ' read ' + byte);
+          read(1);
           return byte;
         }
 
         function readSignedInt() {
-          var byteA = buffer[recordPos + 1];
-          var byteB = buffer[recordPos];
-          var sign = byteA & (1 << 7);
-          var uInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
+          const byteA = buffer[recordPos + 1];
+          const byteB = buffer[recordPos];
+          const sign = byteA & (1 << 7);
+          let uInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
           if (sign) {
             uInt = 0xFFFF0000 | uInt;  // fill in most significant bits with 1's
           }
-          logDebug('at ' + (position + recordPos) + ' read ' + uInt);
-          recordPos += 2;
+          //  logDebug('at ' + (position + recordPos) + ' read ' + uInt);
+          read(2);
           return uInt;
         }
 
@@ -129,31 +154,32 @@ lineReader
         }
 
         function bufferToRecord() {
+          const record = {};
           recordPos = 0;
+          recordHex = '';
 
-          var record = {};
           record.year = readSignedInt();
-          recordPos += 1;
+          record.locationKind = readByte();
           record.month = readByte();
           record.day = readByte();
 
-          recordPos += 2;
+          skip(2);
           record.duration = readByte();
 
-          recordPos += 10;
+          skip(10);
           record.countryCode = readByte();
           record.area = readString(3);
 
-          recordPos += 9;
-          var description = readString(78);
-          var split = description.split(':');
+          skip(9);
+          const description = readString(78);
+          const split = description.split(':');
           record.location = split[0];
           record.title = split[1];
           record.description = split[2];
           record.description2 = split[3];
           record.description3 = split[4];
 
-          var ref = readByte();
+          let ref = readByte();
           if (ref) {
             if (ref < 100) ref = '0' + ref;
             if (ref < 10) ref = '0' + ref;
@@ -163,28 +189,21 @@ lineReader
           }
           record.ref = ref;
           record.refIndex = readByte();
+
+          logDebug('buffer=' + recordHex);
           return record;
         }
 
         function readRecord() {
           fs.readSync(fd, buffer, 0, recordSize, position);
-          var hexBuffer = buffer.toString('hex');
-          var hexStr = '';
-          var rows = 4;
-          var rowLength = recordSize / rows;
-          for (var i = 0; i < rows; i++) {
-            var rowStr = hexBuffer.substring(i * rowLength, (i + 1) * rowLength);
-            hexStr += '\n' + rowStr;
-          }
-          logDebug('buffer (' + rowLength + ' bytes per line)' + hexStr);
           return bufferToRecord(buffer);
         }
 
         function recordDesc(record) {
-          var country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
-          var desc = '\n- Title       : ' + record.title + '\n' +
+          const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
+          let desc = '\n- Title       : ' + record.title + '\n' +
             '  Date        : ' + record.year + '/' + record.month + '/' + (record.day > 31 ? '--' : record.day) + '\n' +
-            '  Location    : ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+            '  Location    : ' + (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind) + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
             '  Description : ' + (record.description ? record.description : '') + '\n';
           if (record.description2) {
             desc += '                ' + record.description2 + '\n';
@@ -198,38 +217,45 @@ lineReader
           return desc;
         }
 
-        const MaxCountRecordEnumerator = function (maxCount) {
-          return {
-            hasNext: function () {
-              return count < maxCount;
-            },
-            next: function () {
-              count++;
-              position += recordSize;
-            }
+        class MaxCountRecordEnumerator {
+          constructor(maxCount) {
+            this.maxCount = maxCount;
           }
-        };
-        const ArrayRecordEnumerator = function (records) {
-          position = records[count] * recordSize;
-          return {
-            hasNext: function () {
-              return count < records.length;
-            },
-            next: function () {
-              count++;
-              position = records[count] * recordSize;
-            }
-          }
-        };
 
-        //const recordEnumerator = new MaxCountRecordEnumerator(10);
-        const recordEnumerator = new ArrayRecordEnumerator([40, 80]);
+          hasNext() {
+            return count < this.maxCount;
+          }
+
+          next() {
+            count++;
+            position += recordSize;
+          }
+        }
+
+        class ArrayRecordEnumerator {
+          constructor(records) {
+            this.records = records;
+            position = records[count] * recordSize;
+          }
+
+          hasNext() {
+            return count < this.records.length;
+          }
+
+          next() {
+            count++;
+            position = this.records[count] * recordSize;
+          }
+        }
+
+        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        //const recordEnumerator = new ArrayRecordEnumerator([1, 2, 3, 5]);
         while (position < fileSize && recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
             logDebug('last recordSize=' + recordSize);
           }
-          var record = readRecord();
+          const record = readRecord();
           console.log(recordDesc(record));
           recordEnumerator.next();
         }
