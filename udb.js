@@ -117,6 +117,7 @@ lineReader
             recordHex += value.toString(16) + ' ';
           }
         }
+
         function readString(length) {
           let str = buffer.toString('utf8', recordPos, recordPos + length);
           // logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
@@ -162,14 +163,12 @@ lineReader
           record.locationKind = readByte();
           record.month = readByte();
           record.day = readByte();
-
-          skip(2);
+          record.hour = readByte();
+          skip(1);
           record.duration = readByte();
-
           skip(10);
           record.countryCode = readByte();
           record.area = readString(3);
-
           skip(9);
           const description = readString(78);
           const split = description.split(':');
@@ -201,9 +200,15 @@ lineReader
 
         function recordDesc(record) {
           const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
+          let hours = Math.floor(record.hour / 6);
+          let minutes = (record.hour % 6) * 10;
+          let hour = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+          let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
+          let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
+          let month = (record.month < 10 ? '0' : '') + record.month;
           let desc = '\n- Title       : ' + record.title + '\n' +
-            '  Date        : ' + record.year + '/' + record.month + '/' + (record.day > 31 ? '--' : record.day) + '\n' +
-            '  Location    : ' + (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind) + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+            '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
+            '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
             '  Description : ' + (record.description ? record.description : '') + '\n';
           if (record.description2) {
             desc += '                ' + record.description2 + '\n';
@@ -248,8 +253,8 @@ lineReader
           }
         }
 
-        const recordEnumerator = new MaxCountRecordEnumerator(10);
-        //const recordEnumerator = new ArrayRecordEnumerator([1, 2, 3, 5]);
+        const recordEnumerator = new MaxCountRecordEnumerator(14);
+        //const recordEnumerator = new ArrayRecordEnumerator([89, 175, 958]);
         while (position < fileSize && recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
