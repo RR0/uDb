@@ -16,7 +16,7 @@ function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
 }
 
-const lineReader = require('readline').createInterface({
+const sourcesReader = require('readline').createInterface({
   input: require('fs').createReadStream(sourcesFile)
 });
 
@@ -24,10 +24,10 @@ function addDiscredited(line) {
   discredited.push(line.substring(2));
 }
 function addSource(arr, line) {
-  const ref = line.substring(1, 4);
+  const ref = parseInt(line.substring(1, 4), 0);
   arr[ref] = line.substring(5);
 }
-lineReader
+sourcesReader
   .on('line', function (line) {
     switch (line.charAt(0)) {
       case '/':
@@ -63,6 +63,7 @@ lineReader
     countries[2] = 'USA';
     countries[20] = 'Argentina';
     countries[49] = 'Great Britain';
+    countries[51] = 'Germany';
     countries[53] = 'France';
     countries[54] = 'Spain';
     countries[57] = 'Italy';
@@ -74,11 +75,26 @@ lineReader
     countries[178] = 'Moon';
 
     const locationKinds = {};
-    locationKinds[2] = 'Town & City';
+    locationKinds[0] = 'Metropolis';
+    locationKinds[1] = 'Residential';
+    locationKinds[2] = 'Town & city';
     locationKinds[3] = 'Farmlands';
     locationKinds[4] = 'Pasture';
+    locationKinds[5] = 'Oil & coal';
+    locationKinds[6] = 'Tundra';
+    locationKinds[7] = 'Desert';
     locationKinds[8] = 'Mountains';
+    locationKinds[9] = 'Wetlands';
+    locationKinds[10] = 'Forest';
+    locationKinds[11] = 'Rainforest';
+    locationKinds[12] = 'Coastlands';
+    locationKinds[13] = 'Offshore';
+    locationKinds[14] = 'High seas';
+    locationKinds[15] = 'Islands';
+    locationKinds[16] = 'In-flight';
+    locationKinds[17] = 'Space';
     locationKinds[18] = 'Military base';
+    locationKinds[19] = 'Unknown';
     locationKinds[20] = 'Road + rails';
 
     let recordSize = 112;
@@ -100,11 +116,15 @@ lineReader
         let count = 0;
         let recordPos;
         let recordHex;
+        let recordRead;
 
         function read(l) {
           let max = recordPos + l;
           for (; recordPos < max; ++recordPos) {
-            recordHex += 'rr ';
+            let value = buffer[recordPos];
+            recordHex += value < 0x10 ? '0' : '';
+            recordHex += value.toString(16) + ' ';
+            recordRead += 'rr ';
           }
         }
 
@@ -114,81 +134,81 @@ lineReader
             let value = buffer[recordPos];
             recordHex += value < 0x10 ? '0' : '';
             recordHex += value.toString(16) + ' ';
+            recordRead += '   ';
           }
-        }
-
-        function readString(length) {
-          let str = buffer.toString('utf8', recordPos, recordPos + length);
-          // logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
-          read(length);
-          const zeroEnd = str.indexOf('\u0000');
-          if (zeroEnd > 0) {
-            str = str.substring(0, zeroEnd);
-          }
-          return str;
-        }
-
-        function readByte() {
-          const byte = buffer[recordPos];
-          //logDebug('at ' + (position + recordPos) + ' read ' + byte);
-          read(1);
-          return byte;
-        }
-
-        function readSignedInt() {
-          const byteA = buffer[recordPos + 1];
-          const byteB = buffer[recordPos];
-          const sign = byteA & (1 << 7);
-          let uInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
-          if (sign) {
-            uInt = 0xFFFF0000 | uInt;  // fill in most significant bits with 1's
-          }
-          //  logDebug('at ' + (position + recordPos) + ' read ' + uInt);
-          read(2);
-          return uInt;
-        }
-
-        function readLatLong() {
-          const degrees = 31;
-          const semiCircles = degrees * ( 2 << 31 / 180 );
         }
 
         function bufferToRecord() {
           const record = {};
           recordPos = 0;
           recordHex = '';
+          recordRead = '';
 
-          record.year = readSignedInt();
-          record.locationKind = readByte();
-          record.month = readByte();
-          record.day = readByte();
-          record.hour = readByte();
-          record.flags = readByte();
-          record.duration = readByte();
+          function readString(length, prop) {
+            let str = buffer.toString('utf8', recordPos, recordPos + length);
+            // logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
+            read(length);
+            const zeroEnd = str.indexOf('\u0000');
+            if (zeroEnd > 0) {
+              str = str.substring(0, zeroEnd);
+            }
+            record[prop] = str;
+            logDebug(`at ${position + recordPos} read ${prop}='${str}'`);
+            return str;
+          }
+
+          function readByte(prop) {
+            const byte = buffer[recordPos];
+            read(1);
+            record[prop] = byte;
+            logDebug(`at ${position + recordPos} read ${prop}=${byte} (0x${byte.toString(16)})`);
+            return byte;
+          }
+
+          function readSignedInt(prop) {
+            const byteA = buffer[recordPos + 1];
+            const byteB = buffer[recordPos];
+            const sign = byteA & (1 << 7);
+            let sInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
+            if (sign) {
+              sInt = 0xFFFF0000 | sInt;  // fill in most significant bits with 1's
+            }
+            logDebug(`at ${position + recordPos} read ${prop}=${sInt} (0x${sInt.toString(16)})`);
+            read(2);
+            record[prop] = sInt;
+            return sInt;
+          }
+
+          function readLatLong() {
+            const degrees = 31;
+            const semiCircles = degrees * ( 2 << 31 / 180 );
+          }
+
+          readSignedInt('year');
+          readByte('locationKind');
+          readByte('month');
+          readByte('day');
+          readByte('hour');
+          readByte('flags');
+          readByte('duration');
           skip(10);
-          record.countryCode = readByte();
-          record.area = readString(3);
+          readByte('countryCode');
+          readString(3, 'area');
           skip(9);
-          const description = readString(78);
-          const split = description.split(':');
+          readString(78, 'description');
+          const split = record.description.split(':');
           record.location = split[0];
           record.title = split[1];
           record.description = split[2];
           record.description2 = split[3];
           record.description3 = split[4];
+          record.description4 = split[5];
 
-          let ref = readByte();
-          if (ref) {
-            if (ref < 100) ref = '0' + ref;
-            if (ref < 10) ref = '0' + ref;
-            ref = primaryReferences[ref];
-          } else {
-            ref = '';
-          }
-          record.ref = ref;
-          record.refIndex = readByte();
+          readByte('ref');
+          readByte('refIndex');
+          readByte('otherFlags');
 
-          logDebug('buffer=' + recordHex);
+          logDebug(`buffer=${recordHex}\n              ${recordRead}`);
           return record;
         }
 
@@ -205,14 +225,19 @@ lineReader
           let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
           let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
           let month = (record.month < 10 ? '0' : '') + record.month;
+
           let flags = '';
           flags += (record.flags >> 6) & 3;
           flags += (record.flags >> 4) & 3;
           flags += (record.flags >> 2) & 3;
           flags += record.flags & 3;
-          let desc = '\nRecord #' + (count + 1) + '\n- Title       : ' + record.title + '\n' +
-            '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
-            '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+
+          let otherFlags = (record.otherFlags >> 4) + ':' + (record.otherFlags & 0xF);
+
+          let recordIndex = position / recordSize;
+          let desc = '\nRecord #' + recordIndex + '\n- Title       : ' + record.title + '\n' +
+              '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
+              '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
               '  Description : ' + (record.description ? record.description : '') + '\n'
             ;
           if (record.description2) {
@@ -221,9 +246,14 @@ lineReader
           if (record.description3) {
             desc += '                ' + record.description3 + '\n';
           }
+          if (record.description4) {
+            desc += '                ' + record.description4 + '\n';
+          }
           desc += '  Duration    : ' + record.duration + ' mn\n';
           desc += '  Flags       : ' + flags + '\n';
-          desc += '  Source      : ' + record.ref + '\n'
+          desc += '  Other flags : ' + otherFlags + '\n';
+          ref = record.ref ? primaryReferences[record.ref] : '';
+          desc += '  Source      : ' + ref + '\n'
             + '                at index #' + record.refIndex;
           return desc;
         }
@@ -259,9 +289,20 @@ lineReader
           }
         }
 
-        const recordEnumerator = new MaxCountRecordEnumerator(14);
-        //const recordEnumerator = new ArrayRecordEnumerator([89, 175, 958]);
-        while (position < fileSize && recordEnumerator.hasNext()) {
+        class DefaultRecordEnumerator {
+          hasNext() {
+            return position < fileSize;
+          }
+
+          next() {
+            count++;
+            position += recordSize;
+          }
+        }
+        //const recordEnumerator = new DefaultRecordEnumerator();
+        //const recordEnumerator = new MaxCountRecordEnumerator(18000);
+        const recordEnumerator = new ArrayRecordEnumerator([2, 61, 63]);
+        while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
             logDebug('last recordSize=' + recordSize);
