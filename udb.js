@@ -1,5 +1,4 @@
 const fs = require('fs');
-const colors = require('colors');
 
 const sourcesFile = process.argv[2] || 'usources.txt';
 const dataFile = process.argv[3] || 'U.RND';
@@ -164,7 +163,7 @@ lineReader
           record.month = readByte();
           record.day = readByte();
           record.hour = readByte();
-          skip(1);
+          record.flags = readByte();
           record.duration = readByte();
           skip(10);
           record.countryCode = readByte();
@@ -206,10 +205,16 @@ lineReader
           let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
           let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
           let month = (record.month < 10 ? '0' : '') + record.month;
-          let desc = '\n- Title       : ' + record.title + '\n' +
+          let flags = '';
+          flags += (record.flags >> 6) & 3;
+          flags += (record.flags >> 4) & 3;
+          flags += (record.flags >> 2) & 3;
+          flags += record.flags & 3;
+          let desc = '\nRecord #' + (count + 1) + '\n- Title       : ' + record.title + '\n' +
             '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
             '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
-            '  Description : ' + (record.description ? record.description : '') + '\n';
+              '  Description : ' + (record.description ? record.description : '') + '\n'
+            ;
           if (record.description2) {
             desc += '                ' + record.description2 + '\n';
           }
@@ -217,6 +222,7 @@ lineReader
             desc += '                ' + record.description3 + '\n';
           }
           desc += '  Duration    : ' + record.duration + ' mn\n';
+          desc += '  Flags       : ' + flags + '\n';
           desc += '  Source      : ' + record.ref + '\n'
             + '                at index #' + record.refIndex;
           return desc;
