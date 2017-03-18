@@ -1,6 +1,6 @@
-# \*U* database reader
+# \*U* UFO database reader
 
-This is a [node](https://nodejs.org) application to binary data file of the now-defunct the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
+This is a [node](https://nodejs.org) application to read binary data file of the now-defunct the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
 
 ## Setup
 
