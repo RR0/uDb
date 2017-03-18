@@ -19,17 +19,19 @@ The data file is a sequence of 112-bytes records.
 A part from the first (#0) and last records which are system ones, 
 the structure of a record is:
 
-- 002 (0x02) Sighting year (1 signed word/2 bytes)
-- 003 (0x03) Location kind code (1 byte) (see locations table below)
-- 004 (0x04) Sighting month (1 byte)
-- 005 (0x05) Sighting day (1 byte)
-- 006 (0x06) Sighting hour (1 byte) encoded as:
+-   0 (0x00) : Sighting year (1 signed word/2 bytes)
+-   2 (0x02) : Location kind code (1 byte) (see locations table below)
+-   3 (0x03) : Sighting month (1 byte)
+-   4 (0x04) : Sighting day (1 byte)
+-   5 (0x05) : Sighting hour (1 byte) encoded as:
   - hour: `value / 6`
   - minutes: remainder/modulo `value % 6` * 10 minutes
-- 007 (0x07) `3333` Flags (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
-- 008 (0x08) Sighting duration in minutes (1 byte)
-- 019 (0x13) Country code (1 byte) (see countries table below)
-- 022 (0x16) Area code (3 chars)
+-   6 (0x06) : `3333` Flags (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
+-   7 (0x07) : Sighting duration in minutes (1 byte)
+-   8-17 : TODO (lat/long?)
+-  18 (0x12) : Country code (1 byte) (see countries table below)
+-  19 (0x13) Area code (3 chars)
+-  22-108 : TODO (lat/long?)
 - 109 (0x6d) Description (78 chars) as `:`-separated rows.
 - 110 (0x6e) Source code (1 byte) (see `usources.txt` file) 
 - 111 (0x6f) Position in source (1 byte)
@@ -37,27 +39,27 @@ the structure of a record is:
 
 ### Location kinds
 
--  0 : Metropolis
--  1 : Residential
--  2 : Town & city
--  3 : Farmlands
--  4 : Pasture
--  5 : Oil & coal
--  6 : Tundra
--  7 : Desert
--  8 : Mountains
--  9 : Wetlands
-- 10 : Forest
-- 11 : Rainforest
-- 12 : Coastlands
-- 13 : Offshore
-- 14 : High seas
-- 15 : Islands
-- 16 : In-flight
-- 17 : Space
-- 18 : Military base
-- 19 : Unknown
-- 20 : Road + rails
+0. Metropolis
+1. Residential
+2. Town & city
+3. Farmlands
+4. Pasture
+5. Oil & coal
+6. Tundra
+7. Desert
+8. Mountains
+9. Wetlands
+10. Forest
+11. Rainforest
+12. Coastlands
+13. Offshore
+14. High seas
+15. Islands
+16. In-flight
+17. Space
+18. Military base
+19. Unknown
+20. Road + rails
 
 ### Countries
 
