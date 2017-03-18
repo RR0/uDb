@@ -350,8 +350,8 @@ sourcesReader
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
-        //const recordEnumerator = new MaxCountRecordEnumerator(10);
-        const recordEnumerator = new ArrayRecordEnumerator([18119, 18120]);
+        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        //const recordEnumerator = new ArrayRecordEnumerator([18119, 18120]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
