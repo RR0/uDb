@@ -273,7 +273,8 @@ sourcesReader
             flags += (record.flags >> 2) & 3;
             flags += record.flags & 3;
 
-            let otherFlags = (record.otherFlags >> 4).toString(16) + ':' + (record.otherFlags & 0xF).toString(16);
+            let strangeness = record.otherFlags >> 4;
+            let credibility = record.otherFlags & 0xF;
 
             let recordIndex = position / recordSize;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
@@ -292,7 +293,8 @@ sourcesReader
             }
             desc += '  Duration    : ' + record.duration + ' mn\n';
             desc += '  Flags       : ' + flags + '\n';
-            desc += '  Other flags : ' + otherFlags + '\n';
+            desc += '  Strangeness : ' + strangeness + '\n';
+            desc += '  Credibility : ' + credibility + '\n';
             desc += '  Source      : ' + ref + '\n'
               + '                at index #' + record.refIndex;
             return desc;
@@ -348,8 +350,8 @@ sourcesReader
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(10);
-        //const recordEnumerator = new ArrayRecordEnumerator([0, 1]);
+        //const recordEnumerator = new MaxCountRecordEnumerator(10);
+        const recordEnumerator = new ArrayRecordEnumerator([18119, 18120]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
