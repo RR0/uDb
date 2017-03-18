@@ -164,7 +164,11 @@ the structure of a record is:
 -   5 (0x05) : Sighting hour (1 byte) encoded as:
     - hour: `value / 6`
     - minutes: remainder/modulo `value % 6` * 10 minutes
--   6 (0x06) : Year, Month, Day and Time (YMDT) accuracies (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
+-   6 (0x06) : Year, Month, Day and Time (YMDT) accuracies (1 byte) encoded as 4 * 2 bits each encoding an accuracy level as:
+    - 0 : DOES NOT APPLY/irrelevant (so not displayed).
+    - 1 : Unknown/unspecified (displayed `?`).    
+    - 2 : Approximative (displayed `~`): within 1 or 2 Years or Months; within 3-4 Days, Hours.    
+    - 3 : Known: Exact year, month, day: Time within one hour.
 -   7 (0x07) : Sighting duration in minutes (1 byte)
 -   8-17 : TODO ([lat/long](https://github.com/RR0/uDb/issues/2)?)
 -  18 (0x12) : Country code (1 byte) (see countries table below)
