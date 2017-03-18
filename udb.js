@@ -163,17 +163,17 @@ sourcesReader
 
           function readString(length, prop) {
             let str = buffer.toString('utf8', recordPos, recordPos + length);
-            read(length);
             record[prop] = trimZeroEnd(str);
             logReadPos(prop);
+            read(length);
             return str;
           }
 
           function readByte(prop) {
             const byte = buffer[recordPos];
-            read(1);
             record[prop] = byte;
             logReadPos(prop);
+            read(1);
             return byte;
           }
 
@@ -186,8 +186,8 @@ sourcesReader
               sInt = 0xFFFF0000 | sInt;  // fill in most significant bits with 1's
             }
             record[prop] = sInt;
-            read(2);
             logReadPos(prop);
+            read(2);
             return sInt;
           }
 
@@ -313,7 +313,7 @@ sourcesReader
         }
         //const recordEnumerator = new DefaultRecordEnumerator();
         //const recordEnumerator = new MaxCountRecordEnumerator(40);
-        const recordEnumerator = new ArrayRecordEnumerator([0]);
+        const recordEnumerator = new ArrayRecordEnumerator([0, 1]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
