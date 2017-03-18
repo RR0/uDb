@@ -87,28 +87,28 @@ sourcesReader
     countries[170] = 'Lebanon';
     countries[178] = 'Moon';
 
-    const locationKinds = {};
-    locationKinds[0] = 'Metropolis';
-    locationKinds[1] = 'Residential';
-    locationKinds[2] = 'Town & city';
-    locationKinds[3] = 'Farmlands';
-    locationKinds[4] = 'Pasture';
-    locationKinds[5] = 'Oil & coal';
-    locationKinds[6] = 'Tundra';
-    locationKinds[7] = 'Desert';
-    locationKinds[8] = 'Mountains';
-    locationKinds[9] = 'Wetlands';
-    locationKinds[10] = 'Forest';
-    locationKinds[11] = 'Rainforest';
-    locationKinds[12] = 'Coastlands';
-    locationKinds[13] = 'Offshore';
-    locationKinds[14] = 'High seas';
-    locationKinds[15] = 'Islands';
-    locationKinds[16] = 'In-flight';
-    locationKinds[17] = 'Space';
-    locationKinds[18] = 'Military base';
-    locationKinds[19] = 'Unknown';
-    locationKinds[20] = 'Road + rails';
+    const locales = {};
+    locales[0] = 'Metropolis';
+    locales[1] = 'Residential';
+    locales[2] = 'Town & city';
+    locales[3] = 'Farmlands';
+    locales[4] = 'Pasture';
+    locales[5] = 'Oil & coal';
+    locales[6] = 'Tundra';
+    locales[7] = 'Desert';
+    locales[8] = 'Mountains';
+    locales[9] = 'Wetlands';
+    locales[10] = 'Forest';
+    locales[11] = 'Rainforest';
+    locales[12] = 'Coastlands';
+    locales[13] = 'Offshore';
+    locales[14] = 'High seas';
+    locales[15] = 'Islands';
+    locales[16] = 'In-flight';
+    locales[17] = 'Space';
+    locales[18] = 'Military base';
+    locales[19] = 'Unknown';
+    locales[20] = 'Road + rails';
 
     let recordSize = 112;
     const buffer = new Buffer(recordSize);
@@ -202,11 +202,11 @@ sourcesReader
           }
 
           readSignedInt('year');
-          readByte('locationKind');
+          readByte('locale');
           readByte('month');
           readByte('day');
           readByte('hour');
-          readByte('flags');
+          readByte('ymdt');
           readByte('duration');
           skip(10);
           readByte('countryCode');
@@ -223,7 +223,7 @@ sourcesReader
 
           readByte('ref');
           readByte('refIndex');
-          readByte('otherFlags');
+          readByte('strangenessAndCredibility');
 
           logDebug(`buffer=${recordHex}\n              ${recordRead}`);
           return record;
@@ -262,24 +262,24 @@ sourcesReader
             let hours = Math.floor(record.hour / 6);
             let minutes = (record.hour % 6) * 10;
             let hour = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
-            let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
+            let locale = (locales[record.locale] ? locales[record.locale] : 'locale#' + record.locale);
             let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
             let month = (record.month < 10 ? '0' : '') + record.month;
             const ref = record.ref ? primaryReferences[record.ref] : '';
 
-            let flags = '';
-            flags += (record.flags >> 6) & 3;
-            flags += (record.flags >> 4) & 3;
-            flags += (record.flags >> 2) & 3;
-            flags += record.flags & 3;
+            let ymdt = '';
+            ymdt += (record.ymdt >> 6) & 3;
+            ymdt += (record.ymdt >> 4) & 3;
+            ymdt += (record.ymdt >> 2) & 3;
+            ymdt += record.ymdt & 3;
 
-            let strangeness = record.otherFlags >> 4;
-            let credibility = record.otherFlags & 0xF;
+            let strangeness = record.strangenessAndCredibility >> 4;
+            let credibility = record.strangenessAndCredibility & 0xF;
 
             let recordIndex = position / recordSize;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
                 '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
-                '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+                '  Location    : ' + locale + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
                 '  Description : ' + (record.description ? record.description : '') + '\n'
               ;
             if (record.description2) {
@@ -292,7 +292,7 @@ sourcesReader
               desc += '                ' + record.description4 + '\n';
             }
             desc += '  Duration    : ' + record.duration + ' mn\n';
-            desc += '  Flags       : ' + flags + '\n';
+            desc += '  YMDT        : ' + ymdt + '\n';
             desc += '  Strangeness : ' + strangeness + '\n';
             desc += '  Credibility : ' + credibility + '\n';
             desc += '  Source      : ' + ref + '\n'
