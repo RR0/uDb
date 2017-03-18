@@ -1,0 +1,614 @@
+>> USOURCES.DOC :  Numbered *U* Database sources as of January, 2003.
+>> OK to COPY but DO NOT CHANGE this file, *U* uses it in a special format.
+
+>> *U* PRIMARY REFERENCES:  ( in no particular order. )
+/000 HYNEK,J.Allen: The UFO EXPERIENCE, A Scientific Inquiry Ballentine Books,NY 1974,1977.
+/001 HYNEK,J.Allen & IMBROGNIO,Phil: NIGHT SIEGE, the Hudson Valley UFO Sightings; Ballentine Books,NY 1987
+/002 VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+/003 VALLEE,Jacques: CHALLENGE to SCIENCE, The UFO ENIGMA;  Henry Regnery 1966 & Ballentine Books,NY 1974.   PB
+/004 VALLEE,Jacques: DIMENSIONS, A Casebook of Alien Contact Ballentine,NY 1989.  PB
+/005 VALLEE,Jacques: CONFRONTATIONS, A Scientists Search..; Ballentine Books, NY 1990+91.  PB
+/006 VALLEE,Jacques: REVELATIONS, Alien Contact and Human   Deception; Ballentine Books 1991+92.
+/007 VALLEE,Jacques: MESSENGERS of DECEPTION; Bantam PB 1979 272pp.
+/008 VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
+/009 VALLEE,Jacques: UFO CHRONICLES of the SOVIET UNION;    Ballentine Books HB 1992. 212pp.
+/010 SPENCER,John & EVANS,Hillary (ed): PHENOMENON-40 YEARS of F.S.; BUFORA/Avon Books,NY 1988
+/011 SPENCER,John: The UFO ENCYCLOPEDIA;  BUFORA/Acon Books,NY. 1991.  340pp.
+/012 STURROCK,Dr. Peter A.: The UFO ENIGMA; Warner Books,NY 1999; ISBN 0-446-52565-0 HB 404pp.
+/013 FOWLER,Raymond E.: The WATCHERS ;Bantam PB,NY 1990
+/014 HYNEK & VALLEE: The EDGE of REALITY, A Progress Report.Chicago, Regnery 1975. 301pp 24cm
+/015 RANDLE,Kevin & SCHMITT,Donald: UFO CRASH at ROSWELL;   Avon Books,NY 1991. 327pp.
+/016 HOPKINS,Budd: MISSING TIME; 255pp. G.P.Putnam's 1980   & Ballentine PB 1988. 255p.
+/017 BALLESTER OLMOS,V-J: FOTOCAT Catalog: Publishing data  to be announced.
+/018 STURROCK,Dr.Peter A: REPORT / SURVEY of the AMERICAN   ASTRONOMICAL SOCIETY of the UFO PROBLEM; Stanford,CA 1977.
+/019 STEIGER,Brad & WHRITENOUR,Joan: FLYING SAUCERS ARE     HOSTILE;  Award Books PB 1967. 75 cents.
+/020 STEIGER,Brad: The UFO ABDUCTORS. Berkley Books,NY 1988
+/021 STEIGER,Brad (ed.): PROJECT BLUEBOOK; Ballentine Books 1976. 423pp.
+/022 BERLITZ,Charles & MOORE,William: The ROSWELL INCIDENT; Putnam 1980 & Berkley Books 1988.
+/023 FALLA,GEOFFREY: VEHICLE INTERFERENCE PROJECT.          BUFORA Ltd. 1979.  C.F. Lockwood & A.R. Rice editors.
+/024 UFO INVESTIGATOR: NICAP: Kensington,MD & Washington,DC [defunct]. University Microfilms, Ann Arbor,MI 48106
+/025 HALL,Richard: UNINVITED GUESTS; Aurora Press, Santa Fe,NM 1988. 381pp.
+/026 FAWCETT,Lawrence & GREENWOOD,Barry:  The UFO COVERUP   (Formerly Clear Intent);  Prentice Hall,NJ 1984.  264pp.
+/027 FLAMMONDE,Paris:The AGE of FLYING SAUCERS;  Hawthorne  Books, NY 1971
+/028 FLAMMONDE,Paris: UFO EXIST!; Ballentine Books,NY 1976. PB  480pp.
+/029 RUPPELT,Edward J.: The REPORT ON UNIDENTIFIED FLYING   OBJECTS; Doubleday, NY 1956 HC.243pp.
+/030 FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
+/031 RUTLEDGE,Harley D. Ph.D.: PROJECT IDENTIFICATION;      Prentice-Hall,NJ 1981.
+/032 DRUFFEL,Ann & ROGO,D.Scott:The TUJUNGA CANYON CONTACTS Signet Books PB 1989
+/033 EMENEGGER,Robert: UFOS PAST PRESENT & FUTURE;          Ballentine Books 1974.
+/034 BLUNDELL,Nigel & BOAR,Roger: the WORLDS GREATEST UFO   MYSTERIES; Octopus, London 1989 & PB/Berkley Books,NY 1990
+/035 WILSON,Clifford: The ALIEN AGENDA; 1974 & Signet PB    1988. (religious interpretation.)
+/036 LINDEMANN,Michael (ed.): UFOs and the ALIEN PRESENCE - Six Viewpoints; 2020 Group,Santa Barbara,CA 1991. 233pp.
+/037 CONDON,Dr Edward: SCIENTIFIC STUDY of UFO..etc; Bantam 1969.  965pp. $1.95
+/038 HUNT,Gerry: BIZARRE AMERICA; Berkley Books,NY. PB 1988.[ inexpensive ]
+/039 ITACAT, Catalogo Italiano degli Incontri Ravvicinati.  Maurizio Verga, 1989  CISU/Torino,Italy.
+/040 CUFON UFO Network Site (former BBS) various downloads. http://www.cufon.org
+/041 HALL,Richard: The UFO Evidence II: HB: Scarecrow Press Lanham,MD. http://www.scarecrowpress.com ISBN 0-8108-3881-8 Excellent.
+/042 SALISBURY,Frank: The UTAH UFO DISPLAY -- a Biologist   Reports; 1974 Devin Adair, New Greenwich,CT. HB 286pp.      ISBN 0-815-97000-5
+/043 HITT, Michael D: GEORGIA'S AERIAL PHENOMENON 1947-1987 Self published 1999.  ref. Jan Aldrich.
+/044 SANDERSON,Ivan: INVISIBLE RESIDENTS; World Publishing  HB 1970 & Avon Books PB 1973
+/045 SANDERSON,Ivan: UNINVITED VISITORS; Cowles Educational Corp. NY 1967 HB
+/046 KEHOE,Maj Donald: FLYING SAUCERS TOP SECRET; NICAP and G.P. Putnam's Sons, NY 1960 HB.
+/047 KEHOE,Maj Donald: ALIENS FROM SPACE; Doubleday,Garden  City,NY 1973 HB
+/048 MICHEL,Aime: The TRUTH ABOUT FLYING SAUCERS;           S.G.Phillips 1956 & Pyramid Books,NY 1967.
+/049 MICHEL,Aime: FLYING SAUCERS & the STRAIGHT LINE THEORY HB (hard to find)
+/050 BALLESTER OLMOS,Vicente-Juan:  CATALOG of 200 TYPE-1   EVENTS in SPAIN & PORTUGAL"; CUFOS 1976.
+/051 ZEIDMAN,Jennie: The LUMBERTON REPORT; CUFOS 1976.      ( N.Carolina, 1975 )
+/052 FULLER,John G: ALIENS IN THE SKIES; Putnam's Sons and  Berkley Books,NY 1969.
+/053 HOLZER,Hans: THE UFO-NAUTS;  Fawcett Gold Medal Books, Greenwich,CT 1976.
+/054 MUSGRAVE,John Brent:UFO OCCUPANTS & CRITTERS;   Global Communications, NY 1979. 8x11 66pp.
+/055 HYNEK,Dr. J.Allen: THE HYNEK UFO REPORT; Dell Publ.,NY 1977. 298pp.
+/056 UFOCAT CATALOG: Assorted Printouts.  Donald A. Johnson Ph.D (CUFOS).  P.O.Box 446, Concord,NH 03302-0446
+/057 GUASP,Miguel:TEORIA de PROCESOS de los OVNI; Valencia, Spain, 1973.  Self published. Scholarly. Short catalog.
+/058 GINDILIS,L.M & MENLOV & PETROVSKAYA:  OBSERVATIONS of  ANOMALOUS ATMOSPHERIC PHENO./USSR; CUFOS/USSR ACADEMY of SCIENCE 1979.
+/059 SCIENCE & MECHANICS (eds.) OFFICIAL GUIDE to UFOS;     Ace Books,NY. 1968.
+/060 FARISH,Jucius: UFO NEWSCLIPPING SERVICE: $5/Monthly.   Plumerville,AR.
+/061 STRIEBER,Whitley: COMMUNION- A true story; Wilson&Neff,NY 1987 & Avon Books PB 1988.
+/062 STRIEBER,Whitley: TRANSFORMATION--; William Morrow,NY  1988.  Avon Books PB 1989
+/063 NATIONAL ENQUIRER UFO REPORT; Pocket Books,NY 1985.
+/064 DAVID,Jay (ed.): FLYING SAUCERS HAVE ARRIVED: HB World Publ. NY 1970.
+/065 HALL,Richard H: From AIRSHIPS to ARNOLD (1900-1946)    UFO Research Coalition; Fairfax,VA 2000. Great Catalog.
+/066 SAGAN/PAGE:UFOS a SCIENTIFIC DEBATE: Cornell Univ.     Press, Ithaca,NY 1972
+/067 BOWEN,Charles (ed.) The HUMANOIDS: HB  Henry Regnery,  Chicago 1969. 256pp.  PB 1977 Futura, London
+/068 STEIGER,Brad: STRANGERS from the SKIES; Award Books,NY 1966. 60 cents.
+/069 BLUM,Ralph & Judy: BEYOND EARTH: Mans Contact with UFOs Bantam,NY 1974
+/070 OLSEN,Thomas:  REFERENCE for OUTSTANDING UFO SIGHTINGS REPORTS. 1966 UFO Information Retrieval Center, Riderwood,  MD 21139.
+/071 SACHS,Margaret: CELESTIAL PASSENGERS - UFOS and SPACE  TRAVEL;Penguin Books, 1977.
+/072 FLICKENGER,Don: NORTH DAKOTA UFO files. Well documentedNICAP files for the 1960s:  Xeroxed by Tom Tulien
+/073 EDWARDS,Frank: FLYING SAUCERS-HERE AND NOW; 1967 Lyle  Stewart & Bantam Books 1968.
+/074 EDWARDS,Frank: FLYING SAUCERS-SERIOUS BUSINESS;  Lyle  Stewart & Bantam Books 1966.
+/075 EDWARDS,Frank: STRANGE WORLD; 1964 & Carol Paperbacks  1992.
+/076 ANDREWS,George C: EXTRA-TERRESTRIALS AMONG US;         FATE/Llewellyn Publs, St.Paul,MN 1992
+/077 CRYSTAL,Ellen: SILENT INVASION - Shocking Discoveries; Paragon House, NY 1991. 190pp.
+/078 LOFTIN,Robert: IDENTIFIED FLYING SAUCERS: D. McKay, NY 1968
+/079 RODEGHIER,Mark/CUFOS: UFO REPORTS INVOLVING VEHICLE    INTERFERENCE; CUFOS 1979. Available as CUFOS UFO Archive #1 CD-ROM. $18.  http://www.cufos.org/Pubform.pdf
+/080 RANDLES,Jenny: ALIEN CONTACTS & ABDUCTIONS;   Sterling Publ.,NY 1993.
+/081 RANDLES,Jenny: FROM OUT OF THE BLUE; Berkley Books,NY  1993 PB 233pp.
+/082 RANDLES,Jenny: FS & HOW TO SEE THEM: Sterling Publ.Co. NY 1992
+/083 FOWLER,Raymond E.: UFOS, INTERPLANETARY VISITORS;      Prentice Hall & Bantam Books,NY 1979. 346pp.
+/084 HOBANA Ion & WEVERBERGH,Julien:  UFOS from BEHIND the  IRON CURTAIN; Bantam Books,1975. 308pp.
+/085 LESLIE,Desmond & ADAMSKI,G:F.S. HAVE LANDED;   British Book Center,NY 1956
+/086 ROGO,D.Scott (ed): ALIEN ABDUCTIONS, True Cases of UFO Kidnappings; Signet/Penguin,NY 1980.
+/087 RANDLES,Jenny: ALIEN ABDUCTIONS - the Mystery Solved;  (!) Inner Light,NJ 1988.
+/088 RANDLE,Kevin D.: The OCTOBER SCENARIO;  Berkley Books, NY 1988.
+/089 RANDLE,Kevin D.: The UFO CASEBOOK; Warner Books 1989.  256pp.
+/090 GIBBONS,Gavin: The COMING of the SPACE SHIPS;  Neville-Spearman, London HB 1956.  13s.6d
+/091 GENERAL KNOWLEDGE   ( various, unreferenced. )
+/092 TV PROGRAM/NEWS     ( various, unreferenced. )
+/093 NEWSPAPER ACCOUNT:  ( various. )
+/094 PERSONAL INTERVIEW or Experience.
+/095 UFO MAGAZINE (USA)  Monthly, Los Angeles,CA
+/096 DATABASEs/WEBSITE:  Press Ctrl-R for list item.
+/097 OTHER PERIODICALS:  Press Ctrl-R for list item.
+/098 OTHER BOOKS:        Press Ctrl-R for list item.
+/099 Reference unknown or lost.  NFD.
+/100 STORY,Ronald (ed.) : ENCYLOPEDIA of UFOS:   Doubleday, Garden City,NY 1980
+/101 WALTERS,Ed & Francis: The GULF BREEZE SIGHTINGS;   Wm. Morrow 1990 & Avon PB 1991. 370pp.
+/102 WALTERS,Ed & Francis: UFO ABDUCTIONS in GULF BREEZE;   Avon Books,NY 1994
+/103 CLARK,Jerome: UFO ENCOUNTERS & BEYOND;  Signet Books   1993. 192pp.
+/104 TRENCH,Brinsley Le Poer: MYSTERIOUS VISITORS - the UFO Story; Stein & Day, NY 1971-73
+/105 PRATT,Bob: UFO DANGER ZONE -Terror and Death in Brazil.Horus House Press, Madison,WI 1996 [excellent]
+/106 WILKINS,Harold T.: FLYING SAUCERS ON THE ATTACK;   Ace Books,NY PB 1967.
+/107 WILKINS,Harold T.: FLYING SAUCERS UNCENSORED;  Citadel 1955 & Pyramid Books,NY PB 1967.
+/108 CLARK,Jerome & COLEMAN,Joren: THE UNIDENTIFIED; Warner PBs, NY 1975
+/109 LORENZEN,Coral & Jim: UFOs OVER THE AMERICAS;   Signet Books,NY 1968. 243p.
+/110 LORENZEN,Coral & Jim: ABDUCTED!; APRO/Berkley Books,NY 1977.  227pp.
+/111 LORENZEN,Coral: FLYING SAUCERS, the Starting Evidence; Signet Books, NY 1962 & 1966. 278pp.  Originally "The Great F.S. Hoax".
+/112 LORENZEN,Coral & Jim: FLYING SAUCER OCCUPANTS;  Signet Books, NY 1967.
+/113 LORENZEN,Coral & Jim: ENCOUNTERS with UFO OCCUPANTS;   APRO/Berkley Medallion Books 1976. 424pp
+/114 HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+/115 HAINES,Richard Ph.D: The MELBOURNE EPISODE;  LDA Press 1990.
+/116 HAINES,Richard Ph.D: ADVANCED AERIAL DEVICES REPORTED  during the KOREAN WAR; 1990 LDA Press,PO Box 880,Los Altos,CA 94023
+/117 HAINES,Richard Ph.D: JUSA-CISAAF TRANSLATIONs          (from Russian).
+/118 RIDGE,F: UFO FILTER CENTER Newsletter. Monthly         618 Davis Dr.  Mount Vernon, IN  47620
+/119 ADLER,Bill (ed.): LETTERS to the AIR FORCE on UFOs;    Dell Paperbacks 1967; 50 cents.
+/120 GOOD,Timothy: ABOVE TOP SECRET; Sidgewick & Jackson,   London 1987 & Quill Books, 1988. 592pp.
+/121 GOOD,Timothy: ALIEN UPDATE.  [Haines personal library]
+/122 GOOD,Timothy: The UFO REPORT [1990]; Avon Books 1991.  237pp.
+/123 GOOD,Timothy: The UFO REPORT 1991; Sidgewick & Jackson,London 1992
+/124 GOOD,Timothy: The UFO REPORT 1992; Sidgewick & Jackson,London 1993
+/125 GOOD,Timothy: ALIEN CONTACT, Top-Secret UFO Files Revealed; William Morrow,NY 1993. 288pp.
+/126 [ to be re-assigned. ]
+/127 [ to be re-assigned. ]
+/128 GROSS,Loren: UFOS a HISTORY 1896. Self published       1974,87
+/129 GROSS,Loren: CHARLES FORT & UFOS. Self published,      1976
+/130 GROSS,Loren: UFOS a HISTORY 1946 The Ghost Rockets.    1972,82,88.
+/131 GROSS,Loren: UFOS a HISTORY 1947: 1988 book and recent Supplements.
+/132 GROSS,Loren: UFOS a HISTORY 1948: 2 books: 1988 & 2000 Supplement.
+/133 GROSS,Loren: UFOS a HISTORY 1949: 3 books: 1988 & 2000 2001 Supplements.
+/134 GROSS,Loren: UFOs a HISTORY-1950 (4+books) 1989+2000   Self published.
+/135 GROSS,Loren: UFOS a HISTORY 1951 (2 booklets)          Self published.
+/136 GROSS,Loren: UFOs a HISTORY-1952 (12 booklets)         Self published.
+/137 GROSS,Loren: UFOs a HISTORY-1953 (6 booklets)          Self published.
+/138 GROSS,Loren: UFOs a HISTORY-1954 (5 booklets)  1994    (2nd edition)
+/139 GROSS,Loren: UFOs a HISTORY-1955 (3 booklets)          Self published.
+/140 GROSS,Loren: UFOs a HISTORY-1956 (3 booklets)  1994    Self published.
+/141 GROSS,Loren: UFOs a HISTORY-1957 (19 booklets)         Self published.
+/142 GROSS,Loren: UFOs a HISTORY-1958 (7 booklets) 1998/03  Self published.
+/142 GROSS,Loren: UFOs a HISTORY-1959 (4 booklets) 1999/00  Self published.
+/144 [ to be assigned. ]
+/145 SPRINKLE,R.Leo Ph.D: Private Files
+/146 SUFOI UFO NEWS. Annual.  Articles translated from      UFO-Nyt. Skandavinsk UFO Information;  Postbox 6, DK-2820    Gentoffte, DENMARK.
+/147 FERRUGHELLI,PAUL:SIGHTINGS YEARBOOKs (by year.)
+/148 HAINES,Richard Ph.D: CE-5, CLOSE ENCOUNTERS of the 5th KIND. 1999 Sourcebooks Inc. Naperville,IL  ISBN 1-57071-427-4. 242 case files.  Excellent!
+/149 BERLINER,Don & HUNEEUS,Antonio: UFO BRIEFING DOCUMENT  The Best Available Evidence, Nov.1995 CUFOS/FUFOR/MUFO.     128pp 8x11.
+/150 WEINSTEIN,Dominique; UAP: 80 Years of Pilot Sightings  Privately published.  7 avenue Bartholome. 75015 Paris,     FRANCE.
+/151 KLOIAN,Richard: UFOs in the New York TIMES, 1947-1987  1994 Document Research Services,Berkeley,CA
+/152 BOURRET,Jean-Claude: Le NOUVEAU DEFI des OVNI. EditionsFrance Loisirs, Paris. 1976  ISBN 2-7242-0104-3 395pp.
+/153 BOURRET,Jean-Claude: OVNI .. l'ARMEE PARLE.   Editions France Empire, Paris. 1979  (softcover)
+/154 ZINSTAG,Lou & ALLEMANN,Dr. T; UFO-SICHTUNGEN uber der  SCHWEIZ; UFO-Verlag, Basel/Zurich 1958 (via Bruno Mancusi)
+/155 FOWLER,Raymond: The ALLAGASH ABDUCTIONS.  Wild Flower  Press; Tigard,OR 1993. 347pp.
+/156 FSR CASE HISTORIES. Bimonthly/London.                  Supplements 2 - 18 (final issue)
+/157 The WEST VIRGINIA UFO NEWSLETTER. Bob Teets editor.    Headline Books Inc. PO Box 52; Terra Alta,WV 26764          Bimonthly.  Terra Alta@AOL.com  304/789-5951
+/158 The AUSTRALIAN UFO BULLETIN;  Qtrly. Judith MAGEE Ed.  VUFORS PO Box 43, Moorabin, VIC 3189 Australia.
+/159 UFOMANIA Bulletin (qtrly). Didier GOMEZ: BP 300,       260 rue des Pyrenees, 75960 Paris cedex 20.,FRANCE. 20pp.
+/160 MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
+/161 HENDRY,Allan: The UFO HANDBOOK.    Doubleday, Garden   City,NJ 1979.
+/162 LANDSBURG,Alan: In SEARCH of EXTRATERRESTRIALS;        Bantam Books PB 1976
+/163 TIME-LIFE: The UFO PHENOMENON; Time-Life Books,        Alexandria,VA. ( undated coffee-table hardcover.)
+/164 BERLINER,Don & FRIEDMAN,Stanton: CRASH at CORONA 1992  1997 Marlowe & Co. NY ISBN 1-56924-863-X.
+/165 REHN, K.Gosta: UFOs HERE and NOW; Translated/Swedish   Patricia Crompton: London; Abelard 1974
+/166 McWAYNE,Glenn & GRAHAM,David: The NEW UFO SIGHTINGS;   Warner PB 1974 $1.25
+/167 HIND,Cynthia: UFOS, AFRICAN ENCOUNTERS;  Gemini Books, Salisbury,Zimbabwe 1982. 236pp
+/168 VESCO,Renato: INTERCEPT but DONT SHOOT; transl.   from Italian.  Goofy.
+/169 RANDLES,Jenny & Warrington,P.: SCIENCE and the UFOS;   Basil Blackwell,  NY 1985
+/170 FILER's FILES : George A. Filer: MUFON Eastern Dir.    < Majorstar@aol.com >
+/171 ALDRICH,Jan J.: Private research papers.  A huge mass  of hard-won information.
+/172 KEHOE,Donald: FLYING SAUCERS FROM OUTER SPACE;         Henry Holt,NY 1953 HC.
+/173 KEHOE,Donald: The FLYING SAUCER CONSPIRACY; Henry Holt,NY 1955; HC
+/174 CHALKER,Bill: The OZ FILES. Australian Sightings. 1996 Duffy & Snellgrove.  NSW,Australia. ISBN 1-875989-04-8
+/175 HAINES,Richard & WEINSTEIN,Dominique: Preliminary Studyof 64 Pilot Sightings involving EME on Aircraft Systems     NARCAP TR-3 2001
+/176 STRINGFIELD,Leonard: SITUATION RED - The UFO Siege.    Fawcett Crest,NY 1977
+/177 Von LUDVIGER,Illobrand ed. UFOs-SEUGEN UND ZEICHEN.    Berlin 1995 edition q-Verlags GmbH ISBN 3-86124-300-8.
+/178 WEBB,David: 1973, YEAR of the HUMANOIDS. 2nd Edition   May 1976 CUFOS Evanston,IL (edited / Mimi Hynek)
+/179 LEDGER, Don:  MARITIME UFO FILES:  1998 Nimbus Publ.   Ltd. Halifax, NS. ISBN 1-55109-269-7 162pp. trade paper.
+/180 PHILLIPS,Ted: Study of PHYSICAL TRACES ASSOCIATED with UFO SIGHTINGS; CUFOS 1975.
+/181 SPENCER,John Wallace: NO EARTHLY EXPLANATION;   Bantam Books 1974.
+/182 MICHELL,John: The FLYING SAUCER VISION; Ace-Star Books,NY PB 1967.
+/183 YOUNG,Mort: UFO-TOP SECRET; Essandess Special Edition, 1967.  PB
+/184 MAGOR,John: OUR UFO VISITORS. Hancock House, Canada &  Seattle,WA. 1977.
+/185 BERLINER,DON: The BLUEBOOK UNKNOWNS; (FUFOR).
+/186 INFORESPACE Journal.  SOBEPS Group, Belgium; bimonthly
+/187 BLOECHER,Ted: REPORT / the UFO WAVE of 1947; Institute of Atmospheric Physics, University of Arizona, Tucson 1967.
+/188 TEETS,Bob: WEST VIRGINIA UFOs; Headline Books, PO Box  52,Terra Alta,WV 1995 213pp.
+/189 RANDLE,Kevin D.: A HISTORY of UFO CRASHES; Avon Books, Dresden,TN 1995
+/190 LOURENCO,Victor: The PORTUCAT CATALOG; (BBS Download).
+/191 AFU NEWSLETTER (English). Anders Liljegren (ed).       Archives for UFO Research; PO Box 11027; S-600 11 Norrkoping,SWEDEN
+/192 ANDREWS,George:EXTRATERRESTRIAL FRIENDS and FOES;      Illuminet Press,Lilburn,GA 1993.
+/193 PHENOMENES SPATIAUX: Group GEPA, Gen. M.Lionel Chassin Paris.  Quarterly  1964?-1977.  Merged into Grp. GEPAN
+/194 LUMIERES DANS la NUIT (LDLN),Paris. Bimonthly          since 1957. Indispensible.   Write:  LDLN  B.P.3; 77123 Le  Vaudoue, FRANCE.
+/195 FLYING SAUCER REVIEW (FSR),London.  Bimonthly.         Indispensible. PO Box 162; High Wycombe, Bucks.  HP135 DZ,  England.
+/196 BRAZILIAN UFO REPORT: Michael Wysmierski,Brazil.
+/197 WEINSTEIN,Dominique: French Newsclippings:  Sept - Dec 1954. 100s/articles by date. Privately Publ.,Paris,1999.
+/198 MANEY,Charles & HALL,Richard: The CHALLENGE OF UFOS;   NICAP, Washington,DC. 1961
+/199 RANDLES,Jenny & WARRINGTON,Peter (eds): UFOs a BRITISH PERSPECTIVE; Robert Hale, London 1979.
+/200 INTERNATIONAL UFO REPORTER (IUR) Bimonthly.            CUFOS,Chicago.  Highly regarded.
+/201 SIFAKIS,Carl: The OFFICIAL QUIDE to UFO SIGHTINGS;     Sterling Publ,NY 1979. (Gee whiz!)
+/202 HAINES,Richard (ed): UFO PHENOMENA and the BEHAVIORAL  SCIENTIST. Scarecrow Press, Metuchen,NJ 1979. 13 essays.
+/203 KEEL,John: OPERATION TROJAN HORSE;    Putnam's Sons,   NY 1970.
+/204 SOULE,Gardner: UFOs & IFOs - A Factual Report..;       Putnam's Sons,NY. 1968?
+/205 ACTAEON ADVISOR (qtrly) Actaeon Group; PO.Box 515123,  St. Louis,MO 63151-1290  314/994-1290.
+/206 BREIER,Rogerio Port: CAUSISTICA UFOLOGICA de 1992.     Catalog. UBPVD Group,Gravatai,RS,Brazil 1993
+/207 STONE,Reuben: UFO INVESTIGATION; 1993 Blitz/Bookmark,  Enderby,England.
+/208 DONG,Paul: UFOs Over MODERN CHINA.   1983 UFO Photo    Archives; P.O.Box 17206; Tucson,AZ 85710.
+/209 UFO - Rivista di informazione Ufologica; 2 issues/year CISU.  Giovanni Settimo ed.;  C.P.82, 10100 Torino, ITALY.
+/210 The APRO BULLETIN:  Monthly.  Jim & Coral Lorenzen:    Tucson,AZ (USA. defunct)  By volume and number.
+/211 GREEN,Gabriel: LETS FACE THE FACTS ABOUT UFOs. Popular Library,NY 1967. [JMC]
+/212 CATHIE, Bruce: HARMONIC 33.  A.& A. Reed,Wellington,NZ
+/213 BOWEN, Charles:  ENCOUNTER CASES from FLYING SAUCER    REVIEW. Signet Books 1977/78.
+/214 STEIGER,Brad: The RAINBOW CONSPIRACY;  Pinnacle Books, NY 1994  PB
+/215 BANCHS,Rodolfo: LAS EVIDENCIAS de los OVNI;            Rudolfo Alonso Editor, Argentina. 1976
+/216 STRAND,Erling: PROJECT HESSDALEN Final Technical Rpt;  Norway, 1984.
+/217 SIDER,Jean: DOSSIER 1954 et l'Imposture Rationaliste   1997 Editions RAMUEL, Paris. ISBN 2-910401-23-5 (2 volumes)
+/218 FOWLER,Ray:  CASEBOOK of a UFO INVESTIGATOR;  Prentice-Hall, Englewood Cliff,NJ 1981.
+/219 MAUGE,Claude: French sightings catalog by author.      Recontres de Lyon symposium, 1988.
+/220 NATIONAL UFO REPORTING CENTER (NURC)  BBS and Website. P.O. Box 45623, University Station, Seattle,WA 98145.
+/221 BOUGARD,Michel: SOUCOUPES VOLANTES;   SOBEPS Group,    Belgium 1976. HB
+/222 GRANCHI, Irene: UFOs and ABDUCTIONS in BRAZIL:   Horus House Press, Madison,WI: 1992 (English translation 1994)    ISBN 1-881852-09-1
+/223 PINDEVIC, Thierry: Le NOEUD GORDIEN ou la FANTASTIQUE  HISTOIRE des OVNI.  Editions France-Empire,Paris 1979.
+/224 STEIGER,Brad & WHRITENOUR,Joan: FLYING SAUCER INVASION.Award Books,NY 1969. 156pp PB.  15 Essays + catalog.
+/225 SPENCER, Jown Wallace: The UFO YEARBOOK.               Phillips Publ Springfield,MA 1976.
+/226 PHENOMENA Revue / SOS-OVNI, France; Perry Petrakis ed. B.P 324; 13611 Aix-Cedex 1, Fr.  sosovni@pacwan.mm-soft.fr
+/227 SHUTTLEWOOD,Arthur: The WARMINSTER MYSTERY.    Neville-Spearman/Tandem Books PB 1967,London.
+/228 ERSKINE,Allen Louis: THEY ARE THEY WATCHING US.        Belmont Tower Books,NY 1967.  95 cents.
+/229 UFO RESEARCH AUSTRALIA NEWSLETTER.  (Details missing)
+/230 LDLN CONTACT LECTEURS: by Series and #. May'68 -JAN'72 (Entire set of 18 issues)  LDLN local chapters & individual members' UFO reports.
+/231 The UFO REGISTER.  CONTACT INTERNATIONAL/UK.           (annual sightings catalog.)
+/232 AWARENESS (Quarterly) CONTACT INTERNATIONAL/UK:        listed by year.
+/233 STEIGER,Brad & WHRITENOUR,Joan: The ALLENDE LETTERS.   1968 Eugene Olsen Publ + Award Books,NY PB
+/234 DEVEREUX,Paul: EARTH LIGHTS REVELATION.  1989 Blanford/UK & 1991 Biddles Ltd,Guilford,Engl. PB
+/235 MACDONALD,James E.: Report to the American Society of  Newspaper Editors.
+/236 BOLETIM CEPEX. (Qtrly)  Centro de Estudios e Pesquisos Exologicos; Sumaro,SP, Brazil.
+/237 RIDGE,Francis: REGIONAL ENCOUNTERS in the FC Files.    170pp. UFO FILTER CENTER, Mt.Vernon,IN 1994
+/238 MARIE,Franck: OVNI CONTACT-Un Enquete Choc. 400 French sightings on 05NOV90!  525pp. 1993 BANQUE OVNI.             BP 41 - 92224 Bagneux cedex, FRANCE.
+/239 BANQUE OVNI: (Franck Marie ed.) A series of reports on UFO waves. Listed by Report number.
+/240 UFO ROUNDUP weekly emailof UFO news: Joseph Trainor.   http://www.digiserve.com/ufoinfo/roundup/ ..
+/241 ACUFOS AUSTRALIA:  Sightings Catalogs 1978 - 1982.     Keith Basterfield.  PO Box 546, Gosford, NSW Australia 2250.
+/242 HALL,Richard:The UFO EVIDENCE; NICAP,Washington,DC     1964. Reprinted 1997 Barnes & Noble Books ( only $7.98! )
+/243 SCHUESSLER,John F.: UFO-RELATED HUMAN PHYSIOLOGICAL    EFFECTS.  1996 J.Schuessler, POB 58485, Houston,TX 77258
+/244 UFO AFRINEWS;  Twice annually.  Cynthia Hind, editor;  PO Box MP 49, Mount Pleasant, Harare, Zimbabwe.
+/245 ROUSSEL,Robert: OVNI, les Verites Cachees.  Ed. Albin  Michel,Paris 1994 ISBN 2-226-06646-2. 346 pp softback
+/246 GARREAU,Charles: SOUCOUPES VOLANTES, Vingt-cinq Ans    d'Enquetes. 3rd Editn =1973? Maison Mame ISBN 2-250-00464-1
+/247  [ to be assigned ]
+/248  [ to be assigned ]
+/249 CLARK,Jerome: High Strangeness: UFOs from 1960 through 1979.  The UFO ENCYCLOPEDIA Volume 3. 1996 Omnigraphics Inc Detroit,MI ISBN 1-55888-742-3
+/250  [ to be assigned ]
+/251 BOEDEC,Jean-Francois: Les OVNI EN BRETAGNE,   Anatomie d'un Phenomene. 1978 Editions Fernand Lanore, Paris.
+/252 CAMERON,Vicky: UFO EXPERIENCES in CANADA,  Don't tell  anyone but.. ; 1995 General Store Publishing ;  Burnstown,  Ontario ISBN 1-896182-20-8
+/253 SIEFRIED,Richard & CARTER,Michael: NATIVE ENCOUNTERS   M.S.Graphics,1994. ISBN 0-9642461-0-4 ( Oklahoma MUFON etc.)
+
+>> Ref. 093 = NEWPAPERS and FOOTNOTES.  (By sighting location)
+$000 Unknown or lost.  Please advise if you have a source!
+$001 Commugny,Vaud,SWZ.  Le Bouquet: 07 FEB 1973.  clipping Bruno Mancusi, Switzerland.
+$002 Payerne, Vaud,SWZ.  L'Illustre: 07 OCT 1954.  clipping Bruno Mancusi, Switzerland.
+$003 La Tour-de-Peilz,SWZ. Gazette de Lausanne: 28 OCT 1952 Bruno Mancusi, Switzerland.
+$004 Fribourg,SWZ 1974. Irish Catholic, Dublin 20 NOV 1975  and GUB Bulletin #7 (in french)  Clippings /Bruno Mancusi,  Switzerland.
+$005 La Chaux-de-Fonds,Neuchatel,SWZ.  24 Heures, 28APR1976 and Tribune de Geneve, 28APR & 03MAY,1976. /Bruno Mancusi.
+$006 Capello de Viglio, Ticino, SWZ.  Corriere del Ticino,  23 DEC 1988. / Bruno Mancusi.
+$007 San Francisco Chronicle.  California.  Various dates.
+$008 Scandia,MN  20SEP80: Forest Lake Times (Weekly) v77#19 Thurs.25SEP80 pg 1. also APRO Bulletin v29#3 MAR'81
+$009 Canary Islands: NATIONAL INQUIRER: undated clipping  = 2/3 of pg 4.
+$010 Knickerbocker News, Albany,NY 1966 (date unknown) 	    (via Joe Ritrovato)
+$011 Le Journal de l'Ile [Reunion] #14872, 23AUG97. 357 rue Marechal Leclerc BP166, 97463 St. Denis CEDEX,   Ile de la  Reunion.
+$012 le Tour-de-Treme,SWZL: GUB Bulletin #2,1979 pg.11  c/o Bruno Mancusi.
+$013 Evansville,IN Courier: 12AUG98 via Stig Ajermose on    Toronto email list.
+$014 Hebei Daily > Baokan Wenzhai > Hong Kong Standard >    Agence France Presse > UFO Updates + Ufo Roundup 1998 #48
+$015 CNI News for 21AUG95.  -and- American correspondant    Roy S. Carson in Venezuela 14OCT95
+$016 Kal Korff sighting: via UFO Updates / Ufomind archives http://www.ufomind/com/ufo/updates/1997/may/m06-025/shtml
+$017 UFOHIST1.TXT from PEA Research / Ultra Majic BBS:      http://www.ipacific.net.au/~pavig/govtinvolvementincove_488.shtml
+$018 UFO Window Website / Joe Ritrovato: Australia page     http://www.flash.net/~joerit/docs2/au/au_chron.htm
+$019 File UFO907 / UFOBBS via Dr. Don Johnson               http://www.ufobbs.com/txt1/907.ufo
+$020 NUFORC Report: Syracuse,NY: 14JLY47:                   http://www.ufocenter.com/S3933.html
+$021 Rpt to Skywatchers: < cuforg@interweb-design.co.uk >   http://www.interweb-design.co.uk/cuforg  Ian Darlington, ed.
+$022 Diario do Grande ABC for 8JLY99.  Cr: Thiago Tichetti  < thiagolt@opengate.com.br >
+$023 Journal de Montreal; 21AUG99.  via Michel M. DesChamps <ufoman@ican.net>
+$024 Little Rock,AR 1973: Jennifer Varner. AR-OCT73.TXT     < jjenvasa@aol.com >  Private correspondance.
+$025 Lancaster,OH 1897: Cincinnati Enquirer, 25APR1897.     http://home.fuse.net/ufo/Aeribarque.html ( via Kenny Young)
+$026 //www.gatewayva.com/rtd/dailynews/virginia/ufo29.shtml Richmond,VA Times-Dispatch,29 Oct,1999 (via UFO Updates )
+$027 Ideal de Granada for 27APR2001.  ALHAMA2001.html here. http://sib.nodos.com (click on Alhama de Granada.)          Original rpt via Scott Corrales.
+$030 Fyffe,AL 1989: 3 newspaper accounts on file her:       Fyffe1,2,3.UFO in download folder: from WWW.skeptictank.org
+$031 Edmond,OK Sun for 3Aug65+31Oct01 on file here as       OK3AUG65.txt  cr:  E.B.Knapp
+$032 Princeton Herald [NJ] for 11JLY47, on file here as     18JUNE47.txt  cr: Joel Carpenter.
+$033 PHILPOT,KY: 4-5AUG67: PHILPOT.TXT file in C:/DOWNLOADS Credit: Mike Christol & Richard Hall
+$040 George Hebert in Norfolk(VA) Ledger-Dispatch for 9 July1947. On file here: NORFOLK47.TXT
+$050 On file here: TURKEY801.TXT from ABC News online via   UFO Updates list.
+$060 Milliyet (Turkish newspaper) 23AUG2001: via Dominique  Weinstein private correspondence; filed here.
+$070 Correspondence on file: folder CHENNAI (Madras) India.
+$101 CISU Newsflash #324/6Sept01: Monselice.txt on file.    Il Gazzettino, Padua & Il Mattino di Padova, 17-30 AUG 2001
+$102 CISU Newsflash #347/26MAR02: CISU-NF347.txt on file.
+$103 CISU Newsflash #369/28NOV02: 28SEP02.txt on file here. Numerous Italian newspapers listed.
+$120 Trapua, RGS, BRZ: Near Cachoeira do Sul. LDLN #84 from Jornal do Dia;  Porto Alegre, RGS for 05 AUG 1965.
+$130 Moyobamba,PERU:Data from Ray Stanford correspondance.  Folder PERU57 on file here.
+$140 On file here as TARAWA43.TXT from Jan Aldrich.
+$145 CUFOS documents on file here in folder 1JAN54.
+
+>> Ref. 096 = OTHER DATABASES and WEBSITE addresses.
++000 UNKNOWN or LOST.  Please email any corrections!!
++001 LARRY HATCH: *U* DATABASE.  <webmaster@larryhatch.net> http://www.larryhatch.net
++040 UFOROM/Manitoba, Canada: Chris Rutkowski:              www.iufog.org/zines/sgj/uforom.html
++042 RUTKOWSKI,C: UFOROM excerpts filed here as RUTKOW.MSC
++043 RUTKOWSKI,C: UFOROM excerpts filed here as REP95A.MSC
++060 ALLEN,DON: (moderator) MUFONET.BBS: excerpts file here as SCRAPS.CAT
++061 http://www.netlink.co.uk/users/ddpweb/ufonews.html     LGM-BBS: on file here as 960602.AUS
++065 O'BRIAN,CHRIS: San Luis Valley, CO/NM catalog. Excerptsfiled here as SANLUISV.TXT
++066 DIXON,Gloria, Dir. of Investigations/BUFORA Catalog.   Excerpts filed here as BUFORA96.UK
++067 TAYLOR,HERB: Cloud Cigar Catalog filed CCGLISTHT.TXT   Case taken from HALL,Richard: The UFO Evidence II
++071 RICHARD HAINES excellent article from IUR Vol.25 #1    http://www.nicap.dabsol.uk/IURhaines1956.htm
++080 CNI NEWS: ISCNI News Center, Michael Lindemann ed.     http://www.cninews.com/ ..
++101 http://www.visi.com/~jhenry/95-1r.htm#apr  ISCNI from  Wanda Sudrala <WSudrala@AOL.com> Filed here: Newell95.TXT
++102 ftp://ftp.eskimo.com/u/r/rmrice/ufo/reports/rep95a     Filed here as SBarbara95.TXT
++103 Huntsv1196.TXT on file here.  Broken links on Internet.
++104 Julesburg75.TXT on file here.  Web page taken down.
++105 MauriceLA95.TXT on file.  Hardcopy from Joe Ritrovato. Original Web page was taken down (Mike Broussard)
++106 http://www.ufoworld.co.uk/kathy.htm    On file here as Stingray1974.txt
++107 http://www.geocities.com/Area51/Rampart/2653/rep96c.txtOn file here: NMX030396.TXT
++108 Michael Curta: Colorado Hotspots. Saved = GJCOLO95.TXT http://www.comufon.org/hotspots.htm
++109 http://powerup.com.au/~smack/crashmex.htm   Saved here as Chihuahua74.txt  (questionable)
++110 JOE RITROVATO: San Francisco, CA: <joerit@flash.net>   http://www.flash.net/~joerit/evidence.html#index9
++111 PARANET and similar BBS Downloads.  Files no longer    accessible.  Seeking better sources. [help!]
++113 Lurid account on file here as L9DAKOTA.TXT taken from  http://cbr.nc.us.mensa.org/homepages/andypage/alsworth.htm
++114 Lurid account on file here as TomsRvr.TXT taken from:  http://www.shoah.free-online.co.uk/801/Abduct/hudsonvalley.html
++115 Don Johnson: Edwards88Box.TXT on file here:  from:     http://www.ufobbs.com/txt1/080.html
++116 Rustic account on file here as FtAdams1988.TXT from:   http://area51.upsu.plym.ac.uk/~moosie/ufo/txt/sight/132.htm
++117 http://www.geocities.com/Area51/Labyrinth/6897/main.htm Click on State / Country: search by date.
++118 http://www.execpc.com/~ahoj/wfiles/files/uf890318.htm  also see -/uf890113.htm -/uf890810.htm -/uf8901xx.htm
++119 http://www.xdream.freeserve.co.uk/UFOBase/V-Formations.htm
++121 UFOs over New England Website ( Select by state )      http://www.geocities.com/Area51/Nova/8874/ufomenu.html
++122 Highly doubtful:  http://www.cseti.org/crashes/070.htm
++123 http://tacna.infored.com.pe/ufo/videos/video2.html     Video.  Contact UFO Scotland for more info.
++124 //www.shoah.free-online.co.uk/801/Abduct/mass2.html    Long HUFON report on paper copy here.
++125 http://www.ufoworld.co.uk/j.htm : TwoHarbors95.TXT :   http://www.visi.com/~jhenry/95-1r.htm#mar
++126 http://enterprise.powerup.com.au/~auforn/160595.htm
++127 http://home.flash.net/~joerit/docs2/world/winnipeg.htm
++129 http://www.project1947.com/fig/1945a.htm
++128 http://www.flash.net/~joerit/docs2/world/index9.htm
++131 PROJECT 1947: www.project1947.com/fig/usaf14.htm       Special page, June,2000
++132 http://www.science-frontiers.com/sf034/sf034p22.htm
++140 MALTA UFO RESEARCH: J.J.Mercieca.      www.mufor.org   email: mufor@maltanet.net
++145 http://powerup.com.au/~smack/page9.htm     Australian  catalog online.
++160 BASTERFIELD,KEITH: AUFORN group, with Diane Harrison.  < tbknetw@fan.net.au >  http://www.fan.net.au/~tkbnetw/new
++161 BASTERFIELD,KEITH: ENTCAT97.DOC: Catalog of Australian Entity and related reports: October 1997
++180 Victorian UFO Research Society (VUFORS), Australia     www.ozemail.com.au/~vufors
++190 MUFON CATALOG download.  Filed here as MUFONUFO.TXT
++200 Chez HEIDI site: Alain Stauffer. GREPI / Switzerland   http://home.worldcom.ch/~dbenaroy/heidi.html
++210 Jorge Martin: Puerto Rico: email < jmartin@coqui.net > and/or < evidencia@rforest.net >
++230 New York MUFON. Larry Clark dir.  < lclark@ibm.net >   http://www.nymufon.org.  Report NY sightings here!
++240 Mark Cashman  email:  < mcashman@IX.netcom.com >       Website: http://www.temporaldoorway.com
++270 Michel Deschamps: (Ontario)  < ufoman@ican.net >
++280 MUFON CT: Mark Cashman: Full online report is at:      http://www.temporaldoorway.com/mufonct/report/991213/
++301 Wallingford,NJ 1995:  File here = WallingNJ95.TXT
++302 1989RPTS.TXT filed here (Don Allen and many others)    http://www.ecst.csuchico.edu/~num44/ufo/MUFON.89
++311 Gilles MILOT: C:/DOWNLOAD/PERCE.TXT <aqu@videotron.ca>
++320 Personal investigation by Dominique Weinstein.  Filed  here as Martigues48.txt
++404 UFOZONE/Argentina  email:  ufozone@geocities.com       www.geocities.com/CapeCanaveral/3823
++410 UFOBC, British Columbia,Canada.  Bill Oliver.          www.ufobc.org
++411 UFOBC-CANUFO/YUKON: Martin Jasek: < Martin@ufobc.org>  www.ufobc.org/yukon/littlefox.html  < canufo@egroups.com >  <mjjasek@yknet.yk.ca >
++412 UFOBC: Thorough study: www.ufobc.ca/yukon/22indx.htm
++413 UFOBC/YUKON: Des Clark/Martin Jasek <Martin@ufobc.org> www.ufobc.org/yukon/closeupx.htm   <mjjasek@yknet.yk.ca >
++420 Brian Vike: HBCCUFO <hbccufo@telus.net>                BC/Canadian reports filed here by date.
++450 Paul Stonehill. Filed here: C:/DOWNLOAD/SOVWATER.TXT   http://www.incredible.spb.ru/incr3.htm
++528 MIAMI UFO CENTER:  Dr. Virgilio Sanchez-Ocejo)         ufomiami@aol.com
++516 Maurizio VERGA: ITACAT Catalog online:                 http://www.ufo.it/english/main.htm
++531 Blaine Wasylkiw, Yellowknife,NWT,Canada                http://www.ssimicro.com/~ufoinfo
+
+>> Ref. 097 = OTHER PERIODICALS.  Few issues available .. few listings.
+%000 Unknown or lost.  Please advise if you have a source!
+%001 UFO-NORWAY NEWS (Norway, in English) No. 1 1989. Mentz Kaarbo ed. PO Box 14; N-3133 DUKEN,Norway. 1-2 issues/year
+%002 SUFOI NEWS (in English) No.11 1990. Kim Moller Hansen  ed. SUFOI, Postbox 6, DK-2820 GENTOFTE, Denmark.            [ now *U* ref.146 ]
+%003 Journal fur UFO Forschung (JUFOF). Hans Werner Peiniger ed. ISBN 0723-7766.  GEP group, Postfach 2361,             D-58473 Ludenscheid, Germany.
+%004 CdU Internacional; Annual supplement to Cuadernos de   Ufologia, Apartado 5.041, 39080 Santander, Spain.           Jose Ruesga Montiel ed. 1995+96 only.
+%005 URUGUAYAN UFO REPORTER.  Mimeograph (Spanish)  CIOVI;  (JUN/JLY'90 only)  PO Box 10833; Montevideo, Uruguay.
+%006 UFO CONTACT (IGAP Newsletter);  Ib Lauland ed. DENMARK. Quarterly. "Dedicated to George Adamski."
+%007 CONTACTO OVNI.  German Flores Trujillo ed.   Editorial Mina SA de CV; Tokio 424, Cpl.Portales, Mexico D.F.,MEXICO. (#23 only.  Glossy covers)
+%008 UFO - Rivista di informazione Ufologica; 2 issues/year CISU.  Giovanni Settimo ed.;  C.P.82, 10100 Torino, ITALY.  now: Primary ref /r209.
+%009 CISU UFO Newsflash: (email distribution) Edoardo Russo Editor, Torino Italia  <e.russo@cisu.org>
+%010 Notiziario UFO. Centro Ufologico Nazionale (CUN).      Roberto Pinotti ed. Via Oderica da Pordenone 36,     50127  Firenze, Italy. #110-11 only.
+%011 UFO Especial. GEP / CBPDV ; Quarterly. A.J.Gevaerd ed. C.P. 2182, R.Bezerra de Menezes 68, 79021 Campo Grande, MS, Brazil.
+%012 UFO MAGAZINE (UK). Quest International.  P.O. Box 2,   Grassington,Skipton,N.Yorks BD23 5UY.  Graham Birdsall, ed. bimonthly.
+%013 AS UFONOTAS, Boletim Informativo do CEU;  Jean Alencar dir. C.P. 689; 60000 Fortaleza,Ceara,BRAZIL.  2/year. 16pg  mimeographed.
+%014 ICAAR (Newsletter).  Cheryl Powell & Linda Gaudet eds. PO Box 154.  Goffstown, NH  03045.  (v1 #3 1994 only.)
+%015 ALTERNATIVE PERCEPTIONS quarterly.   Brent Raynes ed.  326 Haggard St.  Waynesboro,TN 38485  (615) 722-5976.       Publ./White Buffalo Books, Memphis.
+%016 AUSTRALIAN INTERNATIONAL UFO FLYING SAUCER RESEARCH Inc Colin O.Norris, ed; GPO 2004, Adelaide, S.Australia 5001.  ( Subterranean reptiles etc. )
+%017 UFO NACHRICHTEN.  62 Weisbaden, Germany.  (Ebenalp and Amriswil,SWZ see issue #9 pg.3) clippings /Bruno Mancusi)
+%018 GUB BULLETIN.  (Friborg,SWZ = #7,1980.  Le Paquier,SWZ = issue #5 1980.)  French language.
+%019 WELTRAUMBOTE: Monthly, Zurich,SWZ. Clipping/B.Mancusi. (Val Poschiavo: #56-57 Nov.-Dec 1960, p23.)
+%020 LA MUFON NEWSLETTER.  Bimonthly.  W.L. "Barney" Garner editor.  Email garner@eatel.net  Final issue Nov-Dec,1996   = Vol.8 #6. 752 Daventry Dr., Baton Rouge,LA. [Mansura rf]
+%021 SAMIZDAT QUARTERLY: Scott Corrales ed.: SPECIAL REPORT The GALICIAN UFO WAVE of 1995-96.  (via Arcturus Books.)
+%022 SAMIZDAT QUARTERLY: Scott Corrales ed.: [Ecuador JUN96 =Fall'96 issue via Internet #70. ]
+%035 FSR Special Issue #4: August 1971.
+%036 FSR Special Issue #5: November 1973.
+%041 J. Antonio Huneeus: Incident at Usovo.                 The ANOMALIST 7,  Winter 1998-99. Dennis Stacy ed.
+%050 QUEST (newsletter): UFO INTERNATIONAL.   Allan Parsons ed.: Kingswood,Bristol,UK: 8 issues only, Jan'79 to Jan'81.
+%051 PHENOMENA RESEARCH REPORT: UFO Reporting Center,       Seattle,WA.  Vol.3 #1 (issue 25) 1977-8?
+
+%052 VSD Magazine, France: Special Issue. OVNIs Les Preuves Scientifiques; July 1998 (via D. Weinstein)
+%054 VSD Magazine, France: Special Issue.  OVNIs: Nouvelles Evidences; Fall 2000 (via D. Weinstein)
+%056 VSD Magazine, France: Special Issue.  OVNIs: 50 ans de Rapports Officiels; June 2002 (Bernard Thouanel)
+%057 VSD Mag., France: Special Issue.  OVNIs: Les Premieres Signes; October 2002 (Bernard Thouanel)
+
+%060 UFO, Revista di Informazione Ufologica: CISU/Torino,IT No.20 Dec.1997 /Edoardo Russo.
+%061 UFO, Revista di Informazione Ufologica: CISU/Torino,IT No.21 Nov.1998 /Edoardo Russo.
+%062 UFO, Revista di Informazione Ufologica: CISU/Torino,IT No.16 JLY 1995 pp. 25-30 Marco Orlandi & Renzo Cabassi.
+%070 UFO HISTORICAL REVUE (UHR Qtrly) Barry Greenwood. Issue #6 Mar., 2000. POB 176, STONEHAM,MA  02180
+%071 UFO HISTORICAL REVUE (UHR Qtrly) Barry Greenwood. Issue #1 June, 1998. POB 176, STONEHAM,MA  02180
+%072 UFO HISTORICAL REVUE (UHR Qtrly) Barry Greenwood. Issue #8 Febr, 2001. POB 176, STONEHAM,MA  02180
+%081 English Mechanic #100 (16 Oct.1914) pg.256: Albert     Alfred Buss: "Cosmic and Terrestrial Flosam and Jetsam"      http://www.resologist.net/lands224.htm#N_3_
+%082 S.P.A.C.E. Bulletin #19: PJ47 post/Herb Taylor saved   as 18JUN58.TXT here.
+
+>> Ref. 098 = Misc. Books, reports, files & correspondance.
+
+#008  GUIEU,Jimmy: Les Soucoupes Volantes vient de un Autre Monde: pg48. [ from 2 scanned pages ]
+#009  McCAMPBELL, James M.: Personal meetings/interviews.
+#010  VALLEE,Jacques: Personal meetings and correspondance.
+#011  STURROCK, Dr. Peter (Stanford,CA):  Personal meetings and Correspondance.
+#012  FOWLER,Raymond: The ANDREASSON AFFAIR; Prentice-Hall  1979 & Bantam 1980.
+#014  WEINSTEIN, Dominique (Paris); Personal meetings and   Correspondance.
+#015  BLOECHER,Ted: THE STONEHENGE INCIDENTS.January 1975;  report/investigations by Bloecher,Budd Hopkins and          Jerry Stoehrer
+#017  HOPKINS,Budd:INTRUDERS; Random House 1987; Ballentine PB 1988. ( Cathy Davis abds.   "Alien daughter" pg.221 )
+#018  HOPKINS,Budd:WITNESSED:The True Story of the Brooklyn Bridge Abductions. Pocket Books, NY 1996 ISBN 0-671-56915-5 (Linda Cortile)
+#022  BERLITZ,Charles & MOORE,Wm: The ROSWELL INCIDENT;     Putnam 1980 & Berkley Books 1988.
+#023  BERLITZ,Charles: WORLD of STRANGE PHENOMENA;          Fawcett Crest 1988  ( Minot,ND shooting on pg.243.          Hog mutilation / Norway,SC on pg.50)
+#024  FULLER,John G.: INTERRUPTED JOURNEY; 1966. Dell Books PB 1987.  ( Betty & Barney Hill.  Entire book. )
+#026  O'BRIEN,Christopher: The MYSTERIOUS VALLEY (San Luis  Vly,CO) 1996 St.Martins Paperbacks, NY.
+#028  PAGET,Peter: The Welsh Triangle.  Panther PB, Granada Publishing London 1979.
+#030  EVANS,Hillary & STACY,Dennis eds.: UFO 1947-1997, 50  Years of Flying Saucers: John Brown Publ./Fortean Times     London 1997: ISBN 1-870870-999
+#034  RULLAN,Tony: Retrieved lost BBK file: Dorion,ONT 1964 Paper copy on file.
+#039  KLASS,Philip J.: UFOS EXPLAINED; Vintage Books/Random House,NY 1974  ( Crowder/South Hill,SC 1967 p.135.          Shoals,IN 1968 pg.13 )
+#041  BLUM,Howard: OUT THERE; Simon & Schuster,NY HB 1990:  (Elmwood,WI ref.)
+#043  BENDER,Albert K.: FLYING SAUCERS and the THREE MEN.   1962 & 1968 Paperback Library, NY. Foreward/Gray Barker.    160 pp. 50 cents.
+#044  STRICKLAND: EXTRA-TERRESTRIALS ON EARTH.              Grossett&Dunlap,NY 1977. [ La Llagosta, Spain pg.58 ]
+#050  ENGBERG,Robt. E.: REPORT on INVESTIGATION of SCANDIA  ,MN SIGHTINGS of 22MAR78; 22pp.  Self published: 15FEB79.
+#051  Personal acct: Michael Christol: http://www.icq.com   < mchristo@mindspring.com >
+#057  DEFENSE NUCLEAR AGENCY docm# DNA 6035F: Castle Series Nuclear Weapons Tests. pp 64+274+341 c/o Daniel Wilson      15 Parkview Dr., Painesville,OH 44077
+#060  THE UFO ENIGMA. Report No. 83-205 SPR, Congressional  Research Service, Library of Congress, June 20,1983. UG 633 Marcia S. Smith /Aerospace, Science Policy Research Div.
+#065  DAVID,Jay (ed.): The FLYING SAUCER READER;  Signet &  New American Library 1967. 252pp.
+#070  HASSAL,Peter; The NZ FILES, UFOs in New Zealand; 1998 [ 1965 Stewart Isl. USO on Page 93.]
+#072  WHITE,Dale: IS SOMETHING UP THERE?; Doubleday 1968 &  Scholastic PB 1969.  60 cents.
+#080  RANDLES,Jenny: UFO Crash Landing? 1998 Blandford, UK  ISBN 0-7137-2655-5.  Full account / 1980 Rendlesham events.
+#090  DeMARY,Tom: 5OCT2002 by telescope:on file TDDisk.txt
+#101  BERLITZ,Charles: The DEVIL'S TRIANGLE; Wynwood Press  1989 NY,NY; ISBN 0-922066. Taki Kyoto Maru, pp 130-131.
+#105  TRENCH,Brinsley Le Poer: OPERATION EARTH;   Neville   Spearman 1969 & Tandem,London 1974.  (Belfast,N.Irl pg.18)
+#115  HAINES,Richard Ph.D: The MELBOURNE EPISODE; LDA Press 1990. ( Valentich/Bass Strait.   Cape Otway pg.159 )
+#148  HAINES,Dr. Richard F.: Unpublished aircraft sightings files. ( El Paso,TX 1956  pg 96. )
+#152  BOURRET,Jean-Claude:La NOUVELLE VAGUE des SOUCOUPES   VOLANTES; Editions France-Empire,Paris. 1974                ( Geneva,SWZ 1969 pg.60 )
+#153  BOURQUIN,Gilbert A.;L'INVISIBLE NOUS FAIT SIGNALE;    Editions Robert SA, 2740 Moutier Switzerland 1968.          ( Lebanon,CT 1982 pg.18 )
+#164  VANCE,Adrian: UFOs,the EYE & CAMERA; (Kenai Peninsula photo pg 40.  Sedona,AZ pg 49. )
+#167  De TURRIS,G. & FUSCO,S.: OBIETTIVO sugli UFO" (1975)  pg. 37. per Edoardo Russo. Gives 03MAY45 date for Eastern   Pfalzerwald FBL incident.
+#168  VESCO,Renato: INTERCEPT but DONT SHOOT; transl.from   Italian.  Goofy.
+#169  RANDLES,Jenny & Warrington,P.: SCIENCE and the UFOS;  Basil Blackwell,  NY 1985
+#170  STANFORD,Ray: SOCORRO SAUCER in a PENTAGON PANTRY; HB Austin,TX Blueapple Books 1976. 211pp.
+#174  STEVENS,Wendell: UFO ABDUCTION AT MARINGA:  UFO Photo Archives,  Tucson,AZ.  (Sorocaba,Brazil Jan,1979  pg99?)
+#176  RANDLE,Kevin D: PROJECT BLUEBOOK EXPOSED.   Marlowe & Co.NY 1997 ISBN 1-56924-746-3.  Libr./Congress 97-72378.
+#177  RANDLES,Jenny & HOUGH,Peter:   SPONTANEOUS HUMAN      COMBUSTION;  Berkley Books,NY 1992/94.  ( York,UK pg 147.   Owestry,UK pg 103. )
+#178  BERGIER,Jacques: E.T. VISITATIONS, PREHISTORIC TIMES  to the PRESENT; J'ai Ju,France 1970 & H.Regnery,Chicago     1973, Signet,NY 1974. (Milan, 1491 pg 85.  Esterhazy, pg163)
+#179  GREENFIELD,Irving A.: The UFO REPORT; Lancer Books,NY 1967. ( USS Supply 1904 pg 59.   Sag Harbor,NY 1966 pg 19 )
+#193  VALLEE,Jacques:The INVISIBLE COLLEGE; E.P.Dutton,NY   1975. Hardcover. ( Washington,DC 1959 pg 74.                Ashland,NE 1967 pg 57. )
+#197  CATHIE,Bruce: HARMONIC 695; A&A Reed,Wellington, N.Z. 1971.
+#202  HAINES,Richard (ed): UFO PHENOMENA and the BEHAVIORAL SCIENTIST. Scarecrow Press, Metuchen,NJ 1979.               ( Medicine Bow,WY  pg.225 )
+#203  HAINES,Richard (via Dom. Weinstein)  BLUEBOOK Reports taken from 16mm Microfilm @ Maxwell AFB (partial)
+#210  LEONE,Matteo: CISU Italy case summary.  Saved here as C:\DOWNLOAD\SANTENA.TXT
+#219  MAUGE,Claude: (RECONTRES de LYONS 1988);    Sightings Catalog. ( Tradate,ITL 1954 pg 74.   Eschallens,SWZ pg 57 )
+#222  SMITH,Warren:  The BOOK of ENCOUNTERS.   Zebra Books, Kensington Publ.,NY 1976. PB 253pp.                         ( Schirmer/Ashland,WI p87.  Madison,WI Apr.1970 pg.114 )
+#223  SMITH,Willy: ON PILOTS and UFOs. UNICAT Project, 8011 SW 189th St. Miami,FL 33175 USA.  March 1997.
+#226  KENT,Malcom: The TERROR ABOVE US. Tower Books,NY 1967 ( Entire PB book: IBM programmers abducted. )
+#228  ERSKINE,Allen Louis: THEY ARE THEY WATCHING US.       Belmont Tower Books,NY 1967.  95 cents.
+#235  MACDONALD,James E.: Report to the American Society of Newspaper Editors. ( Owasca,IN 1958 pg 23.  Davis,CA pg 19)
+#243  RANDLES,Jenny:  UFO CONSPIRACY - the first 40 years.  Javelin, London 1988.  ( Dee Estuary,UK July 1981  pg.127 )
+#251  FEINDT,Carl: C:/DOWNLOADS:WOLFVILLE.TXT from original newspaper account CR: Don Ledger.
+#261  JACOBS,David:  The UFO CONTROVERSY in AMERICA. Signet 1976 / Indiana University Press 1975. LoC #74-11886
+#301  Email Interview:  Bricks1917@aol.com.                 Filed here under   C:\Ongoing\BRICKS1,2,3.TXT
+#302  Email Interview:  Jim Mortellaro.  Address on file.   Filed here under HARTSD98.TXT
+#311  Email Interview:  Joe Foster/USCG filed here under    Mellon70a.txt
+#320  ALDRICH, Jan: Interview with witness etc. Filed here  as Xmasisland1967.txt
+
+>> DISCREDITED REPORTS:  Well known items were delisted  or passed over for serious credibility problems.
+! 1585 BC??   Pharoah THUTMOSE / Tulli Papyrus.  A wild     goose chase of the first order.  Worthless.
+! 1790/06/12  ALENCON,FR:PSH Exits sphere..runs to woods.   Invention of Alberto Fenoglio?  No such on record.
+! 1882/11/17  LONDON+BRUSSELS++:Amazing Aurora Borealis     noted widely.  No UFO however.
+! 1896-97/04/19  LEROY=YATES CENTER,KS:3 figs/airship lasso calf.   ADMITTED HOAX/local liars club.  Often quoted.
+! 1897/04/17  AURORA,TX: CGR hits WINDMILL:Fragments allo.  Alien dies. Generally dismissed as fantasy. /r98#10
+! 1947/06/21  MAURY ISLAND,WA: UFO EXPLODES: Debris = slag  per personal interview/AF Colonel in charge/investgn.
+! 1947/07/07  SHREVEPORT,LA:Crashed SCR = stock alum. disk  with Fluorescent tube starter for a motor.
+! 1947/10/04  PARADISE Vly,AZ: 4 hunters: UFO crash + dead  humanoids recovered: big coverup per /r120 p394
+! 1948/01/07  FRANKLIN,KY: AIRMAN MANTELL CHASES SKYHOOK    BALLOON.  CRASHES. /APRO 6/77+/r89p19.
+! 1948/03/25  NE/AZTEC,NM: Crashed SCR w/tubeless radio..   a Frank Scully rehash.
+! 1950/03/15  SJAELLAND Isl.,DK:  Wrong date and place. See Norre Nebel,Jutland,DK 13FEB50. Grossly exaggerated.
+! 1950/07/23  GUYANCOURT,FR:'Lucky Blondeau':SCR+2 beings:  HOAX! /r30p655
+! 1952/07/31  BERNINA Alps,ITL:6 FOTOS:SCR+FIG/SPACE-SUIT on GND/FSR V4#4: HOAX! Must see /r136#11p61-63
+! 1953/01/09  CHRISTCHURCH,NZ: Newsman with Telescope looks directly at Mars.  Sees orange disk, but not Mars.
+! 1954/09/24  ALMACEDA,PORTUGAL: Sphere lands. Humanoids    exit.  HOAX!/Joaquim Fernandes and Loren Gross.
+! 1954/09/24  GARDUNHA Mtns,PRTG:  Same case as Almaseda.   Actually Almaceda. Hoax admitted back in 1954!!.
+! 1954/09/28  BOUZAIS/Grand Tertre,FR:Men exit FBL.  OBS.,  town, farm + cafe all ficticious! /r197p24
+! 1954/09/30  MAISONCELLES-en-BRIE,FR:Brilliant mushroom:   HOAX! /r30p656
+! 1954/09/30  MARCILLY-sur-VIENNE,FR aka Nouatre,FR: PRANK  went too far.  Non-event delisted.
+! 1954/10/03  CHERENG+MARCOING+QUEND+LIEVIN++,FRANCE:       CE2s with the Moon!
+! 1954/10/04  CHALEIX,24,FR: Landed NATO helicopter w/figs  in khaki suits.
+! 1954/10/05  MERTRUD,MARNE,FR: Man late for work finds a   NEW excuse.
+! 1954/10/07  St.ETIENNE-sous-BARBOUSE,FR: 3 painters seen  as Martians.
+! 1954/10/09  LAVOUX,86,FRANCE: Teen in costume w/lites:
+! 1954/10/11  MONTBAZENS,FR: Disk+figure/GND.  Prank played on co-worker.
+! 1954/10/11  St.ALBAN,31,FRANCE: DISK+3 OIDs. Journalistic prank/Samedi Soir.
+! 1954/10/12  MONTLUCON,03,FR: TORPEDO+BEING on GND:  Prank on credulous man.
+! 1954/10/13  BOURRASOLE/TOULOUSE,FR: Disk and humanoid     journalistic prank.
+! 1954/10/13  St.AMBROIX,CHER,FR: Landed UFO+7 figures.     journalistic prank/Samedi Soir.
+! 1954/10/17  CAPE MAZZULO,CAPRI,ITALY: SCR+4 OIDS:         HOAX/LDLN.
+! 1954/10/26  ALLEYRAT,23,FR: Figure w/lites: Farmer shoots ordinary man.
+! 1954/11/11  GRANDVILLARD,SWITZ: SLVR SPHERE = BALLOON!    /r107p251.  delisted.
+! 1954/12/03  AZUAGA,SPAIN:  Square machine lands:          Discredited/Ballester Olmos.
+! 1955/01/05  OYARZUN,SPAIN: Metallic Sphere Lands:         Discredited/Ballester Olmos
+! 1956/08/01  GREENFIELD,MA: Venus or Moon hvrs/hrs. 2 OBS  Back 2 more nites. = Mothership/ APRO Sept'56.
+! 1958/12/20  DOMSTEN nr HOGANAS,SWEDEN: SCR+4 BLOB FIGs:   ABDn attempt = ADMITTED HOAX.  AFU Newsletter #33, JAN-JUN 1988.  AFU Sweden, Anders Liljegren.
+! 1959/09/29  MARIANNELUND,Sweden: 4 aliens work on landed  saucer: /APRO Nov'67+//FSR v16#6: HOAX/ A.Liljegren
+! 1961/01/21  AKRON,OH: Bluebook: Hovering orb was the Moon.
+! 1962/02/xx  MOSBOROUGH,N.YORKs: Superimposed models =UFOs in 6 famous fotos.  Lads fess up. /r249p258
+! 1964/03/25  HOLLOMAN AFB,NM:SCR Lands: OIDs meet USAF men.Delisted.  ( source = Richard C. Doty. )
+! 1964/12/10  FORT RILEY,KS: SOLDIER GUARDS DOWNED SCR:     HOAX/Aaron David Kabak aka Dave Aaron. /r189p201+/r249p259.
+! 1965/03/02  BROOKSVILLE,FL: 10M SCR: alien fotos witness! Leaves parchment/odd symbols: /APRO Mar'65+ /r113 p184
+! 1965/08/08  BEAVER,PA: Teens foto disk.. 1 Admits HOAX in 1998 to Mark Cashman!
+! 1966/11/22  DIAMOND PEAK,OR: FOTO/SPLIT SCR =PASSING ROAD SIGN /CUFOS IUR. see FSRv19#2.
+! 1967/01/09  Mt.CLEMENS,MI: CLEVER FAKE FOTOS fool many.   1 OBS confesses later.
+! 1967/05/16  NIEVA,SPAIN: Figures board SCR in woods:      DC / Ballester Olmos.
+! 1967/06/01  VALDERAS,Spain: Fake fotos/saucer on 3 legs.  /FSR Jun'69+/LDLN #166 +/r180p49 +/r193 #51.
+! 1967/07/03  NANTON,Alberta: 40' domed saucer mnvrs: color fotos: /r109 p33:  FAKE / M. Sachs.
+! 1967/07/21  PAMLICO Co.,NC: Small model+eggshell in FOTO  HOAX by Ronnie Hill age 14. /r249p259.
+! 1968/05/03  CHASCOMUS,ARG: VIDAL+wife/car ABD to MEXICO!  No such person.  Invention of film director Anibel Uset.
+! 1968/06/15  BOULOGNE,ARG: SCR LANDS:TIN ROOF FALLS:       PRANK only.  APRO v17#5 = MAR=APR'69
+! 1968/09/01  MENDOZA Prov.,ARGENTINA: OIDs scrawl symbols  on windshield etc.  Casino workers fess up later. /r249p256
+! 1968/11/22  FLEURY d/AUDE,11,FR:  Smugglers in helicopter misidentified.
+! 1969/07/16  APOLLO-11 nr MOON:  HOAX Invented by NATIONAL INQUIRER. Fake transcript, phony reporter etc. /r249p253
+! 1969/10/01  LEARY,GA: Jimmy Carter and others fooled by   Venus. NICAP Febr.1977.
+! 1970/03/28  WARMINSTER,WILTS: NLTS+EME+FOTOt. = elaborate HOAX.  Staged by debunkers.  Fools all.  /r249p257.
+! 1970/06/11  THOR HEYDERDAHL on raft sees NLT/APRO JLY'70: Actually a POSEIDON MISSILE test./NICAP /SEPT'70. Oh well.
+! 1970/10/11  "USAF MAN":Foto of Invaders TV series model   nr Palm Spring CA. Discredited/NICAP
+! 1971/08/16  LOCH NESS,SCOTLAND: Jan-Ove Sundberg fotos    UFO+OIDs in non-existant clearing. Exorcism++. /r249p255
+! 1971/11/xx  HILLSBORO,KS: Figures invite man aboard SCR.  "Sees much detail."  [ Ref. lost! ]
+! 1972/08/21  nr MILWAUKEE,WI:TRUCK EME+OVERHEATS:SCR/TREES /r79: ADMITTED HOAX /APRO v31#9p5
+! 1973/01/11  SW/THAME,ENGL: F111 dumps flaming fuel.  Many fooled.  Case solved by BUFORA.
+! 1973/10/16  BILOXI,MS: CAB DRIVER CAUGHT ASLEEP: INVENTS  TALE of CRAW-CLAWED CREATURE TAPPING WINDSHIELD!
+! 1973/10/16  GREENWOOD,DE: 5 FIREMEN set up FAKE SCR ON    ROADSIDE, with portable generator+lites
+! 1973/10/16  XENIA,OH: 3 MEN COMPLETELY WRAPPED/ALUMINUM   FOIL jump out at startled motorists:
+! 1973/10/17  FALKVILLE,AL:COP GREENHAW+1 hoax fotos of man in MTLC Fire Dept HEAT SUIT. /NICAP Jan'77
+! 1973/10/20  LOUSIANA STATE UNIV:  BALLOON W/CANDLES SET   LOOSE OVER FOOTBALL GAME.
+! 1973/10/21  JONESBORO,ARk: 2 MEN COVERED/ALUMINUM FOIL    JUMP in front of cars:  Each fined $25
+! 1973/10/28  BAHIA BLANCA,ARG: Dionisio Llanca Abduction.. Probable hoax. Ufologists can't find doctors+hynotists etc. per /r249p256
+! 1974/01/23  LLANDRILO,WALES: Meteor/skyquake embellished  into "crashed saucer". /r81p136 + /r249p139
+! 1974/08/12  La BROUSSE,17,FR: SCR Landing traces W/solder bits = Admitted teenage prank.
+! 1975/01/05  BAHIA BLANCA,ARG (again). Events incompatible with witness's claims  /R.E.BANCHS /r249p257.
+! 1975/02/17  AVIGLIANA,ITL: 4 Meter dome peeks thru trees. ( Conjunction of Venus/Jupiter )
+! 1976/02/04  TULSA,OK: Woman abducted/5th time.  Implanted with genetically purified child. /r174 p199 Wendelle Stevens
+! 1977/08/02  Town of CHESTER,IL destroyed by space aliens. (Carefully rebuilt by same aliens / Myron Fass). /r249p255
+! 1978/01/18  McGUIRE AFB,NJ: Blue Berets shoot alien dead. Bodies to Wright Patterson.  /r122p189  Delisted.
+! 1979/11/11  IBIZA Isl./MANISAS,SPAIN: AL Captain fooled   by oil refinery gas flares.  < rcampo@datalogic.es >  www.anomalia.org
+! 1979/11/26  PONTOISE,France: Complex 5-day abduction      Admitted HOAX.
+! 1980/06/08  PORT KELANG,MALAYSIA: UFOs zap oil refinery.  Miss + burn house instead.  Journalistic hoax.
+! 1981/03/16  CRACOE FELL,ENGL: Sun reflects on quartz on   cliffside.  Cops++ fooled. /BUFORA
+! 1983/07/14  FRUNZE,KIRGHIZ,USSR: Baby OID recovered from  crashed SCR.  Soon dies. /National Inquirer..
+! 1986/08/15  BELLUNO,ITL: 2M Pointy eared oids abduct two  campers.   /G.Andrews.  HOAX/CISU Rivista #3.
+! 1987/05/30  CROZIA,ITL:ROUND OBJ FILMED:NOTCHES on rim    /FSRc35#4.  PERFECT MATCH/INNARDS of ZOOM LENS! /r209#11
+! 1989/03/14  FRENCH POLYNESIA: SPACE SHUTTLE DISCOVERY has ALIEN SPACECRAFT under observation".  /r122
+! 1989/05/07  KALAHARI DESERT,S.AFRICA:   "Downed SCR+OIDS  flown to USA..."
+! 1992/11/24  SOUTHHAVEN PARK,LI,NY: UFO CRASH.  TREES MAG- NETIZED etc. Big coverup /John Ford of LIUFON.
+! 1995/02/04  BATON ROUGE,LA: GOODYEAR BLIMP fools many.    LA MUFON/ Barney Garner.
+! 1995/03/27  IMNAGA River + SILVERTON,OR: Balloon flares   make big news.   HOAX/MUFON
+! 1996/08/17  METAN,SALTA,ARG: DOWNED SCR+OIDS RECOVERED.   Probable CYBER-HOAX: FAO/Arg. (misquoted) has NO KNOWLEDGE  of incident!
+! 1996/08/19  BAIA DOMIZIA,CASERTA,ITALY: RED UFO =Military BALLOON Crashed at sea. /CISU
+! 1996/08/22  MARINA di MASSA,ITALY.  FBL was BOX-KITE set  afire by tourists.   Hotel owner saw it all./CISU
+! 1997/03/31  INARINJARVI,Finland: Finl AF pilot sees brite disk.  HOAX / UFO Finland.  Groundless.
+! 1997/08/06  MEXICO CITY,MX:  Famous video: Saucer passes  buildings. Widely dismissed.
+
+>> The sources below were consulted, but not used directly.
+>> BROOKSMITH, Peter (ed.)  The ALIEN WORLD;  Orbis, London 1984.
+>> BROOKSMITH, Peter (ed.)  The UFO CASEBOOK; Orbis, London 1984.
+>> BUTLER, Brenda & J.Randles & D.Street; SKY CRASH;        N.Spearman, London 1984.
+>> DOWNING, Barry H.: The BIBLE and FS; Avon Books NY 1970.
+>> FIORE,Edith Ph.D: ENCOUNTERS; Ballentine Books,NY 1989;  Highly descriptive abduction memories.
+>> FULLER, John G.:  INCIDENT at EXETER; G.P.Putnam's Sons  NY 1966.
+>> JACOBS, David M. Ph.D; SECRET LIFE; Simon Schuster 1992  & Fireside Ed. 1993.
+>> KEHOE, Donald & G.Lore jr: UFOS: A NEW LOOK; NICAP       Washington,DC 1969.
+>> JORDAN, Debbie; ABDUCTED!; Dell PB 1995;  Intro. by Budd Hopkins.
+>> RANDLES, Jenny; ALIEN ABDUCTIONS - the Mystery Solved;   Inner Light, New Brunswick,NJ 1988?
+>> RANDLES, Jenny; UFO REALITY; Robert Hale, London 1983.
+>> RIMMER, John; The EVIDENCE for ALIEN ABDUCTION. Aquarian Press, Wellingborough NH England 1984
+>> SACHS, Margaret; The UFO ENCYCLOPEDIA; Perigee Books, NY 1980.
+>> SAUNDERS, David R. & R.R.Harkins; UFOS? YES!; World Publ.NY 1968.
+>> STEMMAN, Roy; VISITORS from OUTER SPACE; Doubleday,      NY 1976.
+>> STORY, Ronald & R.Greenwell; UFOS and the LIMITS OF      SCIENCE;  William Morrow, NY 1981.
+>> TURNER,Karla Ph.D;  TAKEN - Inside the Alien-Human Abd.  Agenda; Kelt Works,PO Box 32,Roland,AR 72135 1994.
+
+>> Abbreviations:
+>> HB = Hardback.  PB = Paperback. NFD= No Further Details. DC = Discredited.
+
+> The following are sincerely thanked for their fine help and materials!
+> Dominique Weinstein of LDLN in Paris for an indispensible pile of European literature.
+> Ed Stewart for piles of old APRO and NICAP journals.
+> Eric E. Engberg of Minnesota MUFON for a fantastic crate  of rare journals.
+> Dr. Richard F. Haines and his extensive library.
+> James McCambell (author of UFOLOGY) and his library.
+> Joseph Ritrovato for bundles of stuff and internet help.
+> Jacques Vallee, for many reasons.
+> Loren Gross for his indispensible little booklets!
+> Jan Aldrich for a touch of sanity and lots of help.
+> Bruno Mancusi for hard to find Swiss materials.
+> Edoardo Russo, Matteo Leone and Maurizio Verga of CISU Italy for
+  catalogs and Journals unavailable elsewhere.
+> Dr. Leo Sprinkle  --  and numerous others.
