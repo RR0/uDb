@@ -35,7 +35,7 @@ This will display the decoded records, like below (just 10 first records listed 
                     TAKEN FOR A RIDE
                     see Bible acct.
       Duration    : 60 mn
-      Flags       : 3111
+      YMDT        : 3111
       Strangeness : 8
       Credibility : 4
       Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
@@ -48,7 +48,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Description : FLYING SHIELD BEAMS
                     WALLS CRUMBLE
       Duration    : 3 mn
-      Flags       : 3111
+      YMDT        : 3111
       Strangeness : 9
       Credibility : 6
       Source      : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
@@ -61,7 +61,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Description : MAN IN WHITE
                     12 SUCH BETWEEN 222 AND 90 B.C.
       Duration    : 15 mn
-      Flags       : 3110
+      YMDT        : 3110
       Strangeness : 8
       Credibility : 4
       Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
@@ -73,7 +73,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy)
       Description : NFD
       Duration    : 2 mn
-      Flags       : 3111
+      YMDT        : 3111
       Strangeness : 6
       Credibility : 6
       Source      : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
@@ -86,7 +86,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
                     LOUD NOISES LATER
       Duration    : 60 mn
-      Flags       : 3332
+      YMDT        : 3332
       Strangeness : 7
       Credibility : 4
       Source      : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
@@ -98,7 +98,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Location    : Town & city, LYON,FRANCE (RHN, France)
       Description : they admitted flying
       Duration    : 20 mn
-      Flags       : 3110
+      YMDT        : 3110
       Strangeness : 10
       Credibility : 4
       Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
@@ -110,7 +110,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Location    : Town & city, VERDUN,FR (MSE, France)
       Description : 
       Duration    : 15 mn
-      Flags       : 3210
+      YMDT        : 3210
       Strangeness : 3
       Credibility : 7
       Source      : FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
@@ -123,7 +123,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Description : THEN JOIN TOGETHER
                     TIME UNKNOWN.   
       Duration    : 15 mn
-      Flags       : 3330
+      YMDT        : 3330
       Strangeness : 6
       Credibility : 5
       Source      : VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
@@ -137,7 +137,7 @@ This will display the decoded records, like below (just 10 first records listed 
                     NFD
                     /SOBEPS IFS#23 p35
       Duration    : 15 mn
-      Flags       : 3331
+      YMDT        : 3331
       Strangeness : 4
       Credibility : 6
       Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
@@ -149,7 +149,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Location    : Farmlands, nr VERDUN,FR (MSE, France)
       Description : /VERDUN MUSEUM /SOBEPS IFS#23 p35
       Duration    : 15 mn
-      Flags       : 3111
+      YMDT        : 3111
       Strangeness : 6
       Credibility : 6
       Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
