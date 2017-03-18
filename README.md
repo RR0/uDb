@@ -215,3 +215,12 @@ Still [to be completed](https://github.com/RR0/uDb/issues/1):
 
 - See [issues](https://github.com/RR0/uDb/issues).
 - Add non-regression tests.
+
+## Acknowdlegments
+
+First I would like to thank Larry Hatch for his invaluable work in building this huge quality database.
+
+Then I want to thank [Isaac Koi](http://www.isaackoi.com) for his restless efforts in collecting and sharing UFO data with the permission of their owners.
+This work could not have been possible without him, who managed to run the old software, perform an textual export of the data, 
+and got the permission from Larry's nephew (the holder of Larry's Power of Attorney) to share Larry's work).
+ 
