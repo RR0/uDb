@@ -11,7 +11,7 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
-const DEBUG = true;
+const DEBUG = false;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
@@ -279,28 +279,47 @@ sourcesReader
             this.output = output;
           }
 
+          accuracy(value, valueAccuracy) {
+            let accurateValue = '';
+            switch (valueAccuracy) {
+              case 0:
+                break;
+              case 1:
+                accurateValue = '?';
+                break;
+              case 2:
+                accurateValue = '~';
+              case 3:
+                accurateValue += value;
+            }
+            return accurateValue;
+          }
           desc(record) {
             const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
+
+            const yearAccuracy = (record.ymdt >> 6) & 3;
+            const monthAccuracy = (record.ymdt >> 4) & 3;
+            const dayAccuracy = (record.ymdt >> 2) & 3;
+            const timeAccuracy = record.ymdt & 3;
+
+            let year = this.accuracy(record.year, yearAccuracy);
+            let month = this.accuracy((record.month < 10 ? '0' : '') + record.month, monthAccuracy);
+            let day = this.accuracy((record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day), dayAccuracy);
+
             let hours = Math.floor(record.hour / 6);
             let minutes = (record.hour % 6) * 10;
-            let hour = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
-            let locale = (locales[record.locale] ? locales[record.locale] : 'locale#' + record.locale);
-            let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
-            let month = (record.month < 10 ? '0' : '') + record.month;
-            const ref = record.ref ? primaryReferences[record.ref] : '';
+            let time = this.accuracy((hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes, timeAccuracy);
 
-            let ymdt = '';
-            ymdt += (record.ymdt >> 6) & 3;
-            ymdt += (record.ymdt >> 4) & 3;
-            ymdt += (record.ymdt >> 2) & 3;
-            ymdt += record.ymdt & 3;
+            let locale = (locales[record.locale] ? locales[record.locale] : 'locale#' + record.locale);
+
+            const ref = record.ref ? primaryReferences[record.ref] : '';
 
             let strangeness = record.strangenessAndCredibility >> 4;
             let credibility = record.strangenessAndCredibility & 0xF;
 
             let recordIndex = position / recordSize;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-                '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
+                '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n' +
                 '  Location    : ' + locale + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
                 '  Description : ' + (record.description ? record.description : '') + '\n'
               ;
@@ -313,11 +332,10 @@ sourcesReader
             if (record.description4) {
               desc += '                ' + record.description4 + '\n';
             }
-            desc += '  Duration    : ' + record.duration + ' mn\n';
-            desc += '  YMDT        : ' + ymdt + '\n';
+            desc += '  Duration    : ' + record.duration + ' min\n';
             desc += '  Strangeness : ' + strangeness + '\n';
             desc += '  Credibility : ' + credibility + '\n';
-            desc += '  Source      : ' + ref + '\n'
+            desc += '  Reference   : ' + ref + '\n'
               + '                at index #' + record.refIndex;
             return desc;
           }
@@ -372,8 +390,8 @@ sourcesReader
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
-        // const recordEnumerator = new MaxCountRecordEnumerator(10);
-        const recordEnumerator = new ArrayRecordEnumerator([1996]);
+        const recordEnumerator = new MaxCountRecordEnumerator(40);
+        //const recordEnumerator = new ArrayRecordEnumerator([1996]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;

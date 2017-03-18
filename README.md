@@ -32,130 +32,120 @@ This will display the decoded records, like below (just 10 first records listed 
     
     Record #1
       Title       : EZEKIEL
-      Date        : -593/01/01 00:10
+      Date        : -593/?/?, ?
       Location    : Pasture, CHALDEA (CHL, Irak)
       Description : FIERY SPHERE LANDS/4 SUPPORTS
                     TAKEN FOR A RIDE
                     see Bible acct.
-      Duration    : 60 mn
-      YMDT        : 3111
+      Duration    : 60 min
       Strangeness : 8
       Credibility : 4
-      Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
                     at index #2
     
     Record #2
       Title       : SIEGE/ALEXANDER the GREAT
-      Date        : -322/01/-- 00:00
+      Date        : -322/?/?, ?
       Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon)
       Description : FLYING SHIELD BEAMS
                     WALLS CRUMBLE
-      Duration    : 3 mn
-      YMDT        : 3111
+      Duration    : 3 min
       Strangeness : 9
       Credibility : 6
-      Source      : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
+      Reference   : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
                     at index #64
     
     Record #3
       Title       : 'ALTAR' IN SKY
-      Date        : -213/06/01 00:00
+      Date        : -213/?/?, 
       Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy)
       Description : MAN IN WHITE
                     12 SUCH BETWEEN 222 AND 90 B.C.
-      Duration    : 15 mn
-      YMDT        : 3110
+      Duration    : 15 min
       Strangeness : 8
       Credibility : 4
-      Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
                     at index #4
     
     Record #4
       Title       : SPECTACULAR FLEET OF SHIPS IN AIR
-      Date        : -170/01/00 12:00
+      Date        : -170/?/?, ?
       Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy)
       Description : NFD
-      Duration    : 2 mn
-      YMDT        : 3111
+      Duration    : 2 min
       Strangeness : 6
       Credibility : 6
-      Source      : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+      Reference   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
                     at index #125
     
     Record #5
       Title       : MANY OBS
-      Date        : 70/05/21 18:00
+      Date        : 70/05/21, ~18:00
       Location    : Pasture, PALESTINE (UNK, Israël)
       Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
                     LOUD NOISES LATER
-      Duration    : 60 mn
-      YMDT        : 3332
+      Duration    : 60 min
       Strangeness : 7
       Credibility : 4
-      Source      : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+      Reference   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
                     at index #120
     
     Record #6
       Title       : MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'
-      Date        : 840/01/00 00:00
+      Date        : 840/?/?, 
       Location    : Town & city, LYON,FRANCE (RHN, France)
       Description : they admitted flying
-      Duration    : 20 mn
-      YMDT        : 3110
+      Duration    : 20 min
       Strangeness : 10
       Credibility : 4
-      Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
                     at index #7
     
     Record #7
       Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
-      Date        : 927/03/00 07:00
+      Date        : 927/~03/?, 
       Location    : Town & city, VERDUN,FR (MSE, France)
       Description : 
-      Duration    : 15 mn
-      YMDT        : 3210
+      Duration    : 15 min
       Strangeness : 3
       Credibility : 7
-      Source      : FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
+      Reference   : FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
                     at index #32
     
     Record #8
       Title       : UNUSUALLY BRIGHT SCRS FLY
-      Date        : 989/08/03 00:00
+      Date        : 989/08/03, 
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan)
       Description : THEN JOIN TOGETHER
                     TIME UNKNOWN.   
-      Duration    : 15 mn
-      YMDT        : 3330
+      Duration    : 15 min
       Strangeness : 6
       Credibility : 5
-      Source      : VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
+      Reference   : VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
                     at index #0
     
     Record #9
       Title       : 2 SPHERES HVR
-      Date        : 1015/08/23 00:00
+      Date        : 1015/08/23, ?
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan)
       Description : 2 SML OBJs EXIT..1 smokes
                     NFD
                     /SOBEPS IFS#23 p35
-      Duration    : 15 mn
-      YMDT        : 3331
+      Duration    : 15 min
       Strangeness : 4
       Credibility : 6
-      Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
                     at index #9
     
     Record #10
       Title       : FIERY OVOID >>SE TURNS >>W
-      Date        : 1034/01/00 00:00
+      Date        : 1034/?/?, ?
       Location    : Farmlands, nr VERDUN,FR (MSE, France)
       Description : /VERDUN MUSEUM /SOBEPS IFS#23 p35
-      Duration    : 15 mn
-      YMDT        : 3111
+      Duration    : 15 min
       Strangeness : 6
       Credibility : 6
-      Source      : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
                     at index #9
     
     Read 10 reports.
@@ -174,7 +164,7 @@ the structure of a record is:
 -   5 (0x05) : Sighting hour (1 byte) encoded as:
     - hour: `value / 6`
     - minutes: remainder/modulo `value % 6` * 10 minutes
--   6 (0x06) : `3333` Flags (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
+-   6 (0x06) : Year, Month, Day and Time (YMDT) accuracies (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
 -   7 (0x07) : Sighting duration in minutes (1 byte)
 -   8-17 : TODO ([lat/long](https://github.com/RR0/uDb/issues/2)?)
 -  18 (0x12) : Country code (1 byte) (see countries table below)
