@@ -16,6 +16,14 @@ function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
 }
 
+function trimZeroEnd(str) {
+  const zeroEnd = str.indexOf('\u0000');
+  if (zeroEnd > 0) {
+    str = str.substring(0, zeroEnd);
+  }
+  return str;
+}
+
 const sourcesReader = require('readline').createInterface({
   input: require('fs').createReadStream(sourcesFile)
 });
@@ -144,16 +152,20 @@ sourcesReader
           recordHex = '';
           recordRead = '';
 
+          function logReadPos(prop) {
+            let pos = position + recordPos;
+            let value = record[prop];
+            if (typeof value === 'string') {
+              value = `'${value}'`;
+            }
+            logDebug(`at ${pos} (0x${pos.toString(16)}) read ${prop}=${value} (0x${value.toString(16)})`);
+          }
+
           function readString(length, prop) {
             let str = buffer.toString('utf8', recordPos, recordPos + length);
-            // logDebug('at ' + (position + recordPos) + ' read \'' + str + '\'');
             read(length);
-            const zeroEnd = str.indexOf('\u0000');
-            if (zeroEnd > 0) {
-              str = str.substring(0, zeroEnd);
-            }
-            record[prop] = str;
-            logDebug(`at ${position + recordPos} read ${prop}='${str}'`);
+            record[prop] = trimZeroEnd(str);
+            logReadPos(prop);
             return str;
           }
 
@@ -161,7 +173,7 @@ sourcesReader
             const byte = buffer[recordPos];
             read(1);
             record[prop] = byte;
-            logDebug(`at ${position + recordPos} read ${prop}=${byte} (0x${byte.toString(16)})`);
+            logReadPos(prop);
             return byte;
           }
 
@@ -173,9 +185,9 @@ sourcesReader
             if (sign) {
               sInt = 0xFFFF0000 | sInt;  // fill in most significant bits with 1's
             }
-            logDebug(`at ${position + recordPos} read ${prop}=${sInt} (0x${sInt.toString(16)})`);
-            read(2);
             record[prop] = sInt;
+            read(2);
+            logReadPos(prop);
             return sInt;
           }
 
@@ -232,7 +244,7 @@ sourcesReader
           flags += (record.flags >> 2) & 3;
           flags += record.flags & 3;
 
-          let otherFlags = (record.otherFlags >> 4) + ':' + (record.otherFlags & 0xF);
+          let otherFlags = (record.otherFlags >> 4).toString(16) + ':' + (record.otherFlags & 0xF).toString(16);
 
           let recordIndex = position / recordSize;
           let desc = '\nRecord #' + recordIndex + '\n- Title       : ' + record.title + '\n' +
@@ -300,8 +312,8 @@ sourcesReader
           }
         }
         //const recordEnumerator = new DefaultRecordEnumerator();
-        //const recordEnumerator = new MaxCountRecordEnumerator(18000);
-        const recordEnumerator = new ArrayRecordEnumerator([2, 61, 63]);
+        //const recordEnumerator = new MaxCountRecordEnumerator(40);
+        const recordEnumerator = new ArrayRecordEnumerator([0]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
@@ -311,7 +323,7 @@ sourcesReader
           console.log(recordDesc(record));
           recordEnumerator.next();
         }
-        console.log('\nRead ' + count + ' reports.');
+        console.log(`\nRead ${count} reports.`);
         fs.close(fd);
       });
     });
