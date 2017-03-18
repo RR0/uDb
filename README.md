@@ -17,6 +17,9 @@ If no files are specified, it will look for `usources.txt` as a source file, and
 
 This will display the decoded records, like below (just 10 first records listed here):
 
+    Reading world map:
+    Read 12127 WM records.
+
     Reading sources:
     - 253 primary references
     - 43 newspapers and footnotes

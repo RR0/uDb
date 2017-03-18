@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const sourcesFile = process.argv[2] || 'usources.txt';
 const dataFile = process.argv[3] || 'U.RND';
-const worldMap = process.argv[4] || 'VM.VCE';
+const worldMap = process.argv[4] || 'WM.VCE';
 
 const primaryReferences = {};
 const newspapersAndFootnotes = {};
@@ -11,7 +11,7 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
-const DEBUG = false;
+const DEBUG = true;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
@@ -26,7 +26,29 @@ function trimZeroEnd(str) {
 }
 
 fs.open(worldMap, 'r', function (status, fd) {
-
+  console.log('Reading world map:');
+  if (status) {
+    console.log(status.message);
+    return;
+  }
+  fs.fstat(fd, function (err, stats) {
+    const fileSize = stats.size;
+    let position = 0;
+    let recordSize = 6;
+    let count = 0;
+    const buffer = new Buffer(recordSize);
+    while (position < fileSize) {
+      if ((position + recordSize) > fileSize) {
+        let recordSize = fileSize - position;
+        logDebug('last recordSize=' + recordSize);
+      }
+      fs.readSync(fd, buffer, 0, recordSize, position);
+      //console.log('  ' + buffer.toString('hex'));
+      count++;
+      position += recordSize;
+    }
+    console.log(`Read ${count} WM records.\n`)
+  });
 });
 
 const sourcesReader = require('readline').createInterface({
@@ -350,8 +372,8 @@ sourcesReader
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(10);
-        //const recordEnumerator = new ArrayRecordEnumerator([18119, 18120]);
+        // const recordEnumerator = new MaxCountRecordEnumerator(10);
+        const recordEnumerator = new ArrayRecordEnumerator([1996]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
