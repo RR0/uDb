@@ -1,6 +1,6 @@
 # \*U* database reader
 
-This is a [node](https://nodejs.org) application to binary data file of the now-defunct the [\*U* database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
+This is a [node](https://nodejs.org) application to binary data file of the now-defunct the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
 
 ## Setup
 
@@ -10,7 +10,7 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
 
     node udb.js [<sources file>] [<data file>]
 
-will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
+If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
 
 This will display the decoded records, like below (just 10 first records listed here):
 
@@ -156,8 +156,8 @@ the structure of a record is:
 -   3 (0x03) : Sighting month (1 byte)
 -   4 (0x04) : Sighting day (1 byte)
 -   5 (0x05) : Sighting hour (1 byte) encoded as:
-  - hour: `value / 6`
-  - minutes: remainder/modulo `value % 6` * 10 minutes
+    - hour: `value / 6`
+    - minutes: remainder/modulo `value % 6` * 10 minutes
 -   6 (0x06) : `3333` Flags (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
 -   7 (0x07) : Sighting duration in minutes (1 byte)
 -   8-17 : TODO (lat/long?)
