@@ -10,7 +10,7 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
-const DEBUG = true;
+const DEBUG = false;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
@@ -312,8 +312,8 @@ sourcesReader
           }
         }
         //const recordEnumerator = new DefaultRecordEnumerator();
-        //const recordEnumerator = new MaxCountRecordEnumerator(40);
-        const recordEnumerator = new ArrayRecordEnumerator([0, 1]);
+        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        //const recordEnumerator = new ArrayRecordEnumerator([0, 1]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
