@@ -158,7 +158,7 @@ A part from the first (#0) and last records which are system ones,
 the structure of a record is:
 
 -   0 (0x00) : Sighting year (1 signed word/2 bytes)
--   2 (0x02) : Location kind code (1 byte) (see locations table below)
+-   2 (0x02) : Locale code (1 byte) (see locales table below)
 -   3 (0x03) : Sighting month (1 byte)
 -   4 (0x04) : Sighting day (1 byte): 32 if unknown.
 -   5 (0x05) : Sighting hour (1 byte) encoded as:
@@ -179,7 +179,7 @@ the structure of a record is:
 - 111 (0x6f) Position in source (1 byte) but [not complete](https://github.com/RR0/uDb/issues/3)
 - 112 (0x70) `X:Y` flags (1 byte), encoded as two hex chars (4 bits:4 bits)
 
-### Location kinds
+### Locales
 
 0. Metropolis
 1. Residential
