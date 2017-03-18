@@ -160,13 +160,13 @@ the structure of a record is:
     - minutes: remainder/modulo `value % 6` * 10 minutes
 -   6 (0x06) : `3333` Flags (1 byte) encoded as 4 * 2 bits (each encoding a value between 0 and 3)
 -   7 (0x07) : Sighting duration in minutes (1 byte)
--   8-17 : TODO (lat/long?)
+-   8-17 : TODO ([lat/long](https://github.com/RR0/uDb/issues/2)?)
 -  18 (0x12) : Country code (1 byte) (see countries table below)
 -  19 (0x13) Area code (3 chars)
--  23-30 : TODO (lat/long?)
+-  23-30 : TODO ([lat/long](https://github.com/RR0/uDb/issues/2)?)
 - 109 (0x6d) Description (78 chars) as `:`-separated rows.
 - 110 (0x6e) Source code (1 byte) (see `usources.txt` file) 
-- 111 (0x6f) Position in source (1 byte)
+- 111 (0x6f) Position in source (1 byte) but [not complete](https://github.com/RR0/uDb/issues/3)
 - 112 (0x70) `X:Y` flags (1 byte), encoded as two hex chars (4 bits:4 bits)
 
 ### Location kinds
@@ -194,6 +194,8 @@ the structure of a record is:
 20. Road + rails
 
 ### Countries
+
+Still [to be completed](https://github.com/RR0/uDb/issues/1):
 
 -   2 : USA
 -  20 : Argentina
