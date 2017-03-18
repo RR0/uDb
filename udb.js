@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const sourcesFile = process.argv[2] || 'usources.txt';
 const dataFile = process.argv[3] || 'U.RND';
+const worldMap = process.argv[4] || 'VM.VCE';
 
 const primaryReferences = {};
 const newspapersAndFootnotes = {};
@@ -23,6 +24,10 @@ function trimZeroEnd(str) {
   }
   return str;
 }
+
+fs.open(worldMap, 'r', function (status, fd) {
+
+});
 
 const sourcesReader = require('readline').createInterface({
   input: require('fs').createReadStream(sourcesFile)
@@ -229,45 +234,73 @@ sourcesReader
           return bufferToRecord(buffer);
         }
 
-        function recordDesc(record) {
-          const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
-          let hours = Math.floor(record.hour / 6);
-          let minutes = (record.hour % 6) * 10;
-          let hour = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
-          let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
-          let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
-          let month = (record.month < 10 ? '0' : '') + record.month;
-
-          let flags = '';
-          flags += (record.flags >> 6) & 3;
-          flags += (record.flags >> 4) & 3;
-          flags += (record.flags >> 2) & 3;
-          flags += record.flags & 3;
-
-          let otherFlags = (record.otherFlags >> 4).toString(16) + ':' + (record.otherFlags & 0xF).toString(16);
-
-          let recordIndex = position / recordSize;
-          let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-              '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
-              '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
-              '  Description : ' + (record.description ? record.description : '') + '\n'
-            ;
-          if (record.description2) {
-            desc += '                ' + record.description2 + '\n';
+        class CsvRecordWriter {
+          constructor(separator, output) {
+            this.separator = separator;
+            this.output = output;
+            output.write('Country code,Source code,Source position\n');
           }
-          if (record.description3) {
-            desc += '                ' + record.description3 + '\n';
+
+          desc(record) {
+            return record.countryCode + this.separator +
+              record.ref + this.separator +
+              record.refIndex;
           }
-          if (record.description4) {
-            desc += '                ' + record.description4 + '\n';
+
+          write(record) {
+            this.output.write(this.desc(record) + '\n');
           }
-          desc += '  Duration    : ' + record.duration + ' mn\n';
-          desc += '  Flags       : ' + flags + '\n';
-          desc += '  Other flags : ' + otherFlags + '\n';
-          ref = record.ref ? primaryReferences[record.ref] : '';
-          desc += '  Source      : ' + ref + '\n'
-            + '                at index #' + record.refIndex;
-          return desc;
+        }
+
+        class HumanRecordWriter {
+          constructor(output) {
+            this.output = output;
+          }
+
+          desc(record) {
+            const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
+            let hours = Math.floor(record.hour / 6);
+            let minutes = (record.hour % 6) * 10;
+            let hour = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+            let locationKind = (locationKinds[record.locationKind] ? locationKinds[record.locationKind] : 'locationKind#' + record.locationKind);
+            let day = (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day);
+            let month = (record.month < 10 ? '0' : '') + record.month;
+            const ref = record.ref ? primaryReferences[record.ref] : '';
+
+            let flags = '';
+            flags += (record.flags >> 6) & 3;
+            flags += (record.flags >> 4) & 3;
+            flags += (record.flags >> 2) & 3;
+            flags += record.flags & 3;
+
+            let otherFlags = (record.otherFlags >> 4).toString(16) + ':' + (record.otherFlags & 0xF).toString(16);
+
+            let recordIndex = position / recordSize;
+            let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
+                '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
+                '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+                '  Description : ' + (record.description ? record.description : '') + '\n'
+              ;
+            if (record.description2) {
+              desc += '                ' + record.description2 + '\n';
+            }
+            if (record.description3) {
+              desc += '                ' + record.description3 + '\n';
+            }
+            if (record.description4) {
+              desc += '                ' + record.description4 + '\n';
+            }
+            desc += '  Duration    : ' + record.duration + ' mn\n';
+            desc += '  Flags       : ' + flags + '\n';
+            desc += '  Other flags : ' + otherFlags + '\n';
+            desc += '  Source      : ' + ref + '\n'
+              + '                at index #' + record.refIndex;
+            return desc;
+          }
+
+          write(record) {
+            this.output.write(this.desc(record) + '\n');
+          }
         }
 
         class MaxCountRecordEnumerator {
@@ -311,6 +344,9 @@ sourcesReader
             position += recordSize;
           }
         }
+        const output = process.stdout;
+        const format = new HumanRecordWriter(output);
+        //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
         const recordEnumerator = new MaxCountRecordEnumerator(10);
         //const recordEnumerator = new ArrayRecordEnumerator([0, 1]);
@@ -320,7 +356,7 @@ sourcesReader
             logDebug('last recordSize=' + recordSize);
           }
           const record = readRecord();
-          console.log(recordDesc(record));
+          format.write(record);
           recordEnumerator.next();
         }
         console.log(`\nRead ${count} reports.`);
