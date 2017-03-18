@@ -1,6 +1,9 @@
 # \*U* UFO database reader
 
-This is a [node](https://nodejs.org) application to read binary data file of the now-defunct the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
+This is a [node](https://nodejs.org) application to read binary data file of the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
+
+As this database software can only run on old MS-DOS platforms and its maintenance has been discontinued, 
+it is important to allow users to access its data from modern platforms.
 
 ## Setup
 
@@ -154,7 +157,7 @@ the structure of a record is:
 -   0 (0x00) : Sighting year (1 signed word/2 bytes)
 -   2 (0x02) : Location kind code (1 byte) (see locations table below)
 -   3 (0x03) : Sighting month (1 byte)
--   4 (0x04) : Sighting day (1 byte)
+-   4 (0x04) : Sighting day (1 byte): 32 if unknown.
 -   5 (0x05) : Sighting hour (1 byte) encoded as:
     - hour: `value / 6`
     - minutes: remainder/modulo `value % 6` * 10 minutes
@@ -213,7 +216,7 @@ Still [to be completed](https://github.com/RR0/uDb/issues/1):
 
 ## TODO
 
-- See [issues](https://github.com/RR0/uDb/issues).
+- See [opened issues](https://github.com/RR0/uDb/issues).
 - Add non-regression tests.
 
 ## Acknowdlegments

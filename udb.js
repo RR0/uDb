@@ -247,7 +247,7 @@ sourcesReader
           let otherFlags = (record.otherFlags >> 4).toString(16) + ':' + (record.otherFlags & 0xF).toString(16);
 
           let recordIndex = position / recordSize;
-          let desc = '\nRecord #' + recordIndex + '\n- Title       : ' + record.title + '\n' +
+          let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + record.year + '/' + month + '/' + day + ' ' + hour + '\n' +
               '  Location    : ' + locationKind + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
               '  Description : ' + (record.description ? record.description : '') + '\n'
