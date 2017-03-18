@@ -31,7 +31,7 @@ the structure of a record is:
 -   8-17 : TODO (lat/long?)
 -  18 (0x12) : Country code (1 byte) (see countries table below)
 -  19 (0x13) Area code (3 chars)
--  22-108 : TODO (lat/long?)
+-  23-30 : TODO (lat/long?)
 - 109 (0x6d) Description (78 chars) as `:`-separated rows.
 - 110 (0x6e) Source code (1 byte) (see `usources.txt` file) 
 - 111 (0x6f) Position in source (1 byte)
@@ -76,3 +76,8 @@ the structure of a record is:
 - 166 : Israël
 - 170 : Lebanon
 - 178 : Moon
+
+## TODO
+
+- See [issues](https://github.com/RR0/uDb/issues).
+- Add non-regression tests.
