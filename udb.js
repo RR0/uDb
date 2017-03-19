@@ -17,6 +17,36 @@ function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
 }
 
+function getDms(val) {
+  val = Math.abs(val);
+
+  let valDeg = Math.floor(val);
+  let valMin = Math.floor((val - valDeg) * 60);
+  let valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000;
+
+  if (valSec >= 60) {
+    valMin++;
+    valSec = 0;
+  }
+  if (valMin >= 60) {
+    valDeg++;
+    valMin = 0;
+  }
+  let result = valDeg + "º"; // 40º
+  result += (valMin < 10 ? '0' + valMin : valMin) + "'"; // 40º36'
+  result += (valSec < 10 ? '0' + valSec : valSec) + '"'; // 40º36'4.331"
+  return result;
+}
+function ddToDms(lat, lng) {
+  let latResult = getDms(lat) + ' ';
+  latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
+
+  let lngResult = getDms(lng) + ' ';
+  lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
+
+  return lngResult + ' ' + latResult;
+}
+
 function trimZeroEnd(str) {
   const zeroEnd = str.indexOf('\u0000');
   if (zeroEnd > 0) {
@@ -184,8 +214,11 @@ sourcesReader
             let value = record[prop];
             if (typeof value === 'string') {
               value = `'${value}'`;
+            } else {
+              value += ` (0x${value.toString(16)})`;
             }
-            logDebug(`at ${pos} (0x${pos.toString(16)}) read ${prop}=${value} (0x${value.toString(16)})`);
+            let logStr = `at ${pos} (0x${pos.toString(16)}) read ${prop}=${value}`;
+            logDebug(logStr);
           }
 
           function readString(length, prop) {
@@ -204,33 +237,48 @@ sourcesReader
             return byte;
           }
 
+          function readByteBits(prop1, size, prop2) {
+            const byte = buffer[recordPos];
+            record[prop1] = byte >> size;
+            record[prop2] = byte & ((1 << size) - 1);
+            logReadPos(prop1);
+            logReadPos(prop2);
+            read(1);
+            return byte;
+          }
+
           function readSignedInt(prop) {
-            const byteA = buffer[recordPos + 1];
-            const byteB = buffer[recordPos];
-            const sign = byteA & (1 << 7);
-            let sInt = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
-            if (sign) {
-              sInt = 0xFFFF0000 | sInt;  // fill in most significant bits with 1's
-            }
+            let sInt = buffer.readInt16LE(recordPos);
             record[prop] = sInt;
             logReadPos(prop);
             read(2);
             return sInt;
           }
 
-          function readLatLong() {
-            const degrees = 31;
-            const semiCircles = degrees * ( 2 << 31 / 180 );
+          function readLatLong(prop) {
+            let firstByte = buffer[recordPos + 1];
+            let extraBit = firstByte >> 7;
+            logDebug('extrabit=' + extraBit);
+            let sInt = readSignedInt(prop);
+            sInt = (sInt >> 1);
+            sInt = sInt / 100;
+            logDebug('orig=' + sInt);
+            record[prop] = sInt * 1.11111111111;
+            logReadPos(prop);
+            return sInt;
           }
 
           readSignedInt('year');
           readByte('locale');
-          readByte('month');
-          readByte('day');
+          readByteBits('beforeMonth', 4, 'month');
+          readByteBits('beforeDay', 5, 'day');
           readByte('hour');
           readByte('ymdt');
           readByte('duration');
-          skip(10);
+          readByte('unknown');
+          readLatLong('longitude');
+          readLatLong('latitude');
+          skip(5);
           readByte('countryCode');
           readString(3, 'area');
           skip(9);
@@ -294,6 +342,7 @@ sourcesReader
             }
             return accurateValue;
           }
+
           desc(record) {
             const country = countries[record.countryCode] ? countries[record.countryCode] : 'country#' + record.countryCode;
 
@@ -320,7 +369,7 @@ sourcesReader
             let recordIndex = position / recordSize;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
                 '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n' +
-                '  Location    : ' + locale + ', ' + record.location + ' (' + record.area + ', ' + country + ')' + '\n' +
+                '  Location    : ' + locale + ', ' + record.location + ' (' + record.area + ', ' + country + '), ' + ddToDms(record.latitude, record.longitude) + '\n' +
                 '  Description : ' + (record.description ? record.description : '') + '\n'
               ;
             if (record.description2) {
@@ -390,8 +439,8 @@ sourcesReader
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(40);
-        //const recordEnumerator = new ArrayRecordEnumerator([1996]);
+        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        //const recordEnumerator = new ArrayRecordEnumerator([182]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
