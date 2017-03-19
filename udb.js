@@ -8,6 +8,8 @@ program
   .option('-wm, --worldmap [wmFile]', 'Specify world map file. Defaults to ./WM.VCE')
   .option('-f, --from <recordIndex>', 'Specify first record to output. Defaults to 1')
   .option('-t, --to <recordIndex>', 'Specify last record to output. Defaults to end.')
+  .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
+  .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
   .parse(process.argv);
 
 const sourcesFile = program.dataFile || 'usources.txt';
@@ -176,14 +178,13 @@ sourcesReader
     const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (status, fd) {
-      let count = parseInt(program.from, 10) || 1;
-      console.log(`\nReading cases from #${count}`);
+      let recordIndex = parseInt(program.from, 10) || 0;
+      console.log(`\nReading cases from #${recordIndex}:`);
       if (status) {
         console.log(status.message);
         return;
       }
-      const recordNumber = 1;
-      let position = recordNumber * recordSize;
+      let position = recordIndex * recordSize;
 
       fs.fstat(fd, function (err, stats) {
         const fileSize = stats.size;
@@ -225,7 +226,7 @@ sourcesReader
             if (typeof value === 'string') {
               value = `'${value}'`;
             } else {
-              value += ` (0x${value.toString(16)})`;
+              value += ` (0x${value.toString(16)}, ${value.toString(2)})`;
             }
             let logStr = `at ${pos} (0x${pos.toString(16)}) read ${prop}=${value}`;
             logDebug(logStr);
@@ -292,7 +293,15 @@ sourcesReader
           skip(1);
           readByte('countryCode');
           readString(3, 'area');
-          skip(9);
+          skip(1);
+          readByte('locationFlags');
+          readByte('miscellaneousFlags');
+          readByte('typeOfUfoCraftFlags');
+          readByte('aliensMonstersFlags');
+          readByte('apparentUfoOccupantActivitiesFlags');
+          readByte('placesVisitedAndThingsAffectedFlags');
+          readByte('evidenceAndSpecialEffectsFlags');
+          readByte('miscellaneousDetailsFlags');
           readString(78, 'description');
           const split = record.description.split(':');
           record.location = split[0];
@@ -381,24 +390,184 @@ sourcesReader
             let elevation = record.elevation !== -99 ? record.elevation : null;
             let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-                '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n' +
-                '  Location    : ' + locale + ', '
-                + record.location
-                + ' (' + record.area + ', ' + country + '), '
-                + ddToDms(record.latitude, record.longitude) + '\n' +
-                (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
-                  + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n' +
-                  '  Description : ' + (record.description ? record.description : '') + '\n') : '')
-              ;
+              '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n';
+            let locationStr = '  Location    : ' + locale + ', '
+              + record.location
+              + ' (' + record.area + ', ' + country + '), '
+              + ddToDms(record.latitude, record.longitude) + '\n' +
+              (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
+                + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n') : '');
+
+            function flagsStr(flagsByte, flagsLabels) {
+              let flagsStr = '';
+              let byte = flagsByte;
+              let keys = Object.keys(flagsLabels);
+              for (let i = 0; i < 8; i++) {
+                const bit = byte & 1;
+                if (bit) {
+                  let key = keys[i];
+                  flagsStr += '                - ' + key + ': ' + flagsLabels[key] + '\n';
+                }
+                byte = byte >> 1;
+              }
+              return flagsStr;
+            }
+
+            /**
+             * Location of the OBSERVER.
+             * @type {{MAP: string, GND: string, CST: string, SEA: string, AIR: string, MIL: string, CIV: string, HQO: string}}
+             */
+            const locationFlagsLabels = {
+              MAP: 'Coordinates are known.  OK to place event on screen maps.',
+              GND: 'At least ONE observer (or radar) was on land.',
+              CST: 'Sighting in coastal area, possibly just offshore.',
+              SEA: 'Sighting was at sea, typically from some marine craft.',
+              AIR: 'Airborne observer.  Observer aboard aircraft.',
+              MIL: 'At least ONE observer was military.',
+              CIV: 'At least ONE observer was civilian',
+              HQO: 'High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.',
+            };
+            locationStr += '                Observer:\n' + flagsStr(record.locationFlags, locationFlagsLabels);
+
+            let descriptionStr = '  Description : ' + (record.description ? record.description : '') + '\n';
             if (record.description2) {
-              desc += '                ' + record.description2 + '\n';
+              descriptionStr += '                ' + record.description2 + '\n';
             }
             if (record.description3) {
-              desc += '                ' + record.description3 + '\n';
+              descriptionStr += '                ' + record.description3 + '\n';
             }
             if (record.description4) {
-              desc += '                ' + record.description4 + '\n';
+              descriptionStr += '                ' + record.description4 + '\n';
             }
+            /**
+             * Miscellaneous details and features.
+             * @type {{SCI: string, TLP: string, NWS: string, MID: string, HOX: string, CNT: string, ODD: string, WAV: string}}
+             */
+            const miscellaneousFlagsLabels = {
+              SCI: 'A scientist was involved, as an observer or investigator. Also, Scientific testing of traces or effects of sighting.',
+              TLP: '"Telepathy":  Silent or voiceless communication.',
+              NWS: 'Report from the news media, or else "sighting made the news".',
+              MID: 'Likely Mis-IDentification of mundane object: (Venus, rocket..)',
+              HOX: 'Suspicion or indications of a HOAX, journalistic prank etc.',
+              CNT: 'Contactee:  Reports from would-be cult leaders -or- repeat "witnesses" with trite and predictable "messages for mankind".',
+              ODD: 'Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.',
+              WAV: 'Wave or Cluster of UFO sightings.  Sighting is part of a wave.'
+            };
+            let miscFlagsStr = flagsStr(record.miscellaneousFlags, miscellaneousFlagsLabels);
+            if (miscFlagsStr) {
+              descriptionStr += '                Miscellaneous details and features:\n' + miscFlagsStr;
+            }
+            /**
+             * Type of UFO / Craft
+             * @type {{SCR: string, CIG: string, DLT: string, NLT: string, PRB: string, FBL: string, SUB: string, NFO: string}}
+             */
+            const typeOfUfoCraftLabels = {
+              SCR: 'Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.',
+              CIG: 'Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)',
+              DLT: 'Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.',
+              NLT: 'Nightlights:  Points of light with no discernable shape.',
+              PRB: 'Probe:  Small weird object maneuvers.  Remote controlled craft?',
+              FBL: 'Fireball:  Blazing undistinguished form.  Possible meteors etc.',
+              SUB: 'Submersible: UFO rises from, or submerges into a body of water.',
+              NFO: 'No UFO Craft actually SEEN.  (Not necessarily absent..)'
+            };
+            let typeOfUfoCraftStr = flagsStr(record.typeOfUfoCraftFlags, typeOfUfoCraftLabels);
+            if (typeOfUfoCraftStr) {
+              descriptionStr += '                Type of UFO / Craft:\n' + typeOfUfoCraftStr;
+            }
+            /**
+             * Aliens!  Monsters! ( sorry, no religious figures. )
+             * @type {{OID: string, RBT: string, PSH: string, MIB: string, MON: string, GNT: string, FIG: string, NOC: string}}
+             */
+            const aliensMonstersLabels = {
+              OID: 'Humanoid: Smallish alien figure, often "grey".',
+              RBT: 'Possible Robot:  May resemble "Grey".  Mechanical motions.',
+              PSH: '1) Pseudo-Human: Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.',
+              MIB: 'Man-in-Black: 1) PSH impersonating humans. 2) Mysterious man who tries to suppress UFO reports.',
+              MON: 'Monster:  Apparent life form fits no standard category.',
+              GNT: 'Giant:    Apparent alien larger than most humans.',
+              FIG: 'Undefined or poorly seen "figure" or entity.  A shadow.',
+              NOC: 'No entity / occupant seen by observer(s).'
+            };
+            let aliensMonstersStr = flagsStr(record.aliensMonstersFlags, aliensMonstersLabels);
+            if (aliensMonstersStr) {
+              descriptionStr += '                Aliens! Monsters! (sorry, no religious figures):\n' + aliensMonstersStr;
+            }
+            /**
+             * Apparent UFO/Occupant activities.
+             * @type {{OBS: string, RAY: string, SMP: string, MST: string, ABD: string, OPR: string, SIG: string, CVS: string}}
+             */
+            const apparentUfoOccupantActivitiesLabels = {
+              OBS: 'Observation: Surveillance.  Chasing/pacing vehicles.',
+              RAY: 'Odd light RAY, searchlight or visible beam.  Anything laserlike.',
+              SMP: 'Sampling: Plant, animal, soil, rock, tissue or other specimens.',
+              MST: 'Missing Time: Unexplained time-lapse or other time anomaly.',
+              ABD: 'Known/suspected human abduction.  Animals also if taken whole.',
+              OPR: 'Operations on humans.  Animal Mutilation.  Any invasive surgery.',
+              SIG: 'ANY indication of possible signals to, from, between UFOs or their occupants;  -or- responses to human signals.',
+              CVS: 'Conversation: ANY communication between "us" and "them"'
+            };
+            let apparentUfoOccupantActivitiesStr = flagsStr(record.apparentUfoOccupantActivitiesFlags, apparentUfoOccupantActivitiesLabels);
+            if (apparentUfoOccupantActivitiesStr) {
+              descriptionStr += '                Apparent UFO/Occupant activities:\n' + apparentUfoOccupantActivitiesStr;
+            }
+            /**
+             * Places visited and things affected.
+             * @type {{NUC: string, DRT: string, VEG: string, ANI: string, HUM: string, VEH: string, BLD: string, LND: string}}
+             */
+            const placesVisitedAndThingsAffectedLabels = {
+              NUC: 'Any nuclear facility: Power plant.  Military.  Research facility.',
+              DRT: 'Dirt affected: Traces in soil: landing marks, footprints etc.',
+              VEG: 'Plants affected or sampled.  Broken tree limbs.  Crop circles.',
+              ANI: 'Animals affected: Panic. Change of behavior. Injuries. Marks.',
+              HUM: 'Human affected: Injury. burns. marks. psychology. abduction. death.',
+              VEH: 'Vehicle affected: Marks, burns, electro-magnetic (EME) effects.',
+              BLD: 'Building or ANY MANMADE STRUCTURE: Roads, Bridges, Power lines..',
+              LND: 'Apparent Landing.  UFO (or any part thereof) sets down.'
+            };
+            let placesVisitedAndThingsAffectedStr = flagsStr(record.placesVisitedAndThingsAffectedFlags, placesVisitedAndThingsAffectedLabels);
+            if (apparentUfoOccupantActivitiesStr) {
+              descriptionStr += '                Places visited and things affected:\n' + placesVisitedAndThingsAffectedStr;
+            }
+            /**
+             * Evidence and special effects
+             * @type {{PHT: string, RDR: string, RDA: string, EME: string, TRC: string, TCH: string, HST: string, INJ: string}}
+             */
+            const evidenceAndSpecialEffectsLabels = {
+              PHT: 'Photos, movies or videos taken of UFO and related phenomena.',
+              RDR: 'Anomalous Radar traces/blips corresponding to UFO sightings.',
+              RDA: 'Radiation or high energy fields detected during or after sighting.',
+              EME: 'Electro-Magnetic Effect: Car, radio, lights, instruments.',
+              TRC: 'Physical traces discovered ( most any variety. )',
+              TCH: 'NEW Technical details.  Clues to alien technology.',
+              HST: 'Historical account OR sighting makes history.',
+              INJ: 'Wounds, scars, burns etc. as apparent result of close encounter. Resulting illness or death. Mutilations.'
+            };
+            let evidenceAndSpecialEffectsStr = flagsStr(record.evidenceAndSpecialEffectsFlags, evidenceAndSpecialEffectsLabels);
+            if (evidenceAndSpecialEffectsStr) {
+              descriptionStr += '                Evidence and special effects:\n' + evidenceAndSpecialEffectsStr;
+            }
+            /**
+             * Miscellaneous details
+             * @type {{MIL: string, BBK: string, GSA: string, OGA: string, SND: string, ODR: string, COV: string, CMF: string}}
+             */
+            const miscellaneousDetailsLabels = {
+              MIL: 'Military investigation: Covert or open, foreign or domestic.',
+              BBK: 'US Air Force BLUEBOOK case, regardless of finding.',
+              GSA: 'Government Security Agency involvement: FBI, CIA, NSA, NRO, covert security arms of other agencies, foreign & domestic.',
+              OGA: 'Other Government Agencies: Police, FAA, NASA, non-covert agency involvement in any way.',
+              SND: 'UFO sounds heard or recorded.',
+              ODR: 'ODORS associated with UFOs, or given off by them.',
+              COV: 'Any indication of official Coverup.  Not simple incompetence.',
+              CMF: 'Camouflage:  Apparent attempt of UFO or alien to hide or disguise itself or its operations in any way:  Cloud cigars, flying buses or haystacks,  false scenery or settings..'
+            };
+            let miscellaneousDetailsStr = flagsStr(record.miscellaneousDetailsFlags, miscellaneousDetailsLabels);
+            if (miscellaneousDetailsStr) {
+              descriptionStr += '                Miscellaneous details:\n' + miscellaneousDetailsStr;
+            }
+
+            desc += locationStr;
+            desc += descriptionStr;
             desc += '  Duration    : ' + record.duration + ' min\n';
             desc += '  Strangeness : ' + strangeness + '\n';
             desc += '  Credibility : ' + credibility + '\n';
@@ -412,16 +581,19 @@ sourcesReader
           }
         }
 
+        let count = 0;
         class MaxCountRecordEnumerator {
           constructor(maxCount) {
-            position = count * recordSize;
+            position = recordIndex * recordSize;
             this.maxCount = maxCount;
           }
+
           hasNext() {
             return count < this.maxCount;
           }
+
           next() {
-            count++;
+            recordIndex++;
             position += recordSize;
           }
         }
@@ -429,35 +601,42 @@ sourcesReader
         class ArrayRecordEnumerator {
           constructor(recordsIndexes) {
             this.recordsIndexes = recordsIndexes;
-            position = recordsIndexes[count] * recordSize;
+            position = recordsIndexes[recordIndex] * recordSize;
           }
+
           hasNext() {
-            return count < this.recordsIndexes.length;
+            return recordIndex < this.recordsIndexes.length;
           }
+
           next() {
-            count++;
-            position = this.recordsIndexes[count] * recordSize;
+            recordIndex++;
+            position = this.recordsIndexes[recordIndex] * recordSize;
           }
         }
 
         class DefaultRecordEnumerator {
-          constructor(records) {
-            position = count * recordSize;
+          constructor() {
+            position = recordIndex * recordSize;
           }
+
           hasNext() {
             return position < fileSize;
           }
+
           next() {
-            count++;
+            recordIndex++;
             position += recordSize;
           }
         }
         const output = process.stdout;
+
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
-        const recordEnumerator = new DefaultRecordEnumerator();
-        // const recordEnumerator = new MaxCountRecordEnumerator(10);
+
+        //const recordEnumerator = new DefaultRecordEnumerator();
+        const recordEnumerator = new MaxCountRecordEnumerator(10);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
+
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
@@ -466,6 +645,7 @@ sourcesReader
           const record = readRecord();
           format.write(record);
           recordEnumerator.next();
+          count++;
         }
         console.log(`\nRead ${count} reports.`);
         fs.close(fd);
