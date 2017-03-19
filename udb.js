@@ -377,7 +377,7 @@ sourcesReader
                 + record.location
                 + ' (' + record.area + ', ' + country + '), '
                 + ddToDms(record.latitude, record.longitude) + '\n' +
-                (elevation || relativeAltitude ? ('              : ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
+                (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
                   + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n' +
                   '  Description : ' + (record.description ? record.description : '') + '\n') : '')
               ;
