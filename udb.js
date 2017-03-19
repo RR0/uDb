@@ -1,8 +1,18 @@
 const fs = require('fs');
+const program = require('commander');
 
-const sourcesFile = process.argv[2] || 'usources.txt';
-const dataFile = process.argv[3] || 'U.RND';
-const worldMap = process.argv[4] || 'WM.VCE';
+program
+  .version('0.0.1')
+  .option('-d, --data [dataFile]', 'Specify data file. Defaults to ./U.RND')
+  .option('-s, --sources [sourcesFile]', 'Specify sources file. Defaults to ./usources.txt')
+  .option('-wm, --worldmap [wmFile]', 'Specify world map file. Defaults to ./WM.VCE')
+  .option('-f, --from <recordIndex>', 'Specify first record to output. Defaults to 1')
+  .option('-t, --to <recordIndex>', 'Specify last record to output. Defaults to end.')
+  .parse(process.argv);
+
+const sourcesFile = program.dataFile || 'usources.txt';
+const dataFile = program.sourcesFIle || 'U.RND';
+const worldMap = program.wmFile || 'WM.VCE';
 
 const primaryReferences = {};
 const newspapersAndFootnotes = {};
@@ -11,7 +21,7 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
-const DEBUG = false;
+const DEBUG = true;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
@@ -166,7 +176,8 @@ sourcesReader
     const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (status, fd) {
-      console.log('\nReading cases:');
+      let count = parseInt(program.from, 10) || 1;
+      console.log(`\nReading cases from #${count}`);
       if (status) {
         console.log(status.message);
         return;
@@ -178,7 +189,6 @@ sourcesReader
         const fileSize = stats.size;
         // logDebug('File size=' + fileSize);
 
-        let count = 0;
         let recordPos;
         let recordHex;
         let recordRead;
@@ -262,9 +272,8 @@ sourcesReader
             let sInt = readSignedInt(prop);
             sInt = (sInt >> 1);
             sInt = sInt / 100;
-            logDebug('orig=' + sInt);
+            // logDebug('orig=' + sInt);
             record[prop] = sInt * 1.11111111111;
-            logReadPos(prop);
             return sInt;
           }
 
@@ -405,13 +414,12 @@ sourcesReader
 
         class MaxCountRecordEnumerator {
           constructor(maxCount) {
+            position = count * recordSize;
             this.maxCount = maxCount;
           }
-
           hasNext() {
             return count < this.maxCount;
           }
-
           next() {
             count++;
             position += recordSize;
@@ -419,26 +427,26 @@ sourcesReader
         }
 
         class ArrayRecordEnumerator {
-          constructor(records) {
-            this.records = records;
-            position = records[count] * recordSize;
+          constructor(recordsIndexes) {
+            this.recordsIndexes = recordsIndexes;
+            position = recordsIndexes[count] * recordSize;
           }
-
           hasNext() {
-            return count < this.records.length;
+            return count < this.recordsIndexes.length;
           }
-
           next() {
             count++;
-            position = this.records[count] * recordSize;
+            position = this.recordsIndexes[count] * recordSize;
           }
         }
 
         class DefaultRecordEnumerator {
+          constructor(records) {
+            position = count * recordSize;
+          }
           hasNext() {
             return position < fileSize;
           }
-
           next() {
             count++;
             position += recordSize;
@@ -447,8 +455,8 @@ sourcesReader
         const output = process.stdout;
         const format = new HumanRecordWriter(output);
         //const format = new CsvRecordWriter(',',output);
-        //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        const recordEnumerator = new DefaultRecordEnumerator();
+        // const recordEnumerator = new MaxCountRecordEnumerator(10);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {

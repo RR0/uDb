@@ -232,8 +232,8 @@ Still [to be completed](https://github.com/RR0/uDb/issues/1):
 
 First I would like to thank Larry Hatch for his invaluable work in building this huge quality database.
 
-Also I would like to thank _EvillerBob_ for his own work on decoding the database. 
-Notably he helped me [localizing the latitude/longitude bytes](http://www.abovetopsecret.com/forum/thread585935/pg8#pid22029387) and corrected some wrong interpretations I made.
+Also I would like to thank several contributors (_EvillerBob_, _nablator_, _harpysounds_) of an ATS thread for their own analysis of the binary format. 
+Notably, they helped [localizing the latitude/longitude bytes](http://www.abovetopsecret.com/forum/thread585935/pg8#pid22029387) and corrected some wrong interpretations I made.
 
 Last but not least, I want to thank [Isaac Koi](http://www.isaackoi.com) for his restless efforts in collecting and sharing UFO data with the permission of their owners.
 This work could not have been possible without him, who managed to run the old software, perform an textual export of the data, 
