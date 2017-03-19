@@ -34,7 +34,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : EZEKIEL
       Date        : -593/?/?, ?
       Location    : Pasture, CHALDEA (CHL, Irak), 46º10'00" E 31º00'00" N
-                  : Elevation 200 m
+                    Elevation 200 m
       Description : FIERY SPHERE LANDS/4 SUPPORTS
                     TAKEN FOR A RIDE
                     see Bible acct.
@@ -48,7 +48,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : SIEGE/ALEXANDER the GREAT
       Date        : -322/?/?, ?
       Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon), 35º13'20" E 33º16'00" N
-                  : Elevation 20 m, relative altitude 100 m
+                    Elevation 20 m, relative altitude 100 m
       Description : FLYING SHIELD BEAMS
                     WALLS CRUMBLE
       Duration    : 3 min
@@ -72,7 +72,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : SPECTACULAR FLEET OF SHIPS IN AIR
       Date        : -170/?/?, ?
       Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy), 12º38'40" E 41º44'00" N
-                  : Elevation 384 m
+                    Elevation 384 m
       Description : NFD
       Duration    : 2 min
       Strangeness : 6
