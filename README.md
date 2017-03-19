@@ -34,6 +34,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : EZEKIEL
       Date        : -593/?/?, ?
       Location    : Pasture, CHALDEA (CHL, Irak), 46º10'00" E 31º00'00" N
+                  : Elevation 200 m
       Description : FIERY SPHERE LANDS/4 SUPPORTS
                     TAKEN FOR A RIDE
                     see Bible acct.
@@ -47,6 +48,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : SIEGE/ALEXANDER the GREAT
       Date        : -322/?/?, ?
       Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon), 35º13'20" E 33º16'00" N
+                  : Elevation 20 m, relative altitude 100 m
       Description : FLYING SHIELD BEAMS
                     WALLS CRUMBLE
       Duration    : 3 min
@@ -59,7 +61,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : 'ALTAR' IN SKY
       Date        : -213/?/?, 
       Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy), 11º16'00" E 43º58'40" N
-      Description : MAN IN WHITE
                     12 SUCH BETWEEN 222 AND 90 B.C.
       Duration    : 15 min
       Strangeness : 8
@@ -71,6 +72,7 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : SPECTACULAR FLEET OF SHIPS IN AIR
       Date        : -170/?/?, ?
       Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy), 12º38'40" E 41º44'00" N
+                  : Elevation 384 m
       Description : NFD
       Duration    : 2 min
       Strangeness : 6
@@ -82,7 +84,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : MANY OBS
       Date        : 70/05/21, ~18:00
       Location    : Pasture, PALESTINE (UNK, Israël), 35º14'00" E 31º46'00" N
-      Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
                     LOUD NOISES LATER
       Duration    : 60 min
       Strangeness : 7
@@ -94,7 +95,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'
       Date        : 840/?/?, 
       Location    : Town & city, LYON,FRANCE (RHN, France), 4º52'00" E 45º44'40" N
-      Description : they admitted flying
       Duration    : 20 min
       Strangeness : 10
       Credibility : 4
@@ -105,7 +105,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
       Date        : 927/~03/?, 
       Location    : Town & city, VERDUN,FR (MSE, France), 5º21'20" E 49º08'40" N
-      Description : 
       Duration    : 15 min
       Strangeness : 3
       Credibility : 7
@@ -116,7 +115,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : UNUSUALLY BRIGHT SCRS FLY
       Date        : 989/08/03, 
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan), 139º50'00" E 35º40'00" N
-      Description : THEN JOIN TOGETHER
                     TIME UNKNOWN.   
       Duration    : 15 min
       Strangeness : 6
@@ -128,7 +126,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : 2 SPHERES HVR
       Date        : 1015/08/23, ?
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan), 139º48'00" E 35º38'00" N
-      Description : 2 SML OBJs EXIT..1 smokes
                     NFD
                     /SOBEPS IFS#23 p35
       Duration    : 15 min
@@ -141,7 +138,6 @@ This will display the decoded records, like below (just 10 first records listed 
       Title       : FIERY OVOID >>SE TURNS >>W
       Date        : 1034/?/?, ?
       Location    : Farmlands, nr VERDUN,FR (MSE, France), 5º20'00" E 49º04'40" N
-      Description : /VERDUN MUSEUM /SOBEPS IFS#23 p35
       Duration    : 15 min
       Strangeness : 6
       Credibility : 6
@@ -174,7 +170,9 @@ the structure of a record is:
 -   8 (0x08) : ?
 -   9 : Longitude (15 lower bits of signed word / 1.11111)
 -  11 : Latitude (15 lower bits of signed word / 1.11111) 
--  12-17 : ?
+-  13 (0x  ) : Elevation (1 signed word) in meters (-99 if N/A)
+-  15 (0x  ) : Relative altitude (1 signed word) in meters (999 if N/A)
+-  17 (0x  ) : ?
 -  18 (0x12) : Country code (1 byte) (see countries table below)
 -  19 (0x13) Area code (3 chars)
 -  23-30 : ?

@@ -278,7 +278,9 @@ sourcesReader
           readByte('unknown');
           readLatLong('longitude');
           readLatLong('latitude');
-          skip(5);
+          readSignedInt('elevation');
+          readSignedInt('relativeAltitude');
+          skip(1);
           readByte('countryCode');
           readString(3, 'area');
           skip(9);
@@ -367,10 +369,17 @@ sourcesReader
             let credibility = record.strangenessAndCredibility & 0xF;
 
             let recordIndex = position / recordSize;
+            let elevation = record.elevation !== -99 ? record.elevation : null;
+            let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
                 '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n' +
-                '  Location    : ' + locale + ', ' + record.location + ' (' + record.area + ', ' + country + '), ' + ddToDms(record.latitude, record.longitude) + '\n' +
-                '  Description : ' + (record.description ? record.description : '') + '\n'
+                '  Location    : ' + locale + ', '
+                + record.location
+                + ' (' + record.area + ', ' + country + '), '
+                + ddToDms(record.latitude, record.longitude) + '\n' +
+                (elevation || relativeAltitude ? ('              : ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
+                  + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n' +
+                  '  Description : ' + (record.description ? record.description : '') + '\n') : '')
               ;
             if (record.description2) {
               desc += '                ' + record.description2 + '\n';
@@ -440,7 +449,7 @@ sourcesReader
         //const format = new CsvRecordWriter(',',output);
         //const recordEnumerator = new DefaultRecordEnumerator();
         const recordEnumerator = new MaxCountRecordEnumerator(10);
-        //const recordEnumerator = new ArrayRecordEnumerator([182]);
+        //const recordEnumerator = new ArrayRecordEnumerator([18121]);
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
