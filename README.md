@@ -11,7 +11,22 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
 
 ## Usage
 
-    node udb.js [<sources file>] [<data file>]
+    node udb [options]
+    
+      Options:
+    
+        -h, --help                                 output usage information
+        -V, --version                              output the version number
+        -d, --data [dataFile]                      Specify data file. Defaults to ./U.RND
+        -s, --sources [sourcesFile]                Specify sources file. Defaults to ./usources.txt
+        -wm, --worldmap [wmFile]                   Specify world map file. Defaults to ./WM.VCE
+        -i, --interval <fromIndex>..<toIndex>      Specify first record to output. Defaults to 1
+        -r, --records <recordsIndexes>             Specify a list of indexes of records to output.
+        -c, --count <maxCount>                     Specify the maximim number of records to output.
+        -f, --format <default|csv> [csvSeparator]  The format of the output
+        -o, --output <outputFile>                  The name of the file to output. Will output as CSV if file extension is .csv
+        -v, --verbose                              Displayed detailed processing information.
+        --debug                                    Displays debug info.
 
 If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
 
