@@ -6,15 +6,19 @@ program
   .option('-d, --data [dataFile]', 'Specify data file. Defaults to ./U.RND')
   .option('-s, --sources [sourcesFile]', 'Specify sources file. Defaults to ./usources.txt')
   .option('-wm, --worldmap [wmFile]', 'Specify world map file. Defaults to ./WM.VCE')
-  .option('-f, --from <recordIndex>', 'Specify first record to output. Defaults to 1')
-  .option('-t, --to <recordIndex>', 'Specify last record to output. Defaults to end.')
+  .option('-i, --interval <fromIndex>..<toIndex>', 'Specify first record to output. Defaults to 1')
   .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
+  .option('-f, --format <default|csv> [csvSeparator]', 'The format of the output')
+  .option('-o, --output <outputFile>', 'The name of the file to output. Will output as CSV if file extension is .csv')
+  .option('-v, --verbose', 'Displayed detailed processing information.')
+  .option('--debug', 'Displays debug info.')
   .parse(process.argv);
 
 const sourcesFile = program.dataFile || 'usources.txt';
-const dataFile = program.sourcesFIle || 'U.RND';
+const dataFile = program.sourcesFile || 'U.RND';
 const worldMap = program.wmFile || 'WM.VCE';
+const format = program.format || 'default';
 
 const primaryReferences = {};
 const newspapersAndFootnotes = {};
@@ -23,7 +27,7 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
-const DEBUG = true;
+const DEBUG = program.debug;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
@@ -67,8 +71,14 @@ function trimZeroEnd(str) {
   return str;
 }
 
+function logVerbose(msg) {
+  if (program.verbose) {
+    console.log(msg);
+  }
+}
+
 fs.open(worldMap, 'r', function (status, fd) {
-  console.log('Reading world map:');
+  logVerbose('Reading world map:');
   if (status) {
     console.log(status.message);
     return;
@@ -89,7 +99,7 @@ fs.open(worldMap, 'r', function (status, fd) {
       count++;
       position += recordSize;
     }
-    console.log(`Read ${count} WM records.\n`)
+    logVerbose(`Read ${count} WM records.\n`)
   });
 });
 
@@ -128,13 +138,13 @@ sourcesReader
     }
   })
   .on('close', function () {
-    console.log('Reading sources:');
-    console.log('- ' + Object.keys(primaryReferences).length + ' primary references');
-    console.log('- ' + Object.keys(newspapersAndFootnotes).length + ' newspapers and footnotes');
-    console.log('- ' + Object.keys(otherDatabasesAndWebsites).length + ' newspapers and footnotes');
-    console.log('- ' + Object.keys(otherPeriodicals).length + ' other periodicals');
-    console.log('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
-    console.log('- ' + discredited.length + ' discredited reports');
+    logVerbose('Reading sources:');
+    logVerbose('- ' + Object.keys(primaryReferences).length + ' primary references');
+    logVerbose('- ' + Object.keys(newspapersAndFootnotes).length + ' newspapers and footnotes');
+    logVerbose('- ' + Object.keys(otherDatabasesAndWebsites).length + ' newspapers and footnotes');
+    logVerbose('- ' + Object.keys(otherPeriodicals).length + ' other periodicals');
+    logVerbose('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
+    logVerbose('- ' + discredited.length + ' discredited reports');
 
     const countries = {};
     countries[2] = 'USA';
@@ -178,8 +188,11 @@ sourcesReader
     const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (status, fd) {
-      let recordIndex = parseInt(program.from, 10) || 0;
-      console.log(`\nReading cases from #${recordIndex}:`);
+      let recordIndex = 1;
+      if (program.from) {
+        recordIndex = parseInt(program.from, 10);
+      }
+      logVerbose(`\nReading cases from #${recordIndex}:`);
       if (status) {
         console.log(status.message);
         return;
@@ -324,25 +337,40 @@ sourcesReader
           return bufferToRecord(buffer);
         }
 
-        class CsvRecordWriter {
+        class CsvRecordOutput {
           constructor(separator, output) {
             this.separator = separator;
             this.output = output;
-            output.write('Country code,Source code,Source position\n');
           }
 
           desc(record) {
-            return record.countryCode + this.separator +
-              record.ref + this.separator +
-              record.refIndex;
+            let props = Object.keys(record);
+            let str = '';
+            let sep = '';
+            for (let i = 0; i < props.length; ++i) {
+              const prop = props[i];
+              str += sep + record[prop];
+              sep = this.separator;
+            }
+            return str;
           }
 
           write(record) {
+            if (!this.header) {
+              let props = Object.keys(record);
+              const headerRecord = {};
+              for (let i = 0; i < props.length; ++i) {
+                const prop = props[i];
+                headerRecord[prop] = prop;
+              }
+              this.output.write(this.desc(headerRecord) + '\n');
+              this.header = true;
+            }
             this.output.write(this.desc(record) + '\n');
           }
         }
 
-        class HumanRecordWriter {
+        class DefaultRecordOutput {
           constructor(output) {
             this.output = output;
           }
@@ -628,13 +656,22 @@ sourcesReader
             position += recordSize;
           }
         }
-        const output = process.stdout;
 
-        const format = new HumanRecordWriter(output);
-        //const format = new CsvRecordWriter(',',output);
+        let output = process.stdout;
+        if (program.output) {
+          output = fs.createWriteStream(program.output, {flags: 'w'});
+        }
 
+        let outputFormat;
+        switch (format.toLocaleLowerCase()) {
+          case 'csv':
+            outputFormat = new CsvRecordOutput('\t', output);
+            break;
+          default:
+            outputFormat = new DefaultRecordOutput(output);
+        }
         //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(10);
+        const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
 
         while (recordEnumerator.hasNext()) {
@@ -643,11 +680,11 @@ sourcesReader
             logDebug('last recordSize=' + recordSize);
           }
           const record = readRecord();
-          format.write(record);
+          outputFormat.write(record);
           recordEnumerator.next();
           count++;
         }
-        console.log(`\nRead ${count} reports.`);
+        logVerbose(`\nRead ${count} reports.`);
         fs.close(fd);
       });
     });
