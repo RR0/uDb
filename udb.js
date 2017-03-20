@@ -261,6 +261,16 @@ sourcesReader
             return byte;
           }
 
+          function readNibbles(prop1, prop2) {
+            const byte = buffer[recordPos];
+            record[prop1] = byte >> 4;
+            record[prop2] = byte & 0xF;
+            logReadPos(prop1);
+            logReadPos(prop2);
+            read(1);
+            return byte;
+          }
+
           function readByteBits(prop1, size, prop2) {
             const byte = buffer[recordPos];
             record[prop1] = byte >> size;
@@ -320,13 +330,24 @@ sourcesReader
           record.location = split[0];
           record.title = split[1];
           record.description = split[2];
-          record.description2 = split[3];
-          record.description3 = split[4];
-          record.description4 = split[5];
-
+          const description2 = split[3];
+          if (description2) {
+            record.description += '\n' + description2;
+          }
+          const description3 = split[4];
+          if (description3) {
+            record.description += '\n' + description3;
+          }
+          const description4 = split[5];
+          if (description4) {
+            record.description += '\n' + description4;
+          }
+          if (record.description && record.description.indexOf('\n') >= 0) {
+            record.description = '"' + record.description + '"';
+          }
           readByte('ref');
           readByte('refIndex');
-          readByte('strangenessAndCredibility');
+          readNibbles('strangeness', 'credibility');
 
           logDebug(`buffer=${recordHex}\n              ${recordRead}`);
           return record;
@@ -411,9 +432,6 @@ sourcesReader
 
             const ref = record.ref ? primaryReferences[record.ref] : '';
 
-            let strangeness = record.strangenessAndCredibility >> 4;
-            let credibility = record.strangenessAndCredibility & 0xF;
-
             let recordIndex = position / recordSize;
             let elevation = record.elevation !== -99 ? record.elevation : null;
             let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
@@ -458,15 +476,6 @@ sourcesReader
             locationStr += '                Observer:\n' + flagsStr(record.locationFlags, locationFlagsLabels);
 
             let descriptionStr = '  Description : ' + (record.description ? record.description : '') + '\n';
-            if (record.description2) {
-              descriptionStr += '                ' + record.description2 + '\n';
-            }
-            if (record.description3) {
-              descriptionStr += '                ' + record.description3 + '\n';
-            }
-            if (record.description4) {
-              descriptionStr += '                ' + record.description4 + '\n';
-            }
             /**
              * Miscellaneous details and features.
              * @type {{SCI: string, TLP: string, NWS: string, MID: string, HOX: string, CNT: string, ODD: string, WAV: string}}
@@ -597,8 +606,8 @@ sourcesReader
             desc += locationStr;
             desc += descriptionStr;
             desc += '  Duration    : ' + record.duration + ' min\n';
-            desc += '  Strangeness : ' + strangeness + '\n';
-            desc += '  Credibility : ' + credibility + '\n';
+            desc += '  Strangeness : ' + record.strangeness + '\n';
+            desc += '  Credibility : ' + record.credibility + '\n';
             desc += '  Reference   : ' + ref + '\n'
               + '                at index #' + record.refIndex;
             return desc;
@@ -610,21 +619,6 @@ sourcesReader
         }
 
         let count = 0;
-        class MaxCountRecordEnumerator {
-          constructor(maxCount) {
-            position = recordIndex * recordSize;
-            this.maxCount = maxCount;
-          }
-
-          hasNext() {
-            return count < this.maxCount;
-          }
-
-          next() {
-            recordIndex++;
-            position += recordSize;
-          }
-        }
 
         class ArrayRecordEnumerator {
           constructor(recordsIndexes) {
@@ -643,12 +637,13 @@ sourcesReader
         }
 
         class DefaultRecordEnumerator {
-          constructor() {
+          constructor(maxCount) {
+            this.maxCount = maxCount;
             position = recordIndex * recordSize;
           }
 
           hasNext() {
-            return position < fileSize;
+            return position < fileSize && count < this.maxCount;
           }
 
           next() {
@@ -670,7 +665,7 @@ sourcesReader
           default:
             outputFormat = new DefaultRecordOutput(output);
         }
-        const recordEnumerator = new DefaultRecordEnumerator();
+        const recordEnumerator = new DefaultRecordEnumerator(program.count);
         //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
 
