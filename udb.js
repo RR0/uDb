@@ -424,7 +424,7 @@ sourcesReader
               + ' (' + record.area + ', ' + country + '), '
               + ddToDms(record.latitude, record.longitude) + '\n' +
               (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
-                + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n') : '');
+              + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n') : '');
 
             function flagsStr(flagsByte, flagsLabels) {
               let flagsStr = '';
@@ -670,19 +670,22 @@ sourcesReader
           default:
             outputFormat = new DefaultRecordOutput(output);
         }
-        //const recordEnumerator = new DefaultRecordEnumerator();
-        const recordEnumerator = new MaxCountRecordEnumerator(500);
+        const recordEnumerator = new DefaultRecordEnumerator();
+        //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
 
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
             recordSize = fileSize - position;
-            logDebug('last recordSize=' + recordSize);
+            fs.readSync(fd, buffer, 0, recordSize, position);
+            logDebug('last record=' + buffer.toString());
+            position += recordSize;
+          } else {
+            const record = readRecord();
+            outputFormat.write(record);
+            recordEnumerator.next();
+            count++;
           }
-          const record = readRecord();
-          outputFormat.write(record);
-          recordEnumerator.next();
-          count++;
         }
         logVerbose(`\nRead ${count} reports.`);
         fs.close(fd);
