@@ -30,7 +30,11 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
 
 If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
 
-This will display the decoded records, like below (just 10 first records listed here):
+### Examples
+
+    node --count 10 --verbose
+
+will display the 10 first decoded records in the default format:
 
     Reading world map:
     Read 12127 WM records.
@@ -48,15 +52,15 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #1
       Title       : EZEKIEL
       Date        : -593/?/?, ?
-      Location    : Pasture, CHALDEA (CHL, Irak), 46º10'00" E 31º00'00" N
+      Location    : Pasture, CHALDEA (CHL, Iraq, Middle East), 46º10'00" E 31º00'00" N
                     Elevation 200 m
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : FIERY SPHERE LANDS/4 SUPPORTS
+      Description : "FIERY SPHERE LANDS/4 SUPPORTS
                     TAKEN FOR A RIDE
-                    see Bible acct.
+                    see Bible acct."
                     Miscellaneous details and features:
                     - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
                     Type of UFO / Craft:
@@ -80,7 +84,7 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #2
       Title       : SIEGE/ALEXANDER the GREAT
       Date        : -322/?/?, ?
-      Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon), 35º13'20" E 33º16'00" N
+      Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon, Middle East), 35º13'20" E 33º16'00" N
                     Elevation 20 m, relative altitude 100 m
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
@@ -88,8 +92,8 @@ This will display the decoded records, like below (just 10 first records listed 
                     - CST: Sighting in coastal area, possibly just offshore.
                     - MIL: At least ONE observer was military.
                     - HQO: High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : FLYING SHIELD BEAMS
-                    WALLS CRUMBLE
+      Description : "FLYING SHIELD BEAMS
+                    WALLS CRUMBLE"
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
@@ -114,12 +118,12 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #3
       Title       : 'ALTAR' IN SKY
       Date        : -213/?/?, 
-      Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy), 11º16'00" E 43º58'40" N
+      Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy, Western Europe), 11º16'00" E 43º58'40" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
-      Description : MAN IN WHITE
-                    12 SUCH BETWEEN 222 AND 90 B.C.
+      Description : "MAN IN WHITE
+                    12 SUCH BETWEEN 222 AND 90 B.C."
                     Miscellaneous details and features:
                     - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
                     - WAV: Wave or Cluster of UFO sightings.  Sighting is part of a wave.
@@ -139,7 +143,7 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #4
       Title       : SPECTACULAR FLEET OF SHIPS IN AIR
       Date        : -170/?/?, ?
-      Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy), 12º38'40" E 41º44'00" N
+      Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy, Western Europe), 12º38'40" E 41º44'00" N
                     Elevation 384 m
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
@@ -165,15 +169,15 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #5
       Title       : MANY OBS
       Date        : 70/05/21, ~18:00
-      Location    : Pasture, PALESTINE (UNK, Israël), 35º14'00" E 31º46'00" N
+      Location    : Pasture, PALESTINE (UNK, Israel, Middle East), 35º14'00" E 31º46'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - MIL: At least ONE observer was military.
                     - CIV: At least ONE observer was civilian
                     - HQO: High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
-                    LOUD NOISES LATER
+      Description : "CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+                    LOUD NOISES LATER"
                     Miscellaneous details and features:
                     - WAV: Wave or Cluster of UFO sightings.  Sighting is part of a wave.
                     Type of UFO / Craft:
@@ -197,7 +201,7 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #6
       Title       : MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'
       Date        : 840/?/?, 
-      Location    : Town & city, LYON,FRANCE (RHN, France), 4º52'00" E 45º44'40" N
+      Location    : Town & city, LYON,FRANCE (RHN, France, Western Europe), 4º52'00" E 45º44'40" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
@@ -219,7 +223,7 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #7
       Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
       Date        : 927/~03/?, 
-      Location    : Town & city, VERDUN,FR (MSE, France), 5º21'20" E 49º08'40" N
+      Location    : Town & city, VERDUN,FR (MSE, France, Western Europe), 5º21'20" E 49º08'40" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
@@ -244,13 +248,13 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #8
       Title       : UNUSUALLY BRIGHT SCRS FLY
       Date        : 989/08/03, 
-      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan), 139º50'00" E 35º40'00" N
+      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º50'00" E 35º40'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : THEN JOIN TOGETHER
-                    TIME UNKNOWN.   
+      Description : "THEN JOIN TOGETHER
+                    TIME UNKNOWN.   "
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     Aliens! Monsters! (sorry, no religious figures):
@@ -266,14 +270,14 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #9
       Title       : 2 SPHERES HVR
       Date        : 1015/08/23, ?
-      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan), 139º48'00" E 35º38'00" N
+      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º48'00" E 35º38'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : 2 SML OBJs EXIT..1 smokes
+      Description : "2 SML OBJs EXIT..1 smokes
                     NFD
-                    /SOBEPS IFS#23 p35
+                    /SOBEPS IFS#23 p35"
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
@@ -292,7 +296,7 @@ This will display the decoded records, like below (just 10 first records listed 
     Record #10
       Title       : FIERY OVOID >>SE TURNS >>W
       Date        : 1034/?/?, ?
-      Location    : Farmlands, nr VERDUN,FR (MSE, France), 5º20'00" E 49º04'40" N
+      Location    : Farmlands, nr VERDUN,FR (MSE, France, Western Europe), 5º20'00" E 49º04'40" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
@@ -314,6 +318,11 @@ This will display the decoded records, like below (just 10 first records listed 
                     at index #9
     
     Read 10 reports.
+
+
+If you want to output in a (tab-separated) CSV format and save the result in an `export.csv` file:
+
+    node udb -f csv --out export.csv 
 
 ## File structure
 

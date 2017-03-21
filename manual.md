@@ -1086,7 +1086,7 @@ SAM:    SOUTH AMERICA:  Actual Continent.
   CHL= Chile.      BLV= Bolivia.    PRU= Peru.        ECD= Ecuador.
   COL= Colombia.   VNZ= Venezuela.  GUY= Guyanas (all 3 of them).
 
-OCN:    OCEANIA:  AUSTRALIA / NEW ZEALAND  and the great Oceans.
+OCN:    OCEANIA: 
   AUS= Australia.  NZL= New Zealand   ATL= Atlantic Ocean + islands
   PAC= Pacific Ocean and non-Asian islands.  CRB = Caribbean area.
   IND= Indian Ocean + islands.   ARC= Arctic above 70 degrees North.
@@ -1101,7 +1101,7 @@ WEU:    WESTERN EUROPE:
 EEU:    EASTERN EUROPE: Includes some former Soviet Republics.
   ALB= Albania.    ELL= Estonia, Latvia & Lithuania.  BLR= Belorus.
   CZK= Czech and Slovak Republics   HNG= Hungary.     POL= Poland.
-  RUM= Romania.    UKR= Ukraine.    BLG= Bulgaria.
+  ROM= Romania.    UKR= Ukraine.    BLG= Bulgaria.
   YUG= Former Yugoslavia (Province field indicates present republics).
 
 ASM:    ASIA MAINLAND:  ( except Vietnam, Cambodia and Laos. )
@@ -1135,7 +1135,7 @@ ASP:    ASIA PACIFIC:   Island nations & parts of Southeast Asia.
  CIS:  RUSSIA and former soviet,  except Baltics, Ukraine & Belorus.
    RUS= Russia.     GEO= Georgia     ARM= Armenia.     AZR= Azerbaijan.
    KZK= Kazakh Rep. TKM= Turkmen Rep UZB= Uzbek Rep.   TDZ= Tadzhik Rep.
-   [Russia includes various ethnic Okrugs, all within the former RSFSR]
+   (Russia includes various ethnic Okrugs, all within the former RSFSR)
 
 MDE:    MIDDLE EAST:  Turkey, Israel, Iran and Arabic speaking lands.
    TRK= Turkey.     SYR= Syria.      IRQ= Iraq.        IRN= Iran.
