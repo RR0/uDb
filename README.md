@@ -116,7 +116,7 @@ will display the 10 first decoded records in the default format:
                     at index #64
     
     Record #3
-      Title       : 'ALTAR' IN SKY
+      Title       . ALTAR' IN SKY
       Date        : -213/?/?, 
       Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy, Western Europe), 11º16'00" E 43º58'40" N
                     Observer:
@@ -221,7 +221,7 @@ will display the 10 first decoded records in the default format:
                     at index #7
     
     Record #7
-      Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
+      Title       . FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
       Date        : 927/~03/?, 
       Location    : Town & city, VERDUN,FR (MSE, France, Western Europe), 5º21'20" E 49º08'40" N
                     Observer:
@@ -390,24 +390,142 @@ the structure of a record is:
 19. Unknown
 20. Road + rails
 
-### Countries
+### Continents and associated countries
 
-Still [to be completed](https://github.com/RR0/uDb/issues/1):
-
--   2 : USA
--  20 : Argentina
--  49 : Great Britain
--  51 : Germany
--  53 : France
--  54 : Spain
--  57 : Italy
--  83 : India
--  97 : Japan
-- 163 : Irak
-- 166 : Israël
-- 170 : Lebanon
-- 178 : Moon
-
+0. North America (Actual Continent including Central America) with countries
+    1. Canada
+    2. USA
+    3. Mexico
+    4. Guatemala
+    5. Belize
+    6. Honduras
+    7. El Salvador
+    8. Nicaragua
+    9. Costa Rica
+    10. Panama
+1. South America (Actual Continent)
+    1. Brazil
+    2. Paraguay
+    3. Uruguay
+    4. Argentina
+    5. Chile
+    6. Bolivia
+    7. Peru
+    8. Ecuador
+    9. Colombia
+    10. Venezuela
+    11. Guyanas (all 3 of them)
+2. Oceania (AUSTRALIA / NEW ZEALAND  and the great Oceans)
+    1. Australia
+    2. New Zealand
+    3. Atlantic Ocean + islands
+    4. Pacific Ocean and non-Asian islands
+    5. Caribbean area
+    6. Indian Ocean + islands
+    7. Arctic above 70 degrees North
+    8. Antarctic below 70 degrees South
+    9. Iceland
+    10. Greenland
+3. Western Europe (Actual Continent)
+    1. Great Britain and Ireland
+    2. Scandanavian and Finland
+    3. Germany
+    4. Belgium, Netherlands and Luxembourg
+    5. France
+    6. Spain
+    7. Portugal
+    8. Austria
+    9. Italy
+    10. Switzerland
+    11. Greece and Island nations
+4. Eastern Europe (Includes some former Soviet Republics)
+    1. Poland
+    2. Czech and Slovak Republics
+    3. Hungary
+    4. Former Yugoslavia (Province field indicates present republics)
+    5. Romania
+    6. Bulgaria
+    7. Albania
+    8. Estonia, Latvia & Lithuania
+    9. Belorus
+    10. Ukraine
+5. Asia Mainland (except Vietnam, Cambodia and Laos)
+    1. Red China
+    2. Mongolia
+    3. India
+    4. Pakistan
+    5. Afghanistan
+    6. imalayan states: Nepal, Bhutan, Shangri-la etc.
+    7. Bangladesh
+    8. Burma
+    9. Korea (both sides)
+6. Asia Pacific (except Vietnam, Cambodia and Laos) Small remote islands are under Oceania
+    1. Japan
+    2. Philippines
+    3. Taiwan China
+    4. Vietnam
+    5. Laos
+    6. Cambodia
+    7. Thailand
+    8. Malaysia
+    9. Indonesia
+7. Northern and Northwest Africa (North of the Equator)
+    1. Egypt
+    2. Sudan
+    3. Ethiopia
+    4. Libya
+    5. Tunisia
+    6. Algeria
+    7. Morocco
+    8. Sahara (includes Chad, Niger, Mali, Mauritania and Upper Volta)
+    9. Ivory Coast, Ghana, Togo, Benin, Liberia.
+    10. Nigeria
+8. Southern Africa (Generally on or South of the Equator.)
+    1. Rep of South Africa
+    2. Zimbabwe & Zambia (Rhodesia)
+    3. Angola
+    4. Kalahari Desert: Botswana etc.
+    5. Mozambique
+    6. Tanzania
+    7. Uganda
+    8. Kenya
+    9. Somalia
+    10. Congo states (includes Congo, Zaire, Central Afr Rep, Rwanda, Burundi..)
+    11. Ivory Coast,Ghana,Togo,Benin,Liberia etc.
+    12. Nigeria.
+9. Russia and former soviet ()except Baltics, Ukraine & Belorus)
+    1. Russia (includes various ethnic Okrugs, all within the former RSFSR)
+    2. Georgia
+    3. Armenia
+    4. Azerbaijan
+    5. Kazakh Republic
+    6. Turkmen Republic
+    7. Uzbek Republic
+    8. Tadzhik Republic
+10. Middle East (Turkey, Israel, Iran and Arabic speaking lands)
+    1. Turkey
+    2. Syria
+    3. Iraq
+    4. Iran
+    5. Jordan
+    6. Israel
+    7. Arabian Peninsula (not Kuwait)
+    8. Kuwait
+    9. Cyprus
+    10. Lebanon
+11. Space (Anywhere outside of Earth's Atmosphere)
+    1. Earth Orbit.  Space stations, capsules.  Astronauts & Cosmonauts.
+    2. The Moon
+    3. Venus
+    4. Mars
+    5. Asteroids
+    6. Jupiter
+    7. Saturn
+    8. Uranus
+    9. Neptune
+    10. Deep Space
+    11. Pluto
+    
 ## TODO
 
 - See [opened issues](https://github.com/RR0/uDb/issues).
