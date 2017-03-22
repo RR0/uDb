@@ -548,9 +548,6 @@ sourcesReader
           if (description4) {
             record.description += '\n' + description4;
           }
-          if (record.description && record.description.indexOf('\n') >= 0) {
-            record.description = '"' + record.description + '"';
-          }
           readByte('ref');
           readByte('refIndex');
           readNibbles('strangeness', 'credibility');
@@ -570,13 +567,22 @@ sourcesReader
             this.output = output;
           }
 
+          csvValue(value) {
+            if (typeof value === 'string') {
+              value = value.replace(/"/g, '""');  // Escape quotes in value
+              value = '"' + value + '"';
+            }
+            return value;
+          }
+
           desc(record) {
             let props = Object.keys(record);
             let str = '';
             let sep = '';
             for (let i = 0; i < props.length; ++i) {
               const prop = props[i];
-              str += sep + record[prop];
+              let value = record[prop];
+              str += sep + this.csvValue(value);
               sep = this.separator;
             }
             return str;
