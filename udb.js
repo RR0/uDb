@@ -604,34 +604,6 @@ sourcesReader
           }
         }
 
-        class ReadableCsvRecordOutput extends CsvRecordOutput {
-          format(record) {
-            let continent = getContinent(record.continentCode);
-            if (continent) {
-              record.continent = continent.name;
-              delete record.continentCode;
-
-              record.country = getCountry(continent, record.countryCode);
-              delete record.countryCode;
-            }
-            return record;
-          }
-
-          getColumns(record) {
-            const cloneOfA = JSON.parse(JSON.stringify(record));
-            delete cloneOfA.beforeMonth;
-            delete cloneOfA.beforeDay;
-            delete cloneOfA.unknown1;
-            delete cloneOfA.unknown2;
-            delete cloneOfA.unknown3;
-            delete cloneOfA.continentCode;
-            cloneOfA.continent = 'continent';
-            delete cloneOfA.countryCode;
-            cloneOfA.country = 'country';
-            return super.getColumns(cloneOfA);
-          }
-        }
-
         function getCountry(continent, countryCode) {
           return continent.countries[countryCode] ? continent.countries[countryCode] : 'country#' + countryCode;
         }
@@ -643,25 +615,86 @@ sourcesReader
           };
         }
 
+        function getLocale(locale) {
+          return locales[locale] ? locales[locale] : 'locale#' + locale;
+        }
+
+        class ReadableCsvRecordOutput extends CsvRecordOutput {
+          format(record) {
+            let continent = getContinent(record.continentCode);
+            if (continent) {
+              record.continent = continent.name;
+              delete record.continentCode;
+
+              record.country = getCountry(continent, record.countryCode);
+              delete record.countryCode;
+            }
+            record.locale = getLocale(record.locale);
+            record.year = getYear(record);
+            record.month = getMonth(record);
+            record.day = getDay(record);
+            record.time = getTime(record);
+            return record;
+          }
+
+          getColumns(record) {
+            const headerRecord = JSON.parse(JSON.stringify(record));
+            delete headerRecord.beforeMonth;
+            delete headerRecord.beforeDay;
+            delete headerRecord.ymdt;
+            delete headerRecord.unknown1;
+            delete headerRecord.unknown2;
+            delete headerRecord.unknown3;
+            delete headerRecord.continentCode;
+            headerRecord.continent = 'continent';
+            delete headerRecord.countryCode;
+            headerRecord.country = 'country';
+            return super.getColumns(headerRecord);
+          }
+        }
+
+        function accuracy(value, valueAccuracy) {
+          let accurateValue = '';
+          switch (valueAccuracy) {
+            case 0:
+              break;
+            case 1:
+              accurateValue = '?';
+              break;
+            case 2:
+              accurateValue = '~';
+            case 3:
+              accurateValue += value;
+          }
+          return accurateValue;
+        }
+
+        function getDay(record) {
+          const dayAccuracy = (record.ymdt >> 2) & 3;
+          return accuracy((record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day), dayAccuracy);
+        }
+
+        function getMonth(record) {
+          const monthAccuracy = (record.ymdt >> 4) & 3;
+          return accuracy((record.month < 10 ? '0' : '') + record.month, monthAccuracy);
+        }
+
+        function getYear(record) {
+          const yearAccuracy = (record.ymdt >> 6) & 3;
+          return accuracy(record.year, yearAccuracy);
+        }
+
+        function getTime(record) {
+          let time = record.hour;
+          const timeAccuracy = record.ymdt & 3;
+          let hours = Math.floor(time / 6);
+          let minutes = (time % 6) * 10;
+          return accuracy((hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes, timeAccuracy);
+        }
+
         class DefaultRecordOutput {
           constructor(output) {
             this.output = output;
-          }
-
-          accuracy(value, valueAccuracy) {
-            let accurateValue = '';
-            switch (valueAccuracy) {
-              case 0:
-                break;
-              case 1:
-                accurateValue = '?';
-                break;
-              case 2:
-                accurateValue = '~';
-              case 3:
-                accurateValue += value;
-            }
-            return accurateValue;
           }
 
           desc(record) {
@@ -669,21 +702,11 @@ sourcesReader
             const continent = getContinent(continentCode);
             let countryCode = record.countryCode;
             const country = getCountry(continent, countryCode);
-
-            const yearAccuracy = (record.ymdt >> 6) & 3;
-            const monthAccuracy = (record.ymdt >> 4) & 3;
-            const dayAccuracy = (record.ymdt >> 2) & 3;
-            const timeAccuracy = record.ymdt & 3;
-
-            let year = this.accuracy(record.year, yearAccuracy);
-            let month = this.accuracy((record.month < 10 ? '0' : '') + record.month, monthAccuracy);
-            let day = this.accuracy((record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day), dayAccuracy);
-
-            let hours = Math.floor(record.hour / 6);
-            let minutes = (record.hour % 6) * 10;
-            let time = this.accuracy((hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes, timeAccuracy);
-
-            let locale = (locales[record.locale] ? locales[record.locale] : 'locale#' + record.locale);
+            let year = getYear(record);
+            let month = getMonth(record);
+            let day = getDay(record);
+            let timeStr = getTime(record);
+            let localeStr = getLocale(record.locale);
 
             const ref = record.ref ? primaryReferences[record.ref] : '';
 
@@ -691,8 +714,8 @@ sourcesReader
             let elevation = record.elevation !== -99 ? record.elevation : null;
             let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-              '  Date        : ' + year + '/' + month + '/' + day + ', ' + time + '\n';
-            let locationStr = '  Location    : ' + locale + ', '
+              '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
+            let locationStr = '  Location    : ' + localeStr + ', '
               + record.location
               + ' (' + record.area + ', ' + country + ', ' + continent.name + '), '
               + ddToDms(record.latitude, record.longitude) + '\n' +
