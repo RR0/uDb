@@ -633,7 +633,7 @@ sourcesReader
             record.year = getYear(record);
             record.month = getMonth(record);
             record.day = getDay(record);
-            record.time = getTime(record);
+            record.hour = getTime(record);
             return record;
           }
 
