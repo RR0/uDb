@@ -12,7 +12,7 @@ program
   .option('-r, --range <fromIndex>..<toIndex>', 'Specify first record to output. Defaults to 1..end', range)
   .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
-  .option('-f, --format <default|csv> [csvSeparator]', 'The format of the output')
+  .option('-f, --format <default|csv|rawcsv> [csvSeparator]', 'The format of the output')
   .option('-o, --out <outputFile>', 'The name of the file to output. Will output as CSV if file extension is .csv')
   .option('-v, --verbose', 'Displayed detailed processing information.')
   .option('--debug', 'Displays debug info.')
@@ -423,16 +423,6 @@ sourcesReader
           }
         }
 
-        function skip(l) {
-          let max = recordPos + l;
-          for (; recordPos < max; ++recordPos) {
-            let value = buffer[recordPos];
-            recordHex += value < 0x10 ? '0' : '';
-            recordHex += value.toString(16) + ' ';
-            recordRead += '   ';
-          }
-        }
-
         function bufferToRecord() {
           const record = {};
           recordPos = 0;
@@ -514,15 +504,15 @@ sourcesReader
           readByte('hour');
           readByte('ymdt');
           readByte('duration');
-          readByte('unknown');
+          readByte('unknown1');
           readLatLong('longitude');
           readLatLong('latitude');
           readSignedInt('elevation');
           readSignedInt('relativeAltitude');
-          skip(1);
+          readByte('unknown2');
           readNibbles('continentCode', 'countryCode');
           readString(3, 'area');
-          skip(1);
+          readByte('unknown3');
           readByte('locationFlags');
           readByte('miscellaneousFlags');
           readByte('typeOfUfoCraftFlags');
@@ -575,12 +565,15 @@ sourcesReader
             return value;
           }
 
+          format(record) {
+            return record;
+          }
+
           desc(record) {
-            let props = Object.keys(record);
             let str = '';
             let sep = '';
-            for (let i = 0; i < props.length; ++i) {
-              const prop = props[i];
+            for (let i = 0; i < this.props.length; ++i) {
+              const prop = this.props[i];
               let value = record[prop];
               str += sep + this.csvValue(value);
               sep = this.separator;
@@ -588,19 +581,66 @@ sourcesReader
             return str;
           }
 
+          getColumnValue(record, prop) {
+            return record[prop];
+          }
+
+          getColumns(record) {
+            return Object.keys(record);
+          }
+
           write(record) {
-            if (!this.header) {
-              let props = Object.keys(record);
+            if (!this.props) {
+              this.props = this.getColumns(record);
               const headerRecord = {};
-              for (let i = 0; i < props.length; ++i) {
-                const prop = props[i];
+              for (let i = 0; i < this.props.length; ++i) {
+                const prop = this.props[i];
                 headerRecord[prop] = prop;
               }
               this.output.write(this.desc(headerRecord) + '\n');
-              this.header = true;
             }
+            record = this.format(record);
             this.output.write(this.desc(record) + '\n');
           }
+        }
+
+        class ReadableCsvRecordOutput extends CsvRecordOutput {
+          format(record) {
+            let continent = getContinent(record.continentCode);
+            if (continent) {
+              record.continent = continent.name;
+              delete record.continentCode;
+
+              record.country = getCountry(continent, record.countryCode);
+              delete record.countryCode;
+            }
+            return record;
+          }
+
+          getColumns(record) {
+            const cloneOfA = JSON.parse(JSON.stringify(record));
+            delete cloneOfA.beforeMonth;
+            delete cloneOfA.beforeDay;
+            delete cloneOfA.unknown1;
+            delete cloneOfA.unknown2;
+            delete cloneOfA.unknown3;
+            delete cloneOfA.continentCode;
+            cloneOfA.continent = 'continent';
+            delete cloneOfA.countryCode;
+            cloneOfA.country = 'country';
+            return super.getColumns(cloneOfA);
+          }
+        }
+
+        function getCountry(continent, countryCode) {
+          return continent.countries[countryCode] ? continent.countries[countryCode] : 'country#' + countryCode;
+        }
+
+        function getContinent(continentCode) {
+          return continents[continentCode] ? continents[continentCode] : {
+            name: 'continent#' + continentCode,
+            countries: {}
+          };
         }
 
         class DefaultRecordOutput {
@@ -625,11 +665,10 @@ sourcesReader
           }
 
           desc(record) {
-            const continent = continents[record.continentCode] ? continents[record.continentCode] : {
-              name: 'continent#' + record.continentCode,
-              countries: {}
-            };
-            const country = continent.countries[record.countryCode] ? continent.countries[record.countryCode] : 'country#' + record.countryCode;
+            let continentCode = record.continentCode;
+            const continent = getContinent(continentCode);
+            let countryCode = record.countryCode;
+            const country = getCountry(continent, countryCode);
 
             const yearAccuracy = (record.ymdt >> 6) & 3;
             const monthAccuracy = (record.ymdt >> 4) & 3;
@@ -876,8 +915,11 @@ sourcesReader
 
         let outputFormat;
         switch (format.toLocaleLowerCase()) {
-          case 'csv':
+          case 'rawcsv':
             outputFormat = new CsvRecordOutput('\t', output);
+            break;
+          case 'csv':
+            outputFormat = new ReadableCsvRecordOutput('\t', output);
             break;
           default:
             outputFormat = new DefaultRecordOutput(output);
