@@ -151,10 +151,8 @@ sourcesReader
 
     const continents = {
       0: {
-        /**
-         * Actual Continent including Central America.
-         */
         name: 'North America',
+        description: 'Actual Continent including Central America.',
         countries: {
           1: 'Canada',
           2: 'USA',
@@ -169,10 +167,8 @@ sourcesReader
         }
       },
       1: {
-        /**
-         * Actual Continent.
-         */
         name: 'South America',
+        description: 'Actual Continent',
         countries: {
           1: 'Brazil',
           2: 'Paraguay',
@@ -233,7 +229,10 @@ sourcesReader
           1: 'Poland',
           2: 'Czech and Slovak Republics',
           3: 'Hungary',
-          4: 'Former Yugoslavia (Province field indicates present republics)',
+          4: {
+            name: 'Former Yugoslavia',
+            description: 'Province field indicates present republics'
+          },
           5: 'Romania',
           6: 'Bulgaria',
           7: 'Albania',
@@ -253,10 +252,16 @@ sourcesReader
           3: 'India',
           4: 'Pakistan',
           5: 'Afghanistan',
-          6: 'imalayan states: Nepal, Bhutan, Shangri-la etc.',
+          6: {
+            name: 'Himalayan states',
+            description: 'Nepal, Bhutan, Shangri-la etc.'
+          },
           7: 'Bangladesh',
           8: 'Burma',
-          9: 'Korea (both sides)',
+          9: {
+            name: 'Korea',
+            description: 'both sides'
+          },
         }
       },
       6: {
@@ -278,10 +283,8 @@ sourcesReader
         }
       },
       7: {
-        /**
-         * North of the Equator.
-         */
         name: 'Northern and Northwest Africa',
+        decription: 'North of the Equator',
         countries: {
           1: 'Egypt',
           2: 'Sudan',
@@ -290,7 +293,10 @@ sourcesReader
           5: 'Tunisia',
           6: 'Algeria',
           7: 'Morocco',
-          8: 'Sahara (includes Chad, Niger, Mali, Mauritania and Upper Volta)',
+          8: {
+            name: 'Sahara',
+            description: 'includes Chad, Niger, Mali, Mauritania and Upper Volta'
+          },
           9: 'Ivory Coast, Ghana, Togo, Benin, Liberia.',
           10: 'Nigeria',
         }
@@ -302,15 +308,24 @@ sourcesReader
         name: 'Southern Africa',
         countries: {
           1: 'Rep of South Africa',
-          2: 'Zimbabwe & Zambia (Rhodesia)',
+          2: {
+            name: 'Zimbabwe & Zambia',
+            description: 'Rhodesia'
+          },
           3: 'Angola',
-          4: 'Kalahari Desert: Botswana etc.',
+          4: {
+            name: 'Kalahari Desert',
+            description: 'Botswana etc.'
+          },
           5: 'Mozambique',
           6: 'Tanzania',
           7: 'Uganda',
           8: 'Kenya',
           9: 'Somalia',
-          10: 'Congo states (includes Congo, Zaire, Central Afr Rep, Rwanda, Burundi..)',
+          10: {
+            name: 'Congo states',
+            description: 'includes Congo, Zaire, Central Afr Rep, Rwanda, Burundi..'
+          },
           11: 'Ivory Coast,Ghana,Togo,Benin,Liberia etc.',
           12: 'Nigeria.',
         }
@@ -321,7 +336,10 @@ sourcesReader
          */
         name: 'Russia and former soviet',
         countries: {
-          1: 'Russia (includes various ethnic Okrugs, all within the former RSFSR)',
+          1: {
+            name: 'Russia',
+            description: 'includes various ethnic Okrugs, all within the former RSFSR'
+          },
           2: 'Georgia',
           3: 'Armenia',
           4: 'Azerbaijan',
@@ -343,7 +361,10 @@ sourcesReader
           4: 'Iran',
           5: 'Jordan',
           6: 'Israel',
-          7: 'Arabian Peninsula (not Kuwait)',
+          7: {
+            name: 'Arabian Peninsula',
+            description: '(not Kuwait)'
+          },
           8: 'Kuwait',
           9: 'Cyprus',
           10: 'Lebanon',
@@ -355,7 +376,7 @@ sourcesReader
          */
         name: 'Space',
         countries: {
-          1: 'Earth Orbit.  Space stations, capsules.  Astronauts & Cosmonauts.',
+          1: 'Earth Orbit. Space stations, capsules. Astronauts & Cosmonauts.',
           2: 'The Moon',
           3: 'Venus',
           4: 'Mars',
@@ -605,7 +626,8 @@ sourcesReader
         }
 
         function getCountry(continent, countryCode) {
-          return continent.countries[countryCode] ? continent.countries[countryCode] : 'country#' + countryCode;
+          let country = continent.countries[countryCode];
+          return country ? (country.name ? country : {name: country}) : {name: 'country#' + countryCode};
         }
 
         function getContinent(continentCode) {
@@ -626,7 +648,7 @@ sourcesReader
               record.continent = continent.name;
               delete record.continentCode;
 
-              record.country = getCountry(continent, record.countryCode);
+              record.country = getCountry(continent, record.countryCode).name;
               delete record.countryCode;
             }
             record.locale = getLocale(record.locale);
@@ -715,9 +737,10 @@ sourcesReader
             let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
+            let countryStr = country.name + (country.description ? ` (${country.description})` : '');
             let locationStr = '  Location    : ' + localeStr + ', '
               + record.location
-              + ' (' + record.area + ', ' + country + ', ' + continent.name + '), '
+              + ' (' + record.area + ', ' + countryStr + ', ' + continent.name + '), '
               + ddToDms(record.latitude, record.longitude) + '\n' +
               (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
               + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n') : '');

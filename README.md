@@ -324,7 +324,7 @@ will display the 10 first decoded records in the default format:
 
 #### CSV output in a file
 
-If you want to output in a CSV format and save the result into a file:
+If you want to output in a [CSV format](https://en.wikipedia.org/wiki/Comma-separated_values) and save the result into a file that could be imported in some spreadsheet software (Microsoft Excel, Google Spreadsheets, Apple Numbers, etc.):
 
     node udb -f csv --out export.csv 
 
@@ -350,7 +350,9 @@ will create/overwrite an `export.csv` file with the following contents, where th
     /SOBEPS IFS#23 p35"	"JAPAN/LOC UNK"	"2 SPHERES HVR"	2	9	4	6	"Asia Pacific"	"Japan"
     "1034"	"Farmlands"	"?"	"?"	"?"	15	-5.333333333328	49.077777777728706	-99	999	"MSE"	67	64	3	128	0	0	64	0	"/VERDUN MUSEUM /SOBEPS IFS#23 p35"	"nr VERDUN,FR"	"FIERY OVOID >>SE TURNS >>W"	2	9	6	6	"Western Europe"	"France"
 
-Note that strings are enclosed in double quotes to preserve line feeds in a cell.
+Note that texts are enclosed in double quotes to preserve line feeds in a cell.
+
+See such a CSV export [imported into Google Spreadsheets](https://docs.google.com/spreadsheets/d/1Uxc0tIOctMQLRzBQU1qWND_xaWsg_-_RsMHzHWS7PXk/edit?usp=sharing).
 
 ## File structure
 
