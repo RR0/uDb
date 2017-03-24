@@ -328,28 +328,27 @@ If you want to output in a [CSV format](https://en.wikipedia.org/wiki/Comma-sepa
 
     node udb -f csv --out export.csv 
 
-will create/overwrite an `export.csv` file with the following contents, where the first row list columns names, and each column is separated by a tabulation character:
+will create/overwrite an `export.csv` file with the following contents, where the first row list columns names, and each column is separated by a comma:
 
-    "year"	"locale"	"month"	"day"	"hour"	"duration"	"longitude"	"latitude"	"elevation"	"relativeAltitude"	"area"	"locationFlags"	"miscellaneousFlags"	"typeOfUfoCraftFlags"	"aliensMonstersFlags"	"apparentUfoOccupantActivitiesFlags"	"placesVisitedAndThingsAffectedFlags"	"evidenceAndSpecialEffectsFlags"	"miscellaneousDetailsFlags"	"description"	"location"	"title"	"ref"	"refIndex"	"strangeness"	"credibility"	"continent"	"country"
-    "-593"	"Pasture"	"?"	"?"	"?"	60	-46.1666666666205	30.999999999969	200	0	"CHL"	67	64	32	20	8	144	64	0	"FIERY SPHERE LANDS/4 SUPPORTS
+    "year","locale","month","day","hour","duration","longitude","latitude","elevation","relativeAltitude","area","locationFlags","miscellaneousFlags","typeOfUfoCraftFlags","aliensMonstersFlags","apparentUfoOccupantActivitiesFlags","placesVisitedAndThingsAffectedFlags","evidenceAndSpecialEffectsFlags","miscellaneousDetailsFlags","description","location","title","ref","refIndex","strangeness","credibility","continent","country"
+    -593,"Pasture","?","?","?",60,-46.17,31,200,0,"CHL","MAP, GND, CIV","ODD","FBL","PSH, MON","MST","HUM, LND","HST","","FIERY SPHERE LANDS/4 SUPPORTS
     TAKEN FOR A RIDE
-    see Bible acct."	"CHALDEA"	"EZEKIEL"	2	2	8	4	"Middle East"	"Iraq"
-    "-322"	"Military base"	"?"	"?"	"?"	3	-35.222222222187	33.266666666633405	20	100	"TYR"	167	0	5	128	3	88	80	0	"FLYING SHIELD BEAMS
-    WALLS CRUMBLE"	"TYRE =SUR,LEBANON"	"SIEGE/ALEXANDER the GREAT"	160	64	9	6	"Middle East"	"Lebanon"
-    "-213"	"Pasture"	"?"	"?"	""	15	-11.266666666655402	43.9777777777338	""	""	"FI."	3	192	6	4	0	0	64	0	"MAN IN WHITE
-    12 SUCH BETWEEN 222 AND 90 B.C."	"HADRIA,ROMAN EMP"	"'ALTAR' IN SKY"	2	4	8	4	"Western Europe"	"Italy"
-    "-170"	"Road + rails"	"?"	"?"	"?"	2	-12.644444444431802	41.733333333291604	384	""	"RM."	67	192	3	128	0	0	64	0	"NFD"	"LANUPIUM = ALBANO LAZIALE,ITL"	"SPECTACULAR FLEET OF SHIPS IN AIR"	114	125	6	6	"Western Europe"	"Italy"
-    "70"	"Pasture"	"05"	"21"	"~18:00"	60	-35.233333333298106	31.7666666666349	""	""	"UNK"	227	128	15	64	0	0	96	16	"CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
-    LOUD NOISES LATER"	"PALESTINE"	"MANY OBS"	114	120	7	4	"Middle East"	"Israel"
-    "840"	"Town & city"	"?"	"?"	""	20	-4.8666666666618	45.7444444443987	""	""	"RHN"	195	0	2	64	0	0	64	0	"they admitted flying"	"LYON,FRANCE"	"MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'"	2	7	10	4	"Western Europe"	"France"
-    "927"	"Town & city"	"~03"	"?"	""	15	-5.3555555555502	49.1444444443953	""	""	"MSE"	67	12	40	128	0	0	64	0	undefined	"VERDUN,FR"	"'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD"	30	32	3	7	"Western Europe"	"France"
-    "989"	"Mountains"	"08"	"03"	""	15	-139.8333333331935	35.666666666631	""	""	"HNS"	67	0	1	128	0	0	64	0	"THEN JOIN TOGETHER
-    TIME UNKNOWN.   "	"JAPAN/LOC UNK"	"UNUSUALLY BRIGHT SCRS FLY"	8	0	6	5	"Asia Pacific"	"Japan"
-    "1015"	"Mountains"	"08"	"23"	"?"	15	-139.7999999998602	35.6333333332977	""	""	"HNS"	67	0	35	128	0	0	96	0	"2 SML OBJs EXIT..1 smokes
+    see Bible acct.","CHALDEA","EZEKIEL",2,2,8,4,"Middle East","Iraq"
+    -322,"Military base","?","?","?",3,-35.22,33.27,20,100,"TYR","MAP, GND, CST, MIL, HQO","","SCR, DLT","NOC","OBS, RAY","ANI, HUM, BLD","TRC, HST","","FLYING SHIELD BEAMS
+    WALLS CRUMBLE","TYRE =SUR,LEBANON","SIEGE/ALEXANDER the GREAT",160,64,9,6,"Middle East","Lebanon"
+    -213,"Pasture","?","?","",15,-11.27,43.98,"","","FI.","MAP, GND","ODD, WAV","CIG, DLT","PSH","","","HST","","MAN IN WHITE
+    12 SUCH BETWEEN 222 AND 90 B.C.","HADRIA,ROMAN EMP","'ALTAR' IN SKY",2,4,8,4,"Western Europe","Italy"
+    -170,"Road + rails","?","?","?",2,-12.64,41.73,384,"","RM.","MAP, GND, CIV","ODD, WAV","SCR, CIG","NOC","","","HST","","NFD","LANUPIUM = ALBANO LAZIALE,ITL","SPECTACULAR FLEET OF SHIPS IN AIR",114,125,6,6,"Western Europe","Italy"
+    70,"Pasture",5,21,"~18:00",60,-35.23,31.77,"","","UNK","MAP, GND, MIL, CIV, HQO","WAV","SCR, CIG, DLT, NLT","FIG","","","TCH, HST","SND","CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+    LOUD NOISES LATER","PALESTINE","MANY OBS",114,120,7,4,"Middle East","Israel"
+    840,"Town & city","?","?","",20,-4.87,45.74,"","","RHN","MAP, GND, CIV, HQO","","CIG","FIG","","","HST","","they admitted flying","LYON,FRANCE","MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'",2,7,10,4,"Western Europe","France"
+    927,"Town & city","~3","?","",15,-5.36,49.14,"","","MSE","MAP, GND, CIV","NWS, MID","NLT, FBL","NOC","","","HST","",undefined,"VERDUN,FR","'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD",30,32,3,7,"Western Europe","France"
+    989,"Mountains",8,3,"",15,-139.83,35.67,"","","HNS","MAP, GND, CIV","","SCR","NOC","","","HST","","THEN JOIN TOGETHER
+    TIME UNKNOWN.   ","JAPAN/LOC UNK","UNUSUALLY BRIGHT SCRS FLY",8,0,6,5,"Asia Pacific","Japan"
+    1015,"Mountains",8,23,"?",15,-139.8,35.63,"","","HNS","MAP, GND, CIV","","SCR, CIG, FBL","NOC","","","TCH, HST","","2 SML OBJs EXIT..1 smokes
     NFD
-    /SOBEPS IFS#23 p35"	"JAPAN/LOC UNK"	"2 SPHERES HVR"	2	9	4	6	"Asia Pacific"	"Japan"
-    "1034"	"Farmlands"	"?"	"?"	"?"	15	-5.333333333328	49.077777777728706	""	""	"MSE"	67	64	3	128	0	0	64	0	"/VERDUN MUSEUM /SOBEPS IFS#23 p35"	"nr VERDUN,FR"	"FIERY OVOID >>SE TURNS >>W"	2	9	6	6	"Western Europe"	"France"
-
+    /SOBEPS IFS#23 p35","JAPAN/LOC UNK","2 SPHERES HVR",2,9,4,6,"Asia Pacific","Japan"
+    1034,"Farmlands","?","?","?",15,-5.33,49.08,"","","MSE","MAP, GND, CIV","ODD","SCR, CIG","NOC","","","HST","","/VERDUN MUSEUM /SOBEPS IFS#23 p35","nr VERDUN,FR","FIERY OVOID >>SE TURNS >>W",2,9,6,6,"Western Europe","France"
 
 Note that texts are enclosed in double quotes to preserve line feeds in a cell.
 
