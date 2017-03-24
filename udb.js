@@ -652,7 +652,7 @@ sourcesReader
               record.country = getCountry(continent, record.countryCode).name;
               delete record.countryCode;
             }
-            record.locale = getLocale(record.locale);
+            record.locale = getLocale(record);
             record.year = getYear(record);
             record.month = getMonth(record);
             record.day = getDay(record);
