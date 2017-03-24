@@ -637,7 +637,8 @@ sourcesReader
           };
         }
 
-        function getLocale(locale) {
+        function getLocale(record) {
+          const locale = record.locale;
           return locales[locale] ? locales[locale] : 'locale#' + locale;
         }
 
@@ -656,6 +657,8 @@ sourcesReader
             record.month = getMonth(record);
             record.day = getDay(record);
             record.hour = getTime(record);
+            record.elevation = getElevation(record);
+            record.relativeAltitude = getRelativeAltitude(record);
             return record;
           }
 
@@ -714,6 +717,16 @@ sourcesReader
           return accuracy((hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes, timeAccuracy);
         }
 
+        function getElevation(record) {
+          let elevation = record.elevation;
+          return elevation !== -99 ? elevation : '';
+        }
+
+        function getRelativeAltitude(record) {
+          const relativeAltitude = record.relativeAltitude;
+          return relativeAltitude !== 999 ? relativeAltitude : '';
+        }
+
         class DefaultRecordOutput {
           constructor(output) {
             this.output = output;
@@ -728,13 +741,13 @@ sourcesReader
             let month = getMonth(record);
             let day = getDay(record);
             let timeStr = getTime(record);
-            let localeStr = getLocale(record.locale);
+            let localeStr = getLocale(record);
 
             const ref = record.ref ? primaryReferences[record.ref] : '';
 
             let recordIndex = position / recordSize;
-            let elevation = record.elevation !== -99 ? record.elevation : null;
-            let relativeAltitude = record.relativeAltitude !== 999 ? record.relativeAltitude : null;
+            let elevationStr = getElevation(record);
+            let relativeAltitudeStr = getRelativeAltitude(record);
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
             let countryStr = country.name + (country.description ? ` (${country.description})` : '');
@@ -742,8 +755,8 @@ sourcesReader
               + record.location
               + ' (' + record.area + ', ' + countryStr + ', ' + continent.name + '), '
               + ddToDms(record.latitude, record.longitude) + '\n' +
-              (elevation || relativeAltitude ? ('                ' + (elevation ? 'Elevation ' + elevation + ' m' : '')
-              + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '') + '\n') : '');
+              (elevationStr || relativeAltitudeStr ? ('                ' + (elevationStr ? 'Elevation ' + elevationStr + ' m' : '')
+              + (relativeAltitudeStr ? ', relative altitude ' + relativeAltitudeStr + ' m' : '') + '\n') : '');
 
             function flagsStr(flagsByte, flagsLabels) {
               let flagsStr = '';
