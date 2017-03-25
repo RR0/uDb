@@ -1194,12 +1194,12 @@ For countries with obscure subdivisions, use nearest major city.
 APPENDIX V:  TEXT SYNOPSIS FIELD:  Abbreviations and Acronyms.
 
 The Synopsis Field is 78 alpha characters.  Space limitations require
-many acronyns and abbreviations.  The following conventions are used:
+many acronyms and abbreviations.  The following conventions are used:
 
    /     :  ANY preposition: of, for, from, in, according to..
-   ><    :  Between (2 places)
-   >> or>:  Between (2 places) going toward 2nd.
-   >E >W >NW >SSE   Going East, West etc.  Double arrow >> denotes speed.
+   `><`    :  Between (2 places)
+   `>>` or `>`:  Between (2 places) going toward 2nd.
+   `>E` `>W` `>NW` `>SSE`   Going East, West etc.  Double arrow >> denotes speed.
    __++  :  __ and more.  __ to the max.
    100s/ :  Hundreds of ___     1000s/  Thousands of __
    2x,3x :  Twice, three times..
