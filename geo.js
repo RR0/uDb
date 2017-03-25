@@ -240,6 +240,82 @@ const continents = {
   },
 };
 
+const statesOrProvinces = {
+  CHL: 'Chaldea',
+
+  SIB: 'Siberia',
+
+  EST: 'Estonia',
+  SRB: 'Serbia',
+  PRS: 'Prussia',
+
+  IVC: 'Ivory Coast',
+
+  BLG: 'Belgium',
+
+  ALS: 'Alaska',
+  TYR: 'Tyre',
+  CLR: 'Colorado',
+  CNN: 'Connecticut',
+  HWI: 'Hawaii',
+  IOW: 'Iowa',
+  MNT: 'Montana',
+  MSC: 'Massachusetts',
+  MSO: 'Missouri',
+  MSP: 'Mississippi',
+  NBR: 'Nebraska',
+  NCR: 'North Carolina',
+  NDK: 'North Dakota',
+  OHI: 'Ohio',
+  ORG: 'Oregon',
+  SCR: 'South Carolina',
+  SDK: 'South Dakota',
+  UTA: 'Utah',
+  VRG: 'Virginia',
+  WVA: 'Western Virginia',
+  WSH: 'Washington',
+  NMX: 'New Mexico',
+
+  SNL: 'Sinaloa',
+  CHH: 'Chihuahua',
+
+  ALB: 'Alberta',
+  BCO: 'British Columbia',
+  MBA: 'Manitoba',
+  NBR: 'New Brunswick', // TODO: Duplicate!
+  NFL: 'Newfoundland',
+  NSC: 'Nova Scotia',
+  NWT: 'Northwest Territories',
+  ONT: 'Ontario',
+  QBC: 'Quebec',
+  SSK: 'Sasketchewan',
+  YUK: 'Yukon',
+  PEI: 'Prince Edward Island',
+  IRL: 'Ireland',
+  ENG: 'England',
+  SCT: 'Scotland',
+  WAL: 'Wales',
+  NI: 'Northern Ireland',
+  CLF: 'California',
+  NVD: 'Nevada',
+  KNS: 'Kansas',
+  ILN: 'Illinois',
+  IND: 'Indiana',
+  TXS: 'Texas',
+  MCH: 'Michigan',
+  ARK: 'Arkansas',
+
+  MSE: 'Meuse',
+
+  DRK: 'Dark side'
+};
+
+exports.getStateOrProvince = function (record) {
+  let stateOrProvinceKey = record.stateOrProvince;
+  let statesOrProvinceStr = statesOrProvinces[stateOrProvinceKey];
+  return statesOrProvinceStr ? statesOrProvinceStr : stateOrProvinceKey;
+};
+
 const locales = {};
 locales[0] = 'Metropolis';
 locales[1] = 'Residential';

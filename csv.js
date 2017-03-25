@@ -90,6 +90,7 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
     record.hour = time.getTime(record);
     record.elevation = geo.getElevation(record);
     record.relativeAltitude = geo.getRelativeAltitude(record);
+    record.stateOrProvince = geo.getStateOrProvince(record);
     record.locationFlags = ReadableCsvRecordOutput.flagsKeysStr(record.locationFlags, flags.locationFlagsLabels);
     record.miscellaneousFlags = ReadableCsvRecordOutput.flagsKeysStr(record.miscellaneousFlags, flags.miscellaneousFlagsLabels);
     record.typeOfUfoCraftFlags = ReadableCsvRecordOutput.flagsKeysStr(record.typeOfUfoCraftFlags, flags.typeOfUfoCraftFlagsLabels);
@@ -117,6 +118,15 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
     delete headerRecord.countryCode;
     headerRecord.country = 'country';
 
-    return super.getColumns(headerRecord);
+    let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
+    const sortedRecord = util.sortProps(headerRecord, (prop1, prop2) => {
+      let index1 = expectedKeysOrder.indexOf(prop1);
+      if (index1 < 0) index1 = 1000;
+      let index2 = expectedKeysOrder.indexOf(prop2);
+      if (index2 < 0) index2 = 1000;
+      return index1 < index2 ? -1 : index1 > index2 ? 1 : 0;
+    });
+
+    return super.getColumns(sortedRecord);
   }
 };

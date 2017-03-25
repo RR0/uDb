@@ -230,7 +230,7 @@ sourcesReader
           readSignedInt('relativeAltitude');
           readByte('unknown2');
           readNibbles('continentCode', 'countryCode');
-          readString(3, 'area');
+          readString(3, 'stateOrProvince');
           readByte('unknown3');
           readByte('locationFlags');
           readByte('miscellaneousFlags');
@@ -298,9 +298,10 @@ sourcesReader
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
             let countryStr = country.name + (country.description ? ` (${country.description})` : '');
+            let stateOrProvince = geo.getStateOrProvince(record);
             let locationStr = '  Location    : ' + localeStr + ', '
               + record.location
-              + ' (' + record.area + ', ' + countryStr + ', ' + continent.name + '), '
+              + ' (' + stateOrProvince + ', ' + countryStr + ', ' + continent.name + '), '
               + geo.ddToDms(record.latitude, record.longitude) + '\n' +
               (elevationStr || relativeAltitudeStr ? ('                ' + (elevationStr ? 'Elevation ' + elevationStr + ' m' : '')
               + (relativeAltitudeStr ? ', relative altitude ' + relativeAltitudeStr + ' m' : '') + '\n') : '');
