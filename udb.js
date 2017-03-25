@@ -15,7 +15,7 @@ program
   .option('-d, --data [dataFile]', 'Specify data file. Defaults to ./U.RND')
   .option('-s, --sources [sourcesFile]', 'Specify sources file. Defaults to ./usources.txt')
   .option('-wm, --worldmap [wmFile]', 'Specify world map file. Defaults to ./WM.VCE')
-  .option('-r, --range <fromIndex>..<toIndex>', 'Specify first record to output. Defaults to 1..end', range)
+  .option('-r, --range <fromIndex>..<toIndex>', 'Specify record range to output. Defaults to 1..end', range)
   .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
   .option('-f, --format <default|csv|rawcsv> [csvSeparator]', 'The format of the output')
@@ -40,44 +40,6 @@ const DEBUG = program.debug;
 
 function logDebug(msg) {
   if (DEBUG) console.log('DEBUG: ' + msg);
-}
-
-function getDms(val) {
-  val = Math.abs(val);
-
-  let valDeg = Math.floor(val);
-  let valMin = Math.floor((val - valDeg) * 60);
-  let valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000;
-
-  if (valSec >= 60) {
-    valMin++;
-    valSec = 0;
-  }
-  if (valMin >= 60) {
-    valDeg++;
-    valMin = 0;
-  }
-  let result = valDeg + "º"; // 40º
-  result += (valMin < 10 ? '0' + valMin : valMin) + "'"; // 40º36'
-  result += (valSec < 10 ? '0' + valSec : valSec) + '"'; // 40º36'4.331"
-  return result;
-}
-function ddToDms(lat, lng) {
-  let latResult = getDms(lat) + ' ';
-  latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
-
-  let lngResult = getDms(lng) + ' ';
-  lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
-
-  return lngResult + ' ' + latResult;
-}
-
-function trimZeroEnd(str) {
-  const zeroEnd = str.indexOf('\u0000');
-  if (zeroEnd > 0) {
-    str = str.substring(0, zeroEnd);
-  }
-  return str;
 }
 
 function logVerbose(msg) {
@@ -159,7 +121,8 @@ sourcesReader
     const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (status, fd) {
-      let recordIndex = (program.range && program.range[0]) || 1;
+      const firstsIndex = (program.range && program.range[0]) || 1;
+      let recordIndex = firstsIndex;
       logVerbose(`\nReading cases from #${recordIndex}:`);
       if (status) {
         console.log(status.message);
@@ -205,7 +168,7 @@ sourcesReader
 
           function readString(length, prop) {
             let str = buffer.toString('utf8', recordPos, recordPos + length);
-            record[prop] = trimZeroEnd(str);
+            record[prop] = util.trimZeroEnd(str);
             logReadPos(prop);
             read(length);
             return str;
@@ -219,16 +182,6 @@ sourcesReader
             return byte;
           }
 
-          function readNibbles(prop1, prop2) {
-            const byte = buffer[recordPos];
-            record[prop1] = byte >> 4;
-            record[prop2] = byte & 0xF;
-            logReadPos(prop1);
-            logReadPos(prop2);
-            read(1);
-            return byte;
-          }
-
           function readByteBits(prop1, size, prop2) {
             const byte = buffer[recordPos];
             record[prop1] = byte >> size;
@@ -237,6 +190,10 @@ sourcesReader
             logReadPos(prop2);
             read(1);
             return byte;
+          }
+
+          function readNibbles(prop1, prop2) {
+            return readByteBits(prop1, 4, prop2);
           }
 
           function readSignedInt(prop) {
@@ -302,7 +259,10 @@ sourcesReader
             record.description += '\n' + description4;
           }
           readByte('ref');
+
           readByte('refIndex');
+          record.refIndex = (record.beforeDay << 8) + record.refIndex;
+
           readNibbles('strangeness', 'credibility');
 
           logDebug(`buffer=${recordHex}\n              ${recordRead}`);
@@ -341,7 +301,7 @@ sourcesReader
             let locationStr = '  Location    : ' + localeStr + ', '
               + record.location
               + ' (' + record.area + ', ' + countryStr + ', ' + continent.name + '), '
-              + ddToDms(record.latitude, record.longitude) + '\n' +
+              + geo.ddToDms(record.latitude, record.longitude) + '\n' +
               (elevationStr || relativeAltitudeStr ? ('                ' + (elevationStr ? 'Elevation ' + elevationStr + ' m' : '')
               + (relativeAltitudeStr ? ', relative altitude ' + relativeAltitudeStr + ' m' : '') + '\n') : '');
 
@@ -446,7 +406,7 @@ sourcesReader
         }
 
         let outputFormat;
-        let csvSeparator = ';';
+        let csvSeparator = ',';
         switch (format.toLocaleLowerCase()) {
           case 'rawcsv':
             outputFormat = new csv.CsvRecordOutput(csvSeparator, output);
@@ -457,7 +417,8 @@ sourcesReader
           default:
             outputFormat = new DefaultRecordOutput(output);
         }
-        let maxCount = program.count || 10000000;
+        let lastIndex = (program.range && program.range[1]) || 10000000;
+        let maxCount = program.count || (lastIndex - firstsIndex + 1);
         const recordEnumerator = new DefaultRecordEnumerator(maxCount);
         //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
