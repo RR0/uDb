@@ -1,6 +1,7 @@
 const fs = require('fs');
 const program = require('commander');
 
+const util = require('./util');
 const csv = require('./csv');
 const flags = require('./flags');
 const geo = require('./geo');
@@ -154,29 +155,6 @@ sourcesReader
     logVerbose('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
     logVerbose('- ' + discredited.length + ' discredited reports');
 
-    const locales = {};
-    locales[0] = 'Metropolis';
-    locales[1] = 'Residential';
-    locales[2] = 'Town & city';
-    locales[3] = 'Farmlands';
-    locales[4] = 'Pasture';
-    locales[5] = 'Oil & coal';
-    locales[6] = 'Tundra';
-    locales[7] = 'Desert';
-    locales[8] = 'Mountains';
-    locales[9] = 'Wetlands';
-    locales[10] = 'Forest';
-    locales[11] = 'Rainforest';
-    locales[12] = 'Coastlands';
-    locales[13] = 'Offshore';
-    locales[14] = 'High seas';
-    locales[15] = 'Islands';
-    locales[16] = 'In-flight';
-    locales[17] = 'Space';
-    locales[18] = 'Military base';
-    locales[19] = 'Unknown';
-    locales[20] = 'Road + rails';
-
     let recordSize = 112;
     const buffer = new Buffer(recordSize);
 
@@ -309,7 +287,8 @@ sourcesReader
           const split = record.description.split(':');
           record.location = split[0];
           record.title = split[1];
-          record.description = split[2];
+          let text = split[2];
+          record.description = text ? text : '';
           const description2 = split[3];
           if (description2) {
             record.description += '\n' + description2;
@@ -335,90 +314,6 @@ sourcesReader
           return bufferToRecord(buffer);
         }
 
-        function getLocale(record) {
-          const locale = record.locale;
-          return locales[locale] ? locales[locale] : 'locale#' + locale;
-        }
-
-        function forEachBit(flagsByte, cb) {
-          let byte = flagsByte;
-          for (let i = 0; i < 8; i++) {
-            const bit = byte & 1;
-            if (bit) {
-              cb(i);
-            }
-            byte = byte >> 1;
-          }
-        }
-
-        function flagsKeysStr(flagsByte, flagsLabels) {
-          let flagsStr = '';
-          let keys = Object.keys(flagsLabels);
-          let sep = '';
-          forEachBit(flagsByte, (i) => {
-            let key = keys[i];
-            flagsStr += sep + key;
-            sep = ', ';
-          });
-          return flagsStr;
-        }
-
-        class ReadableCsvRecordOutput extends csv.CsvRecordOutput {
-          format(record) {
-            let continent = geo.getContinent(record.continentCode);
-            if (continent) {
-              record.continent = continent.name;
-              delete record.continentCode;
-
-              record.country = geo.getCountry(continent, record.countryCode).name;
-              delete record.countryCode;
-            }
-            record.longitude = parseFloat(record.longitude.toFixed(2));
-            record.latitude = parseFloat(record.latitude.toFixed(2));
-            record.locale = getLocale(record);
-            record.year = time.getYear(record);
-            record.month = time.getMonth(record);
-            record.day = time.getDay(record);
-            record.hour = time.getTime(record);
-            record.elevation = getElevation(record);
-            record.relativeAltitude = getRelativeAltitude(record);
-            record.locationFlags = flagsKeysStr(record.locationFlags, flags.locationFlagsLabels);
-            record.miscellaneousFlags = flagsKeysStr(record.miscellaneousFlags, flags.miscellaneousFlagsLabels);
-            record.typeOfUfoCraftFlags = flagsKeysStr(record.typeOfUfoCraftFlags, flags.typeOfUfoCraftFlagsLabels);
-            record.aliensMonstersFlags = flagsKeysStr(record.aliensMonstersFlags, flags.aliensMonstersLabels);
-            record.apparentUfoOccupantActivitiesFlags = flagsKeysStr(record.apparentUfoOccupantActivitiesFlags, flags.apparentUfoOccupantActivitiesLabels);
-            record.placesVisitedAndThingsAffectedFlags = flagsKeysStr(record.placesVisitedAndThingsAffectedFlags, flags.placesVisitedAndThingsAffectedLabels);
-            record.evidenceAndSpecialEffectsFlags = flagsKeysStr(record.evidenceAndSpecialEffectsFlags, flags.evidenceAndSpecialEffectsLabels);
-            record.miscellaneousDetailsFlags = flagsKeysStr(record.miscellaneousDetailsFlags, flags.miscellaneousDetailsLabels);
-            return record;
-          }
-
-          getColumns(record) {
-            const headerRecord = JSON.parse(JSON.stringify(record));
-            delete headerRecord.beforeMonth;
-            delete headerRecord.beforeDay;
-            delete headerRecord.ymdt;
-            delete headerRecord.unknown1;
-            delete headerRecord.unknown2;
-            delete headerRecord.unknown3;
-            delete headerRecord.continentCode;
-            headerRecord.continent = 'continent';
-            delete headerRecord.countryCode;
-            headerRecord.country = 'country';
-            return super.getColumns(headerRecord);
-          }
-        }
-
-        function getElevation(record) {
-          let elevation = record.elevation;
-          return elevation !== -99 ? elevation : '';
-        }
-
-        function getRelativeAltitude(record) {
-          const relativeAltitude = record.relativeAltitude;
-          return relativeAltitude !== 999 ? relativeAltitude : '';
-        }
-
         class DefaultRecordOutput {
           constructor(output) {
             this.output = output;
@@ -433,13 +328,13 @@ sourcesReader
             let month = time.getMonth(record, true);
             let day = time.getDay(record);
             let timeStr = time.getTime(record);
-            let localeStr = getLocale(record);
+            let localeStr = geo.getLocale(record);
 
             const ref = record.ref ? primaryReferences[record.ref] : '';
 
             let recordIndex = position / recordSize;
-            let elevationStr = getElevation(record);
-            let relativeAltitudeStr = getRelativeAltitude(record);
+            let elevationStr = geo.getElevation(record);
+            let relativeAltitudeStr = geo.getRelativeAltitude(record);
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
             let countryStr = country.name + (country.description ? ` (${country.description})` : '');
@@ -453,9 +348,10 @@ sourcesReader
             function flagsStr(flagsByte, flagsLabels) {
               let flagsStr = '';
               let keys = Object.keys(flagsLabels);
-              forEachBit(flagsByte, (i) => {
+              util.forEachBit(flagsByte, (i) => {
                 let key = keys[i];
-                flagsStr += '                - ' + key + ': ' + flagsLabels[key] + '\n';
+                let flagLabels = flagsLabels[key];
+                flagsStr += '                - ' + key + ': ' + (flagLabels.description ? flagLabels.description : flagLabels) + '\n';
               });
               return flagsStr;
             }
@@ -550,12 +446,13 @@ sourcesReader
         }
 
         let outputFormat;
+        let csvSeparator = ';';
         switch (format.toLocaleLowerCase()) {
           case 'rawcsv':
-            outputFormat = new csv.CsvRecordOutput(',', output);
+            outputFormat = new csv.CsvRecordOutput(csvSeparator, output);
             break;
           case 'csv':
-            outputFormat = new ReadableCsvRecordOutput(',', output);
+            outputFormat = new csv.ReadableCsvRecordOutput(csvSeparator, output);
             break;
           default:
             outputFormat = new DefaultRecordOutput(output);

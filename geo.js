@@ -240,6 +240,44 @@ const continents = {
   },
 };
 
+const locales = {};
+locales[0] = 'Metropolis';
+locales[1] = 'Residential';
+locales[2] = 'Town & city';
+locales[3] = 'Farmlands';
+locales[4] = 'Pasture';
+locales[5] = 'Oil & coal';
+locales[6] = 'Tundra';
+locales[7] = 'Desert';
+locales[8] = 'Mountains';
+locales[9] = 'Wetlands';
+locales[10] = 'Forest';
+locales[11] = 'Rainforest';
+locales[12] = 'Coastlands';
+locales[13] = 'Offshore';
+locales[14] = 'High seas';
+locales[15] = 'Islands';
+locales[16] = 'In-flight';
+locales[17] = 'Space';
+locales[18] = 'Military base';
+locales[19] = 'Unknown';
+locales[20] = 'Road + rails';
+
+exports.getLocale = function (record) {
+  const locale = record.locale;
+  return locales[locale] ? locales[locale] : 'locale#' + locale;
+};
+
+exports.getElevation = function (record) {
+  let elevation = record.elevation;
+  return elevation !== -99 ? elevation : '';
+};
+
+exports.getRelativeAltitude = function (record) {
+  const relativeAltitude = record.relativeAltitude;
+  return relativeAltitude !== 999 ? relativeAltitude : '';
+};
+
 exports.getCountry = function getCountry(continent, countryCode) {
   let country = continent.countries[countryCode];
   return country ? (country.name ? country : {name: country}) : {name: 'country#' + countryCode};
