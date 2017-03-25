@@ -3,7 +3,10 @@
  * @type {{MAP: string, GND: string, CST: string, SEA: string, AIR: string, MIL: string, CIV: string, HQO: string}}
  */
 exports.locationFlagsLabels = {
-  MAP: 'Coordinates are known.  OK to place event on screen maps.',
+  MAP: {
+    name: 'Map',
+    description: 'Coordinates are known.  OK to place event on screen maps.'
+  },
   GND: {
     name: 'Ground',
     description: 'At least ONE observer (or radar) was on land.'
@@ -12,7 +15,10 @@ exports.locationFlagsLabels = {
     name: 'Coast',
     description: 'Sighting in coastal area, possibly just offshore.'
   },
-  SEA: 'Sighting was at sea, typically from some marine craft.',
+  SEA: {
+    name: 'Sea',
+    description: 'Sighting was at sea, typically from some marine craft.'
+  },
   AIR: {
     name: 'Airborne',
     description: 'Airborne observer.  Observer aboard aircraft.'
@@ -300,6 +306,6 @@ exports.miscellaneousDetailsLabels = {
   },
   CMF: {
     name: 'Camouflage',
-    description: 'Apparent attempt of UFO or alien to hide or disguise itself or its operations in any way:  Cloud cigars, flying buses or haystacks,  false scenery or settings..'
+    description: 'Apparent attempt of UFO or alien to hide or disguise itself or its operations in any way: Cloud cigars, flying buses or haystacks, false scenery or settings..'
   }
 };
