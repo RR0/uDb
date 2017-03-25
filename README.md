@@ -329,25 +329,25 @@ If you want to output in a [CSV format](https://en.wikipedia.org/wiki/Comma-sepa
 
 will create/overwrite an `export.csv` file with the following contents, where the first row list columns names, and each column is separated by a comma:
 
-    "year","locale","month","day","hour","duration","longitude","latitude","elevation","relativeAltitude","area","locationFlags","miscellaneousFlags","typeOfUfoCraftFlags","aliensMonstersFlags","apparentUfoOccupantActivitiesFlags","placesVisitedAndThingsAffectedFlags","evidenceAndSpecialEffectsFlags","miscellaneousDetailsFlags","description","location","title","ref","refIndex","strangeness","credibility","continent","country"
-    -593,"Pasture","?","?","?",60,-46.17,31,200,0,"CHL","MAP, Ground, Civilian","Oddity","Fireball","Pseudo-Human, Monster","Missing time","Human affected, Apparent Landing","Historical","","FIERY SPHERE LANDS/4 SUPPORTS
+    "year","month","day","hour","stateOrProvince","country","continent","title","description","locale","duration","evidenceAndSpecialEffectsFlags","miscellaneousFlags","typeOfUfoCraftFlags","elevation","apparentUfoOccupantActivitiesFlags","placesVisitedAndThingsAffectedFlags","latitude","miscellaneousDetailsFlags","relativeAltitude","location","longitude","ref","refIndex","strangeness","credibility","locationFlags","aliensMonstersFlags"
+    -593,"?","?","?","Chaldea","Iraq","Middle East","EZEKIEL","FIERY SPHERE LANDS/4 SUPPORTS
     TAKEN FOR A RIDE
-    see Bible acct.","CHALDEA","EZEKIEL",2,2,8,4,"Middle East","Iraq"
-    -322,"Military base","?","?","?",3,-35.22,33.27,20,100,"TYR","MAP, Ground, Coast, Military, High quality observer(s)","","Saucer, Delta","No occupant","Observation, Ray","Animals affected, Human affected, Building or ANY MANMADE STRUCTURE","Traces, Historical","","FLYING SHIELD BEAMS
-    WALLS CRUMBLE","TYRE =SUR,LEBANON","SIEGE/ALEXANDER the GREAT",160,320,9,6,"Middle East","Lebanon"
-    -213,"Pasture","?","?","",15,-11.27,43.98,"","","FI.","MAP, Ground","Oddity, Wave","Cigar, Delta","Pseudo-Human","","","Historical","","MAN IN WHITE
-    12 SUCH BETWEEN 222 AND 90 B.C.","HADRIA,ROMAN EMP","'ALTAR' IN SKY",2,4,8,4,"Western Europe","Italy"
-    -170,"Road + rails","?","?","?",2,-12.64,41.73,384,"","RM.","MAP, Ground, Civilian","Oddity, Wave","Saucer, Cigar","No occupant","","","Historical","","NFD","LANUPIUM = ALBANO LAZIALE,ITL","SPECTACULAR FLEET OF SHIPS IN AIR",114,125,6,6,"Western Europe","Italy"
-    70,"Pasture",5,21,"~18:00",60,-35.23,31.77,"","","UNK","MAP, Ground, Military, Civilian, High quality observer(s)","Wave","Saucer, Cigar, Delta, Nightlights","Figure","","","Technical, Historical","Sound","CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
-    LOUD NOISES LATER","PALESTINE","MANY OBS",114,120,7,4,"Middle East","Israel"
-    840,"Town & city","?","?","",20,-4.87,45.74,"","","RHN","MAP, Ground, Civilian, High quality observer(s)","","Cigar","Figure","","","Historical","","they admitted flying","LYON,FRANCE","MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'",2,7,10,4,"Western Europe","France"
-    927,"Town & city","~3","?","",15,-5.36,49.14,"","","MSE","MAP, Ground, Civilian","News, Misidentification","Nightlights, Fireball","No occupant","","","Historical","","","VERDUN,FR","'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD",30,32,3,7,"Western Europe","France"
-    989,"Mountains",8,3,"",15,-139.83,35.67,"","","HNS","MAP, Ground, Civilian","","Saucer","No occupant","","","Historical","","THEN JOIN TOGETHER
-    TIME UNKNOWN.   ","JAPAN/LOC UNK","UNUSUALLY BRIGHT SCRS FLY",8,0,6,5,"Asia Pacific","Japan"
-    1015,"Mountains",8,23,"?",15,-139.8,35.63,"","","HNS","MAP, Ground, Civilian","","Saucer, Cigar, Fireball","No occupant","","","Technical, Historical","","2 SML OBJs EXIT..1 smokes
+    see Bible acct.","Pasture",60,"Historical","Oddity","Fireball",200,"Missing time","Human affected, Apparent Landing",31,"",0,"CHALDEA",-46.17,2,2,8,4,"Map, Ground, Civilian","Pseudo-Human, Monster"
+    -322,"?","?","?","Tyre","Lebanon","Middle East","SIEGE/ALEXANDER the GREAT","FLYING SHIELD BEAMS
+    WALLS CRUMBLE","Military base",3,"Traces, Historical","","Saucer, Delta",20,"Observation, Ray","Animals affected, Human affected, Building or ANY MANMADE STRUCTURE",33.27,"",100,"TYRE =SUR,LEBANON",-35.22,160,320,9,6,"Map, Ground, Coast, Military, High quality observer(s)","No occupant"
+    -213,"?","?","","FI.","Italy","Western Europe","'ALTAR' IN SKY","MAN IN WHITE
+    12 SUCH BETWEEN 222 AND 90 B.C.","Pasture",15,"Historical","Oddity, Wave","Cigar, Delta","","","",43.98,"","","HADRIA,ROMAN EMP",-11.27,2,4,8,4,"Map, Ground","Pseudo-Human"
+    -170,"?","?","?","RM.","Italy","Western Europe","SPECTACULAR FLEET OF SHIPS IN AIR","NFD","Road + rails",2,"Historical","Oddity, Wave","Saucer, Cigar",384,"","",41.73,"","","LANUPIUM = ALBANO LAZIALE,ITL",-12.64,114,125,6,6,"Map, Ground, Civilian","No occupant"
+    70,5,21,"~18:00","UNK","Israel","Middle East","MANY OBS","CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+    LOUD NOISES LATER","Pasture",60,"Technical, Historical","Wave","Saucer, Cigar, Delta, Nightlights","","","",31.77,"Sound","","PALESTINE",-35.23,114,120,7,4,"Map, Ground, Military, Civilian, High quality observer(s)","Figure"
+    840,"?","?","","RHN","France","Western Europe","MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'","they admitted flying","Town & city",20,"Historical","","Cigar","","","",45.74,"","","LYON,FRANCE",-4.87,2,7,10,4,"Map, Ground, Civilian, High quality observer(s)","Figure"
+    927,"~3","?","","Meuse","France","Western Europe","'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD","","Town & city",15,"Historical","News, Misidentification","Nightlights, Fireball","","","",49.14,"","","VERDUN,FR",-5.36,30,32,3,7,"Map, Ground, Civilian","No occupant"
+    989,8,3,"","HNS","Japan","Asia Pacific","UNUSUALLY BRIGHT SCRS FLY","THEN JOIN TOGETHER
+    TIME UNKNOWN.   ","Mountains",15,"Historical","","Saucer","","","",35.67,"","","JAPAN/LOC UNK",-139.83,8,0,6,5,"Map, Ground, Civilian","No occupant"
+    1015,8,23,"?","HNS","Japan","Asia Pacific","2 SPHERES HVR","2 SML OBJs EXIT..1 smokes
     NFD
-    /SOBEPS IFS#23 p35","JAPAN/LOC UNK","2 SPHERES HVR",2,9,4,6,"Asia Pacific","Japan"
-    1034,"Farmlands","?","?","?",15,-5.33,49.08,"","","MSE","MAP, Ground, Civilian","Oddity","Saucer, Cigar","No occupant","","","Historical","","/VERDUN MUSEUM /SOBEPS IFS#23 p35","nr VERDUN,FR","FIERY OVOID >>SE TURNS >>W",2,9,6,6,"Western Europe","France"
+    /SOBEPS IFS#23 p35","Mountains",15,"Technical, Historical","","Saucer, Cigar, Fireball","","","",35.63,"","","JAPAN/LOC UNK",-139.8,2,9,4,6,"Map, Ground, Civilian","No occupant"
+    1034,"?","?","?","Meuse","France","Western Europe","FIERY OVOID >>SE TURNS >>W","/VERDUN MUSEUM /SOBEPS IFS#23 p35","Farmlands",15,"Historical","Oddity","Saucer, Cigar","","","",49.08,"","","nr VERDUN,FR",-5.33,2,9,6,6,"Map, Ground, Civilian","No occupant"
 
 Note that texts are enclosed in double quotes to preserve line feeds in a cell.
 
