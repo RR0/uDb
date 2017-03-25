@@ -244,14 +244,25 @@ const statesOrProvinces = {
   CHL: 'Chaldea',
 
   SIB: 'Siberia',
+  STP: 'Saint Petersburg',
 
   EST: 'Estonia',
   SRB: 'Serbia',
   PRS: 'Prussia',
 
+  WRS: 'Warsaw',  // Poland
+  KRK: 'Krakow',  // Poland
+  SOF: 'Sofia',  // Bulgaria
+
+  LIT: 'Lituania',
+
+  AFR: 'Africa',
   IVC: 'Ivory Coast',
+  PGF: 'Persian Gulf',
 
   BLG: 'Belgium',
+  SWD: 'Sweden',
+  DMK: 'Danemark',
 
   ALS: 'Alaska',
   TYR: 'Tyre',
@@ -292,9 +303,11 @@ const statesOrProvinces = {
   YUK: 'Yukon',
   PEI: 'Prince Edward Island',
   IRL: 'Ireland',
+  NI: 'North Ireland',
   ENG: 'England',
   SCT: 'Scotland',
-  WAL: 'Wales',
+  WAL: 'Wales?',
+  WLS: 'Wales',
   NI: 'Northern Ireland',
   CLF: 'California',
   NVD: 'Nevada',
@@ -304,8 +317,41 @@ const statesOrProvinces = {
   TXS: 'Texas',
   MCH: 'Michigan',
   ARK: 'Arkansas',
+  KNY: 'Kentucky',
+  NYK: 'New York',
+  VRM: 'Vermont',
+  IDH: 'Idaho',
+  OKL: 'Oklahoma',
+  NHM: 'New Hampshire',
 
+  ADC: 'Ardèche',
+  AMR: 'Alpes Maritimes',
+  FRB: 'Bretagne',
+  CRS: 'Creuse',
+  MNC: 'Manche',
   MSE: 'Meuse',
+  RHN: 'Rhône',
+  PDC: 'Pas-de-Calais',
+  HGR: 'Haute Garonne',
+  VSG: 'Vosges',
+  BDR: 'Bouches-du-Rhône',
+
+  FI: 'Firenze',
+
+  BRL: 'Berlin',
+
+  GRC: 'Greece',
+
+  VAU: 'Vaud',  // Switzerland
+
+  VCT: 'Victoria',
+  SAU: 'South Australia',
+  WAU: 'Western Australia',
+
+  SAI: 'Saigon',
+  SKR: 'South Korea',
+
+  MRC: 'Maracaibo',
 
   DRK: 'Dark side'
 };

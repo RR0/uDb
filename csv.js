@@ -118,7 +118,7 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
     delete headerRecord.countryCode;
     headerRecord.country = 'country';
 
-    let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
+    let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
     const sortedRecord = util.sortProps(headerRecord, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;
