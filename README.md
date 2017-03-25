@@ -16,18 +16,17 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
       Options:
     
         -h, --help                                        output usage information
-        -V, --version                                     output the version number
-        -d, --data [dataFile]                             Specify data file. Defaults to ./U.RND
-        -s, --sources [sourcesFile]                       Specify sources file. Defaults to ./usources.txt
-        -wm, --worldmap [wmFile]                          Specify world map file. Defaults to ./WM.VCE
-        -r, --range <fromIndex>..<toIndex>                Specify first record to output. Defaults to 1..end
-        -r, --records <recordsIndexes>                    Specify a list of indexes of records to output.
-        -c, --count <maxCount>                            Specify the maximim number of records to output.
-        -f, --format <default|csv|rawcsv> [csvSeparator]  The format of the output
-        -o, --out <outputFile>                            The name of the file to output. Will output as CSV if file extension is .csv
-        -v, --verbose                                     Displayed detailed processing information.
-        --debug                                           Displays debug info.
-
+            -V, --version                                     output the version number
+            -d, --data [dataFile]                             Specify data file. Defaults to ./U.RND
+            -s, --sources [sourcesFile]                       Specify sources file. Defaults to ./usources.txt
+            -wm, --worldmap [wmFile]                          Specify world map file. Defaults to ./WM.VCE
+            -r, --range <fromIndex>..<toIndex>                Specify record range to output. Defaults to 1..end
+            -r, --records <recordsIndexes>                    Specify a list of indexes of records to output.
+            -c, --count <maxCount>                            Specify the maximim number of records to output.
+            -f, --format <default|csv|rawcsv> [csvSeparator]  The format of the output
+            -o, --out <outputFile>                            The name of the file to output. Will output as CSV if file extension is .csv
+            -v, --verbose                                     Displayed detailed processing information.
+            --debug                                           Displays debug info.
 
 If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
 
@@ -61,21 +60,21 @@ will display the 10 first decoded records in the default format:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : "FIERY SPHERE LANDS/4 SUPPORTS
+      Description : FIERY SPHERE LANDS/4 SUPPORTS
                     TAKEN FOR A RIDE
-                    see Bible acct."
+                    see Bible acct.
                     Miscellaneous details and features:
-                    - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
+                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
                     Type of UFO / Craft:
-                    - FBL: Fireball:  Blazing undistinguished form.  Possible meteors etc.
+                    - FBL: Blazing undistinguished form.  Possible meteors etc.
                     Aliens! Monsters! (sorry, no religious figures):
-                    - PSH: 1) Pseudo-Human: Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
-                    - MON: Monster:  Apparent life form fits no standard category.
+                    - PSH: 1) Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
+                    - MON: Apparent life form fits no standard category.
                     Apparent UFO/Occupant activities:
-                    - MST: Missing Time: Unexplained time-lapse or other time anomaly.
+                    - MST: Unexplained time-lapse or other time anomaly.
                     Places visited and things affected:
-                    - HUM: Human affected: Injury. burns. marks. psychology. abduction. death.
-                    - LND: Apparent Landing.  UFO (or any part thereof) sets down.
+                    - HUM: Injury. burns. marks. psychology. abduction. death.
+                    - LND: UFO (or any part thereof) sets down.
                     Evidence and special effects:
                     - HST: Historical account OR sighting makes history.
       Duration    : 60 min
@@ -94,9 +93,9 @@ will display the 10 first decoded records in the default format:
                     - GND: At least ONE observer (or radar) was on land.
                     - CST: Sighting in coastal area, possibly just offshore.
                     - MIL: At least ONE observer was military.
-                    - HQO: High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : "FLYING SHIELD BEAMS
-                    WALLS CRUMBLE"
+                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
+      Description : FLYING SHIELD BEAMS
+                    WALLS CRUMBLE
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
@@ -106,35 +105,35 @@ will display the 10 first decoded records in the default format:
                     - OBS: Observation: Surveillance.  Chasing/pacing vehicles.
                     - RAY: Odd light RAY, searchlight or visible beam.  Anything laserlike.
                     Places visited and things affected:
-                    - ANI: Animals affected: Panic. Change of behavior. Injuries. Marks.
-                    - HUM: Human affected: Injury. burns. marks. psychology. abduction. death.
-                    - BLD: Building or ANY MANMADE STRUCTURE: Roads, Bridges, Power lines..
+                    - ANI: Panic. Change of behavior. Injuries. Marks.
+                    - HUM: Injury. burns. marks. psychology. abduction. death.
+                    - BLD: Roads, Bridges, Power lines..
                     Evidence and special effects:
-                    - TRC: Physical traces discovered ( most any variety. )
+                    - TRC: Physical traces discovered (most any variety)
                     - HST: Historical account OR sighting makes history.
       Duration    : 3 min
       Strangeness : 9
       Credibility : 6
       Reference   : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
-                    at index #64
+                    at index #320
     
     Record #3
-      Title       . ALTAR' IN SKY
+      Title       : 'ALTAR' IN SKY
       Date        : -213/?/?, 
       Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy, Western Europe), 11º16'00" E 43º58'40" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
-      Description : "MAN IN WHITE
-                    12 SUCH BETWEEN 222 AND 90 B.C."
+      Description : MAN IN WHITE
+                    12 SUCH BETWEEN 222 AND 90 B.C.
                     Miscellaneous details and features:
-                    - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    - WAV: Wave or Cluster of UFO sightings.  Sighting is part of a wave.
+                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
+                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
                     Type of UFO / Craft:
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
                     - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
                     Aliens! Monsters! (sorry, no religious figures):
-                    - PSH: 1) Pseudo-Human: Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
+                    - PSH: 1) Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
                     Evidence and special effects:
                     - HST: Historical account OR sighting makes history.
       Duration    : 15 min
@@ -154,8 +153,8 @@ will display the 10 first decoded records in the default format:
                     - CIV: At least ONE observer was civilian
       Description : NFD
                     Miscellaneous details and features:
-                    - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    - WAV: Wave or Cluster of UFO sightings.  Sighting is part of a wave.
+                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
+                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
@@ -171,23 +170,23 @@ will display the 10 first decoded records in the default format:
     
     Record #5
       Title       : MANY OBS
-      Date        : 70/05/21, ~18:00
+      Date        : 70/5/21, ~18:00
       Location    : Pasture, PALESTINE (UNK, Israel, Middle East), 35º14'00" E 31º46'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - MIL: At least ONE observer was military.
                     - CIV: At least ONE observer was civilian
-                    - HQO: High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : "CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
-                    LOUD NOISES LATER"
+                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
+      Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+                    LOUD NOISES LATER
                     Miscellaneous details and features:
-                    - WAV: Wave or Cluster of UFO sightings.  Sighting is part of a wave.
+                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
                     - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
-                    - NLT: Nightlights:  Points of light with no discernable shape.
+                    - NLT: Points of light with no discernable shape.
                     Aliens! Monsters! (sorry, no religious figures):
                     - FIG: Undefined or poorly seen "figure" or entity.  A shadow.
                     Evidence and special effects:
@@ -209,7 +208,7 @@ will display the 10 first decoded records in the default format:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-                    - HQO: High Quality Observer(s): Scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
+                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
       Description : they admitted flying
                     Type of UFO / Craft:
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
@@ -224,7 +223,7 @@ will display the 10 first decoded records in the default format:
                     at index #7
     
     Record #7
-      Title       . FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
+      Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
       Date        : 927/~03/?, 
       Location    : Town & city, VERDUN,FR (MSE, France, Western Europe), 5º21'20" E 49º08'40" N
                     Observer:
@@ -236,8 +235,8 @@ will display the 10 first decoded records in the default format:
                     - NWS: Report from the news media, or else "sighting made the news".
                     - MID: Likely Mis-IDentification of mundane object: (Venus, rocket..)
                     Type of UFO / Craft:
-                    - NLT: Nightlights:  Points of light with no discernable shape.
-                    - FBL: Fireball:  Blazing undistinguished form.  Possible meteors etc.
+                    - NLT: Points of light with no discernable shape.
+                    - FBL: Blazing undistinguished form.  Possible meteors etc.
                     Aliens! Monsters! (sorry, no religious figures):
                     - NOC: No entity / occupant seen by observer(s).
                     Evidence and special effects:
@@ -250,14 +249,14 @@ will display the 10 first decoded records in the default format:
     
     Record #8
       Title       : UNUSUALLY BRIGHT SCRS FLY
-      Date        : 989/08/03, 
+      Date        : 989/8/3, 
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º50'00" E 35º40'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : "THEN JOIN TOGETHER
-                    TIME UNKNOWN.   "
+      Description : THEN JOIN TOGETHER
+                    TIME UNKNOWN.   
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     Aliens! Monsters! (sorry, no religious figures):
@@ -272,19 +271,19 @@ will display the 10 first decoded records in the default format:
     
     Record #9
       Title       : 2 SPHERES HVR
-      Date        : 1015/08/23, ?
+      Date        : 1015/8/23, ?
       Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º48'00" E 35º38'00" N
                     Observer:
                     - MAP: Coordinates are known.  OK to place event on screen maps.
                     - GND: At least ONE observer (or radar) was on land.
                     - CIV: At least ONE observer was civilian
-      Description : "2 SML OBJs EXIT..1 smokes
+      Description : 2 SML OBJs EXIT..1 smokes
                     NFD
-                    /SOBEPS IFS#23 p35"
+                    /SOBEPS IFS#23 p35
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    - FBL: Fireball:  Blazing undistinguished form.  Possible meteors etc.
+                    - FBL: Blazing undistinguished form.  Possible meteors etc.
                     Aliens! Monsters! (sorry, no religious figures):
                     - NOC: No entity / occupant seen by observer(s).
                     Evidence and special effects:
@@ -306,7 +305,7 @@ will display the 10 first decoded records in the default format:
                     - CIV: At least ONE observer was civilian
       Description : /VERDUN MUSEUM /SOBEPS IFS#23 p35
                     Miscellaneous details and features:
-                    - ODD: Oddity:  1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
+                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
                     Type of UFO / Craft:
                     - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
                     - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
@@ -331,24 +330,24 @@ If you want to output in a [CSV format](https://en.wikipedia.org/wiki/Comma-sepa
 will create/overwrite an `export.csv` file with the following contents, where the first row list columns names, and each column is separated by a comma:
 
     "year","locale","month","day","hour","duration","longitude","latitude","elevation","relativeAltitude","area","locationFlags","miscellaneousFlags","typeOfUfoCraftFlags","aliensMonstersFlags","apparentUfoOccupantActivitiesFlags","placesVisitedAndThingsAffectedFlags","evidenceAndSpecialEffectsFlags","miscellaneousDetailsFlags","description","location","title","ref","refIndex","strangeness","credibility","continent","country"
-    -593,"Pasture","?","?","?",60,-46.17,31,200,0,"CHL","MAP, GND, CIV","ODD","FBL","PSH, MON","MST","HUM, LND","HST","","FIERY SPHERE LANDS/4 SUPPORTS
+    -593,"Pasture","?","?","?",60,-46.17,31,200,0,"CHL","MAP, Ground, Civilian","Oddity","Fireball","Pseudo-Human, Monster","Missing time","Human affected, Apparent Landing","Historical","","FIERY SPHERE LANDS/4 SUPPORTS
     TAKEN FOR A RIDE
     see Bible acct.","CHALDEA","EZEKIEL",2,2,8,4,"Middle East","Iraq"
-    -322,"Military base","?","?","?",3,-35.22,33.27,20,100,"TYR","MAP, GND, CST, MIL, HQO","","SCR, DLT","NOC","OBS, RAY","ANI, HUM, BLD","TRC, HST","","FLYING SHIELD BEAMS
-    WALLS CRUMBLE","TYRE =SUR,LEBANON","SIEGE/ALEXANDER the GREAT",160,64,9,6,"Middle East","Lebanon"
-    -213,"Pasture","?","?","",15,-11.27,43.98,"","","FI.","MAP, GND","ODD, WAV","CIG, DLT","PSH","","","HST","","MAN IN WHITE
+    -322,"Military base","?","?","?",3,-35.22,33.27,20,100,"TYR","MAP, Ground, Coast, Military, High quality observer(s)","","Saucer, Delta","No occupant","Observation, Ray","Animals affected, Human affected, Building or ANY MANMADE STRUCTURE","Traces, Historical","","FLYING SHIELD BEAMS
+    WALLS CRUMBLE","TYRE =SUR,LEBANON","SIEGE/ALEXANDER the GREAT",160,320,9,6,"Middle East","Lebanon"
+    -213,"Pasture","?","?","",15,-11.27,43.98,"","","FI.","MAP, Ground","Oddity, Wave","Cigar, Delta","Pseudo-Human","","","Historical","","MAN IN WHITE
     12 SUCH BETWEEN 222 AND 90 B.C.","HADRIA,ROMAN EMP","'ALTAR' IN SKY",2,4,8,4,"Western Europe","Italy"
-    -170,"Road + rails","?","?","?",2,-12.64,41.73,384,"","RM.","MAP, GND, CIV","ODD, WAV","SCR, CIG","NOC","","","HST","","NFD","LANUPIUM = ALBANO LAZIALE,ITL","SPECTACULAR FLEET OF SHIPS IN AIR",114,125,6,6,"Western Europe","Italy"
-    70,"Pasture",5,21,"~18:00",60,-35.23,31.77,"","","UNK","MAP, GND, MIL, CIV, HQO","WAV","SCR, CIG, DLT, NLT","FIG","","","TCH, HST","SND","CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+    -170,"Road + rails","?","?","?",2,-12.64,41.73,384,"","RM.","MAP, Ground, Civilian","Oddity, Wave","Saucer, Cigar","No occupant","","","Historical","","NFD","LANUPIUM = ALBANO LAZIALE,ITL","SPECTACULAR FLEET OF SHIPS IN AIR",114,125,6,6,"Western Europe","Italy"
+    70,"Pasture",5,21,"~18:00",60,-35.23,31.77,"","","UNK","MAP, Ground, Military, Civilian, High quality observer(s)","Wave","Saucer, Cigar, Delta, Nightlights","Figure","","","Technical, Historical","Sound","CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
     LOUD NOISES LATER","PALESTINE","MANY OBS",114,120,7,4,"Middle East","Israel"
-    840,"Town & city","?","?","",20,-4.87,45.74,"","","RHN","MAP, GND, CIV, HQO","","CIG","FIG","","","HST","","they admitted flying","LYON,FRANCE","MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'",2,7,10,4,"Western Europe","France"
-    927,"Town & city","~3","?","",15,-5.36,49.14,"","","MSE","MAP, GND, CIV","NWS, MID","NLT, FBL","NOC","","","HST","",undefined,"VERDUN,FR","'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD",30,32,3,7,"Western Europe","France"
-    989,"Mountains",8,3,"",15,-139.83,35.67,"","","HNS","MAP, GND, CIV","","SCR","NOC","","","HST","","THEN JOIN TOGETHER
+    840,"Town & city","?","?","",20,-4.87,45.74,"","","RHN","MAP, Ground, Civilian, High quality observer(s)","","Cigar","Figure","","","Historical","","they admitted flying","LYON,FRANCE","MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'",2,7,10,4,"Western Europe","France"
+    927,"Town & city","~3","?","",15,-5.36,49.14,"","","MSE","MAP, Ground, Civilian","News, Misidentification","Nightlights, Fireball","No occupant","","","Historical","","","VERDUN,FR","'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD",30,32,3,7,"Western Europe","France"
+    989,"Mountains",8,3,"",15,-139.83,35.67,"","","HNS","MAP, Ground, Civilian","","Saucer","No occupant","","","Historical","","THEN JOIN TOGETHER
     TIME UNKNOWN.   ","JAPAN/LOC UNK","UNUSUALLY BRIGHT SCRS FLY",8,0,6,5,"Asia Pacific","Japan"
-    1015,"Mountains",8,23,"?",15,-139.8,35.63,"","","HNS","MAP, GND, CIV","","SCR, CIG, FBL","NOC","","","TCH, HST","","2 SML OBJs EXIT..1 smokes
+    1015,"Mountains",8,23,"?",15,-139.8,35.63,"","","HNS","MAP, Ground, Civilian","","Saucer, Cigar, Fireball","No occupant","","","Technical, Historical","","2 SML OBJs EXIT..1 smokes
     NFD
     /SOBEPS IFS#23 p35","JAPAN/LOC UNK","2 SPHERES HVR",2,9,4,6,"Asia Pacific","Japan"
-    1034,"Farmlands","?","?","?",15,-5.33,49.08,"","","MSE","MAP, GND, CIV","ODD","SCR, CIG","NOC","","","HST","","/VERDUN MUSEUM /SOBEPS IFS#23 p35","nr VERDUN,FR","FIERY OVOID >>SE TURNS >>W",2,9,6,6,"Western Europe","France"
+    1034,"Farmlands","?","?","?",15,-5.33,49.08,"","","MSE","MAP, Ground, Civilian","Oddity","Saucer, Cigar","No occupant","","","Historical","","/VERDUN MUSEUM /SOBEPS IFS#23 p35","nr VERDUN,FR","FIERY OVOID >>SE TURNS >>W",2,9,6,6,"Western Europe","France"
 
 Note that texts are enclosed in double quotes to preserve line feeds in a cell.
 
