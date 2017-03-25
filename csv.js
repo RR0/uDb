@@ -102,17 +102,21 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
   }
 
   getColumns(record) {
-    const headerRecord = JSON.parse(JSON.stringify(record));
+    const headerRecord = util.copy(record);
+
     delete headerRecord.beforeMonth;
     delete headerRecord.beforeDay;
     delete headerRecord.ymdt;
     delete headerRecord.unknown1;
     delete headerRecord.unknown2;
     delete headerRecord.unknown3;
+
     delete headerRecord.continentCode;
     headerRecord.continent = 'continent';
+
     delete headerRecord.countryCode;
     headerRecord.country = 'country';
+
     return super.getColumns(headerRecord);
   }
 };

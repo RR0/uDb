@@ -8,3 +8,15 @@ exports.forEachBit = function (flagsByte, cb) {
     byte = byte >> 1;
   }
 };
+
+exports.trimZeroEnd = function (str) {
+  const zeroEnd = str.indexOf('\u0000');
+  if (zeroEnd > 0) {
+    str = str.substring(0, zeroEnd);
+  }
+  return str;
+};
+
+exports.copy = function (record) {
+  return JSON.parse(JSON.stringify(record));
+};

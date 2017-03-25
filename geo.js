@@ -263,6 +263,37 @@ locales[18] = 'Military base';
 locales[19] = 'Unknown';
 locales[20] = 'Road + rails';
 
+function getDms(val) {
+  val = Math.abs(val);
+
+  let valDeg = Math.floor(val);
+  let valMin = Math.floor((val - valDeg) * 60);
+  let valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000;
+
+  if (valSec >= 60) {
+    valMin++;
+    valSec = 0;
+  }
+  if (valMin >= 60) {
+    valDeg++;
+    valMin = 0;
+  }
+  let result = valDeg + "º"; // 40º
+  result += (valMin < 10 ? '0' + valMin : valMin) + "'"; // 40º36'
+  result += (valSec < 10 ? '0' + valSec : valSec) + '"'; // 40º36'4.331"
+  return result;
+}
+
+exports.ddToDms = function (lat, lng) {
+  let latResult = getDms(lat) + ' ';
+  latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
+
+  let lngResult = getDms(lng) + ' ';
+  lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
+
+  return lngResult + ' ' + latResult;
+};
+
 exports.getLocale = function (record) {
   const locale = record.locale;
   return locales[locale] ? locales[locale] : 'locale#' + locale;
