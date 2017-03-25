@@ -20,3 +20,13 @@ exports.trimZeroEnd = function (str) {
 exports.copy = function (record) {
   return JSON.parse(JSON.stringify(record));
 };
+
+exports.sortProps = function (obj, sortFunc) {
+  const newObj = {};
+  Object.keys(obj)
+    .sort(sortFunc)
+    .forEach((key) => {
+      newObj[key] = obj[key];
+    });
+  return newObj;
+};
