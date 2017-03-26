@@ -1,5 +1,6 @@
 const fs = require('fs');
 const program = require('commander');
+const json2xml = require('json2xml');
 
 const util = require('./util');
 const csv = require('./csv');
@@ -18,7 +19,7 @@ program
   .option('-r, --range <fromIndex>..<toIndex>', 'Specify record range to output. Defaults to 1..end', range)
   .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
-  .option('-f, --format <default|csv|rawcsv> [csvSeparator]', 'The format of the output')
+  .option('-f, --format <default|csv|xml> [csvSeparator]', 'The format of the output')
   .option('-o, --out <outputFile>', 'The name of the file to output. Will output as CSV if file extension is .csv')
   .option('-v, --verbose', 'Displayed detailed processing information.')
   .option('--debug', 'Displays debug info.')
@@ -365,6 +366,29 @@ sourcesReader
           write(record) {
             this.output.write(this.desc(record) + '\n');
           }
+
+          end() {
+
+          }
+        }
+
+        class XmlRecordOutput {
+          constructor(output) {
+            this.output = output;
+            this.output.write('<?xml version="1.0" encoding="UTF-8">\n<udb>')
+          }
+
+          desc(record) {
+            return json2xml(record).toString();
+          }
+
+          write(record) {
+            this.output.write('<record>'+this.desc(record) + '</record>\n');
+          }
+
+          end() {
+            this.output.write('</udb>')
+          }
         }
 
         let count = 0;
@@ -415,6 +439,9 @@ sourcesReader
           case 'csv':
             outputFormat = new csv.ReadableCsvRecordOutput(csvSeparator, output);
             break;
+          case 'xml':
+            outputFormat = new XmlRecordOutput(output);
+            break;
           default:
             outputFormat = new DefaultRecordOutput(output);
         }
@@ -437,6 +464,7 @@ sourcesReader
             count++;
           }
         }
+        outputFormat.end();
         logVerbose(`\nRead ${count} reports.`);
         fs.close(fd);
       });

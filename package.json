@@ -24,6 +24,7 @@
   "homepage": "https://github.com/RR0/uDb#readme",
   "dependencies": {
     "colors": "^1.1.2",
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "json2xml": "^0.1.3"
   }
 }
