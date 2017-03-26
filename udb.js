@@ -168,7 +168,7 @@ sourcesReader
 
           function readString(length, prop) {
             let str = buffer.toString('utf8', recordPos, recordPos + length);
-            record[prop] = util.trimZeroEnd(str);
+            record[prop] = util.trimZeroEnd(str).trim();
             logReadPos(prop);
             read(length);
             return str;

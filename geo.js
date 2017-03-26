@@ -102,7 +102,12 @@ const continents = {
       2: 'Paraguay',
       3: 'Uruguay',
       4: 'Argentina',
-      5: 'Chile',
+      5: {
+        name: 'Chile',
+        statesOrProvinces: {
+          ANT: 'Antofagasta'
+        }
+      },
       6: 'Bolivia',
       7: 'Peru',
       8: 'Ecuador',
@@ -120,6 +125,7 @@ const continents = {
       1: {
         name: 'Australia',
         statesOrProvinces: {
+          ACT: 'Australian Capital Territory',
           VCT: 'Victoria',
           SAU: 'South Australia',
           WAU: 'Western Australia',
@@ -156,7 +162,12 @@ const continents = {
           NI: 'Northern Ireland'
         }
       },
-      2: 'Scandanavian and Finland',
+      2: {
+        name: 'Scandanavian and Finland',
+        statesOrProvinces: {
+          NRW: 'Norway'
+        }
+      },
       3: 'Germany',
       4: 'Belgium, Netherlands and Luxembourg',
       5: {
@@ -188,6 +199,8 @@ const continents = {
         name: 'Italy',
         statesOrProvinces: {
           AL: 'Alessandria',
+          'FI.': 'Firenze',
+          AQ: 'Aquila',
         }
       },
       10: {
@@ -298,7 +311,12 @@ const continents = {
           ANB: 'Annaba',
         }
       },
-      7: 'Morocco',
+      7: {
+        name: 'Morocco',
+        statesOrProvinces: {
+          AGD: 'Agadir'
+        }
+      },
       8: {
         name: 'Sahara',
         description: 'includes Chad, Niger, Mali, Mauritania and Upper Volta'
@@ -361,7 +379,12 @@ const continents = {
      */
     name: 'Middle East',
     countries: {
-      1: 'Turkey',
+      1: {
+        name: 'Turkey',
+        statesOrProvinces: {
+          ANK: 'Ankara'
+        }
+      },
       2: 'Syria',
       3: {
         name: 'Iraq',
