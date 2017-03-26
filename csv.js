@@ -54,6 +54,8 @@ class CsvRecordOutput {
     record = this.format(record);
     this.output.write(this.desc(record) + '\n');
   }
+
+  end() {}
 }
 
 exports.CsvRecordOutput = CsvRecordOutput;
