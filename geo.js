@@ -3,9 +3,88 @@ const continents = {
     name: 'North America',
     description: 'Actual Continent including Central America.',
     countries: {
-      1: 'Canada',
-      2: 'USA',
-      3: 'Mexico',
+      1: {
+        name: 'Canada',
+        statesOrProvinces: {
+          ALB: 'Alberta',
+          BCO: 'British Columbia',
+          MBA: 'Manitoba',
+          NBR: 'New Brunswick',
+          NFL: 'Newfoundland',
+          NSC: 'Nova Scotia',
+          NWT: 'Northwest Territories',
+          ONT: 'Ontario',
+          QBC: 'Quebec',
+          SSK: 'Sasketchewan',
+          YUK: 'Yukon',
+          PEI: 'Prince Edward Island',
+        }
+      },
+      2: {
+        name: 'USA',
+        statesOrProvinces: {
+          ALS: 'Alaska',
+          ALA: 'Alabama',
+          ALB: 'Alabama', // Duplicate!
+          CLR: 'Colorado',
+          CNN: 'Connecticut',
+          HWI: 'Hawaii',
+          IOW: 'Iowa',
+          MNT: 'Montana',
+          MSC: 'Massachusetts',
+          MSO: 'Missouri',
+          MSP: 'Mississippi',
+          NBR: 'Nebraska',
+          NCR: 'North Carolina',
+          NDK: 'North Dakota',
+          OHI: 'Ohio',
+          ORE: 'Oregon',
+          SCR: 'South Carolina',
+          SDK: 'South Dakota',
+          UTA: 'Utah',
+          VRG: 'Virginia',
+          WVA: 'Western Virginia',
+          WSH: 'Washington',
+          NMX: 'New Mexico',
+          ARZ: 'Arizona',
+          MNS: 'Minnesota',
+          WSC: 'Wisconsin',
+          FLR: 'Florida',
+          PNS: 'Pennsylvania',
+          GRG: 'Georgia',
+          NJR: 'New Jersey',
+          ME: 'Maine',
+          PRC: 'Puerto Rico',
+          TNS: 'Tennessee',
+          KNT: 'Kentucky',
+          WYO: 'Wyoming',
+          DLW: 'Delaware',
+          CNC: 'Connecticut',
+          LSN: 'Louisiana',
+          RHD: 'Rhode Island',
+          CLF: 'California',
+          NVD: 'Nevada',
+          KNS: 'Kansas',
+          ILN: 'Illinois',
+          IND: 'Indiana',
+          TXS: 'Texas',
+          MCH: 'Michigan',
+          ARK: 'Arkansas',
+          KNY: 'Kentucky',
+          NYK: 'New York',
+          VRM: 'Vermont',
+          IDH: 'Idaho',
+          OKL: 'Oklahoma',
+          NHM: 'New Hampshire',
+        }
+      },
+      3: {
+        name: 'Mexico',
+        statesOrProvinces: {
+          SNL: 'Sinaloa',
+          CHH: 'Chihuahua',
+        }
+      },
       4: 'Guatemala',
       5: 'Belize',
       6: 'Honduras',
@@ -38,14 +117,26 @@ const continents = {
      */
     name: 'Oceania',
     countries: {
-      1: 'Australia',
+      1: {
+        name: 'Australia',
+        statesOrProvinces: {
+          VCT: 'Victoria',
+          SAU: 'South Australia',
+          WAU: 'Western Australia',
+        }
+      },
       2: 'New Zealand',
       3: 'Atlantic Ocean + islands',
       4: 'Pacific Ocean and non-Asian islands',
       5: 'Caribbean area',
       6: 'Indian Ocean + islands',
       7: 'Arctic above 70 degrees North',
-      8: 'Antarctic below 70 degrees South',
+      8: {
+        name: 'Antarctic below 70 degrees South',
+        statesOrProvinces: {
+          VST: 'Vostok',
+        }
+      },
       9: 'Iceland',
       10: 'Greenland',
     }
@@ -56,16 +147,55 @@ const continents = {
      */
     name: 'Western Europe',
     countries: {
-      1: 'Great Britain and Ireland',
+      1: {
+        name: 'Great Britain and Ireland',
+        statesOrProvinces: {
+          IRL: 'Ireland',
+          ENG: 'England',
+          SCT: 'Scotland',
+          NI: 'Northern Ireland'
+        }
+      },
       2: 'Scandanavian and Finland',
       3: 'Germany',
       4: 'Belgium, Netherlands and Luxembourg',
-      5: 'France',
+      5: {
+        name: 'France',
+        statesOrProvinces: {
+          AIN: 'Ain',
+          ADC: 'Ardèche',
+          ASN: 'Aisne',
+          ADN: 'Ardennes',
+          AMR: 'Alpes Maritimes',
+          AHP: 'Alpes de Haute Provence',
+          FRB: 'Bretagne',
+          'M&M': 'Meurthe-et-Moselle',
+          CRS: 'Creuse',
+          MNC: 'Manche',
+          MSE: 'Meuse',
+          RHN: 'Rhône',
+          PDC: 'Pas-de-Calais',
+          HGR: 'Haute Garonne',
+          VSG: 'Vosges',
+          BDR: 'Bouches-du-Rhône',
+          FNS: 'Finistère',
+        }
+      },
       6: 'Spain',
       7: 'Portugal',
       8: 'Austria',
-      9: 'Italy',
-      10: 'Switzerland',
+      9: {
+        name: 'Italy',
+        statesOrProvinces: {
+          AL: 'Alessandria',
+        }
+      },
+      10: {
+        name: 'Switzerland',
+        statesOrProvinces: {
+          VAU: 'Vaud',
+        }
+      },
       11: 'Greece and Island nations',
     }
   },
@@ -75,7 +205,13 @@ const continents = {
      */
     name: 'Eastern Europe',
     countries: {
-      1: 'Poland',
+      1: {
+        name: 'Poland',
+        statesOrProvinces: {
+          WRS: 'Warsaw',
+          KRK: 'Krakow',
+        }
+      },
       2: 'Czech and Slovak Republics',
       3: 'Hungary',
       4: {
@@ -83,7 +219,12 @@ const continents = {
         description: 'Province field indicates present republics'
       },
       5: 'Romania',
-      6: 'Bulgaria',
+      6: {
+        name: 'Bulgaria',
+        statesOrProvinces: {
+          SOF: 'Sofia',
+        }
+      },
       7: 'Albania',
       8: 'Estonia, Latvia & Lithuania',
       9: 'Belorus',
@@ -100,7 +241,12 @@ const continents = {
       2: 'Mongolia',
       3: 'India',
       4: 'Pakistan',
-      5: 'Afghanistan',
+      5: {
+        name: 'Afghanistan',
+        statesOrProvinces: {
+          GHZ: 'Ghazni',
+        }
+      },
       6: {
         name: 'Himalayan states',
         description: 'Nepal, Bhutan, Shangri-la etc.'
@@ -140,7 +286,18 @@ const continents = {
       3: 'Ethiopia',
       4: 'Libya',
       5: 'Tunisia',
-      6: 'Algeria',
+      6: {
+        name: 'Algeria',
+        statesOrProvinces: {
+          ORN: 'Oran',
+          LAM: 'Lamoriciere',
+          BOU: 'Boukanefis',
+          MOS: 'Mostaganem',
+          CNS: 'Constantine',
+          BCH: 'Bechar',
+          ANB: 'Annaba',
+        }
+      },
       7: 'Morocco',
       8: {
         name: 'Sahara',
@@ -206,7 +363,12 @@ const continents = {
     countries: {
       1: 'Turkey',
       2: 'Syria',
-      3: 'Iraq',
+      3: {
+        name: 'Iraq',
+        statesOrProvinces: {
+          CHL: 'Chaldea',
+        }
+      },
       4: 'Iran',
       5: 'Jordan',
       6: 'Israel',
@@ -216,7 +378,12 @@ const continents = {
       },
       8: 'Kuwait',
       9: 'Cyprus',
-      10: 'Lebanon',
+      10: {
+        name: 'Lebanon',
+        statesOrProvinces: {
+          TYR: 'Tyre',
+        }
+      },
     }
   },
   11: {
@@ -241,112 +408,35 @@ const continents = {
 };
 
 const statesOrProvinces = {
-  CHL: 'Chaldea',
 
   SIB: 'Siberia',
   STP: 'Saint Petersburg',
 
   EST: 'Estonia',
   SRB: 'Serbia',
-  PRS: 'Prussia',
-
-  WRS: 'Warsaw',  // Poland
-  KRK: 'Krakow',  // Poland
-  SOF: 'Sofia',  // Bulgaria
+  //PRS: 'Prussia',
 
   LIT: 'Lituania',
 
   AFR: 'Africa',
   IVC: 'Ivory Coast',
   PGF: 'Persian Gulf',
+  SAH: 'Sahara',
+  ALG: 'Algeria',
 
   BLG: 'Belgium',
   SWD: 'Sweden',
   DMK: 'Danemark',
 
-  ALS: 'Alaska',
-  TYR: 'Tyre',
-  CLR: 'Colorado',
-  CNN: 'Connecticut',
-  HWI: 'Hawaii',
-  IOW: 'Iowa',
-  MNT: 'Montana',
-  MSC: 'Massachusetts',
-  MSO: 'Missouri',
-  MSP: 'Mississippi',
-  NBR: 'Nebraska',
-  NCR: 'North Carolina',
-  NDK: 'North Dakota',
-  OHI: 'Ohio',
-  ORG: 'Oregon',
-  SCR: 'South Carolina',
-  SDK: 'South Dakota',
-  UTA: 'Utah',
-  VRG: 'Virginia',
-  WVA: 'Western Virginia',
-  WSH: 'Washington',
-  NMX: 'New Mexico',
-
-  SNL: 'Sinaloa',
-  CHH: 'Chihuahua',
-
-  ALB: 'Alberta',
-  BCO: 'British Columbia',
-  MBA: 'Manitoba',
-  NBR: 'New Brunswick', // TODO: Duplicate!
-  NFL: 'Newfoundland',
-  NSC: 'Nova Scotia',
-  NWT: 'Northwest Territories',
-  ONT: 'Ontario',
-  QBC: 'Quebec',
-  SSK: 'Sasketchewan',
-  YUK: 'Yukon',
-  PEI: 'Prince Edward Island',
-  IRL: 'Ireland',
-  NI: 'North Ireland',
-  ENG: 'England',
-  SCT: 'Scotland',
   WAL: 'Wales?',
   WLS: 'Wales',
-  NI: 'Northern Ireland',
-  CLF: 'California',
-  NVD: 'Nevada',
-  KNS: 'Kansas',
-  ILN: 'Illinois',
-  IND: 'Indiana',
-  TXS: 'Texas',
-  MCH: 'Michigan',
-  ARK: 'Arkansas',
-  KNY: 'Kentucky',
-  NYK: 'New York',
-  VRM: 'Vermont',
-  IDH: 'Idaho',
-  OKL: 'Oklahoma',
-  NHM: 'New Hampshire',
-
-  ADC: 'Ardèche',
-  AMR: 'Alpes Maritimes',
-  FRB: 'Bretagne',
-  CRS: 'Creuse',
-  MNC: 'Manche',
-  MSE: 'Meuse',
-  RHN: 'Rhône',
-  PDC: 'Pas-de-Calais',
-  HGR: 'Haute Garonne',
-  VSG: 'Vosges',
-  BDR: 'Bouches-du-Rhône',
 
   FI: 'Firenze',
+  'MI.': 'Milano',
 
   BRL: 'Berlin',
 
   GRC: 'Greece',
-
-  VAU: 'Vaud',  // Switzerland
-
-  VCT: 'Victoria',
-  SAU: 'South Australia',
-  WAU: 'Western Australia',
 
   SAI: 'Saigon',
   SKR: 'South Korea',
@@ -354,12 +444,6 @@ const statesOrProvinces = {
   MRC: 'Maracaibo',
 
   DRK: 'Dark side'
-};
-
-exports.getStateOrProvince = function (record) {
-  let stateOrProvinceKey = record.stateOrProvince;
-  let statesOrProvinceStr = statesOrProvinces[stateOrProvinceKey];
-  return statesOrProvinceStr ? statesOrProvinceStr : stateOrProvinceKey;
 };
 
 const locales = {};
@@ -434,6 +518,17 @@ exports.getRelativeAltitude = function (record) {
 exports.getCountry = function getCountry(continent, countryCode) {
   let country = continent.countries[countryCode];
   return country ? (country.name ? country : {name: country}) : {name: 'country#' + countryCode};
+};
+
+exports.getStateOrProvince = function (country, record) {
+  let stateOrProvinceKey = record.stateOrProvince;
+  let statesOrProvinceStr;
+  if (country.statesOrProvinces) {
+    statesOrProvinceStr = country.statesOrProvinces[stateOrProvinceKey];
+  } else {
+    statesOrProvinceStr = statesOrProvinces[stateOrProvinceKey];
+  }
+  return statesOrProvinceStr ? statesOrProvinceStr : stateOrProvinceKey;
 };
 
 exports.getContinent = function getContinent(continentCode) {

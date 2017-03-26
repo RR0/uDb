@@ -219,7 +219,7 @@ sourcesReader
           readSignedInt('year');
           readByte('locale');
           readByteBits('beforeMonth', 4, 'month');
-          readByteBits('beforeDay', 5, 'day');
+          readByteBits('refIndexHigh', 5, 'day');
           readByte('hour');
           readByte('ymdt');
           readByte('duration');
@@ -261,7 +261,7 @@ sourcesReader
           readByte('ref');
 
           readByte('refIndex');
-          record.refIndex = (record.beforeDay << 8) + record.refIndex;
+          record.refIndex = (record.refIndexHigh << 8) + record.refIndex;
 
           readNibbles('strangeness', 'credibility');
 
@@ -298,7 +298,7 @@ sourcesReader
             let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
               '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
             let countryStr = country.name + (country.description ? ` (${country.description})` : '');
-            let stateOrProvince = geo.getStateOrProvince(record);
+            let stateOrProvince = geo.getStateOrProvince(country, record);
             let locationStr = '  Location    : ' + localeStr + ', '
               + record.location
               + ' (' + stateOrProvince + ', ' + countryStr + ', ' + continent.name + '), '

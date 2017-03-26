@@ -78,8 +78,11 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
       record.continent = continent.name;
       delete record.continentCode;
 
-      record.country = geo.getCountry(continent, record.countryCode).name;
+      let country = geo.getCountry(continent, record.countryCode);
+      record.country = country.name;
       delete record.countryCode;
+
+      record.stateOrProvince = geo.getStateOrProvince(country, record);
     }
     record.longitude = parseFloat(record.longitude.toFixed(2));
     record.latitude = parseFloat(record.latitude.toFixed(2));
@@ -90,7 +93,6 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
     record.hour = time.getTime(record);
     record.elevation = geo.getElevation(record);
     record.relativeAltitude = geo.getRelativeAltitude(record);
-    record.stateOrProvince = geo.getStateOrProvince(record);
     record.locationFlags = ReadableCsvRecordOutput.flagsKeysStr(record.locationFlags, flags.locationFlagsLabels);
     record.miscellaneousFlags = ReadableCsvRecordOutput.flagsKeysStr(record.miscellaneousFlags, flags.miscellaneousFlagsLabels);
     record.typeOfUfoCraftFlags = ReadableCsvRecordOutput.flagsKeysStr(record.typeOfUfoCraftFlags, flags.typeOfUfoCraftFlagsLabels);
@@ -106,7 +108,7 @@ exports.ReadableCsvRecordOutput = class ReadableCsvRecordOutput extends CsvRecor
     const headerRecord = util.copy(record);
 
     delete headerRecord.beforeMonth;
-    delete headerRecord.beforeDay;
+    delete headerRecord.refIndexHigh;
     delete headerRecord.ymdt;
     delete headerRecord.unknown1;
     delete headerRecord.unknown2;
