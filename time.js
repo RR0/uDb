@@ -1,10 +1,10 @@
-function accuracy(value, valueAccuracy) {
+function accuracy(value, valueAccuracy, questionMark) {
   let accurateValue = '';
   switch (valueAccuracy) {
     case 0:
       break;
     case 1:
-      accurateValue = '?';
+      accurateValue = questionMark ? '?' : '';
       break;
     case 2:
       accurateValue = '~';
@@ -18,13 +18,13 @@ function accuracy(value, valueAccuracy) {
 exports.getDay = function (record, padding = false) {
   const dayAccuracy = (record.ymdt >> 2) & 3;
   let day = padding ? (record.day > 31 ? '--' : (record.day < 10 ? '0' : '') + record.day) : record.day;
-  return accuracy(day, dayAccuracy);
+  return accuracy(day, dayAccuracy, padding);
 };
 
 exports.getMonth = function (record, padding = false) {
   const monthAccuracy = (record.ymdt >> 4) & 3;
   let month = padding ? (record.month < 10 ? '0' : '') + record.month : record.month;
-  return accuracy(month, monthAccuracy);
+  return accuracy(month, monthAccuracy, padding);
 };
 
 exports.getYear = function (record) {

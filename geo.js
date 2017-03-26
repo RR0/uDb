@@ -7,6 +7,7 @@ const continents = {
         name: 'Canada',
         statesOrProvinces: {
           ALB: 'Alberta',
+          ALT: 'Alta',
           BCO: 'British Columbia',
           MBA: 'Manitoba',
           NBR: 'New Brunswick',
@@ -83,6 +84,7 @@ const continents = {
         statesOrProvinces: {
           SNL: 'Sinaloa',
           CHH: 'Chihuahua',
+          BCN: 'Baja California',
         }
       },
       4: 'Guatemala',
@@ -91,27 +93,54 @@ const continents = {
       7: 'El Salvador',
       8: 'Nicaragua',
       9: 'Costa Rica',
-      10: 'Panama',
+      10: {
+        name: 'Panama',
+        statesOrProvinces: {
+          CNZ: 'Canal Zone',
+        }
+      }
     }
   },
   1: {
     name: 'South America',
     description: 'Actual Continent',
     countries: {
-      1: 'Brazil',
+      1: {
+        name: 'Brazil',
+        statesOrProvinces: {
+          AMZ: 'Amazonas',
+          BAH: 'Bahia'
+        }
+      },
       2: 'Paraguay',
       3: 'Uruguay',
-      4: 'Argentina',
+      4: {
+        name: 'Argentina', statesOrProvinces: {
+          BNA: 'Buenos Aires',
+          JJY: 'Juhuy',
+        }
+      },
       5: {
         name: 'Chile',
         statesOrProvinces: {
-          ANT: 'Antofagasta'
+          ANT: 'Antofagasta',
+          ATC: 'Atacama'
         }
       },
       6: 'Bolivia',
-      7: 'Peru',
+      7: {
+        name: 'Peru',
+        statesOrProvinces: {
+          ARQ: 'Arequipa',
+        }
+      },
       8: 'Ecuador',
-      9: 'Colombia',
+      9: {
+        name: 'Colombia',
+        statesOrProvinces: {
+          BGT: 'Bogota  '
+        }
+      },
       10: 'Venezuela',
       11: 'Guyanas (all 3 of them)',
     }
@@ -130,9 +159,18 @@ const continents = {
           SAU: 'South Australia',
           WAU: 'Western Australia',
         }
-      },
+      }
+      ,
       2: 'New Zealand',
-      3: 'Atlantic Ocean + islands',
+      3: {
+        name: 'Atlantic Ocean + islands',
+        statesOrProvinces: {
+          AZR: 'Azores',
+          BAH: 'Bahamas',
+          BRM: 'Bermuda',
+        }
+      }
+      ,
       4: 'Pacific Ocean and non-Asian islands',
       5: 'Caribbean area',
       6: 'Indian Ocean + islands',
@@ -142,7 +180,8 @@ const continents = {
         statesOrProvinces: {
           VST: 'Vostok',
         }
-      },
+      }
+      ,
       9: 'Iceland',
       10: 'Greenland',
     }
@@ -165,15 +204,36 @@ const continents = {
       2: {
         name: 'Scandanavian and Finland',
         statesOrProvinces: {
-          NRW: 'Norway'
+          NRW: 'Norway',
+          FNL: 'Finland',
+          SWD: 'Sweden',
         }
       },
-      3: 'Germany',
-      4: 'Belgium, Netherlands and Luxembourg',
+      3: {
+        name: 'Germany',
+        statesOrProvinces: {
+          BDW: 'Bade-Wurtemberg',
+          BVR: 'Bavaria',
+          SXN: 'Saxony',
+        }
+      },
+      4: {
+        name: 'Belgium, Netherlands and Luxembourg',
+        statesOrProvinces: {
+          BLG: 'Belgium',
+          NTH: 'Netherlands'
+        }
+      },
       5: {
         name: 'France',
         statesOrProvinces: {
+          ARG: 'Ariège',
+          AUD: 'Aude',
           AIN: 'Ain',
+          AVR: 'Aveyron',
+          AND: 'Andorre',
+          BRH: 'Bas-Rhin',
+          SMR: 'Seine Maritime',
           ADC: 'Ardèche',
           ASN: 'Aisne',
           ADN: 'Ardennes',
@@ -181,7 +241,18 @@ const continents = {
           AHP: 'Alpes de Haute Provence',
           FRB: 'Bretagne',
           'M&M': 'Meurthe-et-Moselle',
+          CNT: 'Cantal',
           CRS: 'Creuse',
+          DRM: 'Drôme',
+          HAL: 'Hautes Alpes',
+          JRA: 'Jura',
+          LOI: 'Loire',
+          LRE: 'Loire', // Duplicate
+          LRT: 'Loiret',
+          LOT: 'Lot',
+          LRA: 'Loire Atlantique',
+          LND: 'Landes',
+          LZR: 'Lozère',
           MNC: 'Manche',
           MSE: 'Meuse',
           RHN: 'Rhône',
@@ -192,21 +263,54 @@ const continents = {
           FNS: 'Finistère',
         }
       },
-      6: 'Spain',
-      7: 'Portugal',
-      8: 'Austria',
+      6: {
+        name: 'Spain',
+        statesOrProvinces: {
+          ALB: 'Albacete',
+          BDJ: 'Badajoz',
+          BRC: 'Barcelone',
+          BRG: 'Burgos',
+          CNC: 'Cuenca',
+        }
+      },
+      7: {
+        name: 'Portugal',
+        statesOrProvinces: {
+          ALG: 'Algarve',
+          BRL: 'Beira littoral',
+          DRO: 'Douro',
+        }
+      },
+      8: {
+        name: 'Austria',
+        statesOrProvinces: {
+          UAU: 'Upper Austria'
+        }
+      },
       9: {
         name: 'Italy',
         statesOrProvinces: {
           AL: 'Alessandria',
-          'FI.': 'Firenze',
+          ASC: 'Ascoli Piceno',
+          AN: 'Ancona',
+          BS: 'Brescia',
+          BA: 'Bari',
+          BG: 'Bergamo',
+          CA: 'Cagliari',
+          CMP: 'Campania',
+          FI: 'Firenze',
           AQ: 'Aquila',
+          MI: 'Milano',
+          LMB: 'Lombardy',
+          LU: 'Lucques',
         }
       },
       10: {
         name: 'Switzerland',
         statesOrProvinces: {
           VAU: 'Vaud',
+          BRN: 'Berne',
+          BSL: 'Basel',
         }
       },
       11: 'Greece and Island nations',
@@ -231,7 +335,16 @@ const continents = {
         name: 'Former Yugoslavia',
         description: 'Province field indicates present republics'
       },
-      5: 'Romania',
+      5: {
+        name: 'Romania',
+        statesOrProvinces: {
+          BCU: 'Bacău',
+          BHR: 'Bihor',
+          BSV: 'Brasov',
+          BUC: 'Bucharest',
+          CNS: 'Constanța',
+        }
+      },
       6: {
         name: 'Bulgaria',
         statesOrProvinces: {
@@ -239,7 +352,13 @@ const continents = {
         }
       },
       7: 'Albania',
-      8: 'Estonia, Latvia & Lithuania',
+      8: {
+        name: 'Estonia, Latvia & Lithuania',
+        statesOrProvinces: {
+          LTH: 'Lithuania',
+          LTV: 'Latvia',
+        }
+      },
       9: 'Belorus',
       10: 'Ukraine',
     }
@@ -250,7 +369,14 @@ const continents = {
      */
     name: 'Asia Mainland',
     countries: {
-      1: 'Red China',
+      1: {
+        name: 'Red China',
+        statesOrProvinces: {
+          ANH: 'Anhui',
+          JNS: 'Jiangsu',
+          JNX: 'Jianxi',
+        }
+      },
       2: 'Mongolia',
       3: 'India',
       4: 'Pakistan',
@@ -279,7 +405,12 @@ const continents = {
      */
     name: 'Asia Pacific',
     countries: {
-      1: 'Japan',
+      1: {
+        name: 'Japan',
+        statesOrProvinces: {
+          KYU: 'Kyushu'
+        }
+      },
       2: 'Philippines',
       3: 'Taiwan China',
       4: 'Vietnam',
@@ -302,9 +433,10 @@ const continents = {
       6: {
         name: 'Algeria',
         statesOrProvinces: {
+          ALG: 'Alger',
           ORN: 'Oran',
           LAM: 'Lamoriciere',
-          BOU: 'Boukanefis',
+          BOU: 'Boukanefis  ',
           MOS: 'Mostaganem',
           CNS: 'Constantine',
           BCH: 'Bechar',
@@ -362,12 +494,25 @@ const continents = {
     countries: {
       1: {
         name: 'Russia',
-        description: 'includes various ethnic Okrugs, all within the former RSFSR'
+        description: 'includes various ethnic Okrugs, all within the former RSFSR',
+        statesOrProvinces: {
+          LEN: 'Leningrad',
+        }
       },
-      2: 'Georgia',
+      2: {
+        name: 'Georgia',
+        statesOrProvinces: {
+          ABK: 'Abkhazia'
+        }
+      },
       3: 'Armenia',
       4: 'Azerbaijan',
-      5: 'Kazakh Republic',
+      5: {
+        name: 'Kazakh Republic',
+        statesOrProvinces: {
+          ALM: 'Alma'
+        }
+      },
       6: 'Turkmen Republic',
       7: 'Uzbek Republic',
       8: 'Tadzhik Republic',
@@ -393,7 +538,12 @@ const continents = {
         }
       },
       4: 'Iran',
-      5: 'Jordan',
+      5: {
+        name: 'Jordan',
+        statesOrProvinces: {
+          AMN: 'Amman'
+        }
+      },
       6: 'Israel',
       7: {
         name: 'Arabian Peninsula',
@@ -405,8 +555,9 @@ const continents = {
         name: 'Lebanon',
         statesOrProvinces: {
           TYR: 'Tyre',
+          BEI: 'Beirut',
         }
-      },
+      }
     }
   },
   11: {
@@ -427,7 +578,7 @@ const continents = {
       10: 'Deep Space',
       11: 'Pluto',
     }
-  },
+  }
 };
 
 const statesOrProvinces = {
@@ -445,17 +596,11 @@ const statesOrProvinces = {
   IVC: 'Ivory Coast',
   PGF: 'Persian Gulf',
   SAH: 'Sahara',
-  ALG: 'Algeria',
 
-  BLG: 'Belgium',
-  SWD: 'Sweden',
   DMK: 'Danemark',
 
   WAL: 'Wales?',
   WLS: 'Wales',
-
-  FI: 'Firenze',
-  'MI.': 'Milano',
 
   BRL: 'Berlin',
 
@@ -545,6 +690,16 @@ exports.getCountry = function getCountry(continent, countryCode) {
 
 exports.getStateOrProvince = function (country, record) {
   let stateOrProvinceKey = record.stateOrProvince;
+  let end;
+  let found;
+  do {
+    let newEnd = stateOrProvinceKey.lastIndexOf('.');
+    found = newEnd > 0;
+    if (found) {
+      end = newEnd;
+      stateOrProvinceKey = stateOrProvinceKey.substring(0, end);
+    }
+  } while (found);
   let statesOrProvinceStr;
   if (country.statesOrProvinces) {
     statesOrProvinceStr = country.statesOrProvinces[stateOrProvinceKey];

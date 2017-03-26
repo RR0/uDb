@@ -286,7 +286,7 @@ sourcesReader
             const country = geo.getCountry(continent, countryCode);
             let year = time.getYear(record);
             let month = time.getMonth(record, true);
-            let day = time.getDay(record);
+            let day = time.getDay(record, true);
             let timeStr = time.getTime(record);
             let localeStr = geo.getLocale(record);
 
