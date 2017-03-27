@@ -3,11 +3,11 @@ const program = require('commander');
 const json2xml = require('json2xml');
 
 const util = require('./util');
-const csv = require('./csv');
+const csv = require('./output/csv');
 const flags = require('./flags');
 const geo = require('./geo');
 const time = require('./time');
-const formatModule = require('./format');
+const formatModule = require('./output/format');
 
 function range(val) {
   return val.split('..').map(Number);
@@ -368,13 +368,14 @@ sourcesReader
             this.output.write(this.desc(record) + '\n');
           }
 
-          end() { }
+          end() {
+          }
         }
 
         class XmlRecordOutput {
-          constructor(output, formatter) {
+          constructor(output, sortedRecord) {
             this.output = output;
-            this.formatter = formatter;
+            this.sortedRecord = sortedRecord;
             this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
           }
 
@@ -383,8 +384,11 @@ sourcesReader
           }
 
           write(record) {
-            let formattedRecord = this.formatter.format(record);
-            this.output.write('<record>'+this.desc(formattedRecord) + '</record>\n');
+            let formattedRecord = {};
+            for (let prop in this.sortedRecord) {
+              formattedRecord[prop] = record[prop];
+            }
+            this.output.write('<record>' + this.desc(formattedRecord) + '</record>\n');
           }
 
           end() {
@@ -439,7 +443,7 @@ sourcesReader
               outputFormat = new csv.CsvRecordOutput(csvSeparator, output, sortedRecord);
               break;
             case 'xml':
-              outputFormat = new XmlRecordOutput(output, recordFormatter);
+              outputFormat = new XmlRecordOutput(output, sortedRecord);
               break;
             default:
               outputFormat = new DefaultRecordOutput(output);
