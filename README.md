@@ -355,7 +355,7 @@ See such a CSV export [imported into Google Spreadsheets](https://docs.google.co
 
 #### XML output in a file
 
-If you want to output in a [XML format](https://fr.wikipedia.org/wiki/Extensible_Markup_Language) and save the result into a file that could be imported in some spreadsheet software (Microsoft Excel, Google Spreadsheets, Apple Numbers, etc.):
+If you want to output in a [XML format](https://fr.wikipedia.org/wiki/Extensible_Markup_Language) and save the result into a file:
 
     node udb -f xml --out export.xml --count 10
 
