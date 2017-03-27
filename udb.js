@@ -7,6 +7,7 @@ const csv = require('./csv');
 const flags = require('./flags');
 const geo = require('./geo');
 const time = require('./time');
+const formatModule = require('./format');
 
 function range(val) {
   return val.split('..').map(Number);
@@ -367,15 +368,14 @@ sourcesReader
             this.output.write(this.desc(record) + '\n');
           }
 
-          end() {
-
-          }
+          end() { }
         }
 
         class XmlRecordOutput {
-          constructor(output) {
+          constructor(output, formatter) {
             this.output = output;
-            this.output.write('<?xml version="1.0" encoding="UTF-8">\n<udb>')
+            this.formatter = formatter;
+            this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>')
           }
 
           desc(record) {
@@ -383,7 +383,8 @@ sourcesReader
           }
 
           write(record) {
-            this.output.write('<record>'+this.desc(record) + '</record>\n');
+            let formattedRecord = this.formatter.format(record);
+            this.output.write('<record>'+this.desc(formattedRecord) + '</record>\n');
           }
 
           end() {
@@ -425,31 +426,35 @@ sourcesReader
           }
         }
 
-        let output = process.stdout;
-        if (program.out) {
-          output = fs.createWriteStream(program.out, {flags: 'w'});
+        function getOutput(sortedRecord, recordFormatter) {
+          let output = process.stdout;
+          if (program.out) {
+            output = fs.createWriteStream(program.out, {flags: 'w'});
+          }
+
+          let outputFormat;
+          let csvSeparator = ',';
+          switch (format.toLocaleLowerCase()) {
+            case 'csv':
+              outputFormat = new csv.CsvRecordOutput(csvSeparator, output, sortedRecord);
+              break;
+            case 'xml':
+              outputFormat = new XmlRecordOutput(output, recordFormatter);
+              break;
+            default:
+              outputFormat = new DefaultRecordOutput(output);
+          }
+          return outputFormat;
         }
 
-        let outputFormat;
-        let csvSeparator = ',';
-        switch (format.toLocaleLowerCase()) {
-          case 'rawcsv':
-            outputFormat = new csv.CsvRecordOutput(csvSeparator, output);
-            break;
-          case 'csv':
-            outputFormat = new csv.ReadableCsvRecordOutput(csvSeparator, output);
-            break;
-          case 'xml':
-            outputFormat = new XmlRecordOutput(output);
-            break;
-          default:
-            outputFormat = new DefaultRecordOutput(output);
-        }
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
         const recordEnumerator = new DefaultRecordEnumerator(maxCount);
         //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
+
+        let recordFormatter;
+        let outputFormat;
 
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
@@ -459,7 +464,13 @@ sourcesReader
             position += recordSize;
           } else {
             const record = readRecord();
-            outputFormat.write(record);
+            if (!recordFormatter) {
+              recordFormatter = new formatModule.RecordFormatter(record);
+              let sortedRecord = recordFormatter.formatProperties(util.copy(record));
+              outputFormat = getOutput(sortedRecord, recordFormatter);
+            }
+            const formattedRecord = recordFormatter.formatData(record);
+            outputFormat.write(formattedRecord);
             recordEnumerator.next();
             count++;
           }

@@ -207,6 +207,7 @@ const continents = {
           NRW: 'Norway',
           FNL: 'Finland',
           SWD: 'Sweden',
+          DMK: 'Danemark',
         }
       },
       3: {
