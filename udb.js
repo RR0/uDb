@@ -375,7 +375,7 @@ sourcesReader
           constructor(output, formatter) {
             this.output = output;
             this.formatter = formatter;
-            this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>')
+            this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
           }
 
           desc(record) {

@@ -362,7 +362,8 @@ If you want to output in a [XML format](https://fr.wikipedia.org/wiki/Extensible
 will create/overwrite an `export.xml` file with the following contents:
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <udb><record><year/><month/><day/><hour/><location>CHALDEA</location><stateOrProvince>Chaldea</stateOrProvince><country>country#undefined</country><continent>continent#undefined</continent><title>EZEKIEL</title><description>FIERY SPHERE LANDS/4 SUPPORTS
+    <udb>
+    <record><year/><month/><day/><hour/><location>CHALDEA</location><stateOrProvince>Chaldea</stateOrProvince><country>country#undefined</country><continent>continent#undefined</continent><title>EZEKIEL</title><description>FIERY SPHERE LANDS/4 SUPPORTS
     TAKEN FOR A RIDE
     see Bible acct.</description><locale>locale#Pasture</locale><duration>60</duration><evidenceAndSpecialEffectsFlags/><typeOfUfoCraftFlags/><latitude>31</latitude><apparentUfoOccupantActivitiesFlags/><placesVisitedAndThingsAffectedFlags/><elevation>200</elevation><miscellaneousDetailsFlags/><relativeAltitude>0</relativeAltitude><longitude>-46.17</longitude><locationFlags/><ref>2</ref><refIndex>2</refIndex><strangeness>8</strangeness><credibility>4</credibility><miscellaneousFlags/><aliensMonstersFlags/></record>
     <record><year/><month/><day/><hour/><location>TYRE =SUR,LEBANON</location><stateOrProvince>Tyre</stateOrProvince><country>country#undefined</country><continent>continent#undefined</continent><title>SIEGE/ALEXANDER the GREAT</title><description>FLYING SHIELD BEAMS
