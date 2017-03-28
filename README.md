@@ -383,7 +383,7 @@ will create/overwrite an `export.xml` file with the following contents:
     <record><year>1034</year><month/><day/><hour/><location>nr VERDUN,FR</location><stateOrProvince>Meuse</stateOrProvince><country>France</country><continent>Western Europe</continent><title>FIERY OVOID &gt;&gt;SE TURNS &gt;&gt;W</title><description>/VERDUN MUSEUM /SOBEPS IFS#23 p35</description><locale>Farmlands</locale><duration>15</duration><evidenceAndSpecialEffectsFlags>Historical</evidenceAndSpecialEffectsFlags><typeOfUfoCraftFlags>Saucer, Cigar</typeOfUfoCraftFlags><latitude>49.08</latitude><apparentUfoOccupantActivitiesFlags/><placesVisitedAndThingsAffectedFlags/><elevation/><miscellaneousDetailsFlags/><relativeAltitude/><longitude>-5.33</longitude><locationFlags>Map, Ground, Civilian</locationFlags><ref>2</ref><refIndex>9</refIndex><strangeness>6</strangeness><credibility>6</credibility><miscellaneousFlags>Oddity</miscellaneousFlags><aliensMonstersFlags>No occupant</aliensMonstersFlags></record>
     </udb>
     
-For details about input/output formats, please check the [uDb Wiki](https://github.com/RR0/uDb/wiki/uDb-Wiki).
+For details about input/output formats, please check the [uDb Wiki](https://github.com/RR0/uDb/wiki).
     
 ## TODO
 
