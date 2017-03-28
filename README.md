@@ -14,19 +14,19 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
     node udb [options]
     
       Options:
-    
-        -h, --help                                     output usage information
-        -V, --version                                  output the version number
-        -d, --data [dataFile]                          Specify data file. Defaults to ./U.RND
-        -s, --sources [sourcesFile]                    Specify sources file. Defaults to ./usources.txt
-        -wm, --worldmap [wmFile]                       Specify world map file. Defaults to ./WM.VCE
-        -r, --range <fromIndex>..<toIndex>             Specify record range to output. Defaults to 1..end
-        -r, --records <recordsIndexes>                 Specify a list of indexes of records to output.
-        -c, --count <maxCount>                         Specify the maximim number of records to output.
-        -f, --format <default|csv|xml> [csvSeparator]  The format of the output
-        -o, --out <outputFile>                         The name of the file to output. Will output as CSV if file extension is .csv
-        -v, --verbose                                  Displayed detailed processing information.
-        --debug                                        Displays debug info.
+      
+          -h, --help                                     output usage information
+          -V, --version                                  output the version number
+          -d, --data [dataFile]                          Data file to read. Defaults to ./U.RND
+          -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./usources.txt
+          -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./WM.VCE
+          -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
+          -r, --records <recordsIndexes>                 List of indexes of records to output.
+          -c, --count <maxCount>                         Maximum number of records to output.
+          -f, --format <default|csv|xml> [csvSeparator]  Format of the output
+          -o, --out <outputFile>                         Name of the file to output. Will output as CSV if file extension is .csv
+          -v, --verbose                                  Displays detailed processing information.
+          --debug                                        Displays debug info.
 
 If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
 

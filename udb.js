@@ -14,15 +14,15 @@ function range(val) {
 }
 program
   .version('0.0.1')
-  .option('-d, --data [dataFile]', 'Specify data file. Defaults to ./U.RND')
-  .option('-s, --sources [sourcesFile]', 'Specify sources file. Defaults to ./usources.txt')
-  .option('-wm, --worldmap [wmFile]', 'Specify world map file. Defaults to ./WM.VCE')
-  .option('-r, --range <fromIndex>..<toIndex>', 'Specify record range to output. Defaults to 1..end', range)
-  .option('-r, --records <recordsIndexes>', 'Specify a list of indexes of records to output.')
-  .option('-c, --count <maxCount>', 'Specify the maximim number of records to output.')
-  .option('-f, --format <default|csv|xml> [csvSeparator]', 'The format of the output')
-  .option('-o, --out <outputFile>', 'The name of the file to output. Will output as CSV if file extension is .csv')
-  .option('-v, --verbose', 'Displayed detailed processing information.')
+  .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./U.RND')
+  .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./usources.txt')
+  .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./WM.VCE')
+  .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
+  .option('-r, --records <recordsIndexes>', 'List of indexes of records to output.')
+  .option('-c, --count <maxCount>', 'Maximum number of records to output.')
+  .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
+  .option('-o, --out <outputFile>', 'Name of the file to output. Will output as CSV if file extension is .csv')
+  .option('-v, --verbose', 'Displays detailed processing information.')
   .option('--debug', 'Displays debug info.')
   .parse(process.argv);
 
