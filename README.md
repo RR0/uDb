@@ -21,7 +21,7 @@ You need to have [node](https://nodejs.org) 7.6.0 or later installed on your com
           -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./usources.txt
           -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./WM.VCE
           -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
-          -r, --records <recordsIndexes>                 List of indexes of records to output.
+          -i, --records <recordsIndexes>                 List of indexes of records to output.
           -c, --count <maxCount>                         Maximum number of records to output.
           -f, --format <default|csv|xml> [csvSeparator]  Format of the output
           -o, --out <outputFile>                         Name of the file to output. Will output as CSV if file extension is .csv
