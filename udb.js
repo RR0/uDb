@@ -18,7 +18,7 @@ program
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./WM.VCE')
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
-  .option('-r, --records <recordsIndexes>', 'List of indexes of records to output.')
+  .option('-i, --records <recordsIndexes>', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
   .option('-o, --out <outputFile>', 'Name of the file to output. Will output as CSV if file extension is .csv')
