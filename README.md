@@ -383,47 +383,7 @@ will create/overwrite an `export.xml` file with the following contents:
     <record><year>1034</year><month/><day/><hour/><location>nr VERDUN,FR</location><stateOrProvince>Meuse</stateOrProvince><country>France</country><continent>Western Europe</continent><title>FIERY OVOID &gt;&gt;SE TURNS &gt;&gt;W</title><description>/VERDUN MUSEUM /SOBEPS IFS#23 p35</description><locale>Farmlands</locale><duration>15</duration><evidenceAndSpecialEffectsFlags>Historical</evidenceAndSpecialEffectsFlags><typeOfUfoCraftFlags>Saucer, Cigar</typeOfUfoCraftFlags><latitude>49.08</latitude><apparentUfoOccupantActivitiesFlags/><placesVisitedAndThingsAffectedFlags/><elevation/><miscellaneousDetailsFlags/><relativeAltitude/><longitude>-5.33</longitude><locationFlags>Map, Ground, Civilian</locationFlags><ref>2</ref><refIndex>9</refIndex><strangeness>6</strangeness><credibility>6</credibility><miscellaneousFlags>Oddity</miscellaneousFlags><aliensMonstersFlags>No occupant</aliensMonstersFlags></record>
     </udb>
     
-## File structure
-
-The data file is a sequence of 112-bytes records.
-
-A part from the first (#0) and last records which are system ones, 
-the structure of a record is:
-
--   0 (0x00) : Sighting year (1 signed word)
--   2 (0x02) : Locale code (1 byte) (see locales table below)
--   3 (0x03) : ? (4 higher bits) 
--   3 (0x03) : Sighting month (4 lower bits to encode up to 12)
--   4 (0x04) : Sighting day (1 byte)
--   5 (0x05) : Sighting hour (1 byte) encoded as:
-    - hour: `value / 6`
-    - minutes: remainder/modulo `value % 6` * 10 minutes
--   6 (0x06) : Year, Month, Day and Time (YMDT) accuracies (1 byte) encoded as 4 * 2 bits each encoding an accuracy level as:
-    - 0 : DOES NOT APPLY/irrelevant (so not displayed).
-    - 1 : Unknown/unspecified (displayed `?`).    
-    - 2 : Approximative (displayed `~`): within 1 or 2 Years or Months; within 3-4 Days, Hours.    
-    - 3 : Known: Exact year, month, day: Time within one hour.
--   7 (0x07) : Sighting duration in minutes (1 byte)
--   8 (0x08) : ?
--   9 : Longitude (15 lower bits of signed word / 1.11111)
--  11 : Latitude (15 lower bits of signed word / 1.11111) 
--  13 (0x0D) : Elevation (1 signed word) in meters (-99 if N/A)
--  15 (0x0F) : Relative altitude (1 signed word) in meters (999 if N/A)
--  17 (0x11) : ?
--  18 (0x12) : Country code (1 byte) (see countries table below)
--  19 (0x13) : Area code (3 chars)
--  23 (0x17) : Location flags
--  24 (0x18) : Miscellaneous flags
--  25 (0x19) : Type of UFO / craft flags
--  26 (0x1A) : Aliens / monsters flags
--  27 (0x1B) : Apparent UFO / occupant activities flags
--  28 (0x1C) : Places visited and things affected flags
--  29 (0x1D) : Evidence and special effects flags
--  30 (0x1E) : Miscellaneous details flags
--  31 (0x6d) : Description (78 chars) as `:`-separated rows.
-- 110 (0x6e) : Source code (1 byte) (see `usources.txt` file) 
-- 111 (0x6f) : Position in source (1 byte) but [not complete](https://github.com/RR0/uDb/issues/3)
-- 112 (0x70) : Strangeness and credibility levels (1 byte), encoded as two hex chars (4 bits:4 bits)
+For details about input/output formats, please check the [uDb Wiki](https://github.com/RR0/uDb/wiki/uDb-Wiki).
 
 ### Locales
 
