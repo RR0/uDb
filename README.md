@@ -34,7 +34,7 @@ If no files are specified, it will look for `usources.txt` as a source file, and
 
 #### Human-readable output in console
 
-    node --count 10 --verbose
+    node udb --count 10 --verbose
 
 will display the 10 first decoded records in the default format:
 

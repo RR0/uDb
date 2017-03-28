@@ -1,7 +1,7 @@
 const continents = {
   0: {
     name: 'North America',
-    description: 'Actual Continent including Central America.',
+    description: 'Actual Continent including Central America',
     countries: {
       1: {
         name: 'Canada',
