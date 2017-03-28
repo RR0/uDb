@@ -29,17 +29,17 @@ describe('geo', function () {
   });
   describe('getContinent', function () {
     it('should return known continent', function () {
-      let continent0 = geo.getContinent(0);
+      var continent0 = geo.getContinent(0);
       assert.equal('North America', continent0.name);
       assert.equal('Actual Continent including Central America', continent0.description);
       assert.equal(10, Object.keys(continent0.countries).length);
 
-      let continent11 = geo.getContinent(11);
+      var continent11 = geo.getContinent(11);
       assert.equal('Space', continent11.name);
       assert.equal(11, Object.keys(continent11.countries).length);
     });
     it('should return unknown continent', function () {
-      let unknownContinent = geo.getContinent(12);
+      var unknownContinent = geo.getContinent(12);
       assert.equal('continent#12', unknownContinent.name);
       assert.equal(0, Object.keys(unknownContinent.countries).length);
     });
