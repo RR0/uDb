@@ -1,13 +1,13 @@
 const fs = require('fs');
 const program = require('commander');
-const json2xml = require('json2xml');
 
 const util = require('./util');
-const csv = require('./output/csv');
 const flags = require('./flags');
 const geo = require('./geo');
 const time = require('./time');
 const formatModule = require('./output/format');
+const csv = require('./output/csv');
+const xml = require('./output/xml');
 
 function range(val) {
   return val.split('..').map(Number);
@@ -170,7 +170,7 @@ sourcesReader
 
           function readString(length, prop) {
             let str = buffer.toString('utf8', recordPos, recordPos + length);
-            record[prop] = util.trimZeroEnd(str).trim();
+            record[prop] = validString(util.trimZeroEnd(str)).trim();
             logReadPos(prop);
             read(length);
             return str;
@@ -218,6 +218,10 @@ sourcesReader
             return sInt;
           }
 
+          function validString(str) {
+            return str ? str.replace(/[\x18-\x19]/g, ' ') : '';
+          }
+
           readSignedInt('year');
           readByte('locale');
           readByteBits('beforeMonth', 4, 'month');
@@ -246,8 +250,7 @@ sourcesReader
           const split = record.description.split(':');
           record.location = split[0];
           record.title = split[1];
-          let text = split[2];
-          record.description = text ? text : '';
+          record.description = split[2];
           const description2 = split[3];
           if (description2) {
             record.description += '\n' + description2;
@@ -372,30 +375,6 @@ sourcesReader
           }
         }
 
-        class XmlRecordOutput {
-          constructor(output, sortedRecord) {
-            this.output = output;
-            this.sortedRecord = sortedRecord;
-            this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
-          }
-
-          desc(record) {
-            return json2xml(record).toString();
-          }
-
-          write(record) {
-            let formattedRecord = {};
-            for (let prop in this.sortedRecord) {
-              formattedRecord[prop] = record[prop];
-            }
-            this.output.write('<record>' + this.desc(formattedRecord) + '</record>\n');
-          }
-
-          end() {
-            this.output.write('</udb>')
-          }
-        }
-
         let count = 0;
 
         class ArrayRecordEnumerator {
@@ -443,7 +422,7 @@ sourcesReader
               outputFormat = new csv.CsvRecordOutput(csvSeparator, output, sortedRecord);
               break;
             case 'xml':
-              outputFormat = new XmlRecordOutput(output, sortedRecord);
+              outputFormat = new xml.XmlRecordOutput(output, sortedRecord);
               break;
             default:
               outputFormat = new DefaultRecordOutput(output);
