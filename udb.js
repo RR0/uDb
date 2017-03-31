@@ -26,9 +26,9 @@ program
   .option('--debug', 'Displays debug info.')
   .parse(process.argv);
 
-const sourcesFile = program.dataFile || 'usources.txt';
-const dataFile = program.sourcesFile || 'U.RND';
-const worldMap = program.wmFile || 'WM.VCE';
+const sourcesFile = program.dataFile || 'input/usources.txt';
+const dataFile = program.sourcesFile || 'input/U.RND';
+const worldMap = program.wmFile || 'input/WM.VCE';
 const format = program.format || 'default';
 
 const primaryReferences = {};
