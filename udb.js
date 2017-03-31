@@ -219,7 +219,8 @@ sourcesReader
           }
 
           function validString(str) {
-            return str ? str.replace(/[\x18-\x19]/g, ' ') : '';
+            const invalidXmlChars = /[^\x09\x0A\x0D\x20-\xFF]/g;
+            return str ? str.replace(invalidXmlChars, ' ') : '';
           }
 
           readSignedInt('year');
