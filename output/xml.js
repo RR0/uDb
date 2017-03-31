@@ -16,7 +16,7 @@ exports.XmlRecordOutput = class XmlRecordOutput {
     for (let prop in this.sortedRecord) {
       formattedRecord[prop] = record[prop];
     }
-    this.output.write(`<record>${this.desc(formattedRecord)}</record>\n`);
+    this.output.write(`<case>${this.desc(formattedRecord)}</case>\n`);
   }
 
   end() {
