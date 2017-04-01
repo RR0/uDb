@@ -1,6 +1,6 @@
 const assert = require('assert');
 const stream = require('stream');
-const xml = require('../output/xml');
+const xml = require('../build/output/xml');
 
 class MemoryWritable extends stream.Writable {
   constructor(options) {

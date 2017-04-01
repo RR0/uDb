@@ -1,45 +1,45 @@
 const assert = require('assert');
-const geo = require('../geo');
+const geo = require('../build/geo');
 
 describe('geo', function () {
   describe('getLocale', function () {
     it('should return known locale', function () {
-      assert.equal('Metropolis', geo.getLocale({locale: 0}));
-      assert.equal('Road + rails', geo.getLocale({locale: 20}));
+      assert.equal('Metropolis', geo.Geo.getLocale({locale: 0}));
+      assert.equal('Road + rails', geo.Geo.getLocale({locale: 20}));
     });
     it('should return unknown locale', function () {
-      assert.equal('locale#21', geo.getLocale({locale: 21}));
+      assert.equal('locale#21', geo.Geo.getLocale({locale: 21}));
     });
   });
   describe('getElevation', function () {
     it('should return known elevation', function () {
-      assert.equal('200', geo.getElevation({elevation: 200}));
+      assert.equal('200', geo.Geo.getElevation({elevation: 200}));
     });
     it('should return unknown elevation', function () {
-      assert.equal('', geo.getElevation({elevation: -99}));
+      assert.equal('', geo.Geo.getElevation({elevation: -99}));
     });
   });
   describe('getRelativeAltitude', function () {
     it('should return known relative altitude', function () {
-      assert.equal('20', geo.getRelativeAltitude({relativeAltitude: 20}));
+      assert.equal('20', geo.Geo.getRelativeAltitude({relativeAltitude: 20}));
     });
     it('should return unknown elevation', function () {
-      assert.equal('', geo.getRelativeAltitude({relativeAltitude: 999}));
+      assert.equal('', geo.Geo.getRelativeAltitude({relativeAltitude: 999}));
     });
   });
   describe('getContinent', function () {
     it('should return known continent', function () {
-      let continent0 = geo.getContinent(0);
+      let continent0 = geo.Geo.getContinent(0);
       assert.equal('North America', continent0.name);
       assert.equal('Actual Continent including Central America', continent0.description);
       assert.equal(10, Object.keys(continent0.countries).length);
 
-      let continent11 = geo.getContinent(11);
+      let continent11 = geo.Geo.getContinent(11);
       assert.equal('Space', continent11.name);
       assert.equal(11, Object.keys(continent11.countries).length);
     });
     it('should return unknown continent', function () {
-      let unknownContinent = geo.getContinent(12);
+      let unknownContinent = geo.Geo.getContinent(12);
       assert.equal('continent#12', unknownContinent.name);
       assert.equal(0, Object.keys(unknownContinent.countries).length);
     });
@@ -146,12 +146,12 @@ describe('geo', function () {
       }
     };
     it('should return known country', function () {
-      let country = geo.getCountry(continent0, 1);
+      let country = geo.Geo.getCountry(continent0, 1);
       assert.equal('Canada', country.name);
       assert.equal(13, Object.keys(country.statesOrProvinces).length);
     });
     it('should return unknown country', function () {
-      assert.deepEqual({name: 'country#11'}, geo.getCountry(continent0, 11));
+      assert.deepEqual({name: 'country#11'}, geo.Geo.getCountry(continent0, 11));
     });
   });
 });
