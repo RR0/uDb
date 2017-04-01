@@ -1,6 +1,7 @@
 import {Geo} from "../geo";
 import {RecordOutput} from "./output";
-import {FormattedRecord} from "../record";
+import {OutputRecord} from "./OutputRecord";
+
 let indent = 0;
 
 function line(str?) {
@@ -81,7 +82,7 @@ export class DefaultRecordOutput implements RecordOutput {
     return desc;
   }
 
-  write(record: FormattedRecord, position: number) {
+  write(record: OutputRecord, position: number) {
     this.output.write(line(this.desc(record, position)));
   }
 

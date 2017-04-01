@@ -1,6 +1,6 @@
-import {FormattedRecord} from "../record";
+import {OutputRecord} from "./OutputRecord";
 
 export interface RecordOutput {
-  write(record: FormattedRecord, position?: number);
+  write(record: OutputRecord, position?: number);
   end();
 }

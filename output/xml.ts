@@ -1,5 +1,5 @@
 import {RecordOutput} from "./output";
-import {FormattedRecord} from "../record";
+import {OutputRecord} from "./OutputRecord";
 const json2xml = require('json2xml');
 
 export class XmlRecordOutput implements RecordOutput {
@@ -8,16 +8,16 @@ export class XmlRecordOutput implements RecordOutput {
     this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
   }
 
-  desc(record: FormattedRecord) {
+  desc(record: OutputRecord) {
     return json2xml(record).toString();
   }
 
-  write(record: FormattedRecord) {
-    const formattedRecord: FormattedRecord = <FormattedRecord>{};
+  write(record: OutputRecord) {
+    const OutputRecord: OutputRecord = <OutputRecord>{};
     for (let prop in this.sortedRecord) {
-      formattedRecord[prop] = record[prop];
+      OutputRecord[prop] = record[prop];
     }
-    this.output.write(`<record>${this.desc(formattedRecord)}</record>\n`);
+    this.output.write(`<record>${this.desc(OutputRecord)}</record>\n`);
   }
 
   end() {
