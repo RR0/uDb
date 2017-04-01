@@ -1,9 +1,7 @@
 const json2xml = require('json2xml');
 
-exports.XmlRecordOutput = class XmlRecordOutput {
-  constructor(output, sortedRecord) {
-    this.output = output;
-    this.sortedRecord = sortedRecord;
+export class XmlRecordOutput {
+  constructor(private output, private sortedRecord) {
     this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
   }
 
@@ -22,4 +20,4 @@ exports.XmlRecordOutput = class XmlRecordOutput {
   end() {
     this.output.write('</udb>')
   }
-};
+}

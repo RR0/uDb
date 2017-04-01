@@ -1,0 +1,7 @@
+{
+  "name": "udb",
+  "dependencies": {},
+  "globalDevDependencies": {
+    "node": "registry:dt/node#7.0.0+20170322231424"
+  }
+}

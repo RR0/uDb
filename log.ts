@@ -1,7 +1,5 @@
-exports.Logger = class Logger {
-  constructor(DEBUG, verbose) {
-    this.DEBUG = DEBUG;
-    this.verbose = verbose;
+export class Logger {
+  constructor(private DEBUG, private verbose) {
   }
 
   logDebug(msg) {
@@ -19,5 +17,4 @@ exports.Logger = class Logger {
       console.log(msg);
     }
   }
-};
-
+}

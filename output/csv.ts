@@ -1,12 +1,6 @@
-const util = require('./../util');
+export class CsvRecordOutput {
 
-exports.CsvRecordOutput = class CsvRecordOutput {
-
-  constructor(separator, output, sortedRecord) {
-    this.separator = separator;
-    this.output = output;
-    this.sortedRecord = sortedRecord;
-
+  constructor(private separator, private output, private sortedRecord) {
     const headerRecord = {};
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;

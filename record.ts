@@ -1,10 +1,11 @@
-const util = require('./util');
+import {Util} from "./util";
+export class RecordReader {
+  private recordPos: number;
+  private recordHex: string;
+  private recordRead: string;
+  private record: any;
 
-exports.RecordReader = class RecordReader {
-  constructor(buffer, logger, position) {
-    this.buffer = buffer;
-    this.logger = logger;
-    this.position = position;
+  constructor(private buffer, private logger, private position) {
   }
 
   readed(l) {
@@ -31,7 +32,7 @@ exports.RecordReader = class RecordReader {
 
   readString(length, prop) {
     let str = this.buffer.toString('utf8', this.recordPos, this.recordPos + length);
-    this.record[prop] = this.validString(util.trimZeroEnd(str)).trim();
+    this.record[prop] = RecordReader.validString(Util.trimZeroEnd(str)).trim();
     this.logReadPos(prop);
     this.readed(length);
     return str;
@@ -79,13 +80,13 @@ exports.RecordReader = class RecordReader {
     return sInt;
   }
 
-  validString(str) {
+  static validString(str) {
     const invalidXmlChars = /[^\x09\x0A\x0D\x20-\xFF]/g;
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
 
   read() {
-    const record = this.record = {};
+    const record: any = this.record = {};
     this.recordHex = '';
     this.recordRead = '';
     this.recordPos = 0;
@@ -141,4 +142,4 @@ exports.RecordReader = class RecordReader {
     this.logger.logDebug(`buffer=${this.recordHex}\n              ${this.recordRead}`);
     return record;
   }
-};
+}

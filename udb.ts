@@ -1,16 +1,14 @@
-const fs = require('fs');
-const program = require('commander');
+import * as fs from 'fs';
 
-const log = require('./log');
-const util = require('./util');
-const flags = require('./flags');
-const geo = require('./geo');
-const time = require('./time');
-const record = require('./record');
-const formatModule = require('./output/format');
-const defaultOutput = require('./output/default');
-const csv = require('./output/csv');
-const xml = require('./output/xml');
+import {Logger} from "./log";
+import {RecordReader} from "./record";
+import {CsvRecordOutput} from "./output/csv";
+import {XmlRecordOutput} from "./output/xml";
+import {DefaultRecordOutput} from "./output/default";
+import {RecordFormatter} from "./output/format";
+import {Util} from "./util";
+
+const program = require('commander');
 
 function range(val) {
   return val.split('..').map(Number);
@@ -29,7 +27,7 @@ program
   .option('--debug', 'Displays debug info.')
   .parse(process.argv);
 
-const logger = new log.Logger(program.debug, program.verbose);
+const logger = new Logger(program.debug, program.verbose);
 const sourcesFile = program.dataFile || 'input/usources.txt';
 const dataFile = program.sourcesFile || 'input/U.RND';
 const worldMap = program.wmFile || 'input/WM.VCE';
@@ -93,7 +91,7 @@ sourcesReader
         addSource(otherDatabasesAndWebsites, line);
         break;
       case '%':
-        addSource(otherPeriodicals, line, true);
+        addSource(otherPeriodicals, line);
         break;
       case '#':
         addSource(misc, line);
@@ -131,13 +129,14 @@ sourcesReader
 
         function readRecord() {
           fs.readSync(fd, buffer, 0, recordSize, position);
-          const recordReader = new record.RecordReader(buffer, logger, position);
+          const recordReader = new RecordReader(buffer, logger, position);
           return recordReader.read();
         }
 
         let count = 0;
 
         class ArrayRecordEnumerator {
+          recordsIndexes: any;
           constructor(recordsIndexes) {
             this.recordsIndexes = recordsIndexes;
             position = recordsIndexes[recordIndex] * recordSize;
@@ -154,6 +153,7 @@ sourcesReader
         }
 
         class DefaultRecordEnumerator {
+          maxCount: any;
           constructor(maxCount) {
             this.maxCount = maxCount;
             position = recordIndex * recordSize;
@@ -179,13 +179,13 @@ sourcesReader
           let csvSeparator = ',';
           switch (format.toLocaleLowerCase()) {
             case 'csv':
-              outputFormat = new csv.CsvRecordOutput(csvSeparator, output, sortedRecord);
+              outputFormat = new CsvRecordOutput(csvSeparator, output, sortedRecord);
               break;
             case 'xml':
-              outputFormat = new xml.XmlRecordOutput(output, sortedRecord);
+              outputFormat = new XmlRecordOutput(output, sortedRecord);
               break;
             default:
-              outputFormat = new defaultOutput.DefaultRecordOutput(output, recordSize, primaryReferences);
+              outputFormat = new DefaultRecordOutput(output, recordSize, primaryReferences);
           }
           return outputFormat;
         }
@@ -208,8 +208,8 @@ sourcesReader
           } else {
             const rawRecord = readRecord();
             if (!recordFormatter) {
-              recordFormatter = new formatModule.RecordFormatter(rawRecord);
-              let sortedRecord = recordFormatter.formatProperties(util.copy(rawRecord));
+              recordFormatter = new RecordFormatter(rawRecord);
+              let sortedRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
               outputFormat = getOutput(sortedRecord);
             }
             const formattedRecord = recordFormatter.formatData(rawRecord);

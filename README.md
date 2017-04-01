@@ -7,7 +7,10 @@ it is important to allow users to access its data from modern platforms.
 
 ## Setup
 
-You need to have [node](https://nodejs.org) 7.6.0 or later installed on your computer.
+1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
+1. Install the dependencies: `npm install`
+1. Build the software: `npm run build`
+1. Run the software: `npm run run`
 
 ## Usage
 

@@ -1,20 +1,14 @@
-const util = require('../util');
-const geo = require('../geo');
-const flags = require('../flags');
-
+import {Geo} from "../geo";
 let indent = 0;
 
-function line(str) {
+function line(str?) {
   let lineStr = '';
   for (let i = 0; i < indent; i++) lineStr += '\t';
   return lineStr + (str ? str : '') + '\n';
 }
 
-exports.DefaultRecordOutput = class DefaultRecordOutput {
-  constructor(output, recordSize, primaryReferences) {
-    this.output = output;
-    this.recordSize = recordSize;
-    this.primaryReferences = primaryReferences;
+export class DefaultRecordOutput {
+  constructor(private output, private recordSize, private primaryReferences) {
   }
 
   desc(record, position) {
@@ -33,7 +27,7 @@ exports.DefaultRecordOutput = class DefaultRecordOutput {
     const elevation = record.elevation;
     let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '') + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '')) : ''}`;
     let location = line('Location\t:')
-      + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${geo.ddToDms(record.latitude, record.longitude)}`)
+      + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${Geo.ddToDms(record.latitude, record.longitude)}`)
       + elevationStr;
     indent++;
     location += line(`Observer: ${record.locationFlags}`);
@@ -90,4 +84,4 @@ exports.DefaultRecordOutput = class DefaultRecordOutput {
 
   end() {
   }
-};
+}
