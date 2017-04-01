@@ -52,272 +52,196 @@ will display the 10 first decoded records in the default format:
     Reading cases:
     
     Record #1
-      Title       : EZEKIEL
-      Date        : -593/?/?, ?
-      Location    : Pasture, CHALDEA (CHL, Iraq, Middle East), 46º10'00" E 31º00'00" N
-                    Elevation 200 m
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : FIERY SPHERE LANDS/4 SUPPORTS
-                    TAKEN FOR A RIDE
-                    see Bible acct.
-                    Miscellaneous details and features:
-                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    Type of UFO / Craft:
-                    - FBL: Blazing undistinguished form.  Possible meteors etc.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - PSH: 1) Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
-                    - MON: Apparent life form fits no standard category.
-                    Apparent UFO/Occupant activities:
-                    - MST: Unexplained time-lapse or other time anomaly.
-                    Places visited and things affected:
-                    - HUM: Injury. burns. marks. psychology. abduction. death.
-                    - LND: UFO (or any part thereof) sets down.
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 60 min
-      Strangeness : 8
-      Credibility : 4
-      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
-                    at index #2
+    	Title		: EZEKIEL
+    	Date		: -593
+    	Location	:
+    		Pasture, CHALDEA (Chaldea, Iraq, Middle East), 46º10'12" E 31º00'00" N
+    		Elevation 200 m
+    		Observer: Map, Ground, Civilian
+    	Description :
+    		FIERY SPHERE LANDS/4 SUPPORTS
+    		TAKEN FOR A RIDE
+    		see Bible acct.
+    	Miscellaneous details and features			: Oddity
+    	Type of UFO / Craft							: Fireball
+    	Aliens! Monsters! (no religious figures)	: Pseudo-Human, Monster
+    	Apparent UFO/Occupant activities			: Missing time
+    	Places visited and things affected			: Human affected, Apparent Landing
+    	Evidence and special effects				: Historical
+    	Duration									: 60 min
+    	Strangeness									: 8
+    	Credibility									: 4
+    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    												  at index #2
     
     Record #2
-      Title       : SIEGE/ALEXANDER the GREAT
-      Date        : -322/?/?, ?
-      Location    : Military base, TYRE =SUR,LEBANON (TYR, Lebanon, Middle East), 35º13'20" E 33º16'00" N
-                    Elevation 20 m, relative altitude 100 m
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CST: Sighting in coastal area, possibly just offshore.
-                    - MIL: At least ONE observer was military.
-                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : FLYING SHIELD BEAMS
-                    WALLS CRUMBLE
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Apparent UFO/Occupant activities:
-                    - OBS: Observation: Surveillance.  Chasing/pacing vehicles.
-                    - RAY: Odd light RAY, searchlight or visible beam.  Anything laserlike.
-                    Places visited and things affected:
-                    - ANI: Panic. Change of behavior. Injuries. Marks.
-                    - HUM: Injury. burns. marks. psychology. abduction. death.
-                    - BLD: Roads, Bridges, Power lines..
-                    Evidence and special effects:
-                    - TRC: Physical traces discovered (most any variety)
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 3 min
-      Strangeness : 9
-      Credibility : 6
-      Reference   : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
-                    at index #320
+    	Title		: SIEGE/ALEXANDER the GREAT
+    	Date		: -322
+    	Location	:
+    		Military base, TYRE =SUR,LEBANON (Tyre, Lebanon, Middle East), 35º13'12" E 33º16'12" N
+    		Elevation 20 m, relative altitude 100 m
+    		Observer: Map, Ground, Coast, Military, High quality observer(s)
+    	Description :
+    		FLYING SHIELD BEAMS 
+    		WALLS CRUMBLE
+    	Type of UFO / Craft							: Saucer, Delta
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Apparent UFO/Occupant activities			: Observation, Ray
+    	Places visited and things affected			: Animals affected, Human affected, Building or ANY MANMADE STRUCTURE
+    	Evidence and special effects				: Traces, Historical
+    	Duration									: 3 min
+    	Strangeness									: 9
+    	Credibility									: 6
+    	Reference									: MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
+    												  at index #320
     
     Record #3
-      Title       : 'ALTAR' IN SKY
-      Date        : -213/?/?, 
-      Location    : Pasture, HADRIA,ROMAN EMP (FI., Italy, Western Europe), 11º16'00" E 43º58'40" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-      Description : MAN IN WHITE
-                    12 SUCH BETWEEN 222 AND 90 B.C.
-                    Miscellaneous details and features:
-                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
-                    Type of UFO / Craft:
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - PSH: 1) Possible clone, robot or worse. 2) "Human" seen working with or for alien figures.
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 15 min
-      Strangeness : 8
-      Credibility : 4
-      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
-                    at index #4
+    	Title		: 'ALTAR' IN SKY
+    	Date		: -213
+    	Location	:
+    		Pasture, HADRIA,ROMAN EMP (Firenze, Italy, Western Europe), 11º16'12" E 43º58'48" N
+    		Observer: Map, Ground
+    	Description :
+    		MAN IN WHITE
+    		12 SUCH BETWEEN 222 AND 90 B.C.
+    	Miscellaneous details and features			: Oddity, Wave
+    	Type of UFO / Craft							: Cigar, Delta
+    	Aliens! Monsters! (no religious figures)	: Pseudo-Human
+    	Evidence and special effects				: Historical
+    	Duration									: 15 min
+    	Strangeness									: 8
+    	Credibility									: 4
+    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    												  at index #4
     
     Record #4
-      Title       : SPECTACULAR FLEET OF SHIPS IN AIR
-      Date        : -170/?/?, ?
-      Location    : Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM., Italy, Western Europe), 12º38'40" E 41º44'00" N
-                    Elevation 384 m
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : NFD
-                    Miscellaneous details and features:
-                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 2 min
-      Strangeness : 6
-      Credibility : 6
-      Reference   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
-                    at index #125
+    	Title		: SPECTACULAR FLEET OF SHIPS IN AIR
+    	Date		: -170
+    	Location	:
+    		Road + rails, LANUPIUM = ALBANO LAZIALE,ITL (RM, Italy, Western Europe), 12º38'24" E 41º43'48" N
+    		Elevation 384 m
+    		Observer: Map, Ground, Civilian
+    	Description :
+    		NFD
+    	Miscellaneous details and features			: Oddity, Wave
+    	Type of UFO / Craft							: Saucer, Cigar
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Evidence and special effects				: Historical
+    	Duration									: 2 min
+    	Strangeness									: 6
+    	Credibility									: 6
+    	Reference									: HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+    												  at index #125
     
     Record #5
-      Title       : MANY OBS
-      Date        : 70/5/21, ~18:00
-      Location    : Pasture, PALESTINE (UNK, Israel, Middle East), 35º14'00" E 31º46'00" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - MIL: At least ONE observer was military.
-                    - CIV: At least ONE observer was civilian
-                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
-                    LOUD NOISES LATER
-                    Miscellaneous details and features:
-                    - WAV: Wave or cluster of UFO sightings.  Sighting is part of a wave.
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    - DLT: Delta, Vee, boomerang, rectangular UFO.  Sharp corners and edges.
-                    - NLT: Points of light with no discernable shape.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - FIG: Undefined or poorly seen "figure" or entity.  A shadow.
-                    Evidence and special effects:
-                    - TCH: NEW Technical details.  Clues to alien technology.
-                    - HST: Historical account OR sighting makes history.
-                    Miscellaneous details:
-                    - SND: UFO sounds heard or recorded.
-      Duration    : 60 min
-      Strangeness : 7
-      Credibility : 4
-      Reference   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
-                    at index #120
+    	Title		: MANY OBS
+    	Date		: 70/5/21
+    	Location	:
+    		Pasture, PALESTINE (UNK, Israel, Middle East), 35º13'48" E 31º46'12" N
+    		Observer: Map, Ground, Military, Civilian, High quality observer(s)
+    	Description :
+    		CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
+    		LOUD NOISES LATER
+    	Miscellaneous details and features			: Wave
+    	Type of UFO / Craft							: Saucer, Cigar, Delta, Nightlights
+    	Aliens! Monsters! (no religious figures)	: Figure
+    	Evidence and special effects				: Technical, Historical
+    	Miscellaneous details					: Sound
+    	Duration									: 60 min
+    	Strangeness									: 7
+    	Credibility									: 4
+    	Reference									: HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+    												  at index #120
     
     Record #6
-      Title       : MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'
-      Date        : 840/?/?, 
-      Location    : Town & city, LYON,FRANCE (RHN, France, Western Europe), 4º52'00" E 45º44'40" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-                    - HQO: Observer(s) were scientists, Engineers, well trained individuals. 3 or more people with consistent descriptions.
-      Description : they admitted flying
-                    Type of UFO / Craft:
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - FIG: Undefined or poorly seen "figure" or entity.  A shadow.
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 20 min
-      Strangeness : 10
-      Credibility : 4
-      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
-                    at index #7
+    	Title		: MOB LYNCHES 3 FIGURES FROM 'CLOUDSHIP'
+    	Date		: 840
+    	Location	:
+    		Town & city, LYON,FRANCE (Rhône, France, Western Europe), 4º52'12" E 45º44'24" N
+    		Observer: Map, Ground, Civilian, High quality observer(s)
+    	Description :
+    		they admitted flying
+    	Type of UFO / Craft							: Cigar
+    	Aliens! Monsters! (no religious figures)	: Figure
+    	Evidence and special effects				: Historical
+    	Duration									: 20 min
+    	Strangeness									: 10
+    	Credibility									: 4
+    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    												  at index #7
     
     Record #7
-      Title       : 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
-      Date        : 927/~03/?, 
-      Location    : Town & city, VERDUN,FR (MSE, France, Western Europe), 5º21'20" E 49º08'40" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : 
-                    Miscellaneous details and features:
-                    - NWS: Report from the news media, or else "sighting made the news".
-                    - MID: Likely Mis-IDentification of mundane object: (Venus, rocket..)
-                    Type of UFO / Craft:
-                    - NLT: Points of light with no discernable shape.
-                    - FBL: Blazing undistinguished form.  Possible meteors etc.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 15 min
-      Strangeness : 3
-      Credibility : 7
-      Reference   : FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
-                    at index #32
+    	Title		: 'FIERY ARMIES' PASS IN SKY HERE +ALL E.FRANCE per Scribe FLODOARD
+    	Date		: 927/~3
+    	Location	:
+    		Town & city, VERDUN,FR (Meuse, France, Western Europe), 5º21'36" E 49º08'24" N
+    		Observer: Map, Ground, Civilian
+    	Description :
+    	
+    	Miscellaneous details and features			: News, Misidentification
+    	Type of UFO / Craft							: Nightlights, Fireball
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Evidence and special effects				: Historical
+    	Duration									: 15 min
+    	Strangeness									: 3
+    	Credibility									: 7
+    	Reference									: FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
+    												  at index #32
     
     Record #8
-      Title       : UNUSUALLY BRIGHT SCRS FLY
-      Date        : 989/8/3, 
-      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º50'00" E 35º40'00" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : THEN JOIN TOGETHER
-                    TIME UNKNOWN.   
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 15 min
-      Strangeness : 6
-      Credibility : 5
-      Reference   : VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
-                    at index #0
+    	Title		: UNUSUALLY BRIGHT SCRS FLY
+    	Date		: 989/8/3
+    	Location	:
+    		Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º49'48" E 35º40'12" N
+    		Observer: Map, Ground, Civilian
+    	Description :
+    		THEN JOIN TOGETHER
+    		TIME UNKNOWN.
+    	Type of UFO / Craft							: Saucer
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Evidence and special effects				: Historical
+    	Duration									: 15 min
+    	Strangeness									: 6
+    	Credibility									: 5
+    	Reference									: VALLEE,Jacques: PASSPORT TO MAGONIA; H.Regnery,Chicago HC 1969 & Contemporary Books,Chicago 1993. 372pp.
+    												  at index #0
     
     Record #9
-      Title       : 2 SPHERES HVR
-      Date        : 1015/8/23, ?
-      Location    : Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º48'00" E 35º38'00" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : 2 SML OBJs EXIT..1 smokes
-                    NFD
-                    /SOBEPS IFS#23 p35
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    - FBL: Blazing undistinguished form.  Possible meteors etc.
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Evidence and special effects:
-                    - TCH: NEW Technical details.  Clues to alien technology.
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 15 min
-      Strangeness : 4
-      Credibility : 6
-      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
-                    at index #9
+    	Title		: 2 SPHERES HVR
+    	Date		: 1015/8/23
+    	Location	:
+    		Mountains, JAPAN/LOC UNK (HNS, Japan, Asia Pacific), 139º48'00" E 35º37'48" N
+    		Observer: Map, Ground, Civilian
+    	Description :
+    		2 SML OBJs EXIT..1 smokes
+    		NFD
+    		/SOBEPS IFS#23 p35
+    	Type of UFO / Craft							: Saucer, Cigar, Fireball
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Evidence and special effects				: Technical, Historical
+    	Duration									: 15 min
+    	Strangeness									: 4
+    	Credibility									: 6
+    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    												  at index #9
     
     Record #10
-      Title       : FIERY OVOID >>SE TURNS >>W
-      Date        : 1034/?/?, ?
-      Location    : Farmlands, nr VERDUN,FR (MSE, France, Western Europe), 5º20'00" E 49º04'40" N
-                    Observer:
-                    - MAP: Coordinates are known.  OK to place event on screen maps.
-                    - GND: At least ONE observer (or radar) was on land.
-                    - CIV: At least ONE observer was civilian
-      Description : /VERDUN MUSEUM /SOBEPS IFS#23 p35
-                    Miscellaneous details and features:
-                    - ODD: 1) A very strange event, even if not UFO related. 2) An atypical oddity that occurred during a UFO event. 3) Forteana or paranormal features.
-                    Type of UFO / Craft:
-                    - SCR: Classic Saucer, Disk, Ovoid or Sphere.  Not just some light.
-                    - CIG: Torpedo, cigar, fuselage or cylinder shaped vehicle. (Use SCR for a classic "saucer" seen edge-on.)
-                    Aliens! Monsters! (sorry, no religious figures):
-                    - NOC: No entity / occupant seen by observer(s).
-                    Evidence and special effects:
-                    - HST: Historical account OR sighting makes history.
-      Duration    : 15 min
-      Strangeness : 6
-      Credibility : 6
-      Reference   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
-                    at index #9
+    	Title		: FIERY OVOID >>SE TURNS >>W
+    	Date		: 1034
+    	Location	:
+    		Farmlands, nr VERDUN,FR (Meuse, France, Western Europe), 5º19'48" E 49º04'48" N
+    		Observer: Map, Ground, Civilian
+    	Description :
+    		/VERDUN MUSEUM /SOBEPS IFS#23 p35
+    	Miscellaneous details and features			: Oddity
+    	Type of UFO / Craft							: Saucer, Cigar
+    	Aliens! Monsters! (no religious figures)	: No occupant
+    	Evidence and special effects				: Historical
+    	Duration									: 15 min
+    	Strangeness									: 6
+    	Credibility									: 6
+    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    												  at index #9
     
     Read 10 reports.
 
