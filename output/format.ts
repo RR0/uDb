@@ -6,7 +6,7 @@ import {InputRecord} from "../input/InputRecord";
 import {OutputRecord} from "./OutputRecord";
 
 export class RecordFormatter {
-  private sortedRecord: any;
+  private sortedRecord: OutputRecord;
 
   constructor(prototypeRecord: InputRecord) {
     this.sortedRecord = this.formatProperties(Util.copy(prototypeRecord));
@@ -65,7 +65,7 @@ export class RecordFormatter {
     record.year = Time.getYear(record);
     record.month = Time.getMonth(record);
     record.day = Time.getDay(record);
-    record.hour = Time.getTime(record);
+    record.time = Time.getTime(record);
     record.elevation = Geo.getElevation(record);
     record.relativeAltitude = Geo.getRelativeAltitude(record);
     record.locationFlags = RecordFormatter.flagsKeysStr(record.locationFlags, Flags.locationFlagsLabels);

@@ -1,16 +1,16 @@
 import {Util} from "./util";
 import {InputRecord} from "./input/InputRecord";
+import {Logger} from "./log";
 
 export class RecordReader {
   private recordPos: number;
   private recordHex: string;
-  private recordRead: string;
-  private record: any;
+  private record: InputRecord;
 
-  constructor(private buffer, private logger, private position) {
+  constructor(private buffer: Buffer, private logger: Logger, private position: number) {
   }
 
-  readed(l) {
+  readed(l: number) {
     let max = this.recordPos + l;
     for (; this.recordPos < max; ++this.recordPos) {
       let value = this.buffer[this.recordPos];
@@ -19,7 +19,7 @@ export class RecordReader {
     }
   }
 
-  logReadPos(prop) {
+  logReadPos(prop: string) {
     let pos = this.position + this.recordPos;
     let value = this.record[prop];
     if (typeof value === 'string') {
@@ -31,7 +31,7 @@ export class RecordReader {
     this.logger.logDebug(logStr);
   }
 
-  readString(length, prop) {
+  readString(length: number, prop: string) {
     let str = this.buffer.toString('utf8', this.recordPos, this.recordPos + length);
     this.record[prop] = RecordReader.validString(Util.trimZeroEnd(str)).trim();
     this.logReadPos(prop);
@@ -39,7 +39,7 @@ export class RecordReader {
     return str;
   }
 
-  readByte(prop) {
+  readByte(prop: string) {
     const byte = this.buffer[this.recordPos];
     this.record[prop] = byte;
     this.logReadPos(prop);
@@ -47,7 +47,7 @@ export class RecordReader {
     return byte;
   }
 
-  readByteBits(prop1, size, prop2) {
+  readByteBits(prop1: string, size: number, prop2: string) {
     const byte = this.buffer[this.recordPos];
     this.record[prop1] = byte >> size;
     this.record[prop2] = byte & ((1 << size) - 1);
@@ -57,11 +57,11 @@ export class RecordReader {
     return byte;
   }
 
-  readNibbles(prop1, prop2) {
+  readNibbles(prop1: string, prop2: string) {
     return this.readByteBits(prop1, 4, prop2);
   }
 
-  readSignedInt(prop) {
+  readSignedInt(prop: string) {
     let sInt = this.buffer.readInt16LE(this.recordPos);
     this.record[prop] = sInt;
     this.logReadPos(prop);
@@ -81,7 +81,7 @@ export class RecordReader {
     return sInt;
   }
 
-  static validString(str) {
+  static validString(str: string) {
     const invalidXmlChars = /[^\x09\x0A\x0D\x20-\xFF]/g;
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
@@ -139,7 +139,11 @@ export class RecordReader {
 
     this.readNibbles('strangeness', 'credibility');
 
-    this.logger.logDebug(`buffer=${this.recordHex}`);
+    const width = 3 * 16;
+    const dataRow = (n) => {
+      return (this.position + (n * width / 3)) + ': ' + this.recordHex.substring(width * n, width * (n+1)) + '\n';
+    };
+    this.logger.logDebug(`buffer=\n${dataRow(0) + dataRow(1) + dataRow(2) + dataRow(3) + dataRow(4) + dataRow(5) + dataRow(6)}`);
     return record;
   }
 }
