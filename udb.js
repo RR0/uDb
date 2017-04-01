@@ -136,29 +136,27 @@ sourcesReader
         const fileSize = stats.size;
         // logDebug('File size=' + fileSize);
 
-        let recordPos;
         let recordHex;
         let recordRead;
 
-        function read(l) {
-          let max = recordPos + l;
-          for (; recordPos < max; ++recordPos) {
-            let value = buffer[recordPos];
-            recordHex += value < 0x10 ? '0' : '';
-            recordHex += value.toString(16) + ' ';
-            recordRead += 'rr ';
+        class RecordReader {
+          constructor(buffer) {
+            this.buffer = buffer;
           }
-        }
 
-        function bufferToRecord() {
-          const record = {};
-          recordPos = 0;
-          recordHex = '';
-          recordRead = '';
+          readed(l) {
+            let max = this.recordPos + l;
+            for (; this.recordPos < max; ++this.recordPos) {
+              let value = this.buffer[this.recordPos];
+              recordHex += value < 0x10 ? '0' : '';
+              recordHex += value.toString(16) + ' ';
+              recordRead += 'rr ';
+            }
+          }
 
-          function logReadPos(prop) {
-            let pos = position + recordPos;
-            let value = record[prop];
+          logReadPos(prop) {
+            let pos = position + this.recordPos;
+            let value = this.record[prop];
             if (typeof value === 'string') {
               value = `'${value}'`;
             } else {
@@ -168,116 +166,124 @@ sourcesReader
             logDebug(logStr);
           }
 
-          function readString(length, prop) {
-            let str = buffer.toString('utf8', recordPos, recordPos + length);
-            record[prop] = validString(util.trimZeroEnd(str)).trim();
-            logReadPos(prop);
-            read(length);
+          readString(length, prop) {
+            let str = this.buffer.toString('utf8', this.recordPos, this.recordPos + length);
+            this.record[prop] = this.validString(util.trimZeroEnd(str)).trim();
+            this.logReadPos(prop);
+            this.readed(length);
             return str;
           }
 
-          function readByte(prop) {
-            const byte = buffer[recordPos];
-            record[prop] = byte;
-            logReadPos(prop);
-            read(1);
+          readByte(prop) {
+            const byte = this.buffer[this.recordPos];
+            this.record[prop] = byte;
+            this.logReadPos(prop);
+            this.readed(1);
             return byte;
           }
 
-          function readByteBits(prop1, size, prop2) {
-            const byte = buffer[recordPos];
-            record[prop1] = byte >> size;
-            record[prop2] = byte & ((1 << size) - 1);
-            logReadPos(prop1);
-            logReadPos(prop2);
-            read(1);
+          readByteBits(prop1, size, prop2) {
+            const byte = this.buffer[this.recordPos];
+            this.record[prop1] = byte >> size;
+            this.record[prop2] = byte & ((1 << size) - 1);
+            this.logReadPos(prop1);
+            this.logReadPos(prop2);
+            this.readed(1);
             return byte;
           }
 
-          function readNibbles(prop1, prop2) {
-            return readByteBits(prop1, 4, prop2);
+          readNibbles(prop1, prop2) {
+            return this.readByteBits(prop1, 4, prop2);
           }
 
-          function readSignedInt(prop) {
-            let sInt = buffer.readInt16LE(recordPos);
-            record[prop] = sInt;
-            logReadPos(prop);
-            read(2);
+          readSignedInt(prop) {
+            let sInt = this.buffer.readInt16LE(this.recordPos);
+            this.record[prop] = sInt;
+            this.logReadPos(prop);
+            this.readed(2);
             return sInt;
           }
 
-          function readLatLong(prop) {
-            let firstByte = buffer[recordPos + 1];
+          readLatLong(prop) {
+            let firstByte = this.buffer[this.recordPos + 1];
             let extraBit = firstByte >> 7;
             logDebug('extrabit=' + extraBit);
-            let sInt = readSignedInt(prop);
+            let sInt = this.readSignedInt(prop);
             sInt = (sInt >> 1);
             sInt = sInt / 100;
             // logDebug('orig=' + sInt);
-            record[prop] = sInt * 1.11111111111;
+            this.record[prop] = sInt * 1.11111111111;
             return sInt;
           }
 
-          function validString(str) {
+          validString(str) {
             const invalidXmlChars = /[^\x09\x0A\x0D\x20-\xFF]/g;
             return str ? str.replace(invalidXmlChars, ' ') : '';
           }
 
-          readSignedInt('year');
-          readByte('locale');
-          readByteBits('beforeMonth', 4, 'month');
-          readByteBits('refIndexHigh', 5, 'day');
-          readByte('hour');
-          readByte('ymdt');
-          readByte('duration');
-          readByte('unknown1');
-          readLatLong('longitude');
-          readLatLong('latitude');
-          readSignedInt('elevation');
-          readSignedInt('relativeAltitude');
-          readByte('unknown2');
-          readNibbles('continentCode', 'countryCode');
-          readString(3, 'stateOrProvince');
-          readByte('unknown3');
-          readByte('locationFlags');
-          readByte('miscellaneousFlags');
-          readByte('typeOfUfoCraftFlags');
-          readByte('aliensMonstersFlags');
-          readByte('apparentUfoOccupantActivitiesFlags');
-          readByte('placesVisitedAndThingsAffectedFlags');
-          readByte('evidenceAndSpecialEffectsFlags');
-          readByte('miscellaneousDetailsFlags');
-          readString(78, 'description');
-          const split = record.description.split(':');
-          record.location = split[0];
-          record.title = split[1];
-          record.description = split[2];
-          const description2 = split[3];
-          if (description2) {
-            record.description += '\n' + description2;
-          }
-          const description3 = split[4];
-          if (description3) {
-            record.description += '\n' + description3;
-          }
-          const description4 = split[5];
-          if (description4) {
-            record.description += '\n' + description4;
-          }
-          readByte('ref');
+          read() {
+            const record = this.record = {};
+            this.recordHex = '';
+            this.recordRead = '';
+            this.recordPos = 0;
 
-          readByte('refIndex');
-          record.refIndex = (record.refIndexHigh << 8) + record.refIndex;
+            this.readSignedInt('year');
+            this.readByte('locale');
+            this.readByteBits('beforeMonth', 4, 'month');
+            this.readByteBits('refIndexHigh', 5, 'day');
+            this.readByte('hour');
+            this.readByte('ymdt');
+            this.readByte('duration');
+            this.readByte('unknown1');
+            this.readLatLong('longitude');
+            this.readLatLong('latitude');
+            this.readSignedInt('elevation');
+            this.readSignedInt('relativeAltitude');
+            this.readByte('unknown2');
+            this.readNibbles('continentCode', 'countryCode');
+            this.readString(3, 'stateOrProvince');
+            this.readByte('unknown3');
+            this.readByte('locationFlags');
+            this.readByte('miscellaneousFlags');
+            this.readByte('typeOfUfoCraftFlags');
+            this.readByte('aliensMonstersFlags');
+            this.readByte('apparentUfoOccupantActivitiesFlags');
+            this.readByte('placesVisitedAndThingsAffectedFlags');
+            this.readByte('evidenceAndSpecialEffectsFlags');
+            this.readByte('miscellaneousDetailsFlags');
+            this.readString(78, 'description');
+            const split = record.description.split(':');
+            record.location = split[0];
+            record.title = split[1];
+            record.description = split[2];
+            const description2 = split[3];
+            if (description2) {
+              record.description += '\n' + description2;
+            }
+            const description3 = split[4];
+            if (description3) {
+              record.description += '\n' + description3;
+            }
+            const description4 = split[5];
+            if (description4) {
+              record.description += '\n' + description4;
+            }
+            this.readByte('ref');
 
-          readNibbles('strangeness', 'credibility');
+            this.readByte('refIndex');
+            record.refIndex = (record.refIndexHigh << 8) + record.refIndex;
 
-          logDebug(`buffer=${recordHex}\n              ${recordRead}`);
-          return record;
+            this.readNibbles('strangeness', 'credibility');
+
+            logDebug(`buffer=${recordHex}\n              ${recordRead}`);
+            return record;
+          }
         }
 
         function readRecord() {
           fs.readSync(fd, buffer, 0, recordSize, position);
-          return bufferToRecord(buffer);
+          const recordReader = new RecordReader(buffer);
+          return recordReader.read();
         }
 
         class DefaultRecordOutput {
