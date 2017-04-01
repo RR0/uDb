@@ -8,6 +8,7 @@ const geo = require('./geo');
 const time = require('./time');
 const record = require('./record');
 const formatModule = require('./output/format');
+const defaultOutput = require('./output/default');
 const csv = require('./output/csv');
 const xml = require('./output/xml');
 
@@ -134,102 +135,6 @@ sourcesReader
           return recordReader.read();
         }
 
-        class DefaultRecordOutput {
-          constructor(output) {
-            this.output = output;
-          }
-
-          desc(record) {
-            let continentCode = record.continentCode;
-            const continent = geo.getContinent(continentCode);
-            let countryCode = record.countryCode;
-            const country = geo.getCountry(continent, countryCode);
-            let year = time.getYear(record);
-            let month = time.getMonth(record, true);
-            let day = time.getDay(record, true);
-            let timeStr = time.getTime(record);
-            let localeStr = geo.getLocale(record);
-
-            const ref = record.ref ? primaryReferences[record.ref] : '';
-
-            let recordIndex = position / recordSize;
-            let elevationStr = geo.getElevation(record);
-            let relativeAltitudeStr = geo.getRelativeAltitude(record);
-            let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-              '  Date        : ' + year + '/' + month + '/' + day + ', ' + timeStr + '\n';
-            let countryStr = country.name + (country.description ? ` (${country.description})` : '');
-            let stateOrProvince = geo.getStateOrProvince(country, record);
-            let locationStr = '  Location    : ' + localeStr + ', '
-              + record.location
-              + ' (' + stateOrProvince + ', ' + countryStr + ', ' + continent.name + '), '
-              + geo.ddToDms(record.latitude, record.longitude) + '\n' +
-              (elevationStr || relativeAltitudeStr ? ('                ' + (elevationStr ? 'Elevation ' + elevationStr + ' m' : '')
-              + (relativeAltitudeStr ? ', relative altitude ' + relativeAltitudeStr + ' m' : '') + '\n') : '');
-
-            function flagsStr(flagsByte, flagsLabels) {
-              let flagsStr = '';
-              let keys = Object.keys(flagsLabels);
-              util.forEachBit(flagsByte, (i) => {
-                let key = keys[i];
-                let flagLabels = flagsLabels[key];
-                flagsStr += '                - ' + key + ': ' + (flagLabels.description ? flagLabels.description : flagLabels) + '\n';
-              });
-              return flagsStr;
-            }
-
-            locationStr += '                Observer:\n' + flagsStr(record.locationFlags, flags.locationFlagsLabels);
-
-            let description = record.description && record.description.replace(/\n/g, '\n                ');
-            let descriptionStr = '  Description : ' + (description ? description : '') + '\n';
-
-            let miscFlagsStr = flagsStr(record.miscellaneousFlags, flags.miscellaneousFlagsLabels);
-            if (miscFlagsStr) {
-              descriptionStr += '                Miscellaneous details and features:\n' + miscFlagsStr;
-            }
-            let typeOfUfoCraftStr = flagsStr(record.typeOfUfoCraftFlags, flags.typeOfUfoCraftFlagsLabels);
-            if (typeOfUfoCraftStr) {
-              descriptionStr += '                Type of UFO / Craft:\n' + typeOfUfoCraftStr;
-            }
-
-            let aliensMonstersStr = flagsStr(record.aliensMonstersFlags, flags.aliensMonstersLabels);
-            if (aliensMonstersStr) {
-              descriptionStr += '                Aliens! Monsters! (sorry, no religious figures):\n' + aliensMonstersStr;
-            }
-            let apparentUfoOccupantActivitiesStr = flagsStr(record.apparentUfoOccupantActivitiesFlags, flags.apparentUfoOccupantActivitiesLabels);
-            if (apparentUfoOccupantActivitiesStr) {
-              descriptionStr += '                Apparent UFO/Occupant activities:\n' + apparentUfoOccupantActivitiesStr;
-            }
-            let placesVisitedAndThingsAffectedStr = flagsStr(record.placesVisitedAndThingsAffectedFlags, flags.placesVisitedAndThingsAffectedLabels);
-            if (apparentUfoOccupantActivitiesStr) {
-              descriptionStr += '                Places visited and things affected:\n' + placesVisitedAndThingsAffectedStr;
-            }
-            let evidenceAndSpecialEffectsStr = flagsStr(record.evidenceAndSpecialEffectsFlags, flags.evidenceAndSpecialEffectsLabels);
-            if (evidenceAndSpecialEffectsStr) {
-              descriptionStr += '                Evidence and special effects:\n' + evidenceAndSpecialEffectsStr;
-            }
-            let miscellaneousDetailsStr = flagsStr(record.miscellaneousDetailsFlags, flags.miscellaneousDetailsLabels);
-            if (miscellaneousDetailsStr) {
-              descriptionStr += '                Miscellaneous details:\n' + miscellaneousDetailsStr;
-            }
-
-            desc += locationStr;
-            desc += descriptionStr;
-            desc += '  Duration    : ' + record.duration + ' min\n';
-            desc += '  Strangeness : ' + record.strangeness + '\n';
-            desc += '  Credibility : ' + record.credibility + '\n';
-            desc += '  Reference   : ' + ref + '\n'
-              + '                at index #' + record.refIndex;
-            return desc;
-          }
-
-          write(record) {
-            this.output.write(this.desc(record) + '\n');
-          }
-
-          end() {
-          }
-        }
-
         let count = 0;
 
         class ArrayRecordEnumerator {
@@ -264,7 +169,7 @@ sourcesReader
           }
         }
 
-        function getOutput(sortedRecord, recordFormatter) {
+        function getOutput(sortedRecord) {
           let output = process.stdout;
           if (program.out) {
             output = fs.createWriteStream(program.out, {flags: 'w'});
@@ -280,7 +185,7 @@ sourcesReader
               outputFormat = new xml.XmlRecordOutput(output, sortedRecord);
               break;
             default:
-              outputFormat = new DefaultRecordOutput(output);
+              outputFormat = new defaultOutput.DefaultRecordOutput(output, position, recordSize, primaryReferences);
           }
           return outputFormat;
         }
@@ -301,13 +206,13 @@ sourcesReader
             logger.logDebug('last record=' + buffer.toString());
             position += recordSize;
           } else {
-            const record = readRecord();
+            const rawRecord = readRecord();
             if (!recordFormatter) {
-              recordFormatter = new formatModule.RecordFormatter(record);
-              let sortedRecord = recordFormatter.formatProperties(util.copy(record));
-              outputFormat = getOutput(sortedRecord, recordFormatter);
+              recordFormatter = new formatModule.RecordFormatter(rawRecord);
+              let sortedRecord = recordFormatter.formatProperties(util.copy(rawRecord));
+              outputFormat = getOutput(sortedRecord);
             }
-            const formattedRecord = recordFormatter.formatData(record);
+            const formattedRecord = recordFormatter.formatData(rawRecord);
             outputFormat.write(formattedRecord);
             recordEnumerator.next();
             count++;
