@@ -2,90 +2,90 @@ const util = require('../util');
 const geo = require('../geo');
 const flags = require('../flags');
 
+let indent = 0;
+
+function line(str) {
+  let lineStr = '';
+  for (let i = 0; i < indent; i++) lineStr += '\t';
+  return lineStr + (str ? str : '') + '\n';
+}
+
 exports.DefaultRecordOutput = class DefaultRecordOutput {
-  constructor(output, position, recordSize, primaryReferences) {
+  constructor(output, recordSize, primaryReferences) {
     this.output = output;
-    this.position = position;
     this.recordSize = recordSize;
     this.primaryReferences = primaryReferences;
   }
 
-  desc(record) {
+  desc(record, position) {
     const ref = record.ref ? this.primaryReferences[record.ref] : '';
+    let recordIndex = position / this.recordSize;
 
-    let recordIndex = this.position / this.recordSize;
     const month = record.month;
     const day = record.day;
-    const timeStr = record.time;
-    let desc = '\nRecord #' + recordIndex + '\n  Title       : ' + record.title + '\n' +
-      '  Date        : ' + record.year + (month ? '/' + month : '') + (day ? '/' + day : '') + (timeStr ? ', ' + timeStr : '') + '\n';
-    const relativeAltitudeStr = record.relativeAltitude;
-    const elevationStr = record.elevation;
-    let locationStr = '  Location    : ' + record.locale + ', '
-      + record.location
-      + ' (' + record.stateOrProvince + ', ' + record.country + ', ' + record.continent + '), '
-      + geo.ddToDms(record.latitude, record.longitude) + '\n' +
-      (elevationStr || relativeAltitudeStr ? ('                ' + (elevationStr ? 'Elevation ' + elevationStr + ' m' : '')
-      + (relativeAltitudeStr ? ', relative altitude ' + relativeAltitudeStr + ' m' : '') + '\n') : '');
+    const time = record.time;
+    let desc = line()
+      + line(`Record #${recordIndex}`);
+    indent++;
+    desc += line(`Title\t\t: ${record.title}`)
+      + line(`Date\t\t: ${record.year}${month ? '/' + month : ''}${day ? '/' + day : ''}${time ? ', ' + time : ''}`);
+    const relativeAltitude = record.relativeAltitude;
+    const elevation = record.elevation;
+    let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '') + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '')) : ''}`;
+    let location = line('Location\t:')
+      + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${geo.ddToDms(record.latitude, record.longitude)}`)
+      + elevationStr;
+    indent++;
+    location += line(`Observer: ${record.locationFlags}`);
 
-    function flagsStr(flagsByte, flagsLabels) {
-      let flagsStr = '';
-      let keys = Object.keys(flagsLabels);
-      util.forEachBit(flagsByte, (i) => {
-        let key = keys[i];
-        let flagLabels = flagsLabels[key];
-        flagsStr += '                - ' + key + ': ' + (flagLabels.description ? flagLabels.description : flagLabels) + '\n';
-      });
-      return flagsStr;
+    indent--;
+    let description = record.description && record.description.replace(/\n/g, '\n\t\t');
+    let descriptionStr = line('Description :')
+      + line(description ? `\t${description}` : '');
+
+    let miscFlags = record.miscellaneousFlags;
+    if (miscFlags) {
+      descriptionStr += line(`Miscellaneous details and features\t\t\t: ${miscFlags}`);
     }
-
-    locationStr += '                Observer:\n' + flagsStr(record.locationFlags, flags.locationFlagsLabels);
-
-    let description = record.description && record.description.replace(/\n/g, '\n                ');
-    let descriptionStr = '  Description : ' + (description ? description : '') + '\n';
-
-    let miscFlagsStr = flagsStr(record.miscellaneousFlags, flags.miscellaneousFlagsLabels);
-    if (miscFlagsStr) {
-      descriptionStr += '                Miscellaneous details and features:\n' + miscFlagsStr;
-    }
-    let typeOfUfoCraftStr = flagsStr(record.typeOfUfoCraftFlags, flags.typeOfUfoCraftFlagsLabels);
-    if (typeOfUfoCraftStr) {
-      descriptionStr += '                Type of UFO / Craft:\n' + typeOfUfoCraftStr;
+    let typeOfUfoCraft = record.typeOfUfoCraftFlags;
+    if (typeOfUfoCraft) {
+      descriptionStr += line(`Type of UFO / Craft\t\t\t\t\t\t\t: ${typeOfUfoCraft}`);
     }
 
-    let aliensMonstersStr = flagsStr(record.aliensMonstersFlags, flags.aliensMonstersLabels);
-    if (aliensMonstersStr) {
-      descriptionStr += '                Aliens! Monsters! (sorry, no religious figures):\n' + aliensMonstersStr;
+    let aliensMonsters = record.aliensMonstersFlags;
+    if (aliensMonsters) {
+      descriptionStr += line(`Aliens! Monsters! (no religious figures)\t: ${aliensMonsters}`);
     }
-    let apparentUfoOccupantActivitiesStr = flagsStr(record.apparentUfoOccupantActivitiesFlags, flags.apparentUfoOccupantActivitiesLabels);
-    if (apparentUfoOccupantActivitiesStr) {
-      descriptionStr += '                Apparent UFO/Occupant activities:\n' + apparentUfoOccupantActivitiesStr;
+    let apparentUfoOccupantActivities = record.apparentUfoOccupantActivitiesFlags;
+    if (apparentUfoOccupantActivities) {
+      descriptionStr += line(`Apparent UFO/Occupant activities\t\t\t: ${apparentUfoOccupantActivities}`);
     }
-    let placesVisitedAndThingsAffectedStr = flagsStr(record.placesVisitedAndThingsAffectedFlags, flags.placesVisitedAndThingsAffectedLabels);
-    if (apparentUfoOccupantActivitiesStr) {
-      descriptionStr += '                Places visited and things affected:\n' + placesVisitedAndThingsAffectedStr;
+    let placesVisitedAndThingsAffected = record.placesVisitedAndThingsAffectedFlags;
+    if (apparentUfoOccupantActivities) {
+      descriptionStr += line(`Places visited and things affected\t\t\t: ${placesVisitedAndThingsAffected}`);
     }
-    let evidenceAndSpecialEffectsStr = flagsStr(record.evidenceAndSpecialEffectsFlags, flags.evidenceAndSpecialEffectsLabels);
-    if (evidenceAndSpecialEffectsStr) {
-      descriptionStr += '                Evidence and special effects:\n' + evidenceAndSpecialEffectsStr;
+    let evidenceAndSpecialEffects = record.evidenceAndSpecialEffectsFlags;
+    if (evidenceAndSpecialEffects) {
+      descriptionStr += line(`Evidence and special effects\t\t\t\t: ${evidenceAndSpecialEffects}`);
     }
-    let miscellaneousDetailsStr = flagsStr(record.miscellaneousDetailsFlags, flags.miscellaneousDetailsLabels);
-    if (miscellaneousDetailsStr) {
-      descriptionStr += '                Miscellaneous details:\n' + miscellaneousDetailsStr;
+    let miscellaneousDetails = record.miscellaneousDetailsFlags;
+    if (miscellaneousDetails) {
+      descriptionStr += line(`Miscellaneous details\t\t\t\t\t: ${miscellaneousDetails}`);
     }
 
-    desc += locationStr;
+    desc += location;
     desc += descriptionStr;
-    desc += '  Duration    : ' + record.duration + ' min\n';
-    desc += '  Strangeness : ' + record.strangeness + '\n';
-    desc += '  Credibility : ' + record.credibility + '\n';
-    desc += '  Reference   : ' + ref + '\n'
-      + '                at index #' + record.refIndex;
+    desc += line(`Duration\t\t\t\t\t\t\t\t\t: ${record.duration} min`);
+    desc += line(`Strangeness\t\t\t\t\t\t\t\t\t: ${record.strangeness}`);
+    desc += line(`Credibility\t\t\t\t\t\t\t\t\t: ${record.credibility}`);
+    desc += line(`Reference\t\t\t\t\t\t\t\t\t: ${ref}`)
+      + `\t\t\t\t\t\t\t\t\t\t\t\t  at index #${record.refIndex}`;
+    indent--;
     return desc;
   }
 
-  write(record) {
-    this.output.write(this.desc(record) + '\n');
+  write(record, position) {
+    this.output.write(line(this.desc(record, position)));
   }
 
   end() {

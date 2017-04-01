@@ -58,7 +58,7 @@ fs.open(worldMap, 'r', function (status, fd) {
     while (position < fileSize) {
       if ((position + recordSize) > fileSize) {
         let recordSize = fileSize - position;
-        logDebug('last recordSize=' + recordSize);
+        logger.logDebug('last recordSize=' + recordSize);
       }
       fs.readSync(fd, buffer, 0, recordSize, position);
       //console.log('  ' + buffer.toString('hex'));
@@ -185,7 +185,7 @@ sourcesReader
               outputFormat = new xml.XmlRecordOutput(output, sortedRecord);
               break;
             default:
-              outputFormat = new defaultOutput.DefaultRecordOutput(output, position, recordSize, primaryReferences);
+              outputFormat = new defaultOutput.DefaultRecordOutput(output, recordSize, primaryReferences);
           }
           return outputFormat;
         }
@@ -213,7 +213,7 @@ sourcesReader
               outputFormat = getOutput(sortedRecord);
             }
             const formattedRecord = recordFormatter.formatData(rawRecord);
-            outputFormat.write(formattedRecord);
+            outputFormat.write(formattedRecord, position);
             recordEnumerator.next();
             count++;
           }
