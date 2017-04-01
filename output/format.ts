@@ -2,12 +2,13 @@ import {Util} from "../util";
 import {Geo} from "../geo";
 import {Time} from "../time";
 import {Flags} from "../flags";
-import {FormattedRecord, RawRecord} from "../record";
+import {InputRecord} from "../input/InputRecord";
+import {OutputRecord} from "./OutputRecord";
 
 export class RecordFormatter {
   private sortedRecord: any;
 
-  constructor(prototypeRecord: RawRecord) {
+  constructor(prototypeRecord: InputRecord) {
     this.sortedRecord = this.formatProperties(Util.copy(prototypeRecord));
   }
 
@@ -24,7 +25,7 @@ export class RecordFormatter {
     return flagsStr;
   }
 
-  formatProperties(record: RawRecord): FormattedRecord {
+  formatProperties(record: InputRecord): OutputRecord {
     delete record.beforeMonth;
     delete record.refIndexHigh;
     delete record.ymdt;
@@ -35,7 +36,7 @@ export class RecordFormatter {
     delete record.countryCode;
 
     let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
-    let sortedRecord: FormattedRecord = <FormattedRecord>Util.sortProps(record, (prop1, prop2) => {
+    let sortedRecord: OutputRecord = <OutputRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;
       let index2 = expectedKeysOrder.indexOf(prop2);
@@ -47,8 +48,8 @@ export class RecordFormatter {
     return sortedRecord;
   }
 
-  formatData(rec: RawRecord): FormattedRecord {
-    const record: FormattedRecord = <FormattedRecord>Util.copy(rec);
+  formatData(rec: InputRecord): OutputRecord {
+    const record: OutputRecord = <OutputRecord>Util.copy(rec);
     let continent = Geo.getContinent(rec.continentCode);
     if (continent) {
       record.continent = continent.name;

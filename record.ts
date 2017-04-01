@@ -1,41 +1,5 @@
 import {Util} from "./util";
-
-export interface FormattedRecord {
-  miscellaneousDetailsFlags: string;
-  evidenceAndSpecialEffectsFlags: string;
-  placesVisitedAndThingsAffectedFlags: string;
-  apparentUfoOccupantActivitiesFlags: string;
-  aliensMonstersFlags: string;
-  typeOfUfoCraftFlags: string;
-  miscellaneousFlags: string;
-  locationFlags: string;
-  relativeAltitude: string;
-  elevation: string | number;
-  hour: string | number;
-  day: string | number;
-  month: string | number;
-  year: string | number;
-  locale: string;
-  latitude: number;
-  longitude: number;
-  stateOrProvince: any;
-  country: string;
-  continent: string;
-}
-export interface RawRecord {
-  countryCode: number;
-  continentCode: number;
-  unknown3: number;
-  unknown2: number;
-  unknown1: number;
-  ymdt: number;
-  beforeMonth: number;
-  refIndexHigh: number;
-  refIndex: any;
-  title: string;
-  location: string;
-  description: string;
-}
+import {InputRecord} from "./input/InputRecord";
 
 export class RecordReader {
   private recordPos: number;
@@ -123,8 +87,8 @@ export class RecordReader {
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
 
-  read(): RawRecord {
-    const record: RawRecord = this.record = <RawRecord>{};
+  read(): InputRecord {
+    const record: InputRecord = this.record = <InputRecord>{};
     this.recordHex = '';
     this.recordRead = '';
     this.recordPos = 0;

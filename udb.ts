@@ -1,13 +1,15 @@
-import * as fs from 'fs';
+import * as fs from "fs";
+import {InputRecord} from "./input/InputRecord";
 
 import {Logger} from "./log";
-import {FormattedRecord, RawRecord, RecordReader} from "./record";
 import {CsvRecordOutput} from "./output/csv";
-import {XmlRecordOutput} from "./output/xml";
 import {DefaultRecordOutput} from "./output/default";
 import {RecordFormatter} from "./output/format";
-import {Util} from "./util";
 import {RecordOutput} from "./output/output";
+import {OutputRecord} from "./output/OutputRecord";
+import {XmlRecordOutput} from "./output/xml";
+import {RecordReader} from "./record";
+import {Util} from "./util";
 
 const program = require('commander');
 
@@ -16,9 +18,9 @@ function range(val) {
 }
 program
   .version('0.0.1')
-  .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./U.RND')
-  .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./usources.txt')
-  .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./WM.VCE')
+  .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./input/data/U.RND')
+  .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
+  .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
   .option('-i, --records <recordsIndexes>', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
@@ -29,9 +31,9 @@ program
   .parse(process.argv);
 
 const logger = new Logger(program.debug, program.verbose);
-const sourcesFile = program.dataFile || 'input/usources.txt';
-const dataFile = program.sourcesFile || 'input/U.RND';
-const worldMap = program.wmFile || 'input/WM.VCE';
+const sourcesFile = program.dataFile || 'input/data/usources.txt';
+const dataFile = program.sourcesFile || 'input/data/U.RND';
+const worldMap = program.wmFile || 'input/data/WM.VCE';
 const format = program.format || 'default';
 
 const primaryReferences = {};
@@ -40,7 +42,6 @@ const otherDatabasesAndWebsites = {};
 const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
-
 
 fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
   logger.logVerbose('Reading world map:');
@@ -114,12 +115,11 @@ sourcesReader
     let recordSize = 112;
     const buffer = new Buffer(recordSize);
 
-    fs.open(dataFile, 'r', function (status, fd) {
+    fs.open(dataFile, 'r', function (err: NodeJS.ErrnoException, fd: number) {
       const firstsIndex = (program.range && program.range[0]) || 1;
       let recordIndex = firstsIndex;
       logger.logVerbose(`\nReading cases from #${recordIndex}:`);
-      if (status) {
-        logger.error(status.message);
+      if (err) {
         return;
       }
       let position = recordIndex * recordSize;
@@ -128,7 +128,7 @@ sourcesReader
         const fileSize = stats.size;
         // logDebug('File size=' + fileSize);
 
-        function readRecord(): RawRecord {
+        function readRecord(): InputRecord {
           fs.readSync(fd, buffer, 0, recordSize, position);
           const recordReader = new RecordReader(buffer, logger, position);
           return recordReader.read();
@@ -138,6 +138,7 @@ sourcesReader
 
         class ArrayRecordEnumerator {
           recordsIndexes: any;
+
           constructor(recordsIndexes) {
             this.recordsIndexes = recordsIndexes;
             position = recordsIndexes[recordIndex] * recordSize;
@@ -155,6 +156,7 @@ sourcesReader
 
         class DefaultRecordEnumerator {
           maxCount: any;
+
           constructor(maxCount) {
             this.maxCount = maxCount;
             position = recordIndex * recordSize;
@@ -206,13 +208,13 @@ sourcesReader
             logger.logDebug('last record=' + buffer.toString());
             position += recordSize;
           } else {
-            const rawRecord: RawRecord = readRecord();
+            const rawRecord: InputRecord = readRecord();
             if (!recordFormatter) {
               recordFormatter = new RecordFormatter(rawRecord);
-              let sortedRecord: FormattedRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
+              let sortedRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
               outputFormat = getOutput(sortedRecord);
             }
-            const formattedRecord: FormattedRecord = recordFormatter.formatData(rawRecord);
+            const formattedRecord: OutputRecord = recordFormatter.formatData(rawRecord);
             outputFormat.write(formattedRecord, position);
             recordEnumerator.next();
             count++;

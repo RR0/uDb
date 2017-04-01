@@ -1,5 +1,5 @@
 import {RecordOutput} from "./output";
-import {FormattedRecord} from "../record";
+import {OutputRecord} from "./OutputRecord";
 
 export class CsvRecordOutput implements RecordOutput {
 
@@ -34,7 +34,7 @@ export class CsvRecordOutput implements RecordOutput {
     return Object.keys(this.sortedRecord);
   }
 
-  write(record: FormattedRecord) {
+  write(record: OutputRecord) {
     this.output.write(this.desc(record) + '\n');
   }
 
