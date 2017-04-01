@@ -9,6 +9,7 @@ it is important to allow users to access its data from modern platforms.
 
 1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
 1. Install the dependencies: `npm install`
+1. Install node typings: `node node_modules/typings/dist/bin.js install dt~node --global --save-dev`
 1. Build the software: `npm run build`
 1. Run the software: `npm run run`
 
@@ -31,7 +32,7 @@ it is important to allow users to access its data from modern platforms.
           -v, --verbose                                  Displays detailed processing information.
           --debug                                        Displays debug info.
 
-If no files are specified, it will look for `usources.txt` as a source file, and `U.RND` as a data file in the current directory.
+If no files are specified, it will look for `input/usources.txt` as a source file, and `input/U.RND` as a data file in the current directory.
 
 ### Examples
 

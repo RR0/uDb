@@ -1,5 +1,5 @@
 export class Time {
-  static accuracy(value, valueAccuracy, questionMark?) {
+  static accuracy(value, valueAccuracy, questionMark?): string | number {
     let accurateValue = '';
     switch (valueAccuracy) {
       case 0:
@@ -33,7 +33,7 @@ export class Time {
     return Time.accuracy(record.year, yearAccuracy);
   }
 
-  static getTime(record) {
+  static getTime(record): string | number {
     let time = record.hour;
     const timeAccuracy = record.ymdt & 3;
     let hours = Math.floor(time / 6);

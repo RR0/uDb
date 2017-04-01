@@ -1,12 +1,13 @@
 import * as fs from 'fs';
 
 import {Logger} from "./log";
-import {RecordReader} from "./record";
+import {FormattedRecord, RawRecord, RecordReader} from "./record";
 import {CsvRecordOutput} from "./output/csv";
 import {XmlRecordOutput} from "./output/xml";
 import {DefaultRecordOutput} from "./output/default";
 import {RecordFormatter} from "./output/format";
 import {Util} from "./util";
+import {RecordOutput} from "./output/output";
 
 const program = require('commander');
 
@@ -41,10 +42,10 @@ const misc = {};
 const discredited = [];
 
 
-fs.open(worldMap, 'r', function (status, fd) {
+fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
   logger.logVerbose('Reading world map:');
-  if (status) {
-    logger.error(status.message);
+  if (err) {
+    logger.error(`Could not read world map: ${err.errno}`);
     return;
   }
   fs.fstat(fd, function (err, stats) {
@@ -127,7 +128,7 @@ sourcesReader
         const fileSize = stats.size;
         // logDebug('File size=' + fileSize);
 
-        function readRecord() {
+        function readRecord(): RawRecord {
           fs.readSync(fd, buffer, 0, recordSize, position);
           const recordReader = new RecordReader(buffer, logger, position);
           return recordReader.read();
@@ -175,11 +176,10 @@ sourcesReader
             output = fs.createWriteStream(program.out, {flags: 'w'});
           }
 
-          let outputFormat;
-          let csvSeparator = ',';
+          let outputFormat: RecordOutput;
           switch (format.toLocaleLowerCase()) {
             case 'csv':
-              outputFormat = new CsvRecordOutput(csvSeparator, output, sortedRecord);
+              outputFormat = new CsvRecordOutput(output, sortedRecord);
               break;
             case 'xml':
               outputFormat = new XmlRecordOutput(output, sortedRecord);
@@ -196,8 +196,8 @@ sourcesReader
         //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
 
-        let recordFormatter;
-        let outputFormat;
+        let recordFormatter: RecordFormatter;
+        let outputFormat: RecordOutput;
 
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
@@ -206,13 +206,13 @@ sourcesReader
             logger.logDebug('last record=' + buffer.toString());
             position += recordSize;
           } else {
-            const rawRecord = readRecord();
+            const rawRecord: RawRecord = readRecord();
             if (!recordFormatter) {
               recordFormatter = new RecordFormatter(rawRecord);
-              let sortedRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
+              let sortedRecord: FormattedRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
               outputFormat = getOutput(sortedRecord);
             }
-            const formattedRecord = recordFormatter.formatData(rawRecord);
+            const formattedRecord: FormattedRecord = recordFormatter.formatData(rawRecord);
             outputFormat.write(formattedRecord, position);
             recordEnumerator.next();
             count++;

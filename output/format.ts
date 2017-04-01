@@ -2,11 +2,12 @@ import {Util} from "../util";
 import {Geo} from "../geo";
 import {Time} from "../time";
 import {Flags} from "../flags";
+import {FormattedRecord, RawRecord} from "../record";
 
 export class RecordFormatter {
   private sortedRecord: any;
 
-  constructor(prototypeRecord) {
+  constructor(prototypeRecord: RawRecord) {
     this.sortedRecord = this.formatProperties(Util.copy(prototypeRecord));
   }
 
@@ -23,40 +24,37 @@ export class RecordFormatter {
     return flagsStr;
   }
 
-  formatProperties(record) {
+  formatProperties(record: RawRecord): FormattedRecord {
     delete record.beforeMonth;
     delete record.refIndexHigh;
     delete record.ymdt;
     delete record.unknown1;
     delete record.unknown2;
     delete record.unknown3;
-
     delete record.continentCode;
-    record.continent = 'continent';
-
     delete record.countryCode;
-    record.country = 'country';
 
     let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
-    let sortedRecord = Util.sortProps(record, (prop1, prop2) => {
+    let sortedRecord: FormattedRecord = <FormattedRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;
       let index2 = expectedKeysOrder.indexOf(prop2);
       if (index2 < 0) index2 = 1000;
       return index1 < index2 ? -1 : index1 > index2 ? 1 : 0;
     });
+    sortedRecord.continent = 'continent';
+    sortedRecord.country = 'country';
     return sortedRecord;
   }
 
-  formatData(record) {
-    let continent = Geo.getContinent(record.continentCode);
+  formatData(rec: RawRecord): FormattedRecord {
+    const record: FormattedRecord = <FormattedRecord>Util.copy(rec);
+    let continent = Geo.getContinent(rec.continentCode);
     if (continent) {
       record.continent = continent.name;
-      delete record.continentCode;
 
-      let country = Geo.getCountry(continent, record.countryCode);
+      let country = Geo.getCountry(continent, rec.countryCode);
       record.country = country.name;
-      delete record.countryCode;
 
       record.stateOrProvince = Geo.getStateOrProvince(country, record);
     }
