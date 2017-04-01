@@ -2,7 +2,7 @@ export interface OutputRecord {
   year: string | number;
   month: string | number;
   day: string | number;
-  hour: string | number;
+  time: string;
   location: string;
   stateOrProvince: any;
   country: string;
@@ -23,4 +23,8 @@ export interface OutputRecord {
   elevation: string | number;
   latitude: number;
   longitude: number;
+  ref: number;
+  strangeness: number;
+  credibility: number;
+  refIndex: number;
 }

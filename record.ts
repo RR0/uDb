@@ -16,7 +16,6 @@ export class RecordReader {
       let value = this.buffer[this.recordPos];
       this.recordHex += value < 0x10 ? '0' : '';
       this.recordHex += value.toString(16) + ' ';
-      this.recordRead += 'rr ';
     }
   }
 
@@ -90,7 +89,6 @@ export class RecordReader {
   read(): InputRecord {
     const record: InputRecord = this.record = <InputRecord>{};
     this.recordHex = '';
-    this.recordRead = '';
     this.recordPos = 0;
 
     this.readSignedInt('year');
@@ -141,7 +139,7 @@ export class RecordReader {
 
     this.readNibbles('strangeness', 'credibility');
 
-    this.logger.logDebug(`buffer=${this.recordHex}\n              ${this.recordRead}`);
+    this.logger.logDebug(`buffer=${this.recordHex}`);
     return record;
   }
 }

@@ -10,6 +10,7 @@ import {OutputRecord} from "./output/OutputRecord";
 import {XmlRecordOutput} from "./output/xml";
 import {RecordReader} from "./record";
 import {Util} from "./util";
+import WritableStream = NodeJS.WritableStream;
 
 const program = require('commander');
 
@@ -61,7 +62,6 @@ fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
         logger.logDebug('last recordSize=' + recordSize);
       }
       fs.readSync(fd, buffer, 0, recordSize, position);
-      //console.log('  ' + buffer.toString('hex'));
       count++;
       position += recordSize;
     }
@@ -172,8 +172,8 @@ sourcesReader
           }
         }
 
-        function getOutput(sortedRecord) {
-          let output = process.stdout;
+        function getOutput(sortedRecord: OutputRecord) {
+          let output: WritableStream = process.stdout;
           if (program.out) {
             output = fs.createWriteStream(program.out, {flags: 'w'});
           }
@@ -195,7 +195,6 @@ sourcesReader
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
         const recordEnumerator = new DefaultRecordEnumerator(maxCount);
-        //const recordEnumerator = new MaxCountRecordEnumerator(500);
         //const recordEnumerator = new ArrayRecordEnumerator([18121]);
 
         let recordFormatter: RecordFormatter;
@@ -208,14 +207,14 @@ sourcesReader
             logger.logDebug('last record=' + buffer.toString());
             position += recordSize;
           } else {
-            const rawRecord: InputRecord = readRecord();
+            const inputRecord: InputRecord = readRecord();
             if (!recordFormatter) {
-              recordFormatter = new RecordFormatter(rawRecord);
-              let sortedRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(rawRecord));
-              outputFormat = getOutput(sortedRecord);
+              recordFormatter = new RecordFormatter(inputRecord);
+              let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
+              outputFormat = getOutput(outputRecord);
             }
-            const formattedRecord: OutputRecord = recordFormatter.formatData(rawRecord);
-            outputFormat.write(formattedRecord, position);
+            const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
+            outputFormat.write(outputRecord, position);
             recordEnumerator.next();
             count++;
           }

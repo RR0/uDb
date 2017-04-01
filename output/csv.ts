@@ -1,9 +1,10 @@
 import {RecordOutput} from "./output";
 import {OutputRecord} from "./OutputRecord";
+import WritableStream = NodeJS.WritableStream;
 
 export class CsvRecordOutput implements RecordOutput {
 
-  constructor(private output, private sortedRecord, private separator = ',') {
+  constructor(private output: WritableStream, private sortedRecord: OutputRecord, private separator: string = ',') {
     const headerRecord = {};
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;

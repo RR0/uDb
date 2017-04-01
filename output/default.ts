@@ -1,6 +1,7 @@
 import {Geo} from "../geo";
 import {RecordOutput} from "./output";
 import {OutputRecord} from "./OutputRecord";
+import WritableStream = NodeJS.WritableStream;
 
 let indent = 0;
 
@@ -12,10 +13,10 @@ function line(str?) {
 
 export class DefaultRecordOutput implements RecordOutput {
 
-  constructor(private output, private recordSize, private primaryReferences) {
+  constructor(private output: WritableStream, private recordSize: number, private primaryReferences) {
   }
 
-  desc(record, position) {
+  desc(record: OutputRecord, position: number) {
     const ref = record.ref ? this.primaryReferences[record.ref] : '';
     let recordIndex = position / this.recordSize;
 
@@ -29,7 +30,8 @@ export class DefaultRecordOutput implements RecordOutput {
       + line(`Date\t\t: ${record.year}${month ? '/' + month : ''}${day ? '/' + day : ''}${time ? ', ' + time : ''}`);
     const relativeAltitude = record.relativeAltitude;
     const elevation = record.elevation;
-    let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '') + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '')) : ''}`;
+    let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '') 
+      + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '')) : ''}`;
     let location = line('Location\t:')
       + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${Geo.ddToDms(record.latitude, record.longitude)}`)
       + elevationStr;
