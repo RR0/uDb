@@ -62,16 +62,16 @@ will display the 10 first decoded records in the default format:
     		FIERY SPHERE LANDS/4 SUPPORTS
     		TAKEN FOR A RIDE
     		see Bible acct.
-    	Miscellaneous details and features			: Oddity
-    	Type of UFO / Craft							: Fireball
-    	Aliens! Monsters! (no religious figures)	: Pseudo-Human, Monster
-    	Apparent UFO/Occupant activities			: Missing time
-    	Places visited and things affected			: Human affected, Apparent Landing
-    	Evidence and special effects				: Historical
-    	Duration									: 60 min
-    	Strangeness									: 8
-    	Credibility									: 4
-    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    	Miscellaneous details and features          : Oddity
+    	Type of UFO / Craft                         : Fireball
+    	Aliens! Monsters! (no religious figures)    : Pseudo-Human, Monster
+    	Apparent UFO/Occupant activities            : Missing time
+    	Places visited and things affected          : Human affected, Apparent Landing
+    	Evidence and special effects                : Historical
+    	Duration                                    : 60 min
+    	Strangeness                                 : 8
+    	Credibility                                 : 4
+    	Reference                                   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
     												  at index #2
     
     Record #2
@@ -84,15 +84,15 @@ will display the 10 first decoded records in the default format:
     	Description :
     		FLYING SHIELD BEAMS 
     		WALLS CRUMBLE
-    	Type of UFO / Craft							: Saucer, Delta
-    	Aliens! Monsters! (no religious figures)	: No occupant
-    	Apparent UFO/Occupant activities			: Observation, Ray
-    	Places visited and things affected			: Animals affected, Human affected, Building or ANY MANMADE STRUCTURE
-    	Evidence and special effects				: Traces, Historical
-    	Duration									: 3 min
-    	Strangeness									: 9
-    	Credibility									: 6
-    	Reference									: MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
+    	Type of UFO / Craft                         : Saucer, Delta
+    	Aliens! Monsters! (no religious figures)    : No occupant
+    	Apparent UFO/Occupant activities            : Observation, Ray
+    	Places visited and things affected          : Animals affected, Human affected, Building or ANY MANMADE STRUCTURE
+    	Evidence and special effects                : Traces, Historical
+    	Duration                                    : 3 min
+    	Strangeness                                 : 9
+    	Credibility                                 : 6
+    	Reference                                   : MUFON UFO JOURNAL, Seguin,TX  USA.  Monthly.
     												  at index #320
     
     Record #3
@@ -104,14 +104,14 @@ will display the 10 first decoded records in the default format:
     	Description :
     		MAN IN WHITE
     		12 SUCH BETWEEN 222 AND 90 B.C.
-    	Miscellaneous details and features			: Oddity, Wave
-    	Type of UFO / Craft							: Cigar, Delta
-    	Aliens! Monsters! (no religious figures)	: Pseudo-Human
-    	Evidence and special effects				: Historical
-    	Duration									: 15 min
-    	Strangeness									: 8
-    	Credibility									: 4
-    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    	Miscellaneous details and features          : Oddity, Wave
+    	Type of UFO / Craft                         : Cigar, Delta
+    	Aliens! Monsters! (no religious figures)    : Pseudo-Human
+    	Evidence and special effects                : Historical
+    	Duration                                    : 15 min
+    	Strangeness                                 : 8
+    	Credibility                                 : 4
+    	Reference                                   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
     												  at index #4
     
     Record #4
@@ -123,14 +123,14 @@ will display the 10 first decoded records in the default format:
     		Observer: Map, Ground, Civilian
     	Description :
     		NFD
-    	Miscellaneous details and features			: Oddity, Wave
-    	Type of UFO / Craft							: Saucer, Cigar
-    	Aliens! Monsters! (no religious figures)	: No occupant
-    	Evidence and special effects				: Historical
-    	Duration									: 2 min
-    	Strangeness									: 6
-    	Credibility									: 6
-    	Reference									: HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+    	Miscellaneous details and features          : Oddity, Wave
+    	Type of UFO / Craft                         : Saucer, Cigar
+    	Aliens! Monsters! (no religious figures)    : No occupant
+    	Evidence and special effects                : Historical
+    	Duration                                    : 2 min
+    	Strangeness                                 : 6
+    	Credibility                                 : 6
+    	Reference                                   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
     												  at index #125
     
     Record #5
@@ -142,15 +142,15 @@ will display the 10 first decoded records in the default format:
     	Description :
     		CHARIOTS+REGIMENTS CIRCLE TOWNS in SKY
     		LOUD NOISES LATER
-    	Miscellaneous details and features			: Wave
-    	Type of UFO / Craft							: Saucer, Cigar, Delta, Nightlights
-    	Aliens! Monsters! (no religious figures)	: Figure
-    	Evidence and special effects				: Technical, Historical
-    	Miscellaneous details					: Sound
-    	Duration									: 60 min
-    	Strangeness									: 7
-    	Credibility									: 4
-    	Reference									: HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
+    	Miscellaneous details and features          : Wave
+    	Type of UFO / Craft                         : Saucer, Cigar, Delta, Nightlights
+    	Aliens! Monsters! (no religious figures)    : Figure
+    	Evidence and special effects                : Technical, Historical
+    	Miscellaneous details                       : Sound
+    	Duration                                    : 60 min
+    	Strangeness                                 : 7
+    	Credibility                                 : 4
+    	Reference                                   : HAINES,Richard Ph.D: PROJECT DELTA; 1994,   LDA Press, PO Box 880,Los Altos,CA 94023 USA
     												  at index #120
     
     Record #6
@@ -161,13 +161,13 @@ will display the 10 first decoded records in the default format:
     		Observer: Map, Ground, Civilian, High quality observer(s)
     	Description :
     		they admitted flying
-    	Type of UFO / Craft							: Cigar
-    	Aliens! Monsters! (no religious figures)	: Figure
-    	Evidence and special effects				: Historical
-    	Duration									: 20 min
-    	Strangeness									: 10
-    	Credibility									: 4
-    	Reference									: VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
+    	Type of UFO / Craft                         : Cigar
+    	Aliens! Monsters! (no religious figures)    : Figure
+    	Evidence and special effects                : Historical
+    	Duration                                    : 20 min
+    	Strangeness                                 : 10
+    	Credibility                                 : 4
+    	Reference                                   : VALLEE,Jacques: UFOS IN SPACE- Anatomy of a Phenomenon Henry Regnery 1966 & Ballentine PB 1974 294pp.
     												  at index #7
     
     Record #7
@@ -178,14 +178,14 @@ will display the 10 first decoded records in the default format:
     		Observer: Map, Ground, Civilian
     	Description :
     	
-    	Miscellaneous details and features			: News, Misidentification
-    	Type of UFO / Craft							: Nightlights, Fireball
-    	Aliens! Monsters! (no religious figures)	: No occupant
-    	Evidence and special effects				: Historical
-    	Duration									: 15 min
-    	Strangeness									: 3
-    	Credibility									: 7
-    	Reference									: FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
+    	Miscellaneous details and features          : News, Misidentification
+    	Type of UFO / Craft                         : Nightlights, Fireball
+    	Aliens! Monsters! (no religious figures)    : No occupant
+    	Evidence and special effects                : Historical
+    	Duration                                    : 15 min
+    	Strangeness                                 : 3
+    	Credibility                                 : 7
+    	Reference                                   : FIGEUT,Michel & RUCHON,Jean-Louis: OVNI- Le Premier    Dossier..; Alain LeFeuvre,Paris 1979.
     												  at index #32
     
     Record #8
