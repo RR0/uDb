@@ -17,20 +17,21 @@ it is important to allow users to access its data from modern platforms.
 
     node udb [options]
     
-      Options:
-      
-          -h, --help                                     output usage information
-          -V, --version                                  output the version number
-          -d, --data [dataFile]                          Data file to read. Defaults to ./U.RND
-          -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./usources.txt
-          -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./WM.VCE
-          -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
-          -i, --records <recordsIndexes>                 List of indexes of records to output.
-          -c, --count <maxCount>                         Maximum number of records to output.
-          -f, --format <default|csv|xml> [csvSeparator]  Format of the output
-          -o, --out <outputFile>                         Name of the file to output. Will output as CSV if file extension is .csv
-          -v, --verbose                                  Displays detailed processing information.
-          --debug                                        Displays debug info.
+    Options:
+    
+        -h, --help                                     output usage information
+        -V, --version                                  output the version number
+        -d, --data [dataFile]                          Data file to read. Defaults to ./input/data/U.RND
+        -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./input/data/usources.txt
+        -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./input/data/WM.VCE
+        -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
+        -i, --records <recordsIndexes>                 List of indexes of records to output.
+        -c, --count <maxCount>                         Maximum number of records to output.
+        -m, --match <criterion>[&otherCriterion...]    Output records that match the criteria.
+        -f, --format <default|csv|xml> [csvSeparator]  Format of the output
+        -o, --out <outputFile>                         Name of the file to output. Will output as CSV if file extension is .csv
+        -v, --verbose                                  Displays detailed processing information.
+        --debug                                        Displays debug info.
 
 If no files are specified, it will look for `input/usources.txt` as a source file, and `input/U.RND` as a data file in the current directory.
 
@@ -313,6 +314,12 @@ will create/overwrite an `export.xml` file with the following contents:
     
 For details about input/output formats, please check the [uDb Wiki](https://github.com/RR0/uDb/wiki).
     
+#### Record for record that match some criteria
+
+    node udb --match year=1952&month=8&day=12
+
+will output records about case that occurred on August 12th, 1952.
+
 ## TODO
 
 - See [opened issues](https://github.com/RR0/uDb/issues).
