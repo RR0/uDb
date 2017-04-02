@@ -201,7 +201,7 @@ sourcesReader
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
-        const recordMatcher = new RecordMatcher(program.find);
+        const recordMatcher = new RecordMatcher(program.match);
 
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
