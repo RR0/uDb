@@ -11,6 +11,7 @@ import {XmlRecordOutput} from "./output/xml";
 import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
+import {RecordMatcher} from "./match";
 
 const program = require('commander');
 
@@ -25,6 +26,7 @@ program
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
   .option('-i, --records <recordsIndexes>', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
+  .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
   .option('-o, --out <outputFile>', 'Name of the file to output. Will output as CSV if file extension is .csv')
   .option('-v, --verbose', 'Displays detailed processing information.')
@@ -199,6 +201,7 @@ sourcesReader
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
+        const recordMatcher = new RecordMatcher(program.find);
 
         while (recordEnumerator.hasNext()) {
           if ((position + recordSize) > fileSize) {
@@ -208,15 +211,17 @@ sourcesReader
             position += recordSize;
           } else {
             const inputRecord: InputRecord = readRecord();
-            if (!recordFormatter) {
-              recordFormatter = new RecordFormatter(inputRecord);
-              let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
-              outputFormat = getOutput(outputRecord);
+            if (recordMatcher.matches(inputRecord)) {
+              if (!recordFormatter) {
+                recordFormatter = new RecordFormatter(inputRecord);
+                let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
+                outputFormat = getOutput(outputRecord);
+              }
+              const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
+              outputFormat.write(outputRecord, position);
+              count++;
             }
-            const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
-            outputFormat.write(outputRecord, position);
             recordEnumerator.next();
-            count++;
           }
         }
         outputFormat.end();
