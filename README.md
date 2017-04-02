@@ -316,9 +316,9 @@ For details about input/output formats, please check the [uDb Wiki](https://gith
     
 #### Record for record that match some criteria
 
-    node udb --match year=1952&month=8&day=12
+    node udb --match year=1972&month=8&day=12
 
-will output records about case that occurred on August 12th, 1952.
+will output records about cases that occurred on August 12th, 1972.
 
 ## TODO
 
