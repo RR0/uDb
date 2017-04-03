@@ -61,7 +61,7 @@ export class DefaultRecordOutput implements RecordOutput {
       descriptionStr += line(`Apparent UFO/Occupant activities\t\t\t: ${apparentUfoOccupantActivities}`);
     }
     let placesVisitedAndThingsAffected = record.placesVisitedAndThingsAffectedFlags;
-    if (apparentUfoOccupantActivities) {
+    if (placesVisitedAndThingsAffected) {
       descriptionStr += line(`Places visited and things affected\t\t\t: ${placesVisitedAndThingsAffected}`);
     }
     let evidenceAndSpecialEffects = record.evidenceAndSpecialEffectsFlags;
