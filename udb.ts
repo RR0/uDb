@@ -120,13 +120,13 @@ sourcesReader
     const buffer = new Buffer(recordSize);
 
     fs.open(dataFile, 'r', function (err: NodeJS.ErrnoException, fd: number) {
-      const firstsIndex = (program.range && program.range[0]) || 1;
+      const firstsIndex = program.range != undefined ? program.range[0] : 1;
       let recordIndex = firstsIndex;
       logger.logVerbose(`\nReading cases from #${recordIndex}:`);
       if (err) {
         return;
       }
-      let position = recordIndex * recordSize;
+      let filePos = recordIndex * recordSize;
       const recordReader = new RecordReader(buffer, logger);
 
       fs.fstat(fd, function (err, stats) {
@@ -134,46 +134,64 @@ sourcesReader
         // logDebug('File size=' + fileSize);
 
         function readRecord(): InputRecord {
-          fs.readSync(fd, buffer, 0, recordSize, position);
-          return recordReader.read(position);
+          fs.readSync(fd, buffer, 0, recordSize, filePos);
+          return recordReader.read(filePos);
         }
 
         let count = 0;
 
-        class ArrayRecordEnumerator {
-          private recordsIndexes: any;
-
-          constructor(recordsIndexes) {
-            recordIndex = 0;
-            this.recordsIndexes = recordsIndexes;
-            position = recordsIndexes[recordIndex] * recordSize;
+        abstract class RecordEnumerator {
+          hasNext() : boolean {
+            filePos = recordIndex * recordSize;
+            return filePos < fileSize;
           }
 
-          hasNext() {
-            return recordIndex < this.recordsIndexes.length;
-          }
-
-          next() {
-            recordIndex++;
-            position = this.recordsIndexes[recordIndex] * recordSize;
+          next(): InputRecord {
+            filePos = recordIndex * recordSize;
+            const inputRecord: InputRecord = readRecord();
+            inputRecord.index = recordIndex;
+            return inputRecord;
           }
         }
 
-        class DefaultRecordEnumerator {
-          maxCount: any;
+        class ArrayRecordEnumerator extends RecordEnumerator {
+          private recordsIndexes: any;
+          private indexIndex: number;
 
-          constructor(maxCount) {
-            this.maxCount = maxCount;
-            position = recordIndex * recordSize;
+          constructor(recordsIndexes) {
+            super();
+            this.recordsIndexes = recordsIndexes;
+            this.indexIndex = 0;
           }
 
-          hasNext() {
-            return position < fileSize && count < this.maxCount;
+          hasNext(): boolean {
+            recordIndex = this.recordsIndexes[this.indexIndex];
+            return super.hasNext() && this.indexIndex < this.recordsIndexes.length;
+          }
+
+          next(): InputRecord {
+            const inputRecord = super.next();
+            this.indexIndex++;
+            return inputRecord;
+          }
+        }
+
+        class DefaultRecordEnumerator extends RecordEnumerator {
+          private maxCount: any;
+
+          constructor(maxCount) {
+            super();
+            this.maxCount = maxCount;
+          }
+
+          hasNext(): boolean {
+            return super.hasNext() && count < this.maxCount;
           }
 
           next() {
+            const nextRecord = super.next();
             recordIndex++;
-            position += recordSize;
+            return nextRecord;
           }
         }
 
@@ -199,20 +217,20 @@ sourcesReader
 
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
-        const recordEnumerator = program.records ? new ArrayRecordEnumerator(program.records.split(',')) : new DefaultRecordEnumerator(maxCount);
+        const recordEnumerator: RecordEnumerator = program.records ? new ArrayRecordEnumerator(program.records.split(',')) : new DefaultRecordEnumerator(maxCount);
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
         const recordMatcher = new RecordMatcher(program.match);
 
         while (recordEnumerator.hasNext()) {
-          if ((position + recordSize) > fileSize) {
-            recordSize = fileSize - position;
-            fs.readSync(fd, buffer, 0, recordSize, position);
+          if ((filePos + recordSize) > fileSize) {
+            recordSize = fileSize - filePos;
+            fs.readSync(fd, buffer, 0, recordSize, filePos);
             logger.logDebug('last record=' + buffer.toString());
-            position += recordSize;
+            filePos += recordSize;
           } else {
-            const inputRecord: InputRecord = readRecord();
+            const inputRecord: InputRecord = recordEnumerator.next();
             if (recordMatcher.matches(inputRecord)) {
               if (!recordFormatter) {
                 recordFormatter = new RecordFormatter(inputRecord);
@@ -220,10 +238,9 @@ sourcesReader
                 outputFormat = getOutput(outputRecord);
               }
               const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
-              outputFormat.write(outputRecord, position);
+              outputFormat.write(outputRecord, filePos);
               count++;
             }
-            recordEnumerator.next();
           }
         }
         outputFormat.end();
