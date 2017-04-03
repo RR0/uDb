@@ -15,6 +15,8 @@ import {RecordMatcher} from "./match";
 
 const program = require('commander');
 
+const processingStart = Date.now();
+
 function range(val) {
   return val.split('..').map(Number);
 }
@@ -125,6 +127,7 @@ sourcesReader
         return;
       }
       let position = recordIndex * recordSize;
+      const recordReader = new RecordReader(buffer, logger);
 
       fs.fstat(fd, function (err, stats) {
         const fileSize = stats.size;
@@ -132,8 +135,7 @@ sourcesReader
 
         function readRecord(): InputRecord {
           fs.readSync(fd, buffer, 0, recordSize, position);
-          const recordReader = new RecordReader(buffer, logger, position);
-          return recordReader.read();
+          return recordReader.read(position);
         }
 
         let count = 0;
@@ -225,8 +227,9 @@ sourcesReader
           }
         }
         outputFormat.end();
-        logger.logVerbose(`\nRead ${count} reports.`);
         fs.close(fd);
+        const processingDuration = Date.now() - processingStart;
+        logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration/1000).toFixed(2)} seconds.`);
       });
     });
   });

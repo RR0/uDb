@@ -3,11 +3,12 @@ import {InputRecord} from "./input/InputRecord";
 import {Logger} from "./log";
 
 export class RecordReader {
+  private filePos: number;
   private recordPos: number;
   private recordHex: string;
   private record: InputRecord;
 
-  constructor(private buffer: Buffer, private logger: Logger, private position: number) {
+  constructor(private buffer: Buffer, private logger: Logger) {
   }
 
   readed(l: number) {
@@ -20,7 +21,7 @@ export class RecordReader {
   }
 
   logReadPos(prop: string) {
-    let pos = this.position + this.recordPos;
+    let pos = this.filePos + this.recordPos;
     let value = this.record[prop];
     if (typeof value === 'string') {
       value = `'${value}'`;
@@ -86,10 +87,11 @@ export class RecordReader {
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
 
-  read(): InputRecord {
+  read(filePos: number): InputRecord {
     const record: InputRecord = this.record = <InputRecord>{};
     this.recordHex = '';
     this.recordPos = 0;
+    this.filePos = filePos;
 
     this.readSignedInt('year');
     this.readByte('locale');
@@ -141,7 +143,8 @@ export class RecordReader {
 
     const width = 3 * 16;
     const dataRow = (n) => {
-      return (this.position + (n * width / 3)) + ': ' + this.recordHex.substring(width * n, width * (n+1)) + '\n';
+      let rowPos = this.filePos + n * width / 3;
+      return rowPos + ': ' + this.recordHex.substring(width * n, width * (n+1)) + '\n';
     };
     this.logger.logDebug(`buffer=\n${dataRow(0) + dataRow(1) + dataRow(2) + dataRow(3) + dataRow(4) + dataRow(5) + dataRow(6)}`);
     return record;
