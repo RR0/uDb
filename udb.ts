@@ -26,7 +26,7 @@ program
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
-  .option('-i, --records <recordsIndexes>', 'List of indexes of records to output.')
+  .option('-i, --records <recordIndex>[,otherRecordIndex...]', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
@@ -141,9 +141,10 @@ sourcesReader
         let count = 0;
 
         class ArrayRecordEnumerator {
-          recordsIndexes: any;
+          private recordsIndexes: any;
 
           constructor(recordsIndexes) {
+            recordIndex = 0;
             this.recordsIndexes = recordsIndexes;
             position = recordsIndexes[recordIndex] * recordSize;
           }
@@ -198,8 +199,7 @@ sourcesReader
 
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
-        const recordEnumerator = new DefaultRecordEnumerator(maxCount);
-        //const recordEnumerator = new ArrayRecordEnumerator([18121]);
+        const recordEnumerator = program.records ? new ArrayRecordEnumerator(program.records.split(',')) : new DefaultRecordEnumerator(maxCount);
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
