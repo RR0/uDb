@@ -14,7 +14,7 @@ export interface InputRecord {
   /**
    * 4 bits
    */
-  beforeMonth: number;
+  unknownMonthPart: number;
 
   /**
    * 4 bits
@@ -34,7 +34,7 @@ export interface InputRecord {
   /**
    * 1 byte
    */
-  hour: number;
+  time: number;
 
   /**
    * Year, Month, Day and Time accuracies.

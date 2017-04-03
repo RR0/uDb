@@ -26,7 +26,7 @@ export class RecordFormatter {
   }
 
   formatProperties(record: InputRecord): OutputRecord {
-    delete record.beforeMonth;
+    delete record.unknownMonthPart;
     delete record.refIndexHigh;
     delete record.ymdt;
     delete record.unknown1;
@@ -35,7 +35,7 @@ export class RecordFormatter {
     delete record.continentCode;
     delete record.countryCode;
 
-    let expectedKeysOrder = ['year', 'month', 'day', 'hour', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
+    let expectedKeysOrder = ['year', 'month', 'day', 'time', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
     let sortedRecord: OutputRecord = <OutputRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;

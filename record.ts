@@ -1,12 +1,13 @@
-import {Util} from "./util";
 import {InputRecord} from "./input/InputRecord";
 import {Logger} from "./log";
+import {Util} from "./util";
 
 export class RecordReader {
   private filePos: number;
   private recordPos: number;
   private recordHex: string;
   private record: InputRecord;
+  private unknownOnly: boolean = true;
 
   constructor(private buffer: Buffer, private logger: Logger) {
   }
@@ -21,15 +22,17 @@ export class RecordReader {
   }
 
   logReadPos(prop: string) {
-    let pos = this.filePos + this.recordPos;
-    let value = this.record[prop];
-    if (typeof value === 'string') {
-      value = `'${value}'`;
-    } else {
-      value += ` (0x${value.toString(16)}, ${value.toString(2)})`;
+    if (!this.unknownOnly || prop.startsWith('unknown')) {
+      let pos = this.filePos + this.recordPos;
+      let value = this.record[prop];
+      if (typeof value === 'string') {
+        value = `'${value}'`;
+      } else {
+        value += ` (0x${value.toString(16)}, ${value.toString(2)})`;
+      }
+      let logStr = `at ${pos} (0x${pos.toString(16)}) read ${prop}=${value}`;
+      this.logger.logDebug(logStr);
     }
-    let logStr = `at ${pos} (0x${pos.toString(16)}) read ${prop}=${value}`;
-    this.logger.logDebug(logStr);
   }
 
   readString(length: number, prop: string) {
@@ -94,10 +97,10 @@ export class RecordReader {
     this.filePos = filePos;
 
     this.readSignedInt('year');
-    this.readByte('locale');
-    this.readByteBits('beforeMonth', 4, 'month');
+    this.readNibbles('unknownLocale', 'locale');
+    this.readNibbles('unknownMonth', 'month');
     this.readByteBits('refIndexHigh', 5, 'day');
-    this.readByte('hour');
+    this.readByte('time');
     this.readByte('ymdt');
     this.readByte('duration');
     this.readByte('unknown1');
@@ -144,7 +147,7 @@ export class RecordReader {
     const width = 3 * 16;
     const dataRow = (n) => {
       let rowPos = this.filePos + n * width / 3;
-      return rowPos + ': ' + this.recordHex.substring(width * n, width * (n+1)) + '\n';
+      return rowPos + ': ' + this.recordHex.substring(width * n, width * (n + 1)) + '\n';
     };
     this.logger.logDebug(`buffer=\n${dataRow(0) + dataRow(1) + dataRow(2) + dataRow(3) + dataRow(4) + dataRow(5) + dataRow(6)}`);
     return record;
