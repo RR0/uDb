@@ -18,13 +18,12 @@ export class DefaultRecordOutput implements RecordOutput {
 
   desc(record: OutputRecord, position: number) {
     const ref = record.ref ? this.primaryReferences[record.ref] : '';
-    let recordIndex = position / this.recordSize;
 
     const month = record.month;
     const day = record.day;
     const time = record.time;
     let desc = line()
-      + line(`Record #${recordIndex}`);
+      + line(`Record #${record.index}`);
     indent++;
     desc += line(`Title\t\t: ${record.title}`)
       + line(`Date\t\t: ${record.year}${month ? '/' + month : ''}${day ? '/' + day : ''}${time ? ', ' + time : ''}`);
