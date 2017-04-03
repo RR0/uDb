@@ -321,6 +321,7 @@ For details about input/output formats, please check the [uDb Wiki](https://gith
 will output records about cases that occurred on August 12th, 1972.
 
 You can use any [InputRecord](https://github.com/RR0/uDb/blob/master/input/InputRecord.ts) property in a matching criteria.
+For now only `prop=value` criteria are supported.
 
 ## To do
 
