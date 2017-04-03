@@ -26,7 +26,7 @@ program
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
-  .option('-i, --records <recordIndex>[,otherRecordIndex...]', 'List of indexes of records to output.')
+  .option('-i, --indexes <recordIndex>[,otherRecordIndex...]', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
@@ -119,9 +119,10 @@ sourcesReader
     let recordSize = 112;
     const buffer = new Buffer(recordSize);
 
+    const firstsIndex = program.range != undefined ? program.range[0] : 1;
+    let recordIndex = firstsIndex;
+
     fs.open(dataFile, 'r', function (err: NodeJS.ErrnoException, fd: number) {
-      const firstsIndex = program.range != undefined ? program.range[0] : 1;
-      let recordIndex = firstsIndex;
       logger.logVerbose(`\nReading cases from #${recordIndex}:`);
       if (err) {
         return;
@@ -217,7 +218,8 @@ sourcesReader
 
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
-        const recordEnumerator: RecordEnumerator = program.records ? new ArrayRecordEnumerator(program.records.split(',')) : new DefaultRecordEnumerator(maxCount);
+        let indexes = program.indexes;
+        const recordEnumerator: RecordEnumerator = indexes ? new ArrayRecordEnumerator(indexes.split(',')) : new DefaultRecordEnumerator(maxCount);
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
@@ -237,9 +239,12 @@ sourcesReader
                 let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
                 outputFormat = getOutput(outputRecord);
               }
+              logger.flush();
               const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
               outputFormat.write(outputRecord, filePos);
               count++;
+            } else {
+              logger.reset();
             }
           }
         }

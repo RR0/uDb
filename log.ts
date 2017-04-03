@@ -1,20 +1,36 @@
 export class Logger {
-  constructor(private DEBUG, private verbose) {
+  private logMsg;
+
+  constructor(private DEBUG: boolean, private verbose: boolean) {
+    this.reset();
+  }
+
+  log(msg: string) {
+    this.logMsg += msg + '\n';
   }
 
   logDebug(msg) {
     if (this.DEBUG) {
-      console.log('DEBUG: ' + msg);
+      this.log('DEBUG: ' + msg);
     }
   }
 
-  error(msg) {
+  error(msg: string) {
     console.error(msg);
   }
 
-  logVerbose(msg) {
+  logVerbose(msg: string) {
     if (this.verbose) {
-      console.log(msg);
+      this.log(msg);
     }
+  }
+
+  reset() {
+    this.logMsg = '';
+  }
+
+  flush() {
+    console.log(this.logMsg);
+    this.reset();
   }
 }
