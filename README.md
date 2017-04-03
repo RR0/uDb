@@ -322,10 +322,9 @@ will output records about cases that occurred on August 12th, 1972.
 
 You can use any [InputRecord](https://github.com/RR0/uDb/blob/master/input/InputRecord.ts) property in a matching criteria.
 
-## TODO
+## To do
 
-- See [opened issues](https://github.com/RR0/uDb/issues).
-- Add non-regression tests.
+See [opened issues](https://github.com/RR0/uDb/issues).
 
 ## Acknowdlegments
 
