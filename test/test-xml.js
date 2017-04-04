@@ -24,8 +24,8 @@ describe('xml', function () {
       const output = new MemoryWritable();
       const outputFormat = new xml.XmlRecordOutput(output, record);
       outputFormat.write(record);
-      assert.equal('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n' +
-        '<record><year>1954</year><location>loc</location></record>\n', output.contents);
+      assert.equal('<?xml version="1.0" encoding="UTF-8"?>\n<udb>' +
+        '<record><year>1954</year><location>loc</location></record>', output.contents);
     });
     it('should replace special characters', function () {
       const record = {
@@ -34,8 +34,8 @@ describe('xml', function () {
       const output = new MemoryWritable();
       const outputFormat = new xml.XmlRecordOutput(output, record);
       outputFormat.write(record);
-      assert.equal('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n' +
-        '<record><field>&lt;somewhere&gt;</field></record>\n', output.contents);
+      assert.equal('<?xml version="1.0" encoding="UTF-8"?>\n<udb>' +
+        '<record><field>&lt;somewhere&gt;</field></record>', output.contents);
     });
   });
 });

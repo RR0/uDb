@@ -5,6 +5,9 @@ import {Flags} from "../flags";
 import {InputRecord} from "../input/InputRecord";
 import {OutputRecord} from "./OutputRecord";
 
+/**
+ * Formats input records as output records.
+ */
 export class RecordFormatter {
   private sortedRecord: OutputRecord;
 
@@ -35,7 +38,7 @@ export class RecordFormatter {
     delete record.continentCode;
     delete record.countryCode;
 
-    let expectedKeysOrder = ['year', 'month', 'day', 'time', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
+    let expectedKeysOrder = ['id', 'year', 'month', 'day', 'time', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
     let sortedRecord: OutputRecord = <OutputRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;

@@ -12,6 +12,8 @@ import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
 import {RecordMatcher} from "./match";
+import {OutputFactory} from "./output/OutputFactory";
+import {OutputFormatFactory} from "./output/OutputFormatFactory";
 
 const program = require('commander');
 
@@ -28,6 +30,7 @@ program
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
+  .option('-i, --interactive', 'Enter interactive mode.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
   .option('-o, --out <outputFile>', 'Name of the file to output. Will output as CSV if file extension is .csv')
   .option('-v, --verbose', 'Displays detailed processing information.')
@@ -162,23 +165,8 @@ sourcesReader
         }
 
         function getOutput(sortedRecord: OutputRecord) {
-          let output: WritableStream = process.stdout;
-          if (program.out) {
-            output = fs.createWriteStream(program.out, {flags: 'w'});
-          }
-
-          let outputFormat: RecordOutput;
-          switch (format.toLocaleLowerCase()) {
-            case 'csv':
-              outputFormat = new CsvRecordOutput(output, sortedRecord);
-              break;
-            case 'xml':
-              outputFormat = new XmlRecordOutput(output, sortedRecord);
-              break;
-            default:
-              outputFormat = new DefaultRecordOutput(output, primaryReferences);
-          }
-          return outputFormat;
+          let output = OutputFactory.getOutput(program.out);
+          return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, primaryReferences);
         }
 
         let lastIndex = (program.range && program.range[1]) || 10000000;
