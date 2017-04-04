@@ -9,7 +9,7 @@ export class CsvRecordOutput implements RecordOutput {
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;
     }
-    this.output.write(this.desc(headerRecord) + '\n');
+    this.output.write(this.desc(headerRecord));
   }
 
   static csvValue(value) {
@@ -36,7 +36,7 @@ export class CsvRecordOutput implements RecordOutput {
   }
 
   write(record: OutputRecord) {
-    this.output.write(this.desc(record) + '\n');
+    this.output.write(this.desc(record));
   }
 
   end() {}

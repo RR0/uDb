@@ -6,7 +6,7 @@ const json2xml = require('json2xml');
 export class XmlRecordOutput implements RecordOutput {
 
   constructor(private output: WritableStream, private sortedRecord: OutputRecord) {
-    this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
+    this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>')
   }
 
   desc(record: OutputRecord) {
@@ -18,7 +18,7 @@ export class XmlRecordOutput implements RecordOutput {
     for (let prop in this.sortedRecord) {
       OutputRecord[prop] = record[prop];
     }
-    this.output.write(`<record>${this.desc(OutputRecord)}</record>\n`);
+    this.output.write(`<record>${this.desc(OutputRecord)}</record>`);
   }
 
   end() {
