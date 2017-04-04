@@ -142,11 +142,12 @@ sourcesReader
         let count = 0;
 
         abstract class RecordEnumerator {
-          hasNext() : boolean {
+          constructor() {
             filePos = recordIndex * recordSize;
+          }
+          hasNext() : boolean {
             return filePos < fileSize;
           }
-
           next(): InputRecord {
             filePos = recordIndex * recordSize;
             const inputRecord: InputRecord = readRecord();
@@ -230,6 +231,7 @@ sourcesReader
             recordSize = fileSize - filePos;
             fs.readSync(fd, buffer, 0, recordSize, filePos);
             logger.logDebug('last record=' + buffer.toString());
+            logger.flush();
             filePos += recordSize;
           } else {
             const inputRecord: InputRecord = recordEnumerator.next();
