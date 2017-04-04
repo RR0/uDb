@@ -1,12 +1,20 @@
 export class Logger {
-  private logMsg;
+  private logMsg : string;
+  private _autoFlush: boolean;
 
   constructor(private DEBUG: boolean, private verbose: boolean) {
     this.reset();
   }
 
+  set autoFlush(value) {
+    this._autoFlush = value;
+  }
+
   log(msg: string) {
     this.logMsg += msg + '\n';
+    if (this._autoFlush) {
+      this.flush();
+    }
   }
 
   logDebug(msg) {
@@ -16,7 +24,7 @@ export class Logger {
   }
 
   error(msg: string) {
-    console.error(msg);
+    console.error(msg.substring(0, msg.length - 1));
   }
 
   logVerbose(msg: string) {
@@ -30,7 +38,9 @@ export class Logger {
   }
 
   flush() {
-    console.log(this.logMsg);
+    if (this.logMsg) {
+      console.log(this.logMsg);
+    }
     this.reset();
   }
 }

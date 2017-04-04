@@ -2,18 +2,16 @@ import * as fs from "fs";
 import {InputRecord} from "./input/InputRecord";
 
 import {Logger} from "./log";
-import {CsvRecordOutput} from "./output/csv";
-import {DefaultRecordOutput} from "./output/default";
+import {RecordMatcher} from "./match";
 import {RecordFormatter} from "./output/format";
-import {RecordOutput} from "./output/output";
+import {MemoryOutput} from "./output/MemoryOutput";
+import {Output, RecordOutput} from "./output/RecordOutput";
+import {OutputFactory} from "./output/OutputFactory";
+import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
-import {XmlRecordOutput} from "./output/xml";
 import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
-import {RecordMatcher} from "./match";
-import {OutputFactory} from "./output/OutputFactory";
-import {OutputFormatFactory} from "./output/OutputFormatFactory";
 
 const program = require('commander');
 
@@ -50,6 +48,13 @@ const otherPeriodicals = {};
 const misc = {};
 const discredited = [];
 
+let output: Output;
+
+function getOutput(sortedRecord: OutputRecord) {
+  output = OutputFactory.getOutput(program.out);
+  return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, primaryReferences);
+}
+
 fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
   logger.logVerbose('Reading world map:');
   if (err) {
@@ -75,7 +80,9 @@ fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
   });
 });
 
-const sourcesReader = require('readline').createInterface({
+let readline = require('readline');
+
+const sourcesReader = readline.createInterface({
   input: require('fs').createReadStream(sourcesFile)
 });
 
@@ -164,11 +171,6 @@ sourcesReader
           }
         }
 
-        function getOutput(sortedRecord: OutputRecord) {
-          let output = OutputFactory.getOutput(program.out);
-          return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, primaryReferences);
-        }
-
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
         const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
@@ -204,7 +206,30 @@ sourcesReader
         outputFormat.end();
         fs.close(fd);
         const processingDuration = Date.now() - processingStart;
-        logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration/1000).toFixed(2)} seconds.`);
+        logger.autoFlush = true;
+        logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
+
+        if (output instanceof MemoryOutput) {
+          const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+          });
+
+          const prompt = function () {
+            rl.question('udb> ', (command) => {
+              switch (command) {
+                case 'exit':
+                  rl.close();
+                  process.stdin.destroy();
+                  return;
+                default:
+                  console.log('Thank you for your valuable feedback:', command);
+                  return prompt();
+              }
+            });
+          };
+          prompt();
+        }
       });
     });
   });

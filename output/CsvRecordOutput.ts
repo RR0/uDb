@@ -1,15 +1,15 @@
-import {RecordOutput} from "./output";
+import {Output, RecordOutput} from "./RecordOutput";
 import {OutputRecord} from "./OutputRecord";
 import WritableStream = NodeJS.WritableStream;
 
 export class CsvRecordOutput implements RecordOutput {
 
-  constructor(private output: WritableStream, private sortedRecord: OutputRecord, private separator: string = ',') {
+  constructor(private output: Output, private sortedRecord: OutputRecord, private separator: string = ',') {
     const headerRecord = {};
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;
     }
-    this.output.write(this.desc(headerRecord));
+    this.output.write(this.desc(headerRecord) + '\n');
   }
 
   static csvValue(value) {
@@ -36,7 +36,7 @@ export class CsvRecordOutput implements RecordOutput {
   }
 
   write(record: OutputRecord) {
-    this.output.write(this.desc(record));
+    this.output.write(this.desc(record) + '\n');
   }
 
   end() {}

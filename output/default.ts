@@ -1,5 +1,5 @@
 import {Geo} from "../geo";
-import {RecordOutput} from "./output";
+import {Output, RecordOutput} from "./RecordOutput";
 import {OutputRecord} from "./OutputRecord";
 import WritableStream = NodeJS.WritableStream;
 
@@ -13,7 +13,7 @@ function line(str?) {
 
 export class DefaultRecordOutput implements RecordOutput {
 
-  constructor(private output: WritableStream, private primaryReferences) {
+  constructor(private output: Output, private primaryReferences) {
   }
 
   desc(record: OutputRecord) {

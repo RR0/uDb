@@ -1,12 +1,12 @@
-import {RecordOutput} from "./output";
+import {Output, RecordOutput} from "./RecordOutput";
 import {OutputRecord} from "./OutputRecord";
 import WritableStream = NodeJS.WritableStream;
 const json2xml = require('json2xml');
 
 export class XmlRecordOutput implements RecordOutput {
 
-  constructor(private output: WritableStream, private sortedRecord: OutputRecord) {
-    this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>')
+  constructor(private output: Output, private sortedRecord: OutputRecord) {
+    this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
   }
 
   desc(record: OutputRecord) {
@@ -18,7 +18,7 @@ export class XmlRecordOutput implements RecordOutput {
     for (let prop in this.sortedRecord) {
       OutputRecord[prop] = record[prop];
     }
-    this.output.write(`<record>${this.desc(OutputRecord)}</record>`);
+    this.output.write(`<record>${this.desc(OutputRecord)}</record>\n`);
   }
 
   end() {

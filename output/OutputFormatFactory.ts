@@ -1,13 +1,14 @@
-import {CsvRecordOutput} from "./csv";
+import {CsvRecordOutput} from "./CsvRecordOutput";
 import {DefaultRecordOutput} from "./default";
-import {RecordOutput} from "./output";
+import {Output, RecordOutput} from "./RecordOutput";
 import {OutputRecord} from "./OutputRecord";
-import {XmlRecordOutput} from "./xml";
+import {XmlRecordOutput} from "./XmlRecordOutput";
 import WritableStream = NodeJS.WritableStream;
+import {MemoryRecordOutput} from "./MemoryRecordOutput";
 
 export class OutputFormatFactory {
 
-  static getOutputFormat(format: string, output: WritableStream, sortedRecord: OutputRecord, primaryReferences) {
+  static getOutputFormat(format: string, output: Output, sortedRecord: OutputRecord, primaryReferences): RecordOutput {
     let outputFormat: RecordOutput;
     switch (format.toLocaleLowerCase()) {
       case 'csv':
@@ -15,6 +16,9 @@ export class OutputFormatFactory {
         break;
       case 'xml':
         outputFormat = new XmlRecordOutput(output, sortedRecord);
+        break;
+      case 'memory':
+        outputFormat = new MemoryRecordOutput(output);
         break;
       default:
         outputFormat = new DefaultRecordOutput(output, primaryReferences);
