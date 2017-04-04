@@ -13,17 +13,17 @@ function line(str?) {
 
 export class DefaultRecordOutput implements RecordOutput {
 
-  constructor(private output: WritableStream, private recordSize: number, private primaryReferences) {
+  constructor(private output: WritableStream, private primaryReferences) {
   }
 
-  desc(record: OutputRecord, position: number) {
+  desc(record: OutputRecord) {
     const ref = record.ref ? this.primaryReferences[record.ref] : '';
 
     const month = record.month;
     const day = record.day;
     const time = record.time;
     let desc = line()
-      + line(`Record #${record.index}`);
+      + line(`Record #${record.id}`);
     indent++;
     desc += line(`Title\t\t: ${record.title}`)
       + line(`Date\t\t: ${record.year}${month ? '/' + month : ''}${day ? '/' + day : ''}${time ? ', ' + time : ''}`);
@@ -83,8 +83,8 @@ export class DefaultRecordOutput implements RecordOutput {
     return desc;
   }
 
-  write(record: OutputRecord, position: number) {
-    this.output.write(line(this.desc(record, position)));
+  write(record: OutputRecord) {
+    this.output.write(line(this.desc(record)));
   }
 
   end() {

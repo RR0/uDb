@@ -1,5 +1,5 @@
 export interface InputRecord {
-  index: number;
+  id: number;
 
   /**
    * Signed int

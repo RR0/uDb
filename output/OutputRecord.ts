@@ -1,5 +1,5 @@
 export interface OutputRecord {
-  index: number;
+  id: number;
   year: string | number;
   month: string | number;
   day: string | number;

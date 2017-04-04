@@ -26,7 +26,6 @@ program
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
   .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
-  .option('-i, --indexes <recordIndex>[,otherRecordIndex...]', 'List of indexes of records to output.')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
@@ -141,59 +140,24 @@ sourcesReader
 
         let count = 0;
 
-        abstract class RecordEnumerator {
-          constructor() {
-            filePos = recordIndex * recordSize;
-          }
-          hasNext() : boolean {
-            return filePos < fileSize;
-          }
-          next(): InputRecord {
-            filePos = recordIndex * recordSize;
-            const inputRecord: InputRecord = readRecord();
-            inputRecord.index = recordIndex;
-            return inputRecord;
-          }
-        }
-
-        class ArrayRecordEnumerator extends RecordEnumerator {
-          private recordsIndexes: any;
-          private indexIndex: number;
-
-          constructor(recordsIndexes) {
-            super();
-            this.recordsIndexes = recordsIndexes;
-            this.indexIndex = 0;
-          }
-
-          hasNext(): boolean {
-            recordIndex = this.recordsIndexes[this.indexIndex];
-            return super.hasNext() && this.indexIndex < this.recordsIndexes.length;
-          }
-
-          next(): InputRecord {
-            const inputRecord = super.next();
-            this.indexIndex++;
-            return inputRecord;
-          }
-        }
-
-        class DefaultRecordEnumerator extends RecordEnumerator {
+        class RecordEnumerator {
           private maxCount: any;
 
           constructor(maxCount) {
-            super();
+            filePos = recordIndex * recordSize;
             this.maxCount = maxCount;
           }
 
           hasNext(): boolean {
-            return super.hasNext() && count < this.maxCount;
+            return filePos < fileSize && count < this.maxCount;
           }
 
           next() {
-            const nextRecord = super.next();
+            filePos = recordIndex * recordSize;
+            const inputRecord: InputRecord = readRecord();
+            inputRecord.id = recordIndex;
             recordIndex++;
-            return nextRecord;
+            return inputRecord;
           }
         }
 
@@ -212,15 +176,14 @@ sourcesReader
               outputFormat = new XmlRecordOutput(output, sortedRecord);
               break;
             default:
-              outputFormat = new DefaultRecordOutput(output, recordSize, primaryReferences);
+              outputFormat = new DefaultRecordOutput(output, primaryReferences);
           }
           return outputFormat;
         }
 
         let lastIndex = (program.range && program.range[1]) || 10000000;
         let maxCount = program.count || (lastIndex - firstsIndex + 1);
-        let indexes = program.indexes;
-        const recordEnumerator: RecordEnumerator = indexes ? new ArrayRecordEnumerator(indexes.split(',')) : new DefaultRecordEnumerator(maxCount);
+        const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
 
         let recordFormatter: RecordFormatter;
         let outputFormat: RecordOutput;
