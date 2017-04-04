@@ -25,7 +25,6 @@ it is important to allow users to access its data from modern platforms.
         -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./input/data/usources.txt
         -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./input/data/WM.VCE
         -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
-        -i, --records <recordsIndexes>                 List of indexes of records to output.
         -c, --count <maxCount>                         Maximum number of records to output.
         -m, --match <criterion>[&otherCriterion...]    Output records that match the criteria.
         -f, --format <default|csv|xml> [csvSeparator]  Format of the output
@@ -320,8 +319,11 @@ For details about input/output formats, please check the [uDb Wiki](https://gith
 
 will output records about cases that occurred on August 12th, 1972.
 
+    node udb --match id=256|id=12
+
+will output records #12 and #256.
+
 You can use any [InputRecord](https://github.com/RR0/uDb/blob/master/input/InputRecord.ts) property in a matching criteria.
-For now only `prop=value` criteria are supported.
 
 ## To do
 
