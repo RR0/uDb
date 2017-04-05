@@ -1,4 +1,6 @@
 import * as fs from "fs";
+import {FileInput} from "./input/FileInput";
+import {RecordEnumerator} from "./input/Input";
 import {InputRecord} from "./input/InputRecord";
 
 import {Logger} from "./log";
@@ -10,9 +12,8 @@ import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
 import {Util} from "./util";
+import {WorldMap} from "./WorldMap";
 import WritableStream = NodeJS.WritableStream;
-import {FileInput} from "./input/FileInput";
-import {RecordEnumerator} from "./input/Input";
 
 const program = require('commander');
 
@@ -57,12 +58,12 @@ function getOutput(sortedRecord: OutputRecord) {
 }
 
 function interactive() {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout});
+  const rl = readline.createInterface({input: process.stdin, output: process.stdout});
   rl.setPrompt('udb> ');
   rl.prompt();
 
   rl.on('line', (line) => {
-    switch(line.trim()) {
+    switch (line.trim()) {
       case 'exit':
         rl.close();
         process.stdin.destroy();
@@ -72,36 +73,13 @@ function interactive() {
         break;
     }
     rl.prompt();
-  }).on('close', function() {
+  }).on('close', function () {
     logger.logVerbose('Exiting');
     process.exit(0);
   });
 }
 
-fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
-  logger.logVerbose('Reading world map:');
-  if (err) {
-    logger.error(`Could not read world map: ${err.errno}`);
-    return;
-  }
-  fs.fstat(fd, function (err, stats) {
-    const fileSize = stats.size;
-    let position = 0;
-    let recordSize = 6;
-    let count = 0;
-    const buffer = new Buffer(recordSize);
-    while (position < fileSize) {
-      if ((position + recordSize) > fileSize) {
-        let recordSize = fileSize - position;
-        logger.logDebug(`last recordSize=${recordSize}`);
-      }
-      fs.readSync(fd, buffer, 0, recordSize, position);
-      count++;
-      position += recordSize;
-    }
-    logger.logVerbose(`Read ${count} WM records.\n`)
-  });
-});
+const wm = new WorldMap(logger).open(worldMap, count => logger.logVerbose(`Read ${count} WM records.\n`));
 
 let readline = require('readline');
 
