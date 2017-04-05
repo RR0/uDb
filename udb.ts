@@ -29,7 +29,6 @@ program
   .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./input/data/U.RND')
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
-  .option('-r, --range <fromIndex>..<toIndex>', 'Record range to output. Defaults to 1..end', range)
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
   .option('-i, --interactive', 'Enter interactive mode.')
@@ -66,7 +65,7 @@ sources.open(sourcesFile, () => {
     logger.logVerbose(`- ${Object.keys(sources.misc).length} misc. books, reports, files & correspondance`);
     logger.logVerbose(`- ${sources.discredited.length} discredited reports`);
 
-    const firstIndex = program.rangexe != undefined ? program.range[0] : 1;
+    const firstIndex = 1;
     let recordIndex = firstIndex;
 
     const input: FileInput = new FileInput(dataFile, logger);
@@ -74,7 +73,7 @@ sources.open(sourcesFile, () => {
       logger.logVerbose(`\nReading cases from #${recordIndex}:`);
       let count = 0;
 
-      let lastIndex = (program.range && program.range[1]) || 10000000;
+      let lastIndex = 10000000;
       let maxCount = program.count || (lastIndex - firstIndex + 1);
       const recordEnumerator: RecordEnumerator = new RecordEnumerator(input, recordIndex);
 
