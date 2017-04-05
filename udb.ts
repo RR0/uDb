@@ -1,24 +1,18 @@
 import {FileInput} from "./input/FileInput";
-import {RecordEnumerator} from "./input/Input";
-import {InputRecord} from "./input/InputRecord";
 import {Sources} from "./input/Sources";
 import {WorldMap} from "./input/WorldMap";
 import {Interactive} from "./Interactive";
 
 import {Logger} from "./log";
-import {RecordMatcher} from "./match";
-import {RecordFormatter} from "./output/format";
 import {Memory} from "./output/Memory";
 import {OutputFactory} from "./output/OutputFactory";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
-import {Output, RecordOutput} from "./output/RecordOutput";
-import {Util} from "./util";
+import {Output} from "./output/RecordOutput";
 import WritableStream = NodeJS.WritableStream;
+import {Query} from "./Query";
 
 const program = require('commander');
-
-const processingStart = Date.now();
 
 function range(val) {
   return val.split('..').map(Number);
@@ -63,43 +57,18 @@ sources.open(sourcesFile, () => {
   logger.logVerbose(`- ${Object.keys(sources.misc).length} misc. books, reports, files & correspondance`);
   logger.logVerbose(`- ${sources.discredited.length} discredited reports`);
 
-  const firstIndex = 1;
-  let recordIndex = firstIndex;
 
   const input: FileInput = new FileInput(dataFile, logger);
   input.open(() => {
-    logger.logVerbose(`\nReading cases from #${recordIndex}:`);
-    let count = 0;
-
+    const firstIndex = 1;
+    logger.logVerbose(`\nReading cases from #${firstIndex}:`);
     let lastIndex = 10000000;
     let maxCount = program.count || (lastIndex - firstIndex + 1);
-    const recordEnumerator: RecordEnumerator = new RecordEnumerator(input, recordIndex);
+    let matchCriteria = program.match;
 
-    let recordFormatter: RecordFormatter;
-    let outputFormat: RecordOutput;
-    const recordMatcher = new RecordMatcher(program.match);
+    new Query(input, logger, getOutput).execute(matchCriteria, firstIndex, maxCount);
 
-    while (recordEnumerator.hasNext() && count < maxCount) {
-      const inputRecord: InputRecord = recordEnumerator.next();
-      if (recordMatcher.matches(inputRecord)) {
-        if (!recordFormatter) {
-          recordFormatter = new RecordFormatter(inputRecord);
-          let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
-          outputFormat = getOutput(outputRecord);
-        }
-        logger.flush();
-        const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
-        outputFormat.write(outputRecord);
-        count++;
-      } else {
-        logger.reset();
-      }
-    }
-    outputFormat.end();
     input.close();
-    const processingDuration = Date.now() - processingStart;
-    logger.autoFlush = true;
-    logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
 
     if (output instanceof Memory) {
       new Interactive(logger).start();
