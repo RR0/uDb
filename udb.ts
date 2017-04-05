@@ -31,9 +31,8 @@ program
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <criterion>[&otherCriterion...]', 'Output records that match the criteria.')
-  .option('-i, --interactive', 'Enter interactive mode.')
   .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
-  .option('-o, --out <outputFile>', 'Name of the file to output. Will output as CSV if file extension is .csv')
+  .option('-o, --out <outputFile|memory>', 'Name of the file to output. "memory" will enter interactive mode.')
   .option('-v, --verbose', 'Displays detailed processing information.')
   .option('--debug', 'Displays debug info.')
   .parse(process.argv);
