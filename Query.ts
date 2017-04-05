@@ -5,7 +5,8 @@ import {RecordMatcher} from "./match";
 import {InputRecord} from "./input/InputRecord";
 import {OutputRecord} from "./output/OutputRecord";
 import {Util} from "./util";
-export     class Query {
+
+export class Query {
   constructor(private input, private logger, private getOutput) {}
 
   execute(matchCriteria, firstIndex, maxCount) {
