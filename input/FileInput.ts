@@ -51,4 +51,3 @@ export class FileInput implements Input {
     fs.close(this.fd);
   }
 }
-;

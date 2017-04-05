@@ -9,10 +9,10 @@ import {OutputFactory} from "./output/OutputFactory";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
-import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
 import {FileInput} from "./input/FileInput";
+import {RecordEnumerator} from "./input/Input";
 
 const program = require('commander');
 
@@ -68,7 +68,7 @@ function interactive() {
         process.stdin.destroy();
         return;
       default:
-        console.log('Say what? I might have heard `' + line.trim() + '`');
+        console.log(`Say what? I might have heard \`${line.trim()}\``);
         break;
     }
     rl.prompt();
@@ -93,7 +93,7 @@ fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
     while (position < fileSize) {
       if ((position + recordSize) > fileSize) {
         let recordSize = fileSize - position;
-        logger.logDebug('last recordSize=' + recordSize);
+        logger.logDebug(`last recordSize=${recordSize}`);
       }
       fs.readSync(fd, buffer, 0, recordSize, position);
       count++;
@@ -141,12 +141,12 @@ sourcesReader
   })
   .on('close', function () {
     logger.logVerbose('Reading sources:');
-    logger.logVerbose('- ' + Object.keys(primaryReferences).length + ' primary references');
-    logger.logVerbose('- ' + Object.keys(newspapersAndFootnotes).length + ' newspapers and footnotes');
-    logger.logVerbose('- ' + Object.keys(otherDatabasesAndWebsites).length + ' newspapers and footnotes');
-    logger.logVerbose('- ' + Object.keys(otherPeriodicals).length + ' other periodicals');
-    logger.logVerbose('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
-    logger.logVerbose('- ' + discredited.length + ' discredited reports');
+    logger.logVerbose(`- ${Object.keys(primaryReferences).length} primary references`);
+    logger.logVerbose(`- ${Object.keys(newspapersAndFootnotes).length} newspapers and footnotes`);
+    logger.logVerbose(`- ${Object.keys(otherDatabasesAndWebsites).length} newspapers and footnotes`);
+    logger.logVerbose(`- ${Object.keys(otherPeriodicals).length} other periodicals`);
+    logger.logVerbose(`- ${Object.keys(misc).length} misc. books, reports, files & correspondance`);
+    logger.logVerbose(`- ${discredited.length} discredited reports`);
 
     const firstIndex = program.rangexe != undefined ? program.range[0] : 1;
     let recordIndex = firstIndex;
@@ -156,36 +156,15 @@ sourcesReader
       logger.logVerbose(`\nReading cases from #${recordIndex}:`);
       let count = 0;
 
-      class RecordEnumerator {
-        private maxCount: any;
-
-        constructor(maxCount) {
-          input.goToRecord(recordIndex);
-          this.maxCount = maxCount;
-        }
-
-        hasNext(): boolean {
-          return input.hasNext() && count < this.maxCount;
-        }
-
-        next() {
-          input.goToRecord(recordIndex);
-          const inputRecord: InputRecord = input.readRecord();
-          inputRecord.id = recordIndex;
-          recordIndex++;
-          return inputRecord;
-        }
-      }
-
       let lastIndex = (program.range && program.range[1]) || 10000000;
       let maxCount = program.count || (lastIndex - firstIndex + 1);
-      const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
+      const recordEnumerator: RecordEnumerator = new RecordEnumerator(input, recordIndex);
 
       let recordFormatter: RecordFormatter;
       let outputFormat: RecordOutput;
       const recordMatcher = new RecordMatcher(program.match);
 
-      while (recordEnumerator.hasNext()) {
+      while (recordEnumerator.hasNext() && count < maxCount) {
         if (input.filePos + input.recordSize > input.fileSize) {
           input.recordSize = input.fileSize - input.filePos;
           fs.readSync(input.fd, input.buffer, 0, input.recordSize, input.filePos);
