@@ -6,6 +6,9 @@ import {InputRecord} from "./input/InputRecord";
 import {OutputRecord} from "./output/OutputRecord";
 import {Util} from "./util";
 
+/**
+ * Query input using criteria
+ */
 export class Query {
   constructor(private input, private logger, private getOutput) {}
 
