@@ -5,10 +5,10 @@ import {Logger} from "./log";
 import {RecordMatcher} from "./match";
 import {RecordFormatter} from "./output/format";
 import {MemoryOutput} from "./output/MemoryOutput";
-import {Output, RecordOutput} from "./output/RecordOutput";
 import {OutputFactory} from "./output/OutputFactory";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
+import {Output, RecordOutput} from "./output/RecordOutput";
 import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
@@ -53,6 +53,29 @@ let output: Output;
 function getOutput(sortedRecord: OutputRecord) {
   output = OutputFactory.getOutput(program.out);
   return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, primaryReferences);
+}
+
+function interactive() {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout});
+  rl.setPrompt('udb> ');
+  rl.prompt();
+
+  rl.on('line', (line) => {
+    switch(line.trim()) {
+      case 'exit':
+        rl.close();
+        process.stdin.destroy();
+        return;
+        break;
+      default:
+        console.log('Say what? I might have heard `' + line.trim() + '`');
+        break;
+    }
+    rl.prompt();
+  }).on('close', function() {
+    console.log('Have a great day!');
+    process.exit(0);
+  });
 }
 
 fs.open(worldMap, 'r', function (err: NodeJS.ErrnoException, fd: number) {
@@ -125,111 +148,124 @@ sourcesReader
     logger.logVerbose('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
     logger.logVerbose('- ' + discredited.length + ' discredited reports');
 
-    let recordSize = 112;
-    const buffer = new Buffer(recordSize);
-
     const firstsIndex = program.range != undefined ? program.range[0] : 1;
     let recordIndex = firstsIndex;
 
-    fs.open(dataFile, 'r', function (err: NodeJS.ErrnoException, fd: number) {
-      logger.logVerbose(`\nReading cases from #${recordIndex}:`);
-      if (err) {
-        return;
+    interface Input {
+      readRecord(): InputRecord;
+    }
+
+    class FileInput implements Input {
+      filePos: number;
+      buffer: Buffer;
+      recordSize = 112;
+      private recordReader: RecordReader;
+      fileSize: number;
+      fd: number;
+
+      constructor(private dataFile) {
       }
-      let filePos = recordIndex * recordSize;
-      const recordReader = new RecordReader(buffer, logger);
 
-      fs.fstat(fd, function (err, stats) {
-        const fileSize = stats.size;
-        // logDebug('File size=' + fileSize);
-
-        function readRecord(): InputRecord {
-          fs.readSync(fd, buffer, 0, recordSize, filePos);
-          return recordReader.read(filePos);
-        }
-
-        let count = 0;
-
-        class RecordEnumerator {
-          private maxCount: any;
-
-          constructor(maxCount) {
-            filePos = recordIndex * recordSize;
-            this.maxCount = maxCount;
+      open(cb) {
+        fs.open(this.dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
+          logger.logVerbose(`\nReading cases from #${recordIndex}:`);
+          if (err) {
+            return;
           }
+          this.fd = fd;
 
-          hasNext(): boolean {
-            return filePos < fileSize && count < this.maxCount;
-          }
+          fs.fstat(fd, (err, stats) => {
+            this.fileSize = stats.size;
+            // logDebug('File size=' + fileSize);
+            this.buffer = new Buffer(this.recordSize);
+            this.filePos = recordIndex * this.recordSize;
+            this.recordReader = new RecordReader(this.buffer, logger);
 
-          next() {
-            filePos = recordIndex * recordSize;
-            const inputRecord: InputRecord = readRecord();
-            inputRecord.id = recordIndex;
-            recordIndex++;
-            return inputRecord;
-          }
-        }
-
-        let lastIndex = (program.range && program.range[1]) || 10000000;
-        let maxCount = program.count || (lastIndex - firstsIndex + 1);
-        const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
-
-        let recordFormatter: RecordFormatter;
-        let outputFormat: RecordOutput;
-        const recordMatcher = new RecordMatcher(program.match);
-
-        while (recordEnumerator.hasNext()) {
-          if ((filePos + recordSize) > fileSize) {
-            recordSize = fileSize - filePos;
-            fs.readSync(fd, buffer, 0, recordSize, filePos);
-            logger.logDebug('last record=' + buffer.toString());
-            logger.flush();
-            filePos += recordSize;
-          } else {
-            const inputRecord: InputRecord = recordEnumerator.next();
-            if (recordMatcher.matches(inputRecord)) {
-              if (!recordFormatter) {
-                recordFormatter = new RecordFormatter(inputRecord);
-                let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
-                outputFormat = getOutput(outputRecord);
-              }
-              logger.flush();
-              const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
-              outputFormat.write(outputRecord, filePos);
-              count++;
-            } else {
-              logger.reset();
-            }
-          }
-        }
-        outputFormat.end();
-        fs.close(fd);
-        const processingDuration = Date.now() - processingStart;
-        logger.autoFlush = true;
-        logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
-
-        if (output instanceof MemoryOutput) {
-          const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
+            cb();
           });
+        });
+      }
 
-          const prompt = function () {
-            rl.question('udb> ', (command) => {
-              switch (command) {
-                case 'exit':
-                  rl.close();
-                  process.stdin.destroy();
-                  return;
-                default:
-                  console.log('Thank you for your valuable feedback:', command);
-                  return prompt();
-              }
-            });
-          };
-          prompt();
+      hasNext(): boolean {
+        return this.filePos < this.fileSize;
+      }
+
+      readRecord(): InputRecord {
+        fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
+        return this.recordReader.read(this.filePos);
+      }
+
+      close() {
+        fs.close(this.fd);
+      }
+    }
+
+    const input: FileInput = new FileInput(dataFile);
+    input.open(() => {
+      let count = 0;
+
+      class RecordEnumerator {
+        private maxCount: any;
+
+        constructor(maxCount) {
+          input.filePos = recordIndex * input.recordSize;
+          this.maxCount = maxCount;
         }
-      });
+
+        hasNext(): boolean {
+          return input.hasNext() && count < this.maxCount;
+        }
+
+        next() {
+          input.filePos = recordIndex * input.recordSize;
+          const inputRecord: InputRecord = input.readRecord();
+          inputRecord.id = recordIndex;
+          recordIndex++;
+          return inputRecord;
+        }
+      }
+
+      let lastIndex = (program.range && program.range[1]) || 10000000;
+      let maxCount = program.count || (lastIndex - firstsIndex + 1);
+      const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
+
+      let recordFormatter: RecordFormatter;
+      let outputFormat: RecordOutput;
+      const recordMatcher = new RecordMatcher(program.match);
+
+      while (recordEnumerator.hasNext()) {
+        if (input.filePos + input.recordSize > input.fileSize) {
+          input.recordSize = input.fileSize - input.filePos;
+          fs.readSync(input.fd, input.buffer, 0, input.recordSize, input.filePos);
+          logger.logDebug('last record=' + input.buffer.toString());
+          logger.flush();
+          input.filePos += input.recordSize;
+        } else {
+          const inputRecord: InputRecord = recordEnumerator.next();
+          if (recordMatcher.matches(inputRecord)) {
+            if (!recordFormatter) {
+              recordFormatter = new RecordFormatter(inputRecord);
+              let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
+              outputFormat = getOutput(outputRecord);
+            }
+            logger.flush();
+            const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
+            outputFormat.write(outputRecord, input.filePos);
+            count++;
+          } else {
+            logger.reset();
+          }
+        }
+      }
+      outputFormat.end();
+      input.close();
+      const processingDuration = Date.now() - processingStart;
+      logger.autoFlush = true;
+      logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
+
+      if (output instanceof MemoryOutput) {
+        interactive();
+      }
     });
+
   });
