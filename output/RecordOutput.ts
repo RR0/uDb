@@ -5,6 +5,6 @@ export interface Output {
 }
 
 export interface RecordOutput {
-  write(record: OutputRecord, position?: number);
+  write(record: OutputRecord);
   end();
 }

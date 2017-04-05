@@ -39,7 +39,7 @@ export class FileInput implements Input {
   }
 
   hasNext(): boolean {
-    return this.filePos < this.fileSize;
+    return this.filePos + this.recordSize < this.fileSize;
   }
 
   readRecord(): InputRecord {

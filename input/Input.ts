@@ -2,7 +2,7 @@ import {InputRecord} from "./InputRecord";
 import {FileInput} from "./FileInput";
 
 export interface Input {
-  readRecord(): InputRecord;
+  hasNext(): boolean;
 }
 
 export class RecordEnumerator {

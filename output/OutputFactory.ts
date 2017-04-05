@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import WritableStream = NodeJS.WritableStream;
-import {MemoryOutput} from "./MemoryOutput";
+import {Memory} from "./Memory";
 import {Output} from "./RecordOutput";
 import {WriteStream} from "fs";
 
@@ -21,7 +21,7 @@ export class OutputFactory {
     let output: Output = process.stdout;
     if (out) {
       if (out == 'memory') {
-        output = new MemoryOutput();
+        output = new Memory();
       } else {
         output = new FileOutput(out);
       }
