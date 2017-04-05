@@ -12,6 +12,7 @@ import {Output, RecordOutput} from "./output/RecordOutput";
 import {RecordReader} from "./record";
 import {Util} from "./util";
 import WritableStream = NodeJS.WritableStream;
+import {FileInput} from "./input/FileInput";
 
 const program = require('commander');
 
@@ -66,14 +67,13 @@ function interactive() {
         rl.close();
         process.stdin.destroy();
         return;
-        break;
       default:
         console.log('Say what? I might have heard `' + line.trim() + '`');
         break;
     }
     rl.prompt();
   }).on('close', function() {
-    console.log('Have a great day!');
+    logger.logVerbose('Exiting');
     process.exit(0);
   });
 }
@@ -148,67 +148,19 @@ sourcesReader
     logger.logVerbose('- ' + Object.keys(misc).length + ' misc. books, reports, files & correspondance');
     logger.logVerbose('- ' + discredited.length + ' discredited reports');
 
-    const firstsIndex = program.range != undefined ? program.range[0] : 1;
-    let recordIndex = firstsIndex;
+    const firstIndex = program.rangexe != undefined ? program.range[0] : 1;
+    let recordIndex = firstIndex;
 
-    interface Input {
-      readRecord(): InputRecord;
-    }
-
-    class FileInput implements Input {
-      filePos: number;
-      buffer: Buffer;
-      recordSize = 112;
-      private recordReader: RecordReader;
-      fileSize: number;
-      fd: number;
-
-      constructor(private dataFile) {
-      }
-
-      open(cb) {
-        fs.open(this.dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
-          logger.logVerbose(`\nReading cases from #${recordIndex}:`);
-          if (err) {
-            return;
-          }
-          this.fd = fd;
-
-          fs.fstat(fd, (err, stats) => {
-            this.fileSize = stats.size;
-            // logDebug('File size=' + fileSize);
-            this.buffer = new Buffer(this.recordSize);
-            this.filePos = recordIndex * this.recordSize;
-            this.recordReader = new RecordReader(this.buffer, logger);
-
-            cb();
-          });
-        });
-      }
-
-      hasNext(): boolean {
-        return this.filePos < this.fileSize;
-      }
-
-      readRecord(): InputRecord {
-        fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
-        return this.recordReader.read(this.filePos);
-      }
-
-      close() {
-        fs.close(this.fd);
-      }
-    }
-
-    const input: FileInput = new FileInput(dataFile);
+    const input: FileInput = new FileInput(dataFile, logger);
     input.open(() => {
+      logger.logVerbose(`\nReading cases from #${recordIndex}:`);
       let count = 0;
 
       class RecordEnumerator {
         private maxCount: any;
 
         constructor(maxCount) {
-          input.filePos = recordIndex * input.recordSize;
+          input.goToRecord(recordIndex);
           this.maxCount = maxCount;
         }
 
@@ -217,7 +169,7 @@ sourcesReader
         }
 
         next() {
-          input.filePos = recordIndex * input.recordSize;
+          input.goToRecord(recordIndex);
           const inputRecord: InputRecord = input.readRecord();
           inputRecord.id = recordIndex;
           recordIndex++;
@@ -226,7 +178,7 @@ sourcesReader
       }
 
       let lastIndex = (program.range && program.range[1]) || 10000000;
-      let maxCount = program.count || (lastIndex - firstsIndex + 1);
+      let maxCount = program.count || (lastIndex - firstIndex + 1);
       const recordEnumerator: RecordEnumerator = new RecordEnumerator(maxCount);
 
       let recordFormatter: RecordFormatter;

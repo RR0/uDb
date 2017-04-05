@@ -11,7 +11,11 @@ export class Logger {
   }
 
   log(msg: string) {
-    this.logMsg += msg + '\n';
+    while (msg.charAt(0) == '\n') {
+      this.logMsg += '\n';
+      msg = msg.substring(1);
+    }
+    this.logMsg += `udb: ${msg}\n`;
     if (this._autoFlush) {
       this.flush();
     }
