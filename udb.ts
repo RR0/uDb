@@ -15,6 +15,7 @@ import {Util} from "./util";
 import {WorldMap} from "./input/WorldMap";
 import WritableStream = NodeJS.WritableStream;
 import {Sources} from "./input/Sources";
+import {Interactive} from "./Interactive";
 
 const program = require('commander');
 
@@ -49,28 +50,6 @@ let output: Output;
 function getOutput(sortedRecord: OutputRecord) {
   output = OutputFactory.getOutput(program.out);
   return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, sources.primaryReferences);
-}
-
-function interactive() {
-  const rl = readline.createInterface({input: process.stdin, output: process.stdout});
-  rl.setPrompt('udb> ');
-  rl.prompt();
-
-  rl.on('line', (line) => {
-    switch (line.trim()) {
-      case 'exit':
-        rl.close();
-        process.stdin.destroy();
-        return;
-      default:
-        console.log(`Say what? I might have heard \`${line.trim()}\``);
-        break;
-    }
-    rl.prompt();
-  }).on('close', function () {
-    logger.logVerbose('Exiting');
-    process.exit(0);
-  });
 }
 
 const wm = new WorldMap(logger).open(worldMap, count => logger.logVerbose(`Read ${count} WM records.\n`));
@@ -134,8 +113,7 @@ sources.open(sourcesFile, () => {
       logger.logVerbose(`\nProcessed ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
 
       if (output instanceof MemoryOutput) {
-        interactive();
+        new Interactive(logger).start();
       }
     });
-
   });
