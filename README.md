@@ -24,11 +24,10 @@ it is important to allow users to access its data from modern platforms.
         -d, --data [dataFile]                          Data file to read. Defaults to ./input/data/U.RND
         -s, --sources [sourcesFile]                    Sources file to read. Defaults to ./input/data/usources.txt
         -wm, --worldmap [wmFile]                       World map file to read. Defaults to ./input/data/WM.VCE
-        -r, --range <fromIndex>..<toIndex>             Record range to output. Defaults to 1..end
         -c, --count <maxCount>                         Maximum number of records to output.
         -m, --match <criterion>[&otherCriterion...]    Output records that match the criteria.
         -f, --format <default|csv|xml> [csvSeparator]  Format of the output
-        -o, --out <outputFile>                         Name of the file to output. Will output as CSV if file extension is .csv
+        -o, --out <outputFile|memory>                  Name of the file to output. "memory" will enter interactive mode.
         -v, --verbose                                  Displays detailed processing information.
         --debug                                        Displays debug info.
 
