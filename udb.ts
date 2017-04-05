@@ -12,8 +12,9 @@ import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
 import {Util} from "./util";
-import {WorldMap} from "./WorldMap";
+import {WorldMap} from "./input/WorldMap";
 import WritableStream = NodeJS.WritableStream;
+import {Sources} from "./input/Sources";
 
 const program = require('commander');
 
@@ -43,18 +44,11 @@ const dataFile = program.sourcesFile || 'input/data/U.RND';
 const worldMap = program.wmFile || 'input/data/WM.VCE';
 const format = program.format || 'default';
 
-const primaryReferences = {};
-const newspapersAndFootnotes = {};
-const otherDatabasesAndWebsites = {};
-const otherPeriodicals = {};
-const misc = {};
-const discredited = [];
-
 let output: Output;
 
 function getOutput(sortedRecord: OutputRecord) {
   output = OutputFactory.getOutput(program.out);
-  return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, primaryReferences);
+  return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, sources.primaryReferences);
 }
 
 function interactive() {
@@ -83,48 +77,15 @@ const wm = new WorldMap(logger).open(worldMap, count => logger.logVerbose(`Read 
 
 let readline = require('readline');
 
-const sourcesReader = readline.createInterface({
-  input: require('fs').createReadStream(sourcesFile)
-});
-
-function addDiscredited(line) {
-  discredited.push(line.substring(2));
-}
-function addSource(arr, line) {
-  const ref = parseInt(line.substring(1, 4), 0);
-  arr[ref] = line.substring(5);
-}
-sourcesReader
-  .on('line', function (line) {
-    switch (line.charAt(0)) {
-      case '/':
-        addSource(primaryReferences, line);
-        break;
-      case '$':
-        addSource(newspapersAndFootnotes, line);
-        break;
-      case '+':
-        addSource(otherDatabasesAndWebsites, line);
-        break;
-      case '%':
-        addSource(otherPeriodicals, line);
-        break;
-      case '#':
-        addSource(misc, line);
-        break;
-      case '!':
-        addDiscredited(line);
-        break;
-    }
-  })
-  .on('close', function () {
+let sources = new Sources(logger);
+sources.open(sourcesFile, () => {
     logger.logVerbose('Reading sources:');
-    logger.logVerbose(`- ${Object.keys(primaryReferences).length} primary references`);
-    logger.logVerbose(`- ${Object.keys(newspapersAndFootnotes).length} newspapers and footnotes`);
-    logger.logVerbose(`- ${Object.keys(otherDatabasesAndWebsites).length} newspapers and footnotes`);
-    logger.logVerbose(`- ${Object.keys(otherPeriodicals).length} other periodicals`);
-    logger.logVerbose(`- ${Object.keys(misc).length} misc. books, reports, files & correspondance`);
-    logger.logVerbose(`- ${discredited.length} discredited reports`);
+    logger.logVerbose(`- ${Object.keys(sources.primaryReferences).length} primary references`);
+    logger.logVerbose(`- ${Object.keys(sources.newspapersAndFootnotes).length} newspapers and footnotes`);
+    logger.logVerbose(`- ${Object.keys(sources.otherDatabasesAndWebsites).length} newspapers and footnotes`);
+    logger.logVerbose(`- ${Object.keys(sources.otherPeriodicals).length} other periodicals`);
+    logger.logVerbose(`- ${Object.keys(sources.misc).length} misc. books, reports, files & correspondance`);
+    logger.logVerbose(`- ${sources.discredited.length} discredited reports`);
 
     const firstIndex = program.rangexe != undefined ? program.range[0] : 1;
     let recordIndex = firstIndex;
