@@ -9,8 +9,8 @@ import {OutputFactory} from "./output/OutputFactory";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output} from "./output/RecordOutput";
-import WritableStream = NodeJS.WritableStream;
 import {Query} from "./Query";
+import WritableStream = NodeJS.WritableStream;
 
 const program = require('commander');
 
@@ -36,13 +36,6 @@ const dataFile = program.sourcesFile || 'input/data/U.RND';
 const worldMap = program.wmFile || 'input/data/WM.VCE';
 const format = program.format || 'default';
 
-let output: Output;
-
-function getOutput(sortedRecord: OutputRecord) {
-  output = OutputFactory.getOutput(program.out);
-  return OutputFormatFactory.getOutputFormat(format.toLocaleLowerCase(), output, sortedRecord, sources.primaryReferences);
-}
-
 const wm = new WorldMap(logger).open(worldMap, count => logger.logVerbose(`Read ${count} WM records.\n`));
 
 let readline = require('readline');
@@ -57,7 +50,6 @@ sources.open(sourcesFile, () => {
   logger.logVerbose(`- ${Object.keys(sources.misc).length} misc. books, reports, files & correspondance`);
   logger.logVerbose(`- ${sources.discredited.length} discredited reports`);
 
-
   const input: FileInput = new FileInput(dataFile, logger);
   input.open(() => {
     const firstIndex = 1;
@@ -66,7 +58,9 @@ sources.open(sourcesFile, () => {
     let maxCount = program.count || (lastIndex - firstIndex + 1);
     let matchCriteria = program.match;
 
-    new Query(input, logger, getOutput).execute(matchCriteria, firstIndex, maxCount);
+    let output: Output = OutputFactory.getOutput(program.out);
+    new Query(input, logger, format.toLocaleLowerCase(), output, sources.primaryReferences)
+      .execute(matchCriteria, firstIndex, maxCount);
 
     input.close();
 

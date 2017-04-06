@@ -5,14 +5,16 @@ import {RecordMatcher} from "./match";
 import {InputRecord} from "./input/InputRecord";
 import {OutputRecord} from "./output/OutputRecord";
 import {Util} from "./util";
+import {Logger} from "./log";
+import {OutputFormatFactory} from "./output/OutputFormatFactory";
 
 /**
  * Query input using criteria
  */
 export class Query {
-  constructor(private input, private logger, private getOutput) {}
+  constructor(private input, private logger: Logger, private format: string, private output, private primaryReferences) {}
 
-  execute(matchCriteria, firstIndex, maxCount) {
+  execute(matchCriteria: string, firstIndex: number, maxCount: number) {
     const processingStart = Date.now();
 
     const recordEnumerator: RecordEnumerator = new RecordEnumerator(this.input, firstIndex);
@@ -27,7 +29,7 @@ export class Query {
         if (!recordFormatter) {
           recordFormatter = new RecordFormatter(inputRecord);
           let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
-          outputFormat = this.getOutput(outputRecord);
+          outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.primaryReferences);
         }
         this.logger.flush();
         const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
