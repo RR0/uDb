@@ -15,9 +15,10 @@ class FileOutput implements Output {
     this.writeStream.write(object);
   }
 }
+
 export class OutputFactory {
 
-  static getOutput(out: string) {
+  static getOutput(out?: string) {
     let output: Output = process.stdout;
     if (out) {
       if (out == 'memory') {

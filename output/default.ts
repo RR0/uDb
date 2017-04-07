@@ -44,7 +44,7 @@ export class DefaultRecordOutput implements RecordOutput {
 
     let miscFlags = record.miscellaneousFlags;
     if (miscFlags) {
-      descriptionStr += line(`Miscellaneous details and features\t\t\t: ${miscFlags}`);
+      descriptionStr += line(`Miscellaneous details and features\t\t\t\t: ${miscFlags}`);
     }
     let typeOfUfoCraft = record.typeOfUfoCraftFlags;
     if (typeOfUfoCraft) {

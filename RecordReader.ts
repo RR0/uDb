@@ -2,6 +2,10 @@ import {InputRecord} from "./input/InputRecord";
 import {Logger} from "./log";
 import {Util} from "./util";
 
+export interface Record {
+  id: number;
+}
+
 export class RecordReader {
   private filePos: number;
   private recordPos: number;

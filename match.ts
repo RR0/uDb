@@ -1,4 +1,5 @@
 import {InputRecord} from "./input/InputRecord";
+import {Record} from "./RecordReader";
 
 interface CriterionMatcher {
   getType(): string;
@@ -16,7 +17,7 @@ class EqualMatcher implements CriterionMatcher {
     return record[this.prop] == this.value;
   }
 }
-export class RecordMatcher {
+export class RecordMatcher<RecordType extends Record> {
   private matchers = [];
 
   constructor(private criteria = '') {
@@ -35,7 +36,7 @@ export class RecordMatcher {
     }
   }
 
-  matches(record: InputRecord) {
+  matches(record: RecordType) {
     let type;
     let result = true;
     for (let i = 0; i < this.matchers.length; ++i) {

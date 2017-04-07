@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import {Logger} from "../log";
-import {RecordReader} from "../record";
+import {RecordReader} from "../RecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";
 
-export class FileInput implements Input {
+export class FileInput implements Input<InputRecord> {
   filePos: number;
   buffer: Buffer;
   recordSize = 112;
@@ -42,9 +42,11 @@ export class FileInput implements Input {
     return this.filePos + this.recordSize < this.fileSize;
   }
 
-  readRecord(): InputRecord {
+  readRecord(recordIndex: number): InputRecord {
     fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
-    return this.recordReader.read(this.filePos);
+    let inputRecord = this.recordReader.read(this.filePos);
+    inputRecord.id = recordIndex;
+    return inputRecord;
   }
 
   close() {

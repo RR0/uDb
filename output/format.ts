@@ -9,11 +9,6 @@ import {OutputRecord} from "./OutputRecord";
  * Formats input records as output records.
  */
 export class RecordFormatter {
-  private sortedRecord: OutputRecord;
-
-  constructor(prototypeRecord: InputRecord) {
-    this.sortedRecord = this.formatProperties(Util.copy(prototypeRecord));
-  }
 
   static flagsKeysStr(flagsByte, flagsLabels) {
     let flagsStr = '';

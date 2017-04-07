@@ -1,6 +1,6 @@
 {
   "name": "udb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "*U* database reader",
   "main": "udb.js",
   "scripts": {

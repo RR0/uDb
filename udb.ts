@@ -6,11 +6,10 @@ import {Interactive} from "./Interactive";
 import {Logger} from "./log";
 import {Memory} from "./output/Memory";
 import {OutputFactory} from "./output/OutputFactory";
-import {OutputFormatFactory} from "./output/OutputFormatFactory";
-import {OutputRecord} from "./output/OutputRecord";
 import {Output} from "./output/RecordOutput";
 import {Query} from "./Query";
 import WritableStream = NodeJS.WritableStream;
+import {RecordFormatter} from "./output/format";
 
 const program = require('commander');
 
@@ -18,7 +17,7 @@ function range(val) {
   return val.split('..').map(Number);
 }
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./input/data/U.RND')
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/data/WM.VCE')
@@ -59,13 +58,13 @@ sources.open(sourcesFile, () => {
     let matchCriteria = program.match;
 
     let output: Output = OutputFactory.getOutput(program.out);
-    new Query(input, logger, format.toLocaleLowerCase(), output, sources.primaryReferences)
+    new Query(input, output, logger, new RecordFormatter(), format.toLocaleLowerCase(), sources)
       .execute(matchCriteria, firstIndex, maxCount);
 
     input.close();
 
     if (output instanceof Memory) {
-      new Interactive(logger).start();
+      new Interactive(output, sources, logger).start();
     }
   });
 });

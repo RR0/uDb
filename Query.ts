@@ -1,40 +1,50 @@
-import {RecordEnumerator} from "./input/Input";
-import {RecordFormatter} from "./output/format";
-import {RecordOutput} from "./output/RecordOutput";
-import {RecordMatcher} from "./match";
-import {InputRecord} from "./input/InputRecord";
-import {OutputRecord} from "./output/OutputRecord";
-import {Util} from "./util";
+import {Input} from "./input/Input";
+import {Sources} from "./input/Sources";
 import {Logger} from "./log";
+import {RecordMatcher} from "./match";
+import {RecordFormatter} from "./output/format";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
+import {OutputRecord} from "./output/OutputRecord";
+import {Output, RecordOutput} from "./output/RecordOutput";
+import {Record} from "./RecordReader";
+import {Util} from "./util";
+import {RecordEnumerator} from "./input/RecordEnumerator";
 
 /**
  * Query input using criteria
  */
-export class Query {
-  constructor(private input, private logger: Logger, private format: string, private output, private primaryReferences) {}
+export class Query<RecordType extends Record> {
+  constructor(private input: Input<RecordType>, private output: Output, private logger: Logger,
+              private recordFormatter: RecordFormatter, private format: string, private sources: Sources) {
+  }
 
   execute(matchCriteria: string, firstIndex: number, maxCount: number) {
     const processingStart = Date.now();
 
-    const recordEnumerator: RecordEnumerator = new RecordEnumerator(this.input, firstIndex);
-    let recordFormatter: RecordFormatter;
+    const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
+    const recordMatcher = new RecordMatcher<RecordType>(matchCriteria);
     let outputFormat: RecordOutput;
-    const recordMatcher = new RecordMatcher(matchCriteria);
 
     let count = 0;
     while (recordEnumerator.hasNext() && count < maxCount) {
-      const inputRecord: InputRecord = recordEnumerator.next();
+      const inputRecord: RecordType = recordEnumerator.next();
       if (recordMatcher.matches(inputRecord)) {
-        if (!recordFormatter) {
-          recordFormatter = new RecordFormatter(inputRecord);
-          let outputRecord: OutputRecord = recordFormatter.formatProperties(Util.copy(inputRecord));
-          outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.primaryReferences);
+        let outputRecord: OutputRecord;
+        if (this.recordFormatter) {
+          if (!outputFormat) {
+            let outputRecord: OutputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
+            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
+          }
+          outputRecord = this.recordFormatter.formatData(inputRecord);
+        } else {
+          if (!outputFormat) {
+            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
+          }
+          outputRecord = inputRecord;
         }
-        this.logger.flush();
-        const outputRecord: OutputRecord = recordFormatter.formatData(inputRecord);
         outputFormat.write(outputRecord);
         count++;
+        this.logger.flush();
       } else {
         this.logger.reset();
       }
