@@ -49,7 +49,9 @@ export class Query<RecordType extends Record> {
         this.logger.reset();
       }
     }
-    outputFormat.end();
+    if (outputFormat) {
+      outputFormat.end();
+    }
     const processingDuration = Date.now() - processingStart;
     this.logger.autoFlush = true;
     this.logger.logVerbose(`\nFound ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);

@@ -13,7 +13,7 @@ export class RecordReader {
   private record: InputRecord;
   private unknownOnly: boolean = true;
 
-  constructor(private buffer: Buffer, private logger: Logger) {
+  constructor(private buffer, private logger: Logger) {
   }
 
   readed(l: number) {
@@ -69,8 +69,19 @@ export class RecordReader {
     return this.readByteBits(prop1, 4, prop2);
   }
 
+  static readInt16LE(buffer, pos) {
+    const byteA = buffer[pos + 1];
+    const byteB = buffer[pos];
+    const sign = byteA & (1 << 7);
+    let int = (((byteA & 0xFF) << 8) | (byteB & 0xFF));
+    if (sign) {
+      int = 0xFFFF0000 | int;  // fill in most significant bits with 1's
+    }
+    return int;
+  }
+
   readSignedInt(prop: string) {
-    let sInt = this.buffer.readInt16LE(this.recordPos);
+    let sInt = RecordReader.readInt16LE(this.buffer, this.recordPos);
     this.record[prop] = sInt;
     this.logReadPos(prop);
     this.readed(2);

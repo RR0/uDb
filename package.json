@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha",
-    "run": "node build/udb"
+    "cli": "node build/udb",
+    "web": "./node_modules/.bin/webpack --config ./front/webpack.config.js && cp ./front/index.html ./build/front && cp ./input/data/U.RND ./build/input/data/U.RND "
   },
   "repository": {
     "type": "git",
@@ -27,14 +28,16 @@
   },
   "homepage": "https://github.com/RR0/uDb#readme",
   "dependencies": {
-    "colors": "^1.1.2",
+    "angular": "^1.6.4",
     "commander": "^2.9.0",
     "json2xml": "^0.1.3"
   },
   "devDependencies": {
+    "@types/angular": "^1.6.14",
     "mocha": "^3.2.0",
     "tslint": "^5.0.0",
     "typescript": "^2.2.2",
-    "typings": "^2.1.0"
+    "typings": "^2.1.0",
+    "webpack": "^2.3.3"
   }
 }

@@ -1,5 +1,3 @@
-import * as readline from "readline";
-
 export class Sources {
   primaryReferences = {};
   newspapersAndFootnotes = {};
@@ -7,10 +5,6 @@ export class Sources {
   otherPeriodicals = {};
   misc = {};
   discredited = [];
-
-  constructor(logger) {
-
-  }
 
   addDiscredited(line) {
     this.discredited.push(line.substring(2));
@@ -21,10 +15,7 @@ export class Sources {
     arr[ref] = line.substring(5);
   }
 
-  open(sourcesFile, cb) {
-    const sourcesReader = readline.createInterface({
-      input: require('fs').createReadStream(sourcesFile)
-    });
+  open(sourcesReader, cb) {
     sourcesReader
       .on('line', (line) => {
         switch (line.charAt(0)) {

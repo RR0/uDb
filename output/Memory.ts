@@ -3,7 +3,7 @@ import {Input} from "../input/Input";
 import {OutputRecord} from "./OutputRecord";
 
 export class Memory implements Input<OutputRecord>, Output {
-  private records = [];
+  records = [];
   private recordIndex;
 
   hasNext(): boolean {

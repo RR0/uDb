@@ -3,6 +3,7 @@ import {Logger} from "../log";
 import {RecordReader} from "../RecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";
+const bops = require("bops");
 
 export class FileInput implements Input<InputRecord> {
   filePos: number;
@@ -12,12 +13,12 @@ export class FileInput implements Input<InputRecord> {
   fileSize: number;
   fd: number;
 
-  constructor(private dataFile: string, private logger: Logger) {
+  constructor(private logger: Logger) {
   }
 
-  open(cb) {
-    fs.open(this.dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
-      this.logger.logVerbose(`\nReading file ${this.dataFile}`);
+  open(dataFile: string, whenDone: Function) {
+    fs.open(dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
+      this.logger.logVerbose(`\nReading file ${dataFile}`);
       if (err) {
         return;
       }
@@ -26,10 +27,10 @@ export class FileInput implements Input<InputRecord> {
       fs.fstat(fd, (err, stats) => {
         this.fileSize = stats.size;
         // logDebug('File size=' + fileSize);
-        this.buffer = new Buffer(this.recordSize);
+        this.buffer = bops.create(this.recordSize);
         this.recordReader = new RecordReader(this.buffer, this.logger);
 
-        cb();
+        whenDone();
       });
     });
   }
