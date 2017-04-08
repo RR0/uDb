@@ -24,7 +24,8 @@ export class RecordFormatter {
   }
 
   formatProperties(record: InputRecord): OutputRecord {
-    delete record.unknownMonthPart;
+    delete record.unknownMonth;
+    delete record.unknownLocale;
     delete record.refIndexHigh;
     delete record.ymdt;
     delete record.unknown1;

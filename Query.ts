@@ -18,7 +18,7 @@ export class Query<RecordType extends Record> {
               private recordFormatter: RecordFormatter, private format: string, private sources: Sources) {
   }
 
-  execute(matchCriteria: string, firstIndex: number, maxCount: number) {
+  execute(matchCriteria: string, firstIndex: number, maxCount: number, format = true) {
     const processingStart = Date.now();
 
     const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
@@ -30,16 +30,13 @@ export class Query<RecordType extends Record> {
       const inputRecord: RecordType = recordEnumerator.next();
       if (recordMatcher.matches(inputRecord)) {
         let outputRecord: OutputRecord;
-        if (this.recordFormatter) {
-          if (!outputFormat) {
-            let outputRecord: OutputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
-            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
-          }
+        if (!outputFormat) {
+          let outputRecord: OutputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
+          outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
+        }
+        if (format) {
           outputRecord = this.recordFormatter.formatData(inputRecord);
         } else {
-          if (!outputFormat) {
-            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
-          }
           outputRecord = inputRecord;
         }
         outputFormat.write(outputRecord);

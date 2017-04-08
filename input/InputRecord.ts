@@ -14,7 +14,8 @@ export interface InputRecord {
   /**
    * 4 bits
    */
-  unknownMonthPart: number;
+  unknownMonth: number;
+  unknownLocale: number;
 
   /**
    * 4 bits

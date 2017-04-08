@@ -40,7 +40,7 @@
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="ctrl.matchCriteria">
     <button type="submit">Search</button>
   </form>
-  <p ng-if="ctrl.matchResults.length <= 0">No records found matching criteria <strong>{{ctrl.matchCriteria}}</strong>.
+  <p>Found {{ctrl.matchResults.length ? ctrl.matchResults.length : 'no'}} records found matching criteria <strong>{{ctrl.matchCriteria}}</strong>.
   </p>
   <div class="table-container">
     <table ng-if="ctrl.matchResults.length > 0">

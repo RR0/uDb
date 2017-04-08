@@ -18,7 +18,7 @@ export class OutputFormatFactory {
         outputFormat = new XmlRecordOutput(output, sortedRecord);
         break;
       case 'memory':
-        outputFormat = new MemoryRecordOutput(output);
+        outputFormat = new MemoryRecordOutput(output, sortedRecord);
         break;
       default:
         outputFormat = new DefaultRecordOutput(output, primaryReferences);
