@@ -222,7 +222,8 @@ export class Geo {
           name: 'Brazil',
           statesOrProvinces: {
             AMZ: 'Amazonas',
-            BAH: 'Bahia'
+            BAH: 'Bahia',
+            RIO: 'Rio'
           }
         },
         2: 'Paraguay',
@@ -353,12 +354,16 @@ export class Geo {
             ADN: 'Ardennes',
             AMR: 'Alpes Maritimes',
             AHP: 'Alpes de Haute Provence',
-            FRB: 'Bretagne',
-            'M&M': 'Meurthe-et-Moselle',
+            BDR: 'Bouches-du-Rhône',
             CNT: 'Cantal',
             CRS: 'Creuse',
             DRM: 'Drôme',
+            FNS: 'Finistère',
+            FRB: 'Bretagne',
+            GRD: 'Gard',
+            'M&M': 'Meurthe-et-Moselle',
             HAL: 'Hautes Alpes',
+            HGR: 'Haute Garonne',
             JRA: 'Jura',
             LOI: 'Loire',
             LRE: 'Loire', // Duplicate
@@ -369,12 +374,12 @@ export class Geo {
             LZR: 'Lozère',
             MNC: 'Manche',
             MSE: 'Meuse',
-            RHN: 'Rhône',
+            NRD: 'Nord',
             PDC: 'Pas-de-Calais',
-            HGR: 'Haute Garonne',
+            RHN: 'Rhône',
+            'S&L': 'Saône-et-Loire',
+            'T&G': 'Tarn-et-Garonne',
             VSG: 'Vosges',
-            BDR: 'Bouches-du-Rhône',
-            FNS: 'Finistère',
           }
         },
         6: {
@@ -405,6 +410,7 @@ export class Geo {
           name: 'Italy',
           statesOrProvinces: {
             AL: 'Alessandria',
+            AQ: 'Aquila',
             ASC: 'Ascoli Piceno',
             AN: 'Ancona',
             BS: 'Brescia',
@@ -412,8 +418,8 @@ export class Geo {
             BG: 'Bergamo',
             CA: 'Cagliari',
             CMP: 'Campania',
+            GR: 'Grosseto',
             FI: 'Firenze',
-            AQ: 'Aquila',
             MI: 'Milano',
             LMB: 'Lombardy',
             LU: 'Lucques',
@@ -577,7 +583,12 @@ export class Geo {
        */
       name: 'Southern Africa',
       countries: {
-        1: 'Rep of South Africa',
+        1: {
+          name: 'Republic of South Africa',
+          statesOrProvinces: {
+            NAT: 'KwaZulu-Natal',
+          }
+        },
         2: {
           name: 'Zimbabwe & Zambia',
           description: 'Rhodesia'
