@@ -4,7 +4,4 @@ module.exports = {
   output: {
     filename: 'build/front/udb-front.js'
   },
-  externals: {
-    "binary": 'binary'
-  }
 };

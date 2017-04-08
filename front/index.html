@@ -1,28 +1,61 @@
 <html ng-app="ngUdb">
 <head>
   <title>*U* UFO Database</title>
+  <link href="http://rr0.org/rr0.css" rel="stylesheet">
+  <style>
+    body
+    tbody {
+      display: table-row-group !important;
+      width: auto !important;
+    }
+
+    thead {
+      display: table-header-group !important;
+      width: auto !important;
+    }
+
+    tr {
+      display: table-row !important;
+      width: auto !important;
+    }
+
+    th, td {
+      display: table-cell !important;
+      width: auto !important;
+    }
+    .table-container {
+      height: 70vh;
+      width: 100vw;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
 <h1>*U* UFO Database</h1>
-<p>(c) 2003, Larry Hatch</p>
+<p><a href="https://github.com/RR0/uDb">uDb</a> web front of
+  <a href="http://web.archive.org/web/20060701162044/http://www.larryhatch.net/">Larry Hatch database</a>.
+</p>
 <div ng-controller="UdbController as ctrl">
   <form ng-submit="ctrl.search()">
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="ctrl.matchCriteria">
     <button type="submit">Search</button>
   </form>
-  <p ng-if="ctrl.matchResults.length <= 0">No records found matching criteria <strong>{{ctrl.matchCriteria}}</strong>.</p>
-  <table ng-if="ctrl.matchResults.length > 0">
-    <thead>
-    <tr>
-      <th ng-repeat="(prop,value) in ctrl.matchResults[0]">{{::prop}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="record in ctrl.matchResults">
-      <th ng-repeat="(prop,value) in record">{{::record[prop]}}</th>
-    </tr>
-    </tbody>
-  </table>
+  <p ng-if="ctrl.matchResults.length <= 0">No records found matching criteria <strong>{{ctrl.matchCriteria}}</strong>.
+  </p>
+  <div class="table-container">
+    <table ng-if="ctrl.matchResults.length > 0">
+      <thead>
+      <tr>
+        <th ng-repeat="(prop,value) in ctrl.matchResults[0]">{{::prop}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="record in ctrl.matchResults">
+        <td ng-repeat="(prop,value) in record">{{::record[prop]}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <script src="udb-front.js"></script>
 </body>
