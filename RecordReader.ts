@@ -6,6 +6,9 @@ export interface Record {
   id: number;
 }
 
+/**
+ * Creates an InputRecord from a raw binary record.
+ */
 export class RecordReader {
   private filePos: number;
   private recordPos: number;
@@ -40,7 +43,10 @@ export class RecordReader {
   }
 
   readString(length: number, prop: string) {
-    let str = this.buffer.toString('utf8', this.recordPos, this.recordPos + length);
+    let str = '';
+    for (let i = this.recordPos; i < this.recordPos + length; i++) {
+      str += String.fromCharCode(this.buffer[i]);
+    }
     this.record[prop] = RecordReader.validString(Util.trimZeroEnd(str)).trim();
     this.logReadPos(prop);
     this.readed(length);

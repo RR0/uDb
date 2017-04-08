@@ -12,7 +12,7 @@ import {Memory} from "./output/Memory";
 import {OutputFactory} from "./output/OutputFactory";
 import {Output} from "./output/RecordOutput";
 import {Query} from "./Query";
-import {RecordFormatter} from "./output/format";
+import {RecordFormatter} from "./output/RecordFormatter";
 
 program
   .version('0.0.2')

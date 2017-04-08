@@ -1,5 +1,5 @@
 import {CsvRecordOutput} from "./CsvRecordOutput";
-import {DefaultRecordOutput} from "./default";
+import {DefaultRecordOutput} from "./DefaultRecordOutput";
 import {Output, RecordOutput} from "./RecordOutput";
 import {OutputRecord} from "./OutputRecord";
 import {XmlRecordOutput} from "./XmlRecordOutput";

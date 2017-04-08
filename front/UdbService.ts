@@ -3,7 +3,7 @@ import {Query} from "../Query";
 import {Memory} from "../output/Memory";
 import {Sources} from "../input/Sources";
 import {WebFileInput} from "./WebFileInput";
-import {RecordFormatter} from "../output/format";
+import {RecordFormatter} from "../output/RecordFormatter";
 
 export class UdbService {
   private sources: Sources;

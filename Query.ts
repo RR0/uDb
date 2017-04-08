@@ -2,7 +2,7 @@ import {Input} from "./input/Input";
 import {Sources} from "./input/Sources";
 import {Logger} from "./log";
 import {RecordMatcher} from "./match";
-import {RecordFormatter} from "./output/format";
+import {RecordFormatter} from "./output/RecordFormatter";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
