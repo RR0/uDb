@@ -1,62 +1,68 @@
-<html ng-app="ngUdb">
-<head>
-  <title>*U* UFO Database</title>
-  <link href="http://rr0.org/rr0.css" rel="stylesheet">
-  <style>
-    body
-    tbody {
-      display: table-row-group !important;
-      width: auto !important;
-    }
+<!--#include virtual="/header-start.html" -->
+<title>*U* UFO Database</title>
+<!--#include virtual="/header-end.html" -->
+<style>
+  tbody {
+    display: table-row-group !important;
+    width: auto !important;
+  }
 
-    thead {
-      display: table-header-group !important;
-      width: auto !important;
-    }
+  thead {
+    display: table-header-group !important;
+    width: auto !important;
+  }
 
-    tr {
-      display: table-row !important;
-      width: auto !important;
-    }
+  tr {
+    display: table-row !important;
+    width: auto !important;
+  }
 
-    th, td {
-      display: table-cell !important;
-      width: auto !important;
-    }
-    .table-container {
-      height: 70vh;
-      width: 100vw;
-      overflow: auto;
-    }
-  </style>
-</head>
-<body>
-<h1>*U* UFO Database</h1>
+  th, td {
+    display: table-cell !important;
+    width: auto !important;
+  }
+
+  .table-container {
+    height: 70vh;
+    width: 100vw;
+    overflow: auto;
+  }
+  .log {
+    float: right;
+  }
+</style>
 <p><a href="https://github.com/RR0/uDb">uDb</a> web front of
   <a href="http://web.archive.org/web/20060701162044/http://www.larryhatch.net/">Larry Hatch database</a>.
 </p>
-<div ng-controller="UdbController as ctrl">
-  <form ng-submit="ctrl.search()">
-    <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="ctrl.matchCriteria">
-    <button type="submit">Search</button>
+<div ng-controller="UdbController as udbCtrl">
+  <div class="log">{{udbCtrl.logs}}</div>
+  <form ng-submit="udbCtrl.search()">
+    <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="udbCtrl.matchCriteria">
+    <button type="submit">Search</button> (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of 1972, or in July in France)
   </form>
-  <p>Found {{ctrl.matchResults.length ? ctrl.matchResults.length : 'no'}} records found matching criteria <strong>{{ctrl.matchCriteria}}</strong>.
+  <p>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria <code>{{udbCtrl.matchCriteria}}</code>.
   </p>
-  <div class="table-container">
-    <table ng-if="ctrl.matchResults.length > 0">
+  <div class="table-container" ng-if="udbCtrl.matchResults.length > 0" ng-cloak>
+    <table>
       <thead>
       <tr>
-        <th ng-repeat="(prop,value) in ctrl.matchResults[0]">{{::prop}}</th>
+        <th ng-repeat="(prop,value) in udbCtrl.matchResults[0]">{{::prop}}</th>
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="record in ctrl.matchResults">
-        <td ng-repeat="(prop,value) in record">{{::record[prop]}}</td>
+      <tr ng-repeat="record in udbCtrl.matchResults">
+        <td ng-repeat="(prop,value) in record">
+          <span ng-switch="prop">
+            <span ng-switch-when="location">
+              <span class="place">{{::record[prop]}}</span>
+            </span>
+            <span ng-switch-default>{{::record[prop]}}</span>
+          </span>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+<!--#include virtual="/footer.html" -->
 <script src="udb-front.js"></script>
-</body>
-</html>

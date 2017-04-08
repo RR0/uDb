@@ -11,18 +11,20 @@ export class UdbService {
   private firstIndex: number = 1;
   private maxCount: number = 1000000;
   private memory: Memory;
+  private status;
 
   private recordFormatter = new RecordFormatter();
 
-  constructor(private logger: Logger, webFileInput: WebFileInput) {
+  constructor(private logger: Logger, private webFileInput: WebFileInput) {
     this.memory = new Memory();
     this.sources = new Sources();
+  }
 
+  load(dataFile) {
     const firstIndex = 1;
-    logger.logVerbose(`\nReading cases from #${firstIndex}:`);
-
-    webFileInput.open('../input/data/U.RND', () => {
-      new Query(webFileInput, this.memory, logger, this.recordFormatter, 'memory', this.sources)
+    this.logger.logVerbose(`\nReading cases from #${firstIndex}:`);
+    this.webFileInput.open(dataFile, () => {
+      new Query(this.webFileInput, this.memory, this.logger, this.recordFormatter, 'memory', this.sources)
         .execute(undefined, firstIndex, this.maxCount);
     });
   }

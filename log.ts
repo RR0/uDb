@@ -1,5 +1,5 @@
 export class Logger {
-  private logMsg : string;
+  protected logMsg : string;
   private _autoFlush: boolean;
 
   constructor(private DEBUG: boolean, private verbose: boolean) {
