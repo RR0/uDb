@@ -56,7 +56,7 @@ sources.open(sourcesReader, () => {
   let matchCriteria = program.match;
 
   input.open(dataFile, () => {
-    const firstIndex = 0;
+    const firstIndex = 1;
     logger.logVerbose(`\nReading cases from #${firstIndex}:`);
     let lastIndex = 10000000;
     let maxCount = count || (lastIndex - firstIndex + 1);
