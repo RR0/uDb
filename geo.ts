@@ -144,6 +144,7 @@ export class Geo {
             CNN: 'Connecticut',
             HWI: 'Hawaii',
             IOW: 'Iowa',
+            MNE: 'Maine',
             MNT: 'Montana',
             MSC: 'Massachusetts',
             MSO: 'Missouri',
@@ -223,7 +224,8 @@ export class Geo {
           statesOrProvinces: {
             AMZ: 'Amazonas',
             BAH: 'Bahia',
-            RIO: 'Rio'
+            RIO: 'Rio',
+            MG: 'Minas Gerais',
           }
         },
         2: 'Paraguay',
@@ -270,6 +272,7 @@ export class Geo {
           statesOrProvinces: {
             ACT: 'Australian Capital Territory',
             VCT: 'Victoria',
+            NTR: 'Northern Territory',
             SAU: 'South Australia',
             WAU: 'Western Australia',
           }
@@ -330,6 +333,7 @@ export class Geo {
             BDW: 'Bade-Wurtemberg',
             BVR: 'Bavaria',
             SXN: 'Saxony',
+            VNN: 'Vienna',
           }
         },
         4: {
@@ -355,6 +359,7 @@ export class Geo {
             AMR: 'Alpes Maritimes',
             AHP: 'Alpes de Haute Provence',
             BDR: 'Bouches-du-Rhône',
+            CHM: 'Charente-Maritime',
             CNT: 'Cantal',
             CRS: 'Creuse',
             DRM: 'Drôme',
@@ -378,6 +383,7 @@ export class Geo {
             PDC: 'Pas-de-Calais',
             RHN: 'Rhône',
             'S&L': 'Saône-et-Loire',
+            SMM: 'Somme',
             'T&G': 'Tarn-et-Garonne',
             VSG: 'Vosges',
           }
@@ -390,6 +396,7 @@ export class Geo {
             BRC: 'Barcelone',
             BRG: 'Burgos',
             CNC: 'Cuenca',
+            VLN: 'Valencian',
           }
         },
         7: {
@@ -495,6 +502,7 @@ export class Geo {
             ANH: 'Anhui',
             JNS: 'Jiangsu',
             JNX: 'Jianxi',
+            SHD: 'Shandong',
           }
         },
         2: 'Mongolia',
@@ -586,7 +594,8 @@ export class Geo {
         1: {
           name: 'Republic of South Africa',
           statesOrProvinces: {
-            NAT: 'KwaZulu-Natal',
+            NTL: 'KwaZulu-Natal',
+            OFS: 'Orange Free State',
           }
         },
         2: {
@@ -680,7 +689,8 @@ export class Geo {
           name: 'Lebanon',
           statesOrProvinces: {
             TYR: 'Tyre',
-            BEI: 'Beirut',
+            BEI: 'Beirut',  // Duplicate with BRT
+            BRT: 'Beirut',  // Duplicate with BEI
           }
         }
       }
