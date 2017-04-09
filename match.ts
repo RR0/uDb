@@ -17,10 +17,17 @@ class EqualMatcher implements CriterionMatcher {
     return record[this.prop] == this.value;
   }
 }
+export class MatchError extends Error {
+  constructor(msg) {
+    super(msg);
+    Object.setPrototypeOf(this, MatchError.prototype);
+  }
+
+}
 export class RecordMatcher<RecordType extends Record> {
   private matchers = [];
 
-  constructor(private criteria = '') {
+  constructor(private criteria = '', private allowEmpty = true) {
     const andCriterions = criteria.split('&');
     for (let a = 0; a < andCriterions.length; ++a) {
       let type: string = 'and';
@@ -29,6 +36,9 @@ export class RecordMatcher<RecordType extends Record> {
       for (let o = 0; o < orCriterions.length; ++o) {
         const orCriterion = orCriterions[o];
         let operands = orCriterion.split('=');
+        if (!allowEmpty && operands.length <= 1) {
+          throw new MatchError('Expected some "field=value" expression');
+        }
         const matcher = new EqualMatcher(type, operands[0], operands[1]);
         type = 'or';
         this.matchers.push(matcher);

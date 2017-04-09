@@ -1,7 +1,7 @@
 import {Input} from "./input/Input";
 import {Sources} from "./input/Sources";
 import {Logger} from "./log";
-import {RecordMatcher} from "./match";
+import {MatchError, RecordMatcher} from "./match";
 import {RecordFormatter} from "./output/RecordFormatter";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
@@ -18,39 +18,49 @@ export class Query<RecordType extends Record> {
               private recordFormatter: RecordFormatter, private format: string, private sources: Sources) {
   }
 
-  execute(matchCriteria: string, firstIndex: number, maxCount: number, format = true) {
+  execute(matchCriteria: string, firstIndex: number, maxCount: number, format:boolean = true, allowEmpty: boolean = true) {
     const processingStart = Date.now();
-
     const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
-    const recordMatcher = new RecordMatcher<RecordType>(matchCriteria);
-    let outputFormat: RecordOutput;
+    try {
+      const recordMatcher = new RecordMatcher<RecordType>(matchCriteria, allowEmpty);
+      let outputFormat: RecordOutput;
 
-    let count = 0;
-    while (recordEnumerator.hasNext() && count < maxCount) {
-      const inputRecord: RecordType = recordEnumerator.next();
-      if (recordMatcher.matches(inputRecord)) {
-        let outputRecord: OutputRecord;
-        if (!outputFormat) {
-          let outputRecord: OutputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
-          outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
-        }
-        if (format) {
-          outputRecord = this.recordFormatter.formatData(inputRecord);
+      let count = 0;
+      while (recordEnumerator.hasNext() && count < maxCount) {
+        const inputRecord: RecordType = recordEnumerator.next();
+        if (recordMatcher.matches(inputRecord)) {
+          let outputRecord: OutputRecord;
+          if (!outputFormat) {
+            let outputRecord: OutputRecord;
+            if (this.recordFormatter) {
+              outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
+            } else {
+              outputRecord = inputRecord;
+            }
+            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
+          }
+          if (format && this.recordFormatter) {
+            outputRecord = this.recordFormatter.formatData(inputRecord);
+          } else {
+            outputRecord = inputRecord;
+          }
+          outputFormat.write(outputRecord);
+          count++;
+          this.logger.flush();
         } else {
-          outputRecord = inputRecord;
+          this.logger.reset();
         }
-        outputFormat.write(outputRecord);
-        count++;
-        this.logger.flush();
-      } else {
-        this.logger.reset();
+      }
+      if (outputFormat) {
+        outputFormat.end();
+      }
+      const processingDuration = Date.now() - processingStart;
+      this.logger.autoFlush = true;
+      this.logger.logVerbose(`\nFound ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
+    } catch (e) {
+      if (e instanceof MatchError) {
+        this.logger.error(e.message);
       }
     }
-    if (outputFormat) {
-      outputFormat.end();
-    }
-    const processingDuration = Date.now() - processingStart;
-    this.logger.autoFlush = true;
-    this.logger.logVerbose(`\nFound ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
   }
 }

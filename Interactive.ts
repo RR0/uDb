@@ -17,7 +17,7 @@ export class Interactive {
 
   match(matchCriteria) {
     new Query(this.memory, this.output, this.logger, null, 'default', this.sources)
-      .execute(matchCriteria, this.firstIndex, this.maxCount);
+      .execute(matchCriteria, this.firstIndex, this.maxCount, false);
   }
 
   start() {

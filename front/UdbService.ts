@@ -31,8 +31,8 @@ export class UdbService {
 
   match(matchCriteria) {
     let results = new Memory();
-    new Query(this.memory, results, this.logger, this.recordFormatter, this.format, this.sources)
-      .execute(matchCriteria, this.firstIndex, this.maxCount, false);
+    new Query(this.memory, results, this.logger, null, this.format, this.sources)
+      .execute(matchCriteria, this.firstIndex, this.maxCount, false, false);
     return results;
   }
 }
