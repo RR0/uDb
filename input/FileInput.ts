@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {Logger} from "../log";
+import {Logger} from "../Logger";
 import {RecordReader} from "../RecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";

@@ -4,13 +4,15 @@ export class UdbController {
 
   private matchCriteria: string;
   private matchResults = [];
-  private logs = '';
+  private logs = 'Loading...';
 
   constructor($scope, private udbService, logger: WebLogger) {
     this.matchCriteria = '';
     logger.subscribe(msg => {
       $scope.$applyAsync(() => {
-        this.logs += msg;
+        console.log(msg);
+        msg = msg.replace(/\n/g, '<br/>');
+        this.logs = msg;
       });
     });
     $scope.$applyAsync(() => {

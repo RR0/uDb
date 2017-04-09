@@ -1,6 +1,6 @@
 import {Input} from "./input/Input";
 import {Sources} from "./input/Sources";
-import {Logger} from "./log";
+import {Logger} from "./Logger";
 import {MatchError, RecordMatcher} from "./match";
 import {RecordFormatter} from "./output/RecordFormatter";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
@@ -19,6 +19,7 @@ export class Query<RecordType extends Record> {
   }
 
   execute(matchCriteria: string, firstIndex: number, maxCount: number, format:boolean = true, allowEmpty: boolean = true) {
+    this.logger.logVerbose(`Querying...`);
     const processingStart = Date.now();
     const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
     try {
@@ -56,7 +57,7 @@ export class Query<RecordType extends Record> {
       }
       const processingDuration = Date.now() - processingStart;
       this.logger.autoFlush = true;
-      this.logger.logVerbose(`\nFound ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
+      this.logger.logVerbose(`Found ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
     } catch (e) {
       if (e instanceof MatchError) {
         this.logger.error(e.message);

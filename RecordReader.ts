@@ -1,5 +1,5 @@
 import {InputRecord} from "./input/InputRecord";
-import {Logger} from "./log";
+import {Logger} from "./Logger";
 import {Util} from "./util";
 
 export interface Record {

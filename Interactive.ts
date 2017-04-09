@@ -1,5 +1,5 @@
 import * as readline from "readline";
-import {Logger} from "./log";
+import {Logger} from "./Logger";
 import {Query} from "./Query";
 import {Memory} from "./output/Memory";
 import {Sources} from "./input/Sources";

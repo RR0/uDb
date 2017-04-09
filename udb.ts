@@ -7,7 +7,7 @@ import {FileInput} from "./input/FileInput";
 import {Sources} from "./input/Sources";
 import {WorldMap} from "./input/WorldMap";
 import {Interactive} from "./Interactive";
-import {Logger} from "./log";
+import {Logger} from "./Logger";
 import {Memory} from "./output/Memory";
 import {OutputFactory} from "./output/OutputFactory";
 import {Output} from "./output/RecordOutput";
@@ -28,6 +28,7 @@ program
   .parse(process.argv);
 
 const logger = new Logger(program.debug, program.verbose);
+logger.subscribe(msg => process.stdout.write('udb: ' + msg));
 const sourcesFile = program.dataFile || 'input/data/usources.txt';
 const dataFile = program.sourcesFile || 'input/data/U.RND';
 const worldMap = program.wmFile || 'input/data/WM.VCE';

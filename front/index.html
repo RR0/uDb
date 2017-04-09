@@ -34,20 +34,29 @@
 
   .log {
     float: right;
+    width: 25em;
+    height: 3em;
+    padding: 0.5em;
+    margin: 0.5em;
+    border: 1px solid gray;
+    overflow: auto;
   }
 </style>
-<p><a href="https://github.com/RR0/uDb">uDb</a> web front of
-  <a href="http://web.archive.org/web/20060701162044/http://www.larryhatch.net/">Larry Hatch database</a>.
+<p>This is the web front of <a href="https://github.com/RR0/uDb">uDb</a>, a project to make
+  <a href="http://web.archive.org/web/20060701162044/http://www.larryhatch.net/">Larry Hatch database</a> available
+  again.
 </p>
+<hr/>
 <div ng-controller="UdbController as udbCtrl">
-  <div class="log">{{udbCtrl.logs}}</div>
+  <div class="log" ng-bind-html="udbCtrl.logs"></div>
   <form ng-submit="udbCtrl.search()">
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="udbCtrl.matchCriteria">
-    <button type="submit">Search</button>
-    (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of 1972,
-    or in July in France)
+    <input type="submit" value="Search">
+    <div> (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of
+      1972, or in July of any year in France)
+    </di  v>
   </form>
-  <p>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria
+  <p ng-cloak>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria
     <span class="criteria">{{udbCtrl.matchCriteria}}</span>.
   </p>
   <div class="table-container" ng-if="udbCtrl.matchResults.length > 0" ng-cloak>

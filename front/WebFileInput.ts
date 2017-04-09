@@ -1,6 +1,6 @@
 import {Input} from "../input/Input";
 import {InputRecord} from "../input/InputRecord";
-import {Logger} from "../log";
+import {Logger} from "../Logger";
 import {RecordReader} from "../RecordReader";
 
 export class WebFileInput implements Input<InputRecord> {
