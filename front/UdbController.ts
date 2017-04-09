@@ -8,7 +8,7 @@ export class UdbController {
 
   constructor($scope, private udbService, logger: WebLogger) {
     this.matchCriteria = '';
-    logger.register(msg => {
+    logger.subscribe(msg => {
       $scope.$applyAsync(() => {
         this.logs += msg;
       });

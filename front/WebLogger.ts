@@ -3,7 +3,7 @@ import {Logger} from "../log";
 export class WebLogger extends Logger {
   private subscriber: Function;
 
-  register(cb) {
+  subscribe(cb) {
     this.subscriber = cb;
   }
 
