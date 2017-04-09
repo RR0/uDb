@@ -7,6 +7,10 @@
     width: auto !important;
   }
 
+  .criteria {
+    font-family: monospace, Courier;
+  }
+
   thead {
     display: table-header-group !important;
     width: auto !important;
@@ -27,6 +31,7 @@
     width: 100vw;
     overflow: auto;
   }
+
   .log {
     float: right;
   }
@@ -38,9 +43,12 @@
   <div class="log">{{udbCtrl.logs}}</div>
   <form ng-submit="udbCtrl.search()">
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="udbCtrl.matchCriteria">
-    <button type="submit">Search</button> (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of 1972, or in July in France)
+    <button type="submit">Search</button>
+    (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of 1972,
+    or in July in France)
   </form>
-  <p>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria <code>{{udbCtrl.matchCriteria}}</code>.
+  <p>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria
+    <span class="criteria">{{udbCtrl.matchCriteria}}</span>.
   </p>
   <div class="table-container" ng-if="udbCtrl.matchResults.length > 0" ng-cloak>
     <table>
