@@ -20,6 +20,15 @@ class EqualMatcher extends CriterionMatcher {
     return record[this.prop] == this.value;
   }
 }
+class NotEqualMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
+  match(record: InputRecord): boolean {
+    return record[this.prop] != this.value;
+  }
+}
 class AboveMatcher extends CriterionMatcher {
   constructor(type: string, prop: string, value: any) {
     super(type, prop, value);
@@ -29,9 +38,41 @@ class AboveMatcher extends CriterionMatcher {
     return record[this.prop] > this.value;
   }
 }
+class BelowMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
+  match(record: InputRecord): boolean {
+    return record[this.prop] < this.value;
+  }
+}
+class BelowOrEqualMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
+  match(record: InputRecord): boolean {
+    return record[this.prop] <= this.value;
+  }
+}
+class AboveOrEqualMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
+  match(record: InputRecord): boolean {
+    return record[this.prop] >= this.value;
+  }
+}
 const operators = {
+  '<>': NotEqualMatcher,
+  '!=': NotEqualMatcher,
+  '>=': BelowOrEqualMatcher,
+  '<=': BelowOrEqualMatcher,
   '=': EqualMatcher,
   '>': AboveMatcher,
+  '<': BelowMatcher,
 };
 export class MatchError extends Error {
   constructor(msg) {
