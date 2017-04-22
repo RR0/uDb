@@ -1,28 +1,43 @@
 import {InputRecord} from "./input/InputRecord";
 import {Record} from "./RecordReader";
 
-interface CriterionMatcher {
-  getType(): string;
-  match(record: InputRecord): boolean;
-}
-class EqualMatcher implements CriterionMatcher {
-  constructor(private type: string, private prop, private value) {
+abstract class CriterionMatcher {
+  constructor(private type: string, protected prop: string, protected value: any) {
   }
 
   getType(): string {
     return this.type;
   }
 
+  abstract match(record: InputRecord): boolean;
+}
+class EqualMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
   match(record: InputRecord): boolean {
     return record[this.prop] == this.value;
   }
 }
+class AboveMatcher extends CriterionMatcher {
+  constructor(type: string, prop: string, value: any) {
+    super(type, prop, value);
+  }
+
+  match(record: InputRecord): boolean {
+    return record[this.prop] > this.value;
+  }
+}
+const operators = {
+  '=': EqualMatcher,
+  '>': AboveMatcher,
+};
 export class MatchError extends Error {
   constructor(msg) {
     super(msg);
     Object.setPrototypeOf(this, MatchError.prototype);
   }
-
 }
 export class RecordMatcher<RecordType extends Record> {
   private matchers = [];
@@ -35,13 +50,20 @@ export class RecordMatcher<RecordType extends Record> {
       let orCriterions = andCriterion.split('|');
       for (let o = 0; o < orCriterions.length; ++o) {
         const orCriterion = orCriterions[o];
-        let operands = orCriterion.split('=');
-        if (!allowEmpty && operands.length <= 1) {
-          throw new MatchError('Expected some "field=value" expression');
+        let matcher;
+        for (let operator in operators) {
+          let operands = orCriterion.split(operator);
+          if (operands.length <= 1) {
+            continue;
+          }
+          matcher = new operators[operator](type, operands[0], operands[1]);
+          type = 'or';
+          this.matchers.push(matcher);
+          break;
         }
-        const matcher = new EqualMatcher(type, operands[0], operands[1]);
-        type = 'or';
-        this.matchers.push(matcher);
+        if (!allowEmpty && !matcher) {
+          throw new MatchError(`Expected some expression with operators ${operators}`);
+        }
       }
     }
   }
