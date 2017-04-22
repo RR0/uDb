@@ -200,6 +200,7 @@ export class Geo {
             SNL: 'Sinaloa',
             CHH: 'Chihuahua',
             BCN: 'Baja California',
+            SNR: 'Sonora',
           }
         },
         4: 'Guatemala',
@@ -260,7 +261,12 @@ export class Geo {
           }
         },
         10: 'Venezuela',
-        11: 'Guyanas (all 3 of them)',
+        11: {
+          name: 'Guyanas (all 3 of them)',
+          statesOrProvinces: {
+            SRN: 'Surinam'
+          }
+        },
       }
     },
     2: {
@@ -383,12 +389,14 @@ export class Geo {
             MNC: 'Manche',
             MSE: 'Meuse',
             NRD: 'Nord',
+            OIS: 'Oise',
             PDC: 'Pas-de-Calais',
             RHN: 'Rhône',
             'S&L': 'Saône-et-Loire',
             'S&M': 'Seine-et-Marne',
             SMM: 'Somme',
             'T&G': 'Tarn-et-Garonne',
+            VND: 'Vendée',
             VSG: 'Vosges',
           }
         },
@@ -518,7 +526,12 @@ export class Geo {
           }
         },
         2: 'Mongolia',
-        3: 'India',
+        3: {
+          name: 'India',
+          statesOrProvinces: {
+            MHR: 'Maharashtra'
+          }
+        },
         4: 'Pakistan',
         5: {
           name: 'Afghanistan',
