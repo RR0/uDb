@@ -40,7 +40,7 @@ export class Query<RecordType extends Record> {
             }
             outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
           }
-          if (format && this.recordFormatter) {
+          if (this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(inputRecord);
           } else {
             outputRecord = inputRecord;
