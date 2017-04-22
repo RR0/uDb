@@ -11,6 +11,7 @@ export class WebFileInput implements Input<InputRecord> {
   private recordReader: RecordReader;
   fileSize: number;
 
+  /*@ngInject*/
   constructor(private logger: Logger, private $http) {
   }
 

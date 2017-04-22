@@ -15,6 +15,7 @@ export class UdbService {
 
   private recordFormatter = new RecordFormatter();
 
+  /*@ngInject*/
   constructor(private logger: Logger, private webFileInput: WebFileInput) {
     this.memory = new Memory();
     this.sources = new Sources();

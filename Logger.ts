@@ -3,6 +3,7 @@ export class Logger {
   private _autoFlush: boolean;
   private subscriber: Function;
 
+  /*@ngInject*/
   constructor(private DEBUG: boolean, private verbose: boolean) {
     this.reset();
   }

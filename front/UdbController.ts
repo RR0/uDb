@@ -1,4 +1,4 @@
-import {WebLogger} from "./WebLogger";
+import {Logger} from "../Logger";
 
 export class UdbController {
 
@@ -6,7 +6,8 @@ export class UdbController {
   private matchResults = [];
   private logs = 'Loading...';
 
-  constructor($scope, private udbService, logger: WebLogger) {
+  /*@ngInject*/
+  constructor($scope, private udbService, logger: Logger) {
     this.matchCriteria = '';
     logger.subscribe(msg => {
       $scope.$applyAsync(() => {
