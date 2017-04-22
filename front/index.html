@@ -52,12 +52,13 @@
   <form ng-submit="udbCtrl.search()">
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="udbCtrl.matchCriteria">
     <input type="submit" value="Search">
-    <div> (for example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of
-      1972, or in July of any year in France)
-    </div>
   </form>
-  <p ng-cloak>Found {{udbCtrl.matchResults.length ? udbCtrl.matchResults.length : 'no'}} records matching criteria
-    <span class="criteria">{{udbCtrl.matchCriteria}}</span>.
+  <p>Supported operators are equal (<code>=</code>), not equal (<code>!=</code> or <code><></code>), below
+    (<code><</code> or <code><=</code>), above (<code>></code> or <code>>=</code>). They can be combined using AND
+    (<code>&</code>) or OR (<code>|</code>) logical operators.
+  </p>
+  <p>For example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of
+    1972, or in July of any year in France.
   </p>
   <div class="table-container" ng-if="udbCtrl.matchResults.length > 0" ng-cloak>
     <table>
