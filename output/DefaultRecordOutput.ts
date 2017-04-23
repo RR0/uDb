@@ -13,11 +13,11 @@ function line(str?) {
 
 export class DefaultRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private primaryReferences) {
+  constructor(private output: Output) {
   }
 
   desc(record: OutputRecord) {
-    const ref = record.ref ? this.primaryReferences[record.ref] : '';
+    const ref = record.ref ? record.ref : '';
 
     const month = record.month;
     const day = record.day;
@@ -77,8 +77,7 @@ export class DefaultRecordOutput implements RecordOutput {
     desc += line(`Duration\t\t\t\t\t\t\t\t\t: ${record.duration} min`);
     desc += line(`Strangeness\t\t\t\t\t\t\t\t\t: ${record.strangeness}`);
     desc += line(`Credibility\t\t\t\t\t\t\t\t\t: ${record.credibility}`);
-    desc += line(`Reference\t\t\t\t\t\t\t\t\t: ${ref}`)
-      + `\t\t\t\t\t\t\t\t\t\t\t\t  at index #${record.refIndex}`;
+    desc += line(`Reference\t\t\t\t\t\t\t\t\t: ${ref}`);
     indent--;
     return desc;
   }

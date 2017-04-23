@@ -4,6 +4,7 @@ import {Time} from "../time";
 import {Flags} from "../flags";
 import {InputRecord} from "../input/InputRecord";
 import {OutputRecord} from "./OutputRecord";
+import {Sources} from "../input/Sources";
 
 /**
  * Formats input records as output records.
@@ -22,6 +23,8 @@ export class RecordFormatter {
     });
     return flagsStr;
   }
+
+  constructor(private sources: Sources) {}
 
   formatProperties(record: InputRecord): OutputRecord {
     delete record.unknownMonth;
@@ -75,6 +78,7 @@ export class RecordFormatter {
     record.placesVisitedAndThingsAffectedFlags = RecordFormatter.flagsKeysStr(record.placesVisitedAndThingsAffectedFlags, Flags.placesVisitedAndThingsAffectedLabels);
     record.evidenceAndSpecialEffectsFlags = RecordFormatter.flagsKeysStr(record.evidenceAndSpecialEffectsFlags, Flags.evidenceAndSpecialEffectsLabels);
     record.miscellaneousDetailsFlags = RecordFormatter.flagsKeysStr(record.miscellaneousDetailsFlags, Flags.miscellaneousDetailsLabels);
+    record.ref = this.sources.getReference(record.ref, record.refIndex)
     return record;
   }
 }

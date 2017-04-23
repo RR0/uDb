@@ -6,18 +6,18 @@ export class Sources {
   misc = {};
   discredited = [];
 
-  addDiscredited(line) {
+  addDiscredited(line: string) {
     this.discredited.push(line.substring(2));
   }
 
-  addSource(arr, line) {
+  addSource(arr, line: string) {
     const ref = parseInt(line.substring(1, 4), 0);
     arr[ref] = line.substring(5);
   }
 
-  open(sourcesReader, cb) {
+  open(sourcesReader, onClose: Function) {
     sourcesReader
-      .on('line', (line) => {
+      .on('line', line => {
         switch (line.charAt(0)) {
           case '/':
             this.addSource(this.primaryReferences, line);
@@ -39,7 +39,28 @@ export class Sources {
             break;
         }
       })
-      .on('close', cb);
+      .on('close', onClose);
+  }
+
+  getReference(ref: number, refIndex: number) {
+    let reference: any;
+    switch (ref) {
+      case 93:
+        reference = this.newspapersAndFootnotes[refIndex];
+        break;
+      case 96:
+        reference = this.otherDatabasesAndWebsites[refIndex];
+        break;
+      case 97:
+        reference = this.otherPeriodicals[refIndex];
+        break;
+      case 98:
+        reference = this.misc[refIndex];
+        break;
+      default:
+        reference = `${this.primaryReferences[ref]}, page n°${refIndex}`;
+    }
+    return reference;
   }
 }
 

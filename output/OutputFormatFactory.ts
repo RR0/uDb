@@ -8,7 +8,7 @@ import {MemoryRecordOutput} from "./MemoryRecordOutput";
 
 export class OutputFormatFactory {
 
-  static getOutputFormat(format: string, output: Output, sortedRecord: OutputRecord, primaryReferences): RecordOutput {
+  static getOutputFormat(format: string, output: Output, sortedRecord: OutputRecord): RecordOutput {
     let outputFormat: RecordOutput;
     switch (format.toLocaleLowerCase()) {
       case 'csv':
@@ -21,7 +21,7 @@ export class OutputFormatFactory {
         outputFormat = new MemoryRecordOutput(output, sortedRecord);
         break;
       default:
-        outputFormat = new DefaultRecordOutput(output, primaryReferences);
+        outputFormat = new DefaultRecordOutput(output);
     }
     return outputFormat;
   }

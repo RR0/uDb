@@ -62,7 +62,7 @@ sources.open(sourcesReader, () => {
     let lastIndex = 10000000;
     let maxCount = count || (lastIndex - firstIndex + 1);
 
-    new Query(input, output, logger, new RecordFormatter(), format.toLocaleLowerCase(), sources)
+    new Query(input, output, logger, new RecordFormatter(sources), format.toLocaleLowerCase(), sources)
       .execute(matchCriteria, firstIndex, maxCount, false);
 
     input.close();
