@@ -36,6 +36,7 @@ export class RecordFormatter {
     delete record.unknown3;
     delete record.continentCode;
     delete record.countryCode;
+    delete record.refIndex;
 
     let expectedKeysOrder = ['id', 'year', 'month', 'day', 'time', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
     let sortedRecord: OutputRecord = <OutputRecord>Util.sortProps(record, (prop1, prop2) => {
@@ -78,7 +79,8 @@ export class RecordFormatter {
     record.placesVisitedAndThingsAffectedFlags = RecordFormatter.flagsKeysStr(record.placesVisitedAndThingsAffectedFlags, Flags.placesVisitedAndThingsAffectedLabels);
     record.evidenceAndSpecialEffectsFlags = RecordFormatter.flagsKeysStr(record.evidenceAndSpecialEffectsFlags, Flags.evidenceAndSpecialEffectsLabels);
     record.miscellaneousDetailsFlags = RecordFormatter.flagsKeysStr(record.miscellaneousDetailsFlags, Flags.miscellaneousDetailsLabels);
-    record.ref = this.sources.getReference(record.ref, record.refIndex)
+    record.ref = this.sources.getReference(record.ref, record.refIndex);
+    delete record.refIndex;
     return record;
   }
 }
