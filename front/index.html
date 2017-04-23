@@ -25,21 +25,15 @@
     display: table-cell !important;
     width: auto !important;
   }
-
-  .table-container {
-    height: 70vh;
-    width: 100vw;
+  .log {
+    height: 3em;
     overflow: auto;
   }
-
-  .log {
-    float: right;
-    width: 25em;
-    height: 3em;
-    padding: 0.5em;
-    margin: 0.5em;
-    border: 1px solid gray;
-    overflow: auto;
+  #matchInput {
+    width: 77vw;
+  }
+  nav {
+    background: white;
   }
 </style>
 <p>This is the web front of <a href="https://github.com/RR0/uDb">uDb</a>, a project to make
@@ -48,7 +42,6 @@
 </p>
 <hr/>
 <div ng-controller="UdbController as udbCtrl">
-  <div class="log" ng-bind-html="udbCtrl.logs"></div>
   <form ng-submit="udbCtrl.search()">
     <label for="matchInput">Match criteria</label> <input id="matchInput" ng-model="udbCtrl.matchCriteria">
     <input type="submit" value="Search">
@@ -60,7 +53,8 @@
   <p>For example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of
     1972, or in July of any year in France.
   </p>
-  <div class="table-container" ng-if="udbCtrl.matchResults.length > 0" ng-cloak>
+  <div class="log" ng-bind-html="udbCtrl.logs"></div>
+  <div ng-if="udbCtrl.matchResults.length > 0" ng-cloak>
     <table>
       <thead>
       <tr>
