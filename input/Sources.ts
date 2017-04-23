@@ -42,7 +42,7 @@ export class Sources {
       .on('close', onClose);
   }
 
-  getReference(ref: number, refIndex: number) {
+  getReference(ref: number, refIndex: number) : string {
     let reference: string;
     switch (ref) {
       case 93:
