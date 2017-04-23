@@ -32,7 +32,7 @@ export class Interactive {
       switch (command) {
         case 'exit':
           rl.close();
-          process.stdin.destroy();
+          (<any>process.stdin).destroy();
           return;
         case 'match':
           let params = s.substring(commandEnd + 1);

@@ -33,14 +33,14 @@ export class Query<RecordType extends Record> {
           let outputRecord: OutputRecord;
           if (!outputFormat) {
             let outputRecord: OutputRecord;
-            if (this.recordFormatter) {
+            if (format && this.recordFormatter) {
               outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
             } else {
               outputRecord = inputRecord;
             }
-            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord, this.sources.primaryReferences);
+            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord);
           }
-          if (this.recordFormatter) {
+          if (format && this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(inputRecord);
           } else {
             outputRecord = inputRecord;
