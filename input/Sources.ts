@@ -43,7 +43,7 @@ export class Sources {
   }
 
   getReference(ref: number, refIndex: number) {
-    let reference: any;
+    let reference: string;
     switch (ref) {
       case 93:
         reference = this.newspapersAndFootnotes[refIndex];
