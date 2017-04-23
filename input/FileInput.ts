@@ -17,10 +17,10 @@ export class FileInput implements Input<InputRecord> {
   }
 
   open(dataFile: string, whenDone: Function) {
+    this.logger.logVerbose(`\nOpening file ${dataFile}`);
     fs.open(dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
-      this.logger.logVerbose(`\nReading file ${dataFile}`);
       if (err) {
-        return;
+        return err;
       }
       this.fd = fd;
 

@@ -17,7 +17,7 @@ export class UdbController {
       });
     });
     $scope.$applyAsync(() => {
-      udbService.load('./U.RND');
+      udbService.load('./usources.txt', './U.RND');
     });
   }
 
