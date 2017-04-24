@@ -5,6 +5,10 @@ This is a [node](https://nodejs.org) application to read binary data file of the
 As this database software can only run on old MS-DOS platforms and its maintenance has been discontinued, 
 it is important to allow users to access its data from modern platforms.
 
+## Demo
+
+A simple [form is available online](http://rr0.org/udb) to query the database using uDb.
+
 ## Setup
 
 1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
