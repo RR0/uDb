@@ -21,6 +21,16 @@ export class UdbController {
     });
   }
 
+  timeLink(year) {
+    const milenium = Math.floor(year / 1000);
+    const centuries = year % 1000;
+    const century = Math.floor(centuries / 100);
+    const decades = centuries % 100;
+    const decade = Math.floor(decades / 10);
+    const y = decades % 10;
+    return `/time/${milenium}/${century}/${decade}/${y}`;
+  }
+
   search() {
     this.matchResults = this.udbService.match(this.matchCriteria).records;
   }

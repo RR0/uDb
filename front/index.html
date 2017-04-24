@@ -64,12 +64,15 @@
       <tbody>
       <tr ng-repeat="record in udbCtrl.matchResults">
         <td ng-repeat="(prop,value) in record">
-          <!-- span ng-switch="prop">
-            <span ng-switch-when="location">
+          <span ng-switch="prop">
+            <!--span ng-switch-when="location">
               <span class="place">{{::record[prop]}}</span>
+            </span-->
+            <span ng-switch-when="year">
+              <a href="{{::udbCtrl.timeLink(record[prop])}}" ng-bind-html="record[prop]"></a>
             </span>
-            <span ng-switch-default-->{{::record[prop]}}<!--/span>
-          </span-->
+            <span ng-switch-default>{{::record[prop]}}</span>
+          </span>
         </td>
       </tr>
       </tbody>
