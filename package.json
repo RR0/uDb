@@ -29,6 +29,7 @@
   "homepage": "https://github.com/RR0/uDb#readme",
   "dependencies": {
     "angular": "^1.6.4",
+    "bops": "^1.0.0",
     "commander": "^2.9.0",
     "json2xml": "^0.1.3"
   },
