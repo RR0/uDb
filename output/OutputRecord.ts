@@ -24,7 +24,7 @@ export interface OutputRecord {
   elevation: string | number;
   latitude: number;
   longitude: number;
-  ref: number;
+  ref: string;
   strangeness: number;
   credibility: number;
   refIndex: number;

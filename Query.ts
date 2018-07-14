@@ -36,14 +36,14 @@ export class Query<RecordType extends Record> {
             if (format && this.recordFormatter) {
               outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
             } else {
-              outputRecord = inputRecord;
+              outputRecord = <any>inputRecord;
             }
             outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord);
           }
           if (format && this.recordFormatter) {
-            outputRecord = this.recordFormatter.formatData(inputRecord);
+            outputRecord = this.recordFormatter.formatData(<any>inputRecord);
           } else {
-            outputRecord = inputRecord;
+            outputRecord = <any>inputRecord;
           }
           outputFormat.write(outputRecord);
           count++;

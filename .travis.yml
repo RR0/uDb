@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+- '7.6.0'
+before_install:
+- npm install -g typescript@1.0
+install:
+- npm install
+script:
+- npm test

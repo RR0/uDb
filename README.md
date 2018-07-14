@@ -1,6 +1,8 @@
 # \*U* UFO database reader
+[![Maintainability](https://api.codeclimate.com/v1/badges/d48d9f57750c19176c54/maintainability)](https://codeclimate.com/github/RR0/uDb/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d48d9f57750c19176c54/test_coverage)](https://codeclimate.com/github/RR0/uDb/test_coverage)
 
-This is a [node](https://nodejs.org) application to read binary data file of the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
+This is a [node](https://nodejs.org) application to read binary data file of the [\*U* UFO database](http://web.archive.orsg/web/20060701162044/http://www.larryhatch.net/).
 
 As this database software can only run on old MS-DOS platforms and its maintenance has been discontinued, 
 it is important to allow users to access its data from modern platforms.
