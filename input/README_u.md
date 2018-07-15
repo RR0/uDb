@@ -107,7 +107,7 @@ WINDOWS 95/98/ME users:
  This menu now has the options formerly in separate programs UFIX.EXE
  and UCF.EXE.   Specifically:
 
-   Option [1]  ABOUT the *U* Database:  Gives address and telephone
+   Option [1]  ABOUT the *U* UdbDatabase:  Gives address and telephone
    for sales and assistance.
 
    Option [2]  MARK BAD COORDINATES is new.   This routine searches for

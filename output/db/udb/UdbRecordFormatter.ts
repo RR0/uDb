@@ -1,15 +1,16 @@
-import {Util} from "../util";
-import {Geo} from "../geo";
-import {Time} from "../time";
-import {Flags} from "../flags";
-import {InputRecord} from "../input/InputRecord";
-import {OutputRecord} from "./OutputRecord";
-import {Sources} from "../input/Sources";
+import {Util} from "../../../util";
+import {Geo} from "../../../geo";
+import {Time} from "../../../time";
+import {Flags} from "../../../flags";
+import {InputRecord} from "../../../input/InputRecord";
+import {OutputRecord} from "../../OutputRecord";
+import {Sources} from "../../../input/Sources";
+import {RecordFormatter} from "../RecordFormatter";
 
 /**
  * Formats input records as output records.
  */
-export class RecordFormatter {
+export class UdbRecordFormatter implements RecordFormatter {
 
   static flagsKeysStr(flagsByte, flagsLabels) {
     let flagsStr = '';
@@ -71,14 +72,14 @@ export class RecordFormatter {
     record.time = Time.getTime(record);
     record.elevation = Geo.getElevation(record);
     record.relativeAltitude = Geo.getRelativeAltitude(record);
-    record.locationFlags = RecordFormatter.flagsKeysStr(record.locationFlags, Flags.locationFlagsLabels);
-    record.miscellaneousFlags = RecordFormatter.flagsKeysStr(record.miscellaneousFlags, Flags.miscellaneousFlagsLabels);
-    record.typeOfUfoCraftFlags = RecordFormatter.flagsKeysStr(record.typeOfUfoCraftFlags, Flags.typeOfUfoCraftFlagsLabels);
-    record.aliensMonstersFlags = RecordFormatter.flagsKeysStr(record.aliensMonstersFlags, Flags.aliensMonstersLabels);
-    record.apparentUfoOccupantActivitiesFlags = RecordFormatter.flagsKeysStr(record.apparentUfoOccupantActivitiesFlags, Flags.apparentUfoOccupantActivitiesLabels);
-    record.placesVisitedAndThingsAffectedFlags = RecordFormatter.flagsKeysStr(record.placesVisitedAndThingsAffectedFlags, Flags.placesVisitedAndThingsAffectedLabels);
-    record.evidenceAndSpecialEffectsFlags = RecordFormatter.flagsKeysStr(record.evidenceAndSpecialEffectsFlags, Flags.evidenceAndSpecialEffectsLabels);
-    record.miscellaneousDetailsFlags = RecordFormatter.flagsKeysStr(record.miscellaneousDetailsFlags, Flags.miscellaneousDetailsLabels);
+    record.locationFlags = UdbRecordFormatter.flagsKeysStr(record.locationFlags, Flags.locationFlagsLabels);
+    record.miscellaneousFlags = UdbRecordFormatter.flagsKeysStr(record.miscellaneousFlags, Flags.miscellaneousFlagsLabels);
+    record.typeOfUfoCraftFlags = UdbRecordFormatter.flagsKeysStr(record.typeOfUfoCraftFlags, Flags.typeOfUfoCraftFlagsLabels);
+    record.aliensMonstersFlags = UdbRecordFormatter.flagsKeysStr(record.aliensMonstersFlags, Flags.aliensMonstersLabels);
+    record.apparentUfoOccupantActivitiesFlags = UdbRecordFormatter.flagsKeysStr(record.apparentUfoOccupantActivitiesFlags, Flags.apparentUfoOccupantActivitiesLabels);
+    record.placesVisitedAndThingsAffectedFlags = UdbRecordFormatter.flagsKeysStr(record.placesVisitedAndThingsAffectedFlags, Flags.placesVisitedAndThingsAffectedLabels);
+    record.evidenceAndSpecialEffectsFlags = UdbRecordFormatter.flagsKeysStr(record.evidenceAndSpecialEffectsFlags, Flags.evidenceAndSpecialEffectsLabels);
+    record.miscellaneousDetailsFlags = UdbRecordFormatter.flagsKeysStr(record.miscellaneousDetailsFlags, Flags.miscellaneousDetailsLabels);
     record.ref = this.sources.getReference(rec.ref, record.refIndex);
     delete record.refIndex;
     return record;

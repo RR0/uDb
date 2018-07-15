@@ -1,4 +1,4 @@
->> USOURCES.DOC :  Numbered *U* Database sources as of January, 2003.
+>> USOURCES.DOC :  Numbered *U* UdbDatabase sources as of January, 2003.
 >> OK to COPY but DO NOT CHANGE this file, *U* uses it in a special format.
 
 >> *U* PRIMARY REFERENCES:  ( in no particular order. )

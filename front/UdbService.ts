@@ -1,7 +1,7 @@
 import {Sources} from "../input/Sources";
 import {Logger} from "../Logger";
 import {Memory} from "../output/Memory";
-import {RecordFormatter} from "../output/RecordFormatter";
+import {UdbRecordFormatter} from "../output/db/udb/UdbRecordFormatter";
 import {Query} from "../Query";
 import {WebFileInput} from "./WebFileInput";
 
@@ -62,7 +62,7 @@ export class UdbService {
   constructor(private logger: Logger, private webFileInput: WebFileInput, private $http, private webReadLine: WebReadLine) {
     this.memory = new Memory();
     this.sources = new Sources();
-    this.recordFormatter = new RecordFormatter(this.sources);
+    this.recordFormatter = new UdbRecordFormatter(this.sources);
   }
 
   load(sourcesFilename: string, dataFilename: string) {
@@ -92,14 +92,14 @@ export class UdbService {
     const firstIndex = 1;
     this.logger.logVerbose(`\nReading cases from #${firstIndex}:`);
     this.webFileInput.open(dataFilename, () => {
-      new Query(this.webFileInput, this.memory, this.logger, this.recordFormatter, 'memory', this.sources)
+      new Query(this.webFileInput, this.memory, this.logger, this.recordFormatter, 'memory')
         .execute(undefined, firstIndex, this.maxCount);
     });
   }
 
   match(matchCriteria) {
     let results = new Memory();
-    new Query(this.memory, results, this.logger, null, this.format, this.sources)
+    new Query(this.memory, results, this.logger, null, this.format)
       .execute(matchCriteria, this.firstIndex, this.maxCount, false, false);
     return results;
   }

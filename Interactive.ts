@@ -2,7 +2,6 @@ import * as readline from "readline";
 import {Logger} from "./Logger";
 import {Query} from "./Query";
 import {Memory} from "./output/Memory";
-import {Sources} from "./input/Sources";
 import {Output} from "./output/RecordOutput";
 import {OutputFactory} from "./output/OutputFactory";
 
@@ -11,12 +10,12 @@ export class Interactive {
   private maxCount: number = 1000000;
   private output: Output;
 
-  constructor(private memory: Memory, private sources: Sources, private logger: Logger) {
+  constructor(private memory: Memory, private logger: Logger) {
     this.output = OutputFactory.getOutput();
   }
 
   match(matchCriteria) {
-    new Query(this.memory, this.output, this.logger, null, 'default', this.sources)
+    new Query(this.memory, this.output, this.logger, null, 'default')
       .execute(matchCriteria, this.firstIndex, this.maxCount, false);
   }
 

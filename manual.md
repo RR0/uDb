@@ -67,7 +67,7 @@ in ANY COMBINATION, to any degree of complexity.
 > See README.DOC for possible changes in installation procedure.
 
 1)  DO you already have a subdirectory  C:\UFO?   IF SO, the *U*
-Database files will go right in there with any previous files.
+UdbDatabase files will go right in there with any previous files.
 IF NOT, the installation diskette will automatically create the
 new folder C:\UFO.  Program, data etc. will all go there.
 
@@ -779,7 +779,7 @@ There are TWO ways to set Search Limits:  INCLUSIVE and EXCLUSIVE.
 INCLUSIVE limits will Map, Display, List or otherwise crunch data for
 records that MEET ALL SEARCH LIMIT requirements.  (Default = INCLUSIVE)
 
-Press [Esc] right away to set NO limits, i.e. the Entire Database.
+Press [Esc] right away to set NO limits, i.e. the Entire UdbDatabase.
 
 EXCLUSIVE limits will REJECT records that meet ALL Search Limit
 Requirements, and PASS ALL OTHER RECORDS!
@@ -1367,7 +1367,7 @@ Press the [U] key from main menu to access this Utilities Menu.
 
 EXIT to Main Menu .. press [Esc] or [0] key.
 
-ABOUT the *U* Database  ..  press [1].
+ABOUT the *U* UdbDatabase  ..  press [1].
 
 Contact information for Larry Hatch Software.
 
@@ -1472,7 +1472,7 @@ PROPER CREDITS with NAME and ADDRESS are clearly shown so that viewers may
 obtain their own legal copies.
 
 There are no "Terminate and Stay Resident" (TSR) programs, oddball device 
-drivers or other troublesome gimmicks in the *U* Database once properly 
+drivers or other troublesome gimmicks in the *U* UdbDatabase once properly 
 installed.  *U* lives in your C:\UFO subdirectory, and does not alter files 
 in this or other directories.
 

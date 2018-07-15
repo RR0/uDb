@@ -1,21 +1,20 @@
 import {Input} from "./input/Input";
-import {Sources} from "./input/Sources";
 import {Logger} from "./Logger";
 import {MatchError, RecordMatcher} from "./match";
-import {RecordFormatter} from "./output/RecordFormatter";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
 import {Record} from "./RecordReader";
 import {Util} from "./util";
 import {RecordEnumerator} from "./input/RecordEnumerator";
+import {RecordFormatter} from "./output/db/RecordFormatter";
 
 /**
  * Query input using criteria
  */
 export class Query<RecordType extends Record> {
   constructor(private input: Input<RecordType>, private output: Output, private logger: Logger,
-              private recordFormatter: RecordFormatter, private format: string, private sources: Sources) {
+              private recordFormatter: RecordFormatter, private format: string) {
   }
 
   execute(matchCriteria: string, firstIndex: number, maxCount: number, format:boolean = true, allowEmpty: boolean = true) {
