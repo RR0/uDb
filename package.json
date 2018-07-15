@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "mocha",
     "cli": "node build/udb",
-    "web": "./node_modules/.bin/webpack --config ./front/webpack.config.js && cp ./front/index.html ./build/front && cp ./input/data/U.RND ./build/front/U.RND"
+    "web": "./node_modules/.bin/webpack --config ./front/webpack.config.js && cp ./front/index.html ./build/front && cp ./input/data/udb/U.RND ./build/front/U.RND"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ import {Geo} from "../../../geo";
 import {Time} from "../../../time";
 import {Flags} from "../../../flags";
 import {InputRecord} from "../../../input/InputRecord";
-import {OutputRecord} from "../../OutputRecord";
+import {UdbOutputRecord} from "./UdbOutputRecord";
 import {Sources} from "../../../input/Sources";
 import {RecordFormatter} from "../RecordFormatter";
 
@@ -27,7 +27,7 @@ export class UdbRecordFormatter implements RecordFormatter {
 
   constructor(private sources: Sources) {}
 
-  formatProperties(record: InputRecord): OutputRecord {
+  formatProperties(record: InputRecord): UdbOutputRecord {
     delete record.unknownMonth;
     delete record.unknownLocale;
     delete record.refIndexHigh;
@@ -40,7 +40,7 @@ export class UdbRecordFormatter implements RecordFormatter {
     delete record.refIndex;
 
     let expectedKeysOrder = ['id', 'year', 'month', 'day', 'time', 'location', 'stateOrProvince', 'country', 'continent', 'title', 'description', 'locale', 'duration',];
-    let sortedRecord: OutputRecord = <OutputRecord>Util.sortProps(record, (prop1, prop2) => {
+    let sortedRecord: UdbOutputRecord = <UdbOutputRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;
       let index2 = expectedKeysOrder.indexOf(prop2);
@@ -52,8 +52,8 @@ export class UdbRecordFormatter implements RecordFormatter {
     return sortedRecord;
   }
 
-  formatData(rec: InputRecord): OutputRecord {
-    const record: OutputRecord = <OutputRecord>Util.copy(rec);
+  formatData(rec: InputRecord): UdbOutputRecord {
+    const record: UdbOutputRecord = <UdbOutputRecord>Util.copy(rec);
     let continent = Geo.getContinent(rec.continentCode);
     if (continent) {
       record.continent = continent.name;

@@ -1,10 +1,9 @@
 import {CsvRecordOutput} from "./CsvRecordOutput";
-import {DefaultRecordOutput} from "./DefaultRecordOutput";
+import {DefaultRecordOutput} from "./db/udb/DefaultRecordOutput";
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./OutputRecord";
 import {XmlRecordOutput} from "./XmlRecordOutput";
-import WritableStream = NodeJS.WritableStream;
 import {MemoryRecordOutput} from "./MemoryRecordOutput";
+import {OutputRecord} from "./db/OutputRecord";
 
 export class OutputFormatFactory {
 

@@ -1,16 +1,15 @@
 import * as fs from "fs";
-import {Logger} from "../Logger";
-import {UdbRecordReader} from "./db/udb/UdbRecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";
 import {Database} from "./db/Database";
+import {RecordReader} from "./db/RecordReader";
 const bops = require("bops");
 
 export class FileInput implements Input<InputRecord> {
   filePos: number;
   buffer: Buffer;
   recordSize = 112;
-  private recordReader: UdbRecordReader;
+  private recordReader: RecordReader;
   fileSize: number;
   fd: number;
 

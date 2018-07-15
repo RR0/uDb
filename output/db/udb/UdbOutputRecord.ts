@@ -1,5 +1,6 @@
-export interface OutputRecord {
-  id: number;
+import {OutputRecord} from "../OutputRecord";
+
+export interface UdbOutputRecord extends OutputRecord {
   year: string | number;
   month: string | number;
   day: string | number;

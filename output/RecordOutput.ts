@@ -1,4 +1,4 @@
-import {OutputRecord} from "./OutputRecord";
+import {OutputRecord} from "./db/OutputRecord";
 
 export interface Output {
   write(object: any);

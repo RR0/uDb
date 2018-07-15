@@ -1,6 +1,5 @@
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./OutputRecord";
-import WritableStream = NodeJS.WritableStream;
+import {OutputRecord} from "./db/OutputRecord";
 
 export class MemoryRecordOutput implements RecordOutput {
 

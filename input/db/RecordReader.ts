@@ -11,30 +11,42 @@ export interface Record {
  */
 export abstract class RecordReader {
   private _filePos: number;
-  private recordPos: number;
+  private _recordPos: number;
   private _recordHex: string;
-  private record: InputRecord;
+  private _record: InputRecord;
   private unknownOnly: boolean = true;
 
-  constructor(private buffer, private _logger: Logger) {
+  constructor(private _buffer, private _logger: Logger) {
   }
 
-  get logger() {
+  protected get record(): InputRecord {
+    return this._record;
+  }
+
+  protected get logger() {
     return this._logger;
   }
 
-  get filePos() {
+  protected get recordPos(): number {
+    return this._recordPos;
+  }
+
+  protected get buffer() {
+    return this._buffer;
+  }
+
+  protected get filePos() {
     return this._filePos;
   }
 
-  get recordHex() {
+  protected get recordHex() {
     return this._recordHex;
   }
 
   readed(l: number) {
-    let max = this.recordPos + l;
-    for (; this.recordPos < max; ++this.recordPos) {
-      let value = this.buffer[this.recordPos];
+    let max = this._recordPos + l;
+    for (; this._recordPos < max; ++this._recordPos) {
+      let value = this._buffer[this._recordPos];
       this._recordHex += value < 0x10 ? '0' : '';
       this._recordHex += value.toString(16) + ' ';
     }
@@ -42,8 +54,8 @@ export abstract class RecordReader {
 
   logReadPos(prop: string) {
     if (!this.unknownOnly || prop.startsWith('unknown')) {
-      let pos = this._filePos + this.recordPos;
-      let value = this.record[prop];
+      let pos = this._filePos + this._recordPos;
+      let value = this._record[prop];
       if (typeof value === 'string') {
         value = `'${value}'`;
       } else {
@@ -56,27 +68,27 @@ export abstract class RecordReader {
 
   readString(length: number, prop: string) {
     let str = '';
-    for (let i = this.recordPos; i < this.recordPos + length; i++) {
-      str += String.fromCharCode(this.buffer[i]);
+    for (let i = this._recordPos; i < this._recordPos + length; i++) {
+      str += String.fromCharCode(this._buffer[i]);
     }
-    this.record[prop] = RecordReader.validString(Util.trimZeroEnd(str)).trim();
+    this._record[prop] = RecordReader.validString(Util.trimZeroEnd(str)).trim();
     this.logReadPos(prop);
     this.readed(length);
     return str;
   }
 
   readByte(prop: string) {
-    const byte = this.buffer[this.recordPos];
-    this.record[prop] = byte;
+    const byte = this._buffer[this._recordPos];
+    this._record[prop] = byte;
     this.logReadPos(prop);
     this.readed(1);
     return byte;
   }
 
   readByteBits(prop1: string, size: number, prop2: string) {
-    const byte = this.buffer[this.recordPos];
-    this.record[prop1] = byte >> size;
-    this.record[prop2] = byte & ((1 << size) - 1);
+    const byte = this._buffer[this._recordPos];
+    this._record[prop1] = byte >> size;
+    this._record[prop2] = byte & ((1 << size) - 1);
     this.logReadPos(prop1);
     this.logReadPos(prop2);
     this.readed(1);
@@ -99,22 +111,10 @@ export abstract class RecordReader {
   }
 
   readSignedInt(prop: string) {
-    let sInt = RecordReader.readInt16LE(this.buffer, this.recordPos);
-    this.record[prop] = sInt;
+    let sInt = RecordReader.readInt16LE(this._buffer, this._recordPos);
+    this._record[prop] = sInt;
     this.logReadPos(prop);
     this.readed(2);
-    return sInt;
-  }
-
-  readLatLong(prop) {
-    let firstByte = this.buffer[this.recordPos + 1];
-    let extraBit = firstByte >> 7;
-    this._logger.logDebug('extrabit=' + extraBit);
-    let sInt = this.readSignedInt(prop);
-    sInt = (sInt >> 1);
-    sInt = sInt / 100;
-    // logDebug('orig=' + sInt);
-    this.record[prop] = sInt * 1.11111111111;
     return sInt;
   }
 
@@ -124,9 +124,9 @@ export abstract class RecordReader {
   }
 
   read(filePos: number): InputRecord {
-    const record: InputRecord = this.record = <InputRecord>{};
+    const record: InputRecord = this._record = <InputRecord>{};
     this._recordHex = '';
-    this.recordPos = 0;
+    this._recordPos = 0;
     this._filePos = filePos;
 
     return record;

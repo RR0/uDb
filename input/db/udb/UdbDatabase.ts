@@ -20,9 +20,9 @@ export class UdbDatabase implements Database {
   private sources: Sources;
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = program.dataFile || 'input/data/usources.txt';
-    this.dataFile = program.sourcesFile || 'input/data/U.RND';
-    this.worldMap = program.wmFile || 'input/data/WM.VCE';
+    this.sourcesFile = program.dataFile || 'input/data/udb/usources.txt';
+    this.dataFile = program.sourcesFile || 'input/data/udb/U.RND';
+    this.worldMap = program.wmFile || 'input/data/udb/WM.VCE';
   }
 
   get logger(): Logger {

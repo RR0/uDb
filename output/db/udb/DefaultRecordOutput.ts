@@ -1,6 +1,6 @@
-import {Geo} from "../geo";
-import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./OutputRecord";
+import {Geo} from "../../../geo";
+import {Output, RecordOutput} from "../../RecordOutput";
+import {UdbOutputRecord} from "./UdbOutputRecord";
 import WritableStream = NodeJS.WritableStream;
 
 let indent = 0;
@@ -16,7 +16,7 @@ export class DefaultRecordOutput implements RecordOutput {
   constructor(private output: Output) {
   }
 
-  desc(record: OutputRecord) {
+  desc(record: UdbOutputRecord) {
     const ref = record.ref ? record.ref : '';
 
     const month = record.month;
@@ -82,7 +82,7 @@ export class DefaultRecordOutput implements RecordOutput {
     return desc;
   }
 
-  write(record: OutputRecord) {
+  write(record: UdbOutputRecord) {
     this.output.write(line(this.desc(record)));
   }
 

@@ -1,6 +1,5 @@
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./OutputRecord";
-import WritableStream = NodeJS.WritableStream;
+import {OutputRecord} from "./db/OutputRecord";
 const json2xml = require('json2xml');
 
 export class XmlRecordOutput implements RecordOutput {
