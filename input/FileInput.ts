@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import {Logger} from "../Logger";
-import {RecordReader} from "../RecordReader";
+import {UdbRecordReader} from "./db/udb/UdbRecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";
 const bops = require("bops");
@@ -9,7 +9,7 @@ export class FileInput implements Input<InputRecord> {
   filePos: number;
   buffer: Buffer;
   recordSize = 112;
-  private recordReader: RecordReader;
+  private recordReader: UdbRecordReader;
   fileSize: number;
   fd: number;
 
@@ -28,7 +28,7 @@ export class FileInput implements Input<InputRecord> {
         this.fileSize = stats.size;
         // logDebug('File size=' + fileSize);
         this.buffer = bops.create(this.recordSize);
-        this.recordReader = new RecordReader(this.buffer, this.logger);
+        this.recordReader = new UdbRecordReader(this.buffer, this.logger);
 
         whenDone();
       });

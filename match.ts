@@ -1,5 +1,5 @@
 import {InputRecord} from "./input/InputRecord";
-import {Record} from "./RecordReader";
+import {Record} from "./input/db/RecordReader";
 
 abstract class CriterionMatcher {
   constructor(private type: string, protected prop: string, protected value: any) {

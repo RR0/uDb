@@ -1,14 +1,14 @@
 import {Input} from "../input/Input";
 import {InputRecord} from "../input/InputRecord";
 import {Logger} from "../Logger";
-import {RecordReader} from "../RecordReader";
+import {UdbRecordReader} from "../input/db/udb/UdbRecordReader";
 
 export class WebFileInput implements Input<InputRecord> {
   buffer: Uint8Array;
   fileData: ArrayBuffer;
   filePos: number = 0;
   recordSize = 112;
-  private recordReader: RecordReader;
+  private recordReader: UdbRecordReader;
   fileSize: number;
 
   /*@ngInject*/
@@ -21,7 +21,7 @@ export class WebFileInput implements Input<InputRecord> {
       this.fileSize = this.fileData.byteLength;
       // logDebug('File size=' + fileSize);
       this.buffer = new Uint8Array(this.fileData, this.filePos, this.recordSize);
-      this.recordReader = new RecordReader(this.buffer, this.logger);
+      this.recordReader = new UdbRecordReader(this.buffer, this.logger);
 
       whenDone();
     });

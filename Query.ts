@@ -4,7 +4,7 @@ import {MatchError, RecordMatcher} from "./match";
 import {OutputFormatFactory} from "./output/OutputFormatFactory";
 import {OutputRecord} from "./output/OutputRecord";
 import {Output, RecordOutput} from "./output/RecordOutput";
-import {Record} from "./RecordReader";
+import {Record} from "./input/db/RecordReader";
 import {Util} from "./util";
 import {RecordEnumerator} from "./input/RecordEnumerator";
 import {RecordFormatter} from "./output/db/RecordFormatter";

@@ -1,5 +1,5 @@
 import {Input} from "./Input";
-import {Record} from "../RecordReader";
+import {Record} from "./db/RecordReader";
 
 export class RecordEnumerator<RecordType extends Record> {
 
