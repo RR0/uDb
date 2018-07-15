@@ -3,6 +3,7 @@ import {Logger} from "../Logger";
 import {UdbRecordReader} from "./db/udb/UdbRecordReader";
 import {Input} from "./Input";
 import {InputRecord} from "./InputRecord";
+import {Database} from "./db/Database";
 const bops = require("bops");
 
 export class FileInput implements Input<InputRecord> {
@@ -13,11 +14,11 @@ export class FileInput implements Input<InputRecord> {
   fileSize: number;
   fd: number;
 
-  constructor(private logger: Logger) {
+  constructor(private db: Database) {
   }
 
   open(dataFile: string, whenDone: Function) {
-    this.logger.logVerbose(`\nOpening file ${dataFile}`);
+    this.db.logger.logVerbose(`\nOpening file ${dataFile}`);
     fs.open(dataFile, 'r', (err: NodeJS.ErrnoException, fd: number) => {
       if (err) {
         return err;
@@ -28,7 +29,7 @@ export class FileInput implements Input<InputRecord> {
         this.fileSize = stats.size;
         // logDebug('File size=' + fileSize);
         this.buffer = bops.create(this.recordSize);
-        this.recordReader = new UdbRecordReader(this.buffer, this.logger);
+        this.recordReader = this.db.recordReader(this.buffer);
 
         whenDone();
       });
