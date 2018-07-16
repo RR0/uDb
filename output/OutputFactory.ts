@@ -1,4 +1,3 @@
-import WritableStream = NodeJS.WritableStream;
 import {Memory} from "./Memory";
 import {Output} from "./RecordOutput";
 

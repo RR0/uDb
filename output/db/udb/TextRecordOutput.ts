@@ -11,7 +11,7 @@ function line(str?) {
   return lineStr + (str ? str : '') + '\n';
 }
 
-export class DefaultRecordOutput implements RecordOutput {
+export class TextRecordOutput implements RecordOutput {
 
   constructor(private output: Output) {
   }

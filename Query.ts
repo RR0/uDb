@@ -1,7 +1,7 @@
 import {Input} from "./input/Input";
 import {Logger} from "./Logger";
 import {MatchError, RecordMatcher} from "./match";
-import {OutputFormatFactory} from "./output/OutputFormatFactory";
+import {OutputFormat, RecordOutputFactory} from "./output/RecordOutputFactory";
 import {Output, RecordOutput} from "./output/RecordOutput";
 import {Record} from "./input/db/RecordReader";
 import {Util} from "./util";
@@ -23,36 +23,37 @@ export class Query<RecordType extends Record> {
     const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
     try {
       const recordMatcher = new RecordMatcher<RecordType>(matchCriteria, allowEmpty);
-      let outputFormat: RecordOutput;
+      let recordOutput: RecordOutput;
 
       let count = 0;
       while (recordEnumerator.hasNext() && count < maxCount) {
         const inputRecord: RecordType = recordEnumerator.next();
         if (recordMatcher.matches(inputRecord)) {
           let outputRecord: OutputRecord;
-          if (!outputFormat) {
+          if (!recordOutput) {
             let outputRecord: OutputRecord;
             if (format && this.recordFormatter) {
               outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
             } else {
               outputRecord = <any>inputRecord;
             }
-            outputFormat = OutputFormatFactory.getOutputFormat(this.format, this.output, outputRecord);
+            let outputFormat = OutputFormat[this.format.toLocaleLowerCase()];
+            recordOutput = RecordOutputFactory.getRecordOutput(outputFormat, this.output, outputRecord);
           }
           if (format && this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(<any>inputRecord);
           } else {
             outputRecord = <any>inputRecord;
           }
-          outputFormat.write(outputRecord);
-          count++;
+          recordOutput.write(outputRecord);
+          count++ ;
           this.logger.flush();
         } else {
           this.logger.reset();
         }
       }
-      if (outputFormat) {
-        outputFormat.end();
+      if (recordOutput) {
+        recordOutput.end();
       }
       const processingDuration = Date.now() - processingStart;
       this.logger.autoFlush = true;
