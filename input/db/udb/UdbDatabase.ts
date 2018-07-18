@@ -3,9 +3,9 @@ import {FileInput} from "../../FileInput";
 let readline = require('readline');
 
 import {Logger} from "../../../Logger";
-import {WorldMap} from "../../WorldMap";
+import {WorldMap} from "./WorldMap";
 import * as fs from "fs";
-import {Sources} from "../../Sources";
+import {Sources} from "./Sources";
 import {UdbRecordFormatter} from "../../../output/db/udb/UdbRecordFormatter";
 import {RecordFormatter} from "../../../output/db/RecordFormatter";
 import {Database} from "../Database";
@@ -20,9 +20,9 @@ export class UdbDatabase implements Database {
   private sources: Sources;
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = program.dataFile || 'input/data/udb/usources.txt';
-    this.dataFile = program.sourcesFile || 'input/data/udb/U.RND';
-    this.worldMap = program.wmFile || 'input/data/udb/WM.VCE';
+    this.sourcesFile = program.dataFile || 'input/db/udb/data/usources.txt';
+    this.dataFile = program.sourcesFile || 'input/db/udb/data/U.RND';
+    this.worldMap = program.wmFile || 'input/db/udb/data/WM.VCE';
   }
 
   get logger(): Logger {
@@ -50,9 +50,13 @@ export class UdbDatabase implements Database {
 
         const input: FileInput = new FileInput(this);
 
-        input.open(this.dataFile, () => {
-          resolve(input);
-        });
+        input.open(this.dataFile)
+          .then(() => {
+            resolve(input);
+          })
+          .catch(err => {
+            reject(err);
+          });
       });
     });
   }

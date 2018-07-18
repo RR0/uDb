@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {Logger} from "../Logger";
+import {Logger} from "../../../Logger";
 
 export class WorldMap {
 

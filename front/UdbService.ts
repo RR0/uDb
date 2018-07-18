@@ -1,4 +1,4 @@
-import {Sources} from "../input/Sources";
+import {Sources} from "../input/db/udb/Sources";
 import {Logger} from "../Logger";
 import {Memory} from "../output/Memory";
 import {UdbRecordFormatter} from "../output/db/udb/UdbRecordFormatter";
