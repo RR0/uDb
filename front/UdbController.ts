@@ -9,7 +9,7 @@ export class UdbController {
   /*@ngInject*/
   constructor($scope, private udbService, logger: Logger) {
     this.matchCriteria = '';
-    logger.subscribe(msg => {
+    logger.onLog(msg => {
       $scope.$applyAsync(() => {
         console.log(msg);
         msg = msg.replace(/\n/g, '<br/>');
