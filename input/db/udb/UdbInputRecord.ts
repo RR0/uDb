@@ -1,6 +1,6 @@
-export interface InputRecord {
-  id: number;
+import { Record } from '../RecordReader';
 
+export interface UdbInputRecord extends Record {
   /**
    * Signed int
    */

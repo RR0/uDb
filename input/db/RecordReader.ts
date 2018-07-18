@@ -1,4 +1,3 @@
-import {InputRecord} from "../InputRecord";
 import {Logger} from "../../Logger";
 import {Util} from "../../util";
 
@@ -13,13 +12,13 @@ export abstract class RecordReader {
   private _filePos: number;
   private _recordPos: number;
   private _recordHex: string;
-  private _record: InputRecord;
+  private _record: Record;
   private unknownOnly: boolean = true;
 
   constructor(private _buffer, private _logger: Logger) {
   }
 
-  protected get record(): InputRecord {
+  protected get record(): Record {
     return this._record;
   }
 
@@ -123,8 +122,8 @@ export abstract class RecordReader {
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
 
-  read(filePos: number): InputRecord {
-    const record: InputRecord = this._record = <InputRecord>{};
+  read(filePos: number): Record {
+    const record: Record = this._record = <Record>{};
     this._recordHex = '';
     this._recordPos = 0;
     this._filePos = filePos;

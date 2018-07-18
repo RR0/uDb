@@ -1,23 +1,23 @@
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./db/OutputRecord";
+import {Record} from "../input/db/RecordReader";
 const json2xml = require('json2xml');
 
 export class XmlRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private sortedRecord: OutputRecord) {
+  constructor(private output: Output, private sortedRecord: Record) {
     this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
   }
 
-  desc(record: OutputRecord) {
+  desc(record: Record) {
     return json2xml(record).toString();
   }
 
-  write(record: OutputRecord) {
-    const OutputRecord: OutputRecord = <OutputRecord>{};
+  write(record: Record) {
+    const Record: Record = <Record>{};
     for (let prop in this.sortedRecord) {
-      OutputRecord[prop] = record[prop];
+      Record[prop] = record[prop];
     }
-    this.output.write(`<record>${this.desc(OutputRecord)}</record>\n`);
+    this.output.write(`<record>${this.desc(Record)}</record>\n`);
   }
 
   end() {

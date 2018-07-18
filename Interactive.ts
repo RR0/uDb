@@ -11,7 +11,7 @@ export class Interactive {
   private output: Output;
 
   constructor(private memory: Memory, private logger: Logger) {
-    this.output = OutputFactory.getOutput();
+    this.output = OutputFactory.create();
   }
 
   match(matchCriteria) {

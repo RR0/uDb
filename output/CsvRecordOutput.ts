@@ -1,9 +1,9 @@
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./db/OutputRecord";
+import {Record} from "../input/db/RecordReader";
 
 export class CsvRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private sortedRecord: OutputRecord, private separator: string = ',') {
+  constructor(private output: Output, private sortedRecord: Record, private separator: string = ',') {
     const headerRecord = {};
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;
@@ -34,7 +34,7 @@ export class CsvRecordOutput implements RecordOutput {
     return Object.keys(this.sortedRecord);
   }
 
-  write(record: OutputRecord) {
+  write(record: Record) {
     this.output.write(this.desc(record) + '\n');
   }
 

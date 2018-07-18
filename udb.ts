@@ -31,7 +31,7 @@ const matchCriteria = program.match;
 const db: Database = new UdbDatabase('uDB', logger, program);
 
 const format = program.format || 'default';
-let output: Output = OutputFactory.getOutput(program.out);
+let output: Output = OutputFactory.create(program.out);
 
 db.init().then(input => {
   const firstIndex = 1;

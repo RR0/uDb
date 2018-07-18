@@ -1,4 +1,4 @@
-import {InputRecord} from "../../InputRecord";
+import {UdbInputRecord} from "./UdbInputRecord";
 import {Logger} from "../../../Logger";
 import {RecordReader} from "../RecordReader";
 
@@ -23,8 +23,8 @@ export class UdbRecordReader extends RecordReader {
     return sInt;
   }
 
-  read(filePos: number): InputRecord {
-    const record = super.read(filePos);
+  read(filePos: number): UdbInputRecord {
+    const record = <UdbInputRecord>super.read(filePos);
 
     this.readSignedInt('year');
     this.readNibbles('unknownLocale', 'locale');

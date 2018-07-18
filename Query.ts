@@ -7,31 +7,30 @@ import {Record} from "./input/db/RecordReader";
 import {Util} from "./util";
 import {RecordEnumerator} from "./input/RecordEnumerator";
 import {RecordFormatter} from "./output/db/RecordFormatter";
-import {OutputRecord} from "./output/db/OutputRecord";
 
 /**
  * Query input using criteria
  */
-export class Query<RecordType extends Record> {
-  constructor(private input: Input<RecordType>, private output: Output, private logger: Logger,
+export class Query {
+  constructor(private input: Input, private output: Output, private logger: Logger,
               private recordFormatter: RecordFormatter, private format: string) {
   }
 
   execute(matchCriteria: string, firstIndex: number, maxCount: number, format:boolean = true, allowEmpty: boolean = true) {
     this.logger.logVerbose(`Querying...`);
     const processingStart = Date.now();
-    const recordEnumerator: RecordEnumerator<RecordType> = new RecordEnumerator<RecordType>(this.input, firstIndex);
+    const recordEnumerator: RecordEnumerator = new RecordEnumerator(this.input, firstIndex);
     try {
-      const recordMatcher = new RecordMatcher<RecordType>(matchCriteria, allowEmpty);
+      const recordMatcher = new RecordMatcher(matchCriteria, allowEmpty);
       let recordOutput: RecordOutput;
 
       let count = 0;
       while (recordEnumerator.hasNext() && count < maxCount) {
-        const inputRecord: RecordType = recordEnumerator.next();
+        const inputRecord: Record = recordEnumerator.next();
         if (recordMatcher.matches(inputRecord)) {
-          let outputRecord: OutputRecord;
+          let outputRecord: Record;
           if (!recordOutput) {
-            let outputRecord: OutputRecord;
+            let outputRecord: Record;
             if (format && this.recordFormatter) {
               outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
             } else {

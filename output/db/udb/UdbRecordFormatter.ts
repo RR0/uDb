@@ -2,7 +2,7 @@ import {Util} from "../../../util";
 import {Geo} from "../../../geo";
 import {Time} from "../../../time";
 import {Flags} from "../../../flags";
-import {InputRecord} from "../../../input/InputRecord";
+import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord";
 import {UdbOutputRecord} from "./UdbOutputRecord";
 import {Sources} from "../../../input/Sources";
 import {RecordFormatter} from "../RecordFormatter";
@@ -27,7 +27,7 @@ export class UdbRecordFormatter implements RecordFormatter {
 
   constructor(private sources: Sources) {}
 
-  formatProperties(record: InputRecord): UdbOutputRecord {
+  formatProperties(record: UdbInputRecord): UdbOutputRecord {
     delete record.unknownMonth;
     delete record.unknownLocale;
     delete record.refIndexHigh;
@@ -52,7 +52,7 @@ export class UdbRecordFormatter implements RecordFormatter {
     return sortedRecord;
   }
 
-  formatData(rec: InputRecord): UdbOutputRecord {
+  formatData(rec: UdbInputRecord): UdbOutputRecord {
     const record: UdbOutputRecord = <UdbOutputRecord>Util.copy(rec);
     let continent = Geo.getContinent(rec.continentCode);
     if (continent) {

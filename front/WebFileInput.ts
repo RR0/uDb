@@ -1,9 +1,9 @@
 import {Input} from "../input/Input";
-import {InputRecord} from "../input/InputRecord";
 import {Logger} from "../Logger";
 import {UdbRecordReader} from "../input/db/udb/UdbRecordReader";
+import {Record} from "../input/db/RecordReader";
 
-export class WebFileInput implements Input<InputRecord> {
+export class WebFileInput implements Input {
   buffer: Uint8Array;
   fileData: ArrayBuffer;
   filePos: number = 0;
@@ -35,7 +35,7 @@ export class WebFileInput implements Input<InputRecord> {
     return this.filePos + (this.recordSize * 2) < this.fileSize;
   }
 
-  readRecord(recordIndex: number): InputRecord {
+  readRecord(recordIndex: number): Record {
     this.getBuffer();
     let inputRecord = this.recordReader.read(this.filePos);
     inputRecord.id = recordIndex;

@@ -1,5 +1,5 @@
 import {Output, RecordOutput} from "./RecordOutput";
-import {OutputRecord} from "./db/OutputRecord";
+import {Record} from "../input/db/RecordReader";
 
 export class MemoryRecordOutput implements RecordOutput {
 
@@ -7,7 +7,7 @@ export class MemoryRecordOutput implements RecordOutput {
   }
 
   desc(record) {
-    const sorted = <OutputRecord>{};
+    const sorted = <Record>{};
     for (let prop in this.sortedRecord) {
       sorted[prop] = record[prop];
     }
@@ -15,7 +15,7 @@ export class MemoryRecordOutput implements RecordOutput {
   }
 
 
-  write(record: OutputRecord) {
+  write(record: Record) {
     this.output.write(this.desc(record));
   }
 

@@ -1,9 +1,9 @@
 import {Input} from "./Input";
 import {Record} from "./db/RecordReader";
 
-export class RecordEnumerator<RecordType extends Record> {
+export class RecordEnumerator {
 
-  constructor(private input: Input<RecordType>, private recordIndex: number) {
+  constructor(private input: Input, private recordIndex: number) {
     this.input.goToRecord(this.recordIndex);
   }
 
@@ -13,7 +13,7 @@ export class RecordEnumerator<RecordType extends Record> {
 
   next() {
     this.input.goToRecord(this.recordIndex);
-    const inputRecord: RecordType = this.input.readRecord(this.recordIndex);
+    const inputRecord: Record = this.input.readRecord(this.recordIndex);
     this.recordIndex++;
     return inputRecord;
   }

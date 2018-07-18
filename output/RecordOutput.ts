@@ -1,10 +1,10 @@
-import {OutputRecord} from "./db/OutputRecord";
+import {Record} from "../input/db/RecordReader";
 
 export interface Output {
   write(object: any);
 }
 
 export interface RecordOutput {
-  write(record: OutputRecord);
+  write(record: Record);
   end();
 }

@@ -3,7 +3,7 @@ import {TextRecordOutput} from "./db/udb/TextRecordOutput";
 import {Output, RecordOutput} from "./RecordOutput";
 import {XmlRecordOutput} from "./XmlRecordOutput";
 import {MemoryRecordOutput} from "./MemoryRecordOutput";
-import {OutputRecord} from "./db/OutputRecord";
+import {Record} from "../input/db/RecordReader";
 
 export enum OutputFormat {
   xml,
@@ -12,7 +12,7 @@ export enum OutputFormat {
 }
 export class RecordOutputFactory {
 
-  static getRecordOutput(format: OutputFormat, output: Output, sortedRecord: OutputRecord): RecordOutput {
+  static getRecordOutput(format: OutputFormat, output: Output, sortedRecord: Record): RecordOutput {
     let recordOutput: RecordOutput;
     switch (format) {
       case OutputFormat.csv:

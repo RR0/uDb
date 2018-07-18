@@ -1,15 +1,14 @@
 import * as fs from "fs";
 import {Input} from "./Input";
-import {InputRecord} from "./InputRecord";
 import {Database} from "./db/Database";
-import {RecordReader} from "./db/RecordReader";
+import {Record, RecordReader} from "./db/RecordReader";
 const bops = require("bops");
 
-export class FileInput implements Input<InputRecord> {
+export class FileInput implements Input {
+  private recordReader: RecordReader;
   filePos: number;
   buffer: Buffer;
   recordSize = 112;
-  private recordReader: RecordReader;
   fileSize: number;
   fd: number;
 
@@ -43,7 +42,7 @@ export class FileInput implements Input<InputRecord> {
     return this.filePos + this.recordSize < this.fileSize;
   }
 
-  readRecord(recordIndex: number): InputRecord {
+  readRecord(recordIndex: number): Record {
     fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
     let inputRecord = this.recordReader.read(this.filePos);
     inputRecord.id = recordIndex;

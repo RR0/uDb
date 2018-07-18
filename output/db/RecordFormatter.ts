@@ -1,7 +1,6 @@
-import {UdbOutputRecord} from "./udb/UdbOutputRecord";
-import {InputRecord} from "../../input/InputRecord";
+import {Record} from "../../input/db/RecordReader";
 
 export interface RecordFormatter {
-  formatProperties(record: InputRecord): UdbOutputRecord;
-  formatData(rec: InputRecord): UdbOutputRecord;
+  formatProperties(record: Record): Record;
+  formatData(rec: Record): Record;
 }

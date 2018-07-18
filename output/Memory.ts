@@ -1,8 +1,8 @@
 import {Output} from "./RecordOutput";
 import {Input} from "../input/Input";
-import {UdbOutputRecord} from "./db/udb/UdbOutputRecord";
+import {Record} from "../input/db/RecordReader";
 
-export class Memory implements Input<UdbOutputRecord>, Output {
+export class Memory implements Input, Output {
   records = [];
   private recordIndex;
 
@@ -10,7 +10,7 @@ export class Memory implements Input<UdbOutputRecord>, Output {
     return this.recordIndex < this.records.length - 1;
   }
 
-  readRecord(): UdbOutputRecord {
+  readRecord(): Record {
     return this.records[this.recordIndex];
   }
 

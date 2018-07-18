@@ -5,7 +5,7 @@ import {FileOutput} from "./FileOutput";
 
 export class OutputFactory {
 
-  static getOutput(out?: string) {
+  static create(out?: string): Output {
     let output: Output = process.stdout;
     if (out) {
       if (out == 'memory') {

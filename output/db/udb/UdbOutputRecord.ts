@@ -1,6 +1,6 @@
-import {OutputRecord} from "../OutputRecord";
+import {Record} from "../../../input/db/RecordReader";
 
-export interface UdbOutputRecord extends OutputRecord {
+export interface UdbOutputRecord extends Record {
   year: string | number;
   month: string | number;
   day: string | number;

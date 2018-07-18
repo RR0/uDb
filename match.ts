@@ -1,4 +1,3 @@
-import {InputRecord} from "./input/InputRecord";
 import {Record} from "./input/db/RecordReader";
 
 abstract class CriterionMatcher {
@@ -9,14 +8,14 @@ abstract class CriterionMatcher {
     return this.type;
   }
 
-  abstract match(record: InputRecord): boolean;
+  abstract match(record: Record): boolean;
 }
 class EqualMatcher extends CriterionMatcher {
   constructor(type: string, prop: string, value: any) {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] == this.value;
   }
 }
@@ -25,7 +24,7 @@ class NotEqualMatcher extends CriterionMatcher {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] != this.value;
   }
 }
@@ -34,7 +33,7 @@ class AboveMatcher extends CriterionMatcher {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] > this.value;
   }
 }
@@ -43,7 +42,7 @@ class BelowMatcher extends CriterionMatcher {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] < this.value;
   }
 }
@@ -52,7 +51,7 @@ class BelowOrEqualMatcher extends CriterionMatcher {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] <= this.value;
   }
 }
@@ -61,7 +60,7 @@ class AboveOrEqualMatcher extends CriterionMatcher {
     super(type, prop, value);
   }
 
-  match(record: InputRecord): boolean {
+  match(record: Record): boolean {
     return record[this.prop] >= this.value;
   }
 }
@@ -80,7 +79,7 @@ export class MatchError extends Error {
     Object.setPrototypeOf(this, MatchError.prototype);
   }
 }
-export class RecordMatcher<RecordType extends Record> {
+export class RecordMatcher {
   private matchers = [];
 
   constructor(private criteria = '', private allowEmpty = true) {
@@ -109,7 +108,7 @@ export class RecordMatcher<RecordType extends Record> {
     }
   }
 
-  matches(record: RecordType) {
+  matches(record: Record) {
     let type;
     let result = true;
     for (let i = 0; i < this.matchers.length; ++i) {
