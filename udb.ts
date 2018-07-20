@@ -1,3 +1,5 @@
+import {DatabaseFactory} from "./input/db/DatabaseFactory";
+
 const program = require('commander');
 
 import {Interactive} from "./Interactive";
@@ -6,7 +8,6 @@ import {Memory} from "./output/Memory";
 import {OutputFactory} from "./output/OutputFactory";
 import {Output} from "./output/RecordOutput";
 import {Query} from "./Query";
-import {UdbDatabase} from "./input/db/udb/UdbDatabase";
 import {Database} from "./input/db/Database";
 
 program
@@ -33,7 +34,7 @@ logger.onError(msg => {
 const count = program.count;
 const matchCriteria = program.match;
 
-const db: Database = new UdbDatabase('uDB', logger, program);
+const db: Database = DatabaseFactory.create('udb', logger, program);
 
 const format = program.format || 'default';
 let output: Output = OutputFactory.create(program.out);
