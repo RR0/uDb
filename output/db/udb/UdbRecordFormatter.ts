@@ -1,10 +1,10 @@
 import {Util} from "../../../util";
-import {Geo} from "../../../geo";
-import {Time} from "../../../time";
-import {Flags} from "../../../flags";
+import {Geo} from "./geo";
+import {Time} from "./time";
+import {Flags} from "./flags";
 import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord";
 import {UdbOutputRecord} from "./UdbOutputRecord";
-import {Sources} from "../../../input/Sources";
+import {Sources} from "../../../input/db/udb/Sources";
 import {RecordFormatter} from "../RecordFormatter";
 
 /**

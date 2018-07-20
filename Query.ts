@@ -56,7 +56,7 @@ export class Query {
       }
       const processingDuration = Date.now() - processingStart;
       this.logger.autoFlush = true;
-      this.logger.logVerbose(`Found ${count} reports in ${(processingDuration / 1000).toFixed(2)} seconds.`);
+      this.logger.logVerbose(`Found ${count} records in ${(processingDuration / 1000).toFixed(2)} seconds.`);
     } catch (e) {
       if (e instanceof MatchError) {
         this.logger.error(e.message);

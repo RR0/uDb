@@ -1,4 +1,4 @@
-import {Geo} from "../../../geo";
+import {Geo} from "./geo";
 import {Output, RecordOutput} from "../../RecordOutput";
 import {UdbOutputRecord} from "./UdbOutputRecord";
 import WritableStream = NodeJS.WritableStream;
