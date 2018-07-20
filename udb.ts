@@ -9,10 +9,13 @@ import {OutputFactory} from "./output/OutputFactory";
 import {Output} from "./output/RecordOutput";
 import {Query} from "./Query";
 import {Database} from "./input/db/Database";
+import {UdbDatabase} from "./input/db/udb/UdbDatabase";
+
+const DB_DEFAULT = 'udb';
 
 program
   .version('1.0.1')
-  .option('-d, --data [dataFile]', 'Data file to read. Defaults to ./input/data/U.RND')
+  .option('-db, --database <udb|nuforc> [dataFile]', `Database to read (defaults to ${DB_DEFAULT}). Optional data file to read (defaults to ${UdbDatabase.DATA_FILE_DEFAULT})`)
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/db/udb/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/db/udb/data/WM.VCE')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
@@ -23,18 +26,20 @@ program
   .option('--debug', 'Displays debug info.')
   .parse(process.argv);
 
+let db: Database;
+
 const logger = new Logger(program.debug, program.verbose);
 logger.onLog(msg => {
-  process.stdout.write('udb: ' + msg)
+  process.stdout.write(`udb: ${msg}`)
 });
 logger.onError(msg => {
-  process.stderr.write('udb: ' + msg)
+  process.stderr.write(`udb: ${msg}`)
 });
 
 const count = program.count;
 const matchCriteria = program.match;
 
-const db: Database = DatabaseFactory.create('udb', logger, program);
+db = DatabaseFactory.create(program.database || DB_DEFAULT, logger, program);
 
 const format = program.format || 'default';
 let output: Output = OutputFactory.create(program.out);

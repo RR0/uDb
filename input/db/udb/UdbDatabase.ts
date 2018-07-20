@@ -13,6 +13,8 @@ import {RecordReader} from "../RecordReader";
 import {UdbRecordReader} from "./UdbRecordReader";
 
 export class UdbDatabase implements Database {
+  static DATA_FILE_DEFAULT = 'input/db/udb/data/U.RND';
+
   private sourcesFile: string;
   private dataFile: string;
   private worldMap: string;
@@ -20,8 +22,8 @@ export class UdbDatabase implements Database {
   private sources: Sources;
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = program.dataFile || 'input/db/udb/data/usources.txt';
-    this.dataFile = program.sourcesFile || 'input/db/udb/data/U.RND';
+    this.sourcesFile = program.sourcesFile || 'input/db/udb/data/usources.txt';
+    this.dataFile = program.dataFile || UdbDatabase.DATA_FILE_DEFAULT;
     this.worldMap = program.wmFile || 'input/db/udb/data/WM.VCE';
   }
 

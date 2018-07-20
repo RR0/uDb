@@ -11,14 +11,9 @@ import {RecordReader} from "../RecordReader";
 import {NuforcRecordReader} from "./NuforcRecordReader";
 
 export class NuforcDatabase implements Database {
-  private options;
+  private url = 'http://www.nuforc.org//webreports/ndxevent.html';
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.options = {
-      host: "http://www.nuforc.org",
-      port: 80,
-      path: "/webreports/ndxevent.html"
-    };
   }
 
   get logger(): Logger {
@@ -29,7 +24,7 @@ export class NuforcDatabase implements Database {
     return new Promise((resolve, reject) => {
       let content = "";
 
-      const req = http.request(this.options,  res=> {
+      const req = http.get(this.url, res => {
         res.setEncoding("utf8");
         res.on("data", function (chunk) {
           content += chunk;
