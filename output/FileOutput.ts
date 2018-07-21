@@ -11,4 +11,8 @@ export class FileOutput implements Output {
   write(object: any) {
     this.writeStream.write(object);
   }
+
+  toString() {
+    return `file ${this.writeStream.path}`;
+  }
 }

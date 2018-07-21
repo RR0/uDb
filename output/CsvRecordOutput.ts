@@ -39,4 +39,8 @@ export class CsvRecordOutput implements RecordOutput {
   }
 
   end() {}
+
+  toString() {
+    return `CVS format in ${this.output}`;
+  }
 }

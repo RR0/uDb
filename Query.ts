@@ -38,6 +38,7 @@ export class Query {
             }
             let outputFormat = OutputFormat[this.format.toLocaleLowerCase()];
             recordOutput = RecordOutputFactory.getRecordOutput(outputFormat, this.output, outputRecord);
+            this.logger.log(`Writing ${recordOutput}`);
           }
           if (format && this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(<any>inputRecord);
