@@ -10,11 +10,11 @@ export abstract class WebRecordReader extends RecordReader {
     super(buffer, logger);
   }
 
-  protected getTokenValue(tokenStart: string, tokenEnd: string): string {
-    let occurredStart = this.buffer.indexOf(tokenStart, this.recordPos);
-    let occurredEnd = this.buffer.indexOf(tokenEnd, occurredStart);
-    this._recordPos = occurredEnd;
-    let value = this.buffer.substring(occurredStart + tokenStart.length, occurredEnd);
+  protected getTokenValue(startToken: string, endToken: string): string {
+    let tokenStart = this.buffer.indexOf(startToken, this.recordPos);
+    let tokenEnd = this.buffer.indexOf(endToken, tokenStart);
+    this._recordPos = tokenEnd;
+    let value = this.buffer.substring(tokenStart + startToken.length, tokenEnd);
     value = this.plainString(value);
     return value;
   }
