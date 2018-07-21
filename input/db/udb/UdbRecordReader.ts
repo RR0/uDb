@@ -1,11 +1,12 @@
 import {UdbInputRecord} from "./UdbInputRecord";
 import {Logger} from "../../../Logger";
 import {RecordReader} from "../RecordReader";
+import {BinaryRecordReader} from "../BinaryRecordReader";
 
 /**
- * Creates an Udb InputRecord from a raw binary record.
+ * Creates an Udb InputRecord from a raw binary record buffer.
  */
-export class UdbRecordReader extends RecordReader {
+export class UdbRecordReader extends BinaryRecordReader {
 
   constructor(buffer, logger: Logger) {
     super(buffer, logger);
@@ -22,6 +23,7 @@ export class UdbRecordReader extends RecordReader {
     this.record[prop] = sInt * 1.11111111111;
     return sInt;
   }
+
 
   read(filePos: number): UdbInputRecord {
     const record = <UdbInputRecord>super.read(filePos);

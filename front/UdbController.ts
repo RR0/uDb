@@ -32,6 +32,6 @@ export class UdbController {
   }
 
   search() {
-    this.matchResults = this.udbService.match(this.matchCriteria).records;
+    this.matchResults = this.udbService.match(this.matchCriteria).pages;
   }
 }

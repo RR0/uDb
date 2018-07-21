@@ -22,4 +22,7 @@ export class Memory implements Input, Output {
     this.records.push(record);
     return true;
   }
+
+  close(): void {
+  }
 }

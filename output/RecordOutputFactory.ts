@@ -1,5 +1,5 @@
 import {CsvRecordOutput} from "./CsvRecordOutput";
-import {TextRecordOutput} from "./db/udb/TextRecordOutput";
+import {UdbTextRecordOutput} from "./db/udb/UdbTextRecordOutput";
 import {Output, RecordOutput} from "./RecordOutput";
 import {XmlRecordOutput} from "./XmlRecordOutput";
 import {MemoryRecordOutput} from "./MemoryRecordOutput";
@@ -25,7 +25,7 @@ export class RecordOutputFactory {
         recordOutput = new MemoryRecordOutput(output, sortedRecord);
         break;
       default:
-        recordOutput = new TextRecordOutput(output);
+        recordOutput = new UdbTextRecordOutput(output);
     }
     return recordOutput;
   }

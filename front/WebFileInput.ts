@@ -42,6 +42,9 @@ export class WebFileInput implements Input {
     return inputRecord;
   }
 
+  close(): void {
+  }
+
   private getBuffer() {
     this.buffer.set(new Uint8Array(this.fileData, this.filePos, this.recordSize));
   }

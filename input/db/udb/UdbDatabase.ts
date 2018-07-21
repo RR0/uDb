@@ -67,7 +67,7 @@ export class UdbDatabase implements Database {
     return new UdbRecordFormatter(this.sources);
   }
 
-  recordReader(buffer: Buffer): RecordReader {
+  recordReader(buffer): RecordReader {
     return new UdbRecordReader(buffer, this._logger);
   }
 }

@@ -11,6 +11,7 @@ import {Query} from "./Query";
 import {Database} from "./input/db/Database";
 import {UdbDatabase} from "./input/db/udb/UdbDatabase";
 import {NuforcDatabase} from "./input/db/nuforc/NuforcDatabase";
+import {Input} from "./input/Input";
 
 const DB_DEFAULT = 'udb';
 
@@ -46,7 +47,7 @@ const format = program.format || 'default';
 let output: Output = OutputFactory.create(program.out);
 
 db.init()
-  .then(input => {
+  .then((input: Input) => {
     const firstIndex = 1;
     logger.logVerbose(`\nReading cases from #${firstIndex}:`);
     let lastIndex = 10000000;

@@ -11,7 +11,7 @@ function line(str?) {
   return lineStr + (str ? str : '') + '\n';
 }
 
-export class TextRecordOutput implements RecordOutput {
+export class UdbTextRecordOutput implements RecordOutput {
 
   constructor(private output: Output) {
   }
