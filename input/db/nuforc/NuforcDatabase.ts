@@ -29,15 +29,19 @@ export class NuforcDatabase implements Database {
       .then(content => {
         const reportLinks = this.input.getLinks(content, reportLink => reportLink.startsWith('ndxe'));
         this.logger.log(`Found ${reportLinks.length} months indexes`);
-        return this.input.readEachLink([reportLinks[0]])
+        const toScan = reportLinks;
+        return this.input.readEachLink(toScan)
           .then(reports => {
             return reports.reduce((promise, page) => {
               return promise
                 .then(all => {
-                  let links = this.input.getLinks(page, link => !link.startsWith('http://'));
+                  let links = this.input.getLinks(page.contents, link => !link.startsWith('http://'));
                   return this.input.readEachLink(links)
-                    .then(reports => {
-                      this.input.pages = this.input.pages.concat(reports);
+                    .then(webRecords => {
+                      webRecords.forEach((report, i) => {
+                        this.input.sources.push(report.source);
+                        this.input.pages.push(report.contents);
+                      });
                     });
                 })
                 .then(oneContent => {
@@ -52,7 +56,7 @@ export class NuforcDatabase implements Database {
     return new NuforcRecordFormatter();
   }
 
-  recordReader(buffer: Buffer): RecordReader {
-    return new NuforcRecordReader(buffer, this._logger);
+  recordReader(buffer, source?: string): RecordReader {
+    return new NuforcRecordReader(buffer, this._logger, source);
   }
 }

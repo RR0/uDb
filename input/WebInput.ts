@@ -4,9 +4,15 @@ import {Input} from "./Input";
 import {Record} from "./db/RecordReader";
 import {Database} from "./db/Database";
 
+export interface WebRecord {
+  contents: string;
+  source: string;
+}
+
 export class WebInput implements Input {
   pages: string[] = [];
   recordIndex = 0;
+  sources: string[] = [];
 
   constructor(private db: Database, private baseUrl: string, private max = 10000000) {
   }
@@ -21,7 +27,8 @@ export class WebInput implements Input {
 
   readRecord(recordIndex: number): Record {
     let page = this.pages[recordIndex - 1];
-    const recordReader = this.db.recordReader(page);
+    let source = this.sources[recordIndex - 1];
+    const recordReader = this.db.recordReader(page, source);
     return recordReader.read(recordIndex);
   }
 
@@ -31,7 +38,7 @@ export class WebInput implements Input {
       let content = "";
       const req = http.get(url, res => {
         res.setEncoding("utf8");
-      //  let chunks = 0;
+        //  let chunks = 0;
         res.on("data", (chunk) => {
           /*  chunks++;
             if (chunks % 10 == 0) {
@@ -41,8 +48,8 @@ export class WebInput implements Input {
         });
         res.on("end", () => {
           const size = parseInt(res.headers['content-length'], 10);
-         /* this.db.logger.log(` ${size} bytes`, true, false);
-          this.db.logger.flush();*/
+          /* this.db.logger.log(` ${size} bytes`, true, false);
+           this.db.logger.flush();*/
           resolve(content);
         });
       });
@@ -50,8 +57,8 @@ export class WebInput implements Input {
     });
   }
 
-  readEachLink(allLinks: string[]): Promise<string[]> {
-    const allContents = [];
+  readEachLink(allLinks: string[]): Promise<WebRecord[]> {
+    const allContents: WebRecord[] = [];
     const groups = [];
     const groupSize = 10;
     let group;
@@ -70,7 +77,8 @@ export class WebInput implements Input {
             let url = `${this.baseUrl}/${link}`;
             groupPromises.push(this.readPage(url)
               .then(oneContent => {
-                allContents.push(oneContent);
+                let webRecord: WebRecord = {contents: oneContent, source: url};
+                allContents.push(webRecord);
               }));
           });
           return Promise.all(groupPromises);
@@ -90,7 +98,7 @@ export class WebInput implements Input {
     const lowercaseContents = pageContents.toLowerCase();
     do {
       reportLinkStart = lowercaseContents.indexOf(token, pos);
-      if (reportLinkStart) {
+      if (reportLinkStart >= 0) {
         const reportLinkEnd = lowercaseContents.indexOf('>', reportLinkStart);
         let reportLink = lowercaseContents.substring(reportLinkStart + token.length, reportLinkEnd).trim();
         if (reportLink.charAt(0) === '"') {

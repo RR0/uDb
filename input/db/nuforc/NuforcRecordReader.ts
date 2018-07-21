@@ -7,13 +7,14 @@ import {WebRecordReader} from "../WebRecordReader";
  */
 export class NuforcRecordReader extends WebRecordReader {
 
-  constructor(buffer, logger: Logger) {
+  constructor(buffer, logger: Logger, private source?: string) {
     super(buffer, logger);
   }
 
-  read(filePos: number): NuforcInputRecord {
-    const record = <NuforcInputRecord>super.read(filePos);
+  read(recordIndex: number): NuforcInputRecord {
+    const record = <NuforcInputRecord>super.read(recordIndex);
 
+    record.source = this.source;
     record.occurred = this.getTokenValue('Occurred : ', ' (');
     record.entered = this.getTokenValue('Entered as : ', ')');
     record.reported = this.getTokenValue('Reported: ', '<BR>');

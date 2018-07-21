@@ -1,6 +1,7 @@
-import { Record } from '../RecordReader';
+import {Record} from '../RecordReader';
 
 export interface NuforcInputRecord extends Record {
+  source: string;
   duration: string;
   shape: string;
   location: string;

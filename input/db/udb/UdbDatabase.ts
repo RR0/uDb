@@ -1,7 +1,4 @@
 import {FileInput} from "../../FileInput";
-
-let readline = require('readline');
-
 import {Logger} from "../../../Logger";
 import {WorldMap} from "./WorldMap";
 import * as fs from "fs";
@@ -11,6 +8,8 @@ import {RecordFormatter} from "../../../output/db/RecordFormatter";
 import {Database} from "../Database";
 import {RecordReader} from "../RecordReader";
 import {UdbRecordReader} from "./UdbRecordReader";
+
+let readline = require('readline');
 
 export class UdbDatabase implements Database {
   static DATA_FILE_DEFAULT = 'input/db/udb/data/U.RND';
@@ -67,7 +66,7 @@ export class UdbDatabase implements Database {
     return new UdbRecordFormatter(this.sources);
   }
 
-  recordReader(buffer): RecordReader {
+  recordReader(buffer, source?: string): RecordReader {
     return new UdbRecordReader(buffer, this._logger);
   }
 }
