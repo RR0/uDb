@@ -5,7 +5,7 @@ export class Logger {
   private logError: Function;
 
   /*@ngInject*/
-  constructor(private DEBUG: boolean, private verbose: boolean) {
+  constructor(private DEBUG: boolean, private verbose: boolean, private prefix: string) {
     this.reset();
   }
 
@@ -21,12 +21,12 @@ export class Logger {
     this._autoFlush = value;
   }
 
-  log(msg: string, lineFeed: boolean = true, cb = this.logCb) {
+  log(msg: string, lineFeed: boolean = true, withPrefix = true, cb = this.logCb) {
     while (msg.charAt(0) == '\n') {
       this.logMsg += '\n';
       msg = msg.substring(1);
     }
-    this.logMsg += msg + (lineFeed ? '\n' : '');
+    this.logMsg += (withPrefix ? this.prefix : '') + msg + (lineFeed ? '\n' : '');
     if (this._autoFlush) {
       this.flush(cb);
     }
@@ -40,7 +40,7 @@ export class Logger {
 
   error(msg: string) {
     this.flush();
-    this.log(msg, true, this.logError);
+    this.log(msg, true, true, this.logError);
     this.flush(this.logError);
   }
 

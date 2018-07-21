@@ -17,6 +17,7 @@ export class NuforcDatabase implements Database {
   constructor(name: string, private _logger: Logger, program: any) {
     this.baseUrl = program.source || NuforcDatabase.URL_DEFAULT;
     _logger.autoFlush = true;
+    this.input = new WebInput(this, this.baseUrl, program.count);
   }
 
   get logger(): Logger {
@@ -24,12 +25,11 @@ export class NuforcDatabase implements Database {
   }
 
   init(): Promise<Input> {
-    this.input = new WebInput(this, this.baseUrl);
     return this.input.readPage(this.baseUrl + '/ndxevent.html')
       .then(content => {
-        this.logger.log(`Finding reports`);
         const reportLinks = this.input.getLinks(content, reportLink => reportLink.startsWith('ndxe'));
-        return this.input.readEachLink(reportLinks)
+        this.logger.log(`Found ${reportLinks.length} months indexes`);
+        return this.input.readEachLink([reportLinks[0]])
           .then(reports => {
             return reports.reduce((promise, page) => {
               return promise

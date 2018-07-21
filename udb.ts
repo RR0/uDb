@@ -30,12 +30,12 @@ program
 
 let db: Database;
 
-const logger = new Logger(program.debug, program.verbose);
+const logger = new Logger(program.debug, program.verbose, "udb: ");
 logger.onLog(msg => {
-  process.stdout.write(`udb: ${msg}`)
+  process.stdout.write(msg);
 });
 logger.onError(msg => {
-  process.stderr.write(`udb: ${msg}`)
+  process.stderr.write(msg);
 });
 
 const count = program.count;
