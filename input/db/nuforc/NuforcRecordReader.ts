@@ -1,11 +1,11 @@
 import {NuforcInputRecord} from "./NuforcInputRecord";
 import {Logger} from "../../../Logger";
-import {RecordReader} from "../RecordReader";
+import {WebRecordReader} from "../WebRecordReader";
 
 /**
  * Creates an Udb InputRecord from a web page.
  */
-export class NuforcRecordReader extends RecordReader {
+export class NuforcRecordReader extends WebRecordReader {
 
   constructor(buffer, logger: Logger) {
     super(buffer, logger);
@@ -24,14 +24,5 @@ export class NuforcRecordReader extends RecordReader {
     record.desc = this.getTokenValue('COLOR=#000000>', '</FONT>');
 
     return record;
-  }
-
-  private getTokenValue(tokenStart: string, tokenEnd: string): string {
-    let occurredStart = this.buffer.indexOf(tokenStart, this.recordPos);
-    let occurredEnd = this.buffer.indexOf(tokenEnd, occurredStart);
-    this._recordPos = occurredEnd;
-    let value = this.buffer.substring(occurredStart + tokenStart.length, occurredEnd).trim();
-    value = value.replace(/<BR>/g, '\n');
-    return value;
   }
 }
