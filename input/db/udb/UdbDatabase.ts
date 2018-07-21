@@ -23,7 +23,7 @@ export class UdbDatabase implements Database {
 
   constructor(name: string, private _logger: Logger, program: any) {
     this.sourcesFile = program.sourcesFile || 'input/db/udb/data/usources.txt';
-    this.dataFile = program.dataFile || UdbDatabase.DATA_FILE_DEFAULT;
+    this.dataFile = program.source || UdbDatabase.DATA_FILE_DEFAULT;
     this.worldMap = program.wmFile || 'input/db/udb/data/WM.VCE';
   }
 

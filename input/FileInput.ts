@@ -6,12 +6,13 @@ import {Record, RecordReader} from "./db/RecordReader";
 const bops = require("bops");
 
 export class FileInput implements Input {
-  private recordReader: RecordReader;
   filePos: number;
   buffer: Buffer;
   recordSize = 112;
   fileSize: number;
   fd: number;
+
+  private recordReader: RecordReader;
 
   constructor(private db: Database) {
   }

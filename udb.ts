@@ -10,12 +10,13 @@ import {Output} from "./output/RecordOutput";
 import {Query} from "./Query";
 import {Database} from "./input/db/Database";
 import {UdbDatabase} from "./input/db/udb/UdbDatabase";
+import {NuforcDatabase} from "./input/db/nuforc/NuforcDatabase";
 
 const DB_DEFAULT = 'udb';
 
 program
   .version('1.0.1')
-  .option('-db, --database <udb|nuforc> [dataFile]', `Database to read (defaults to ${DB_DEFAULT}). Optional data file to read (defaults to ${UdbDatabase.DATA_FILE_DEFAULT})`)
+  .option('-db, --database <udb|nuforc> [source]', `Database to read (defaults to ${DB_DEFAULT}).\nOptional source, depending on database, can default to ${UdbDatabase.DATA_FILE_DEFAULT} or ${NuforcDatabase.URL_DEFAULT})`)
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/db/udb/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/db/udb/data/WM.VCE')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
