@@ -8,7 +8,7 @@ export class WebInput implements Input {
   pages: string[] = [];
   recordIndex = 0;
 
-  constructor(private db: Database, private baseUrl) {
+  constructor(private db: Database, private baseUrl: string, private max = 10000000) {
   }
 
   goToRecord(recordIndex: number) {
@@ -27,14 +27,22 @@ export class WebInput implements Input {
 
   readPage(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      this.db.logger.log(`Reading ${url}`);
+      this.db.logger.log(`Reading ${url} `);
       let content = "";
       const req = http.get(url, res => {
         res.setEncoding("utf8");
-        res.on("data", function (chunk) {
+      //  let chunks = 0;
+        res.on("data", (chunk) => {
+          /*  chunks++;
+            if (chunks % 10 == 0) {
+              this.db.logger.log(`.`, false, false);
+            }*/
           content += chunk;
         });
         res.on("end", () => {
+          const size = parseInt(res.headers['content-length'], 10);
+         /* this.db.logger.log(` ${size} bytes`, true, false);
+          this.db.logger.flush();*/
           resolve(content);
         });
       });
@@ -44,14 +52,30 @@ export class WebInput implements Input {
 
   readEachLink(allLinks: string[]): Promise<string[]> {
     const allContents = [];
-    return allLinks.reduce((promise, path) => {
+    const groups = [];
+    const groupSize = 10;
+    let group;
+    allLinks.forEach((link, index) => {
+      if (index % groupSize === 0) {
+        group = [];
+        groups.push(group);
+      }
+      group.push(link);
+    });
+    return groups.reduce((promise, group) => {
       return promise
         .then(all => {
-          let url = `${this.baseUrl}/${path}`;
-          return this.readPage(url);
+          const groupPromises = [];
+          group.forEach(link => {
+            let url = `${this.baseUrl}/${link}`;
+            groupPromises.push(this.readPage(url)
+              .then(oneContent => {
+                allContents.push(oneContent);
+              }));
+          });
+          return Promise.all(groupPromises);
         })
         .then(oneContent => {
-          allContents.push(oneContent);
           return allContents;
         });
     }, Promise.resolve([]));
@@ -61,7 +85,6 @@ export class WebInput implements Input {
     const reports = [];
     let pos = 0;
     let reportLinkStart;
-    const max = 2;
     let done = 0;
     const token = '<a href=';
     const lowercaseContents = pageContents.toLowerCase();
@@ -79,7 +102,7 @@ export class WebInput implements Input {
         pos = reportLinkEnd;
         done++;
       }
-    } while (reportLinkStart >= 0 && done <= max);
+    } while (reportLinkStart >= 0 && done <= this.max);
     return reports;
   }
 
