@@ -61,7 +61,7 @@ export class WebInput implements Input {
     const reports = [];
     let pos = 0;
     let reportLinkStart;
-    const max = 2;
+    const max = 1;
     let done = 0;
     const token = '<a href=';
     const lowercaseContents = pageContents.toLowerCase();

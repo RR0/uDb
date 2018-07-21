@@ -11,7 +11,7 @@ export class NuforcRecordFormatter implements RecordFormatter {
   constructor() {}
 
   formatProperties(record: NuforcInputRecord): NuforcOutputRecord {
-    let expectedKeysOrder = ['header', 'desc'];
+    let expectedKeysOrder = ['occurred', 'entered', 'reported', 'posted', 'location', 'shape', 'duration', 'desc'];
     let sortedRecord: NuforcOutputRecord = <NuforcOutputRecord>Util.sortProps(record, (prop1, prop2) => {
       let index1 = expectedKeysOrder.indexOf(prop1);
       if (index1 < 0) index1 = 1000;

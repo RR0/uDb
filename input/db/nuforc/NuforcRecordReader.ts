@@ -13,16 +13,25 @@ export class NuforcRecordReader extends RecordReader {
 
   read(filePos: number): NuforcInputRecord {
     const record = <NuforcInputRecord>super.read(filePos);
-    let startToken = '<td>';
-    let page = this.buffer;
-    let headerStart = page.indexOf(startToken);
-    let headerEnd = page.indexOf('</td>', headerStart);
-    record.header = page.substring(headerStart + startToken.length, headerEnd);
 
-    let descStart = page.indexOf(startToken, headerEnd);
-    let descEnd = page.indexOf('</td>', descStart);
-    record.desc = page.substring(descStart + startToken.length, descEnd);
+    record.occurred = this.getTokenValue('Occurred : ', ' (');
+    record.entered = this.getTokenValue('Entered as : ', ')');
+    record.reported = this.getTokenValue('Reported: ', '<BR>');
+    record.posted = this.getTokenValue('Posted: ', '<BR>');
+    record.location = this.getTokenValue('Location: ', '<BR>');
+    record.shape = this.getTokenValue('Shape: ', '<BR>');
+    record.duration = this.getTokenValue('Duration:', '</FONT>');
+    record.desc = this.getTokenValue('COLOR=#000000>', '</FONT>');
 
     return record;
+  }
+
+  private getTokenValue(tokenStart: string, tokenEnd: string): string {
+    let occurredStart = this.buffer.indexOf(tokenStart, this.recordPos);
+    let occurredEnd = this.buffer.indexOf(tokenEnd, occurredStart);
+    this._recordPos = occurredEnd;
+    let value = this.buffer.substring(occurredStart + tokenStart.length, occurredEnd).trim();
+    value = value.replace(/<BR>/g, '\n');
+    return value;
   }
 }
