@@ -10,11 +10,14 @@ export interface WebRecord {
 }
 
 export class WebInput implements Input {
-  pages: string[] = [];
+  pages: WebRecord[] = [];
   recordIndex = 0;
-  sources: string[] = [];
 
   constructor(private db: Database, private baseUrl: string, private max = 10000000) {
+  }
+
+  protected get logger() {
+    return this.db.logger;
   }
 
   goToRecord(recordIndex: number) {
@@ -27,37 +30,40 @@ export class WebInput implements Input {
 
   readRecord(recordIndex: number): Record {
     let page = this.pages[recordIndex - 1];
-    let source = this.sources[recordIndex - 1];
-    const recordReader = this.db.recordReader(page, source);
+    const recordReader = this.db.recordReader(page);
     return recordReader.read(recordIndex);
   }
 
-  readPage(url: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.db.logger.log(`Reading ${url} `, false);
+  readPage(url: string): Promise<WebRecord> {
+    return new Promise((resolve, reject) => {
+      this.logger.log(`Reading ${url}`, false);
       let content = "";
       const req = http.get(url, res => {
+        const size = parseInt(res.headers['content-length'], 10);
+        this.logger.log(` (${(size / 1024).toFixed(1)} KB) `, false, false);
         res.setEncoding("utf8");
         let chunks = 0;
         res.on("data", (chunk) => {
           chunks++;
           if (chunks % 10 == 0) {
-            this.db.logger.log(`.`, false, false);
+            this.logger.log(`.`, false, false);
           }
           content += chunk;
         });
+        res.on("error", error => {
+          reject(`Could not read ${url}: ${error}`);
+        });
         res.on("end", () => {
-          const size = parseInt(res.headers['content-length'], 10);
-          this.db.logger.log(` ${size} bytes`, true, false);
-          this.db.logger.flush();
-          resolve(content);
+          this.logger.log(' OK', true, false);
+          this.logger.flush();
+          resolve(<WebRecord>{contents: content, source: url});
         });
       });
       req.end();
     });
   }
 
-  readEachLink(allLinks: string[]): Promise<WebRecord[]> {
+  readEachLink(allLinks: string[], cb?: Function): Promise<WebRecord[]> {
     const allContents: WebRecord[] = [];
     const groups = [];
     const groupSize = 1;
@@ -76,10 +82,16 @@ export class WebInput implements Input {
           group.forEach(link => {
             let url = `${this.baseUrl}/${link}`;
             groupPromises.push(this.readPage(url)
-              .then(oneContent => {
-                let webRecord: WebRecord = {contents: oneContent, source: url};
+              .then(webRecord => {
                 allContents.push(webRecord);
-              }));
+                if (cb) {
+                  cb(webRecord);
+                }
+              })
+              .catch(error => {
+                throw Error(error);
+              })
+            );
           });
           return Promise.all(groupPromises);
         })
@@ -115,5 +127,9 @@ export class WebInput implements Input {
   }
 
   close(): void {
+  }
+
+  addData(report: WebRecord) {
+    this.pages.push(report);
   }
 }

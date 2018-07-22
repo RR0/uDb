@@ -10,5 +10,5 @@ export interface Database {
 
   recordFormatter(): RecordFormatter;
 
-  recordReader(buffer, source?: string): RecordReader;
+  recordReader(buffer): RecordReader;
 }

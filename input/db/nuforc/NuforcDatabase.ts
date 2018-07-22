@@ -26,28 +26,22 @@ export class NuforcDatabase implements Database {
 
   init(): Promise<Input> {
     return this.input.readPage(this.baseUrl + '/ndxevent.html')
-      .then(content => {
-        const monthsLinks = this.input.getLinks(content, reportLink => reportLink.startsWith('ndxe'));
+      .then(webRecord => {
+        const monthsLinks = this.input.getLinks(webRecord.contents, reportLink => reportLink.startsWith('ndxe'));
         this.logger.log(`Found ${monthsLinks.length} months indexes`);
-        const monthsToScan = [monthsLinks[400], monthsLinks[401]];
+        const monthsToScan = monthsLinks.slice(400, 402);
         return this.input.readEachLink(monthsToScan)
           .then((monthSummaries: WebRecord[]) => {
             return monthSummaries.reduce((promise, monthSummary) => {
               return promise
                 .then(input => {
                   let reportLinks = this.input.getLinks(monthSummary.contents, foundLink => !foundLink.startsWith('http://'));
-                  let monthLabel = monthSummary.source;
-                  let tok = '/ndxe';
-                  let pos = monthLabel.indexOf(tok);
-                  let date = monthLabel.substring(pos + tok.length);
-                  let year = date.substring(0, 4);
-                  let month = date.substring(4, 6);
-                  this.logger.log(`Found ${reportLinks.length} reports for ${year}-${month}`);
+                  const monthLabel = this.urlToLabel(monthSummary.source);
+                  this.logger.log(`Found ${reportLinks.length} reports for ${monthLabel}`);
                   return this.input.readEachLink(reportLinks)
                     .then((reports: WebRecord[]) => {
                       reports.forEach((report: WebRecord) => {
-                        this.input.sources.push(report.source);
-                        this.input.pages.push(report.contents);
+                        this.input.addData(report);
                       });
                     });
                 })
@@ -59,11 +53,20 @@ export class NuforcDatabase implements Database {
       });
   }
 
+  recordReader(buffer: WebRecord): RecordReader {
+    return new NuforcRecordReader(buffer, this._logger);
+  }
+
   recordFormatter(): RecordFormatter {
     return new NuforcRecordFormatter();
   }
 
-  recordReader(buffer, source?: string): RecordReader {
-    return new NuforcRecordReader(buffer, this._logger, source);
+  private urlToLabel(monthLabel) {
+    let tok = '/ndxe';
+    let date = monthLabel.substring(monthLabel.indexOf(tok) + tok.length);
+    let year = date.substring(0, 4);
+    let month = date.substring(4, 6);
+    const d = year + '-' + month;
+    return d;
   }
 }

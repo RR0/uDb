@@ -1,20 +1,21 @@
 import {NuforcInputRecord} from "./NuforcInputRecord";
 import {Logger} from "../../../Logger";
 import {WebRecordReader} from "../WebRecordReader";
+import {WebRecord} from "../../WebInput";
 
 /**
  * Creates an Udb InputRecord from a web page.
  */
 export class NuforcRecordReader extends WebRecordReader {
 
-  constructor(buffer, logger: Logger, private source?: string) {
-    super(buffer, logger);
+  constructor(private webRecord: WebRecord, logger: Logger) {
+    super(webRecord.contents, logger);
   }
 
   read(recordIndex: number): NuforcInputRecord {
     const record = <NuforcInputRecord>super.read(recordIndex);
 
-    record.source = this.source;
+    record.source = this.webRecord.source;
     record.occurred = this.getTokenValue('Occurred : ', ' (');
     record.entered = this.getTokenValue('Entered as : ', ')');
     record.reported = this.getTokenValue('Reported: ', '<BR>');
