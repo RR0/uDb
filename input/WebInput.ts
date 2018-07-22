@@ -34,22 +34,22 @@ export class WebInput implements Input {
 
   readPage(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      this.db.logger.log(`Reading ${url} `);
+      this.db.logger.log(`Reading ${url} `, false);
       let content = "";
       const req = http.get(url, res => {
         res.setEncoding("utf8");
-        //  let chunks = 0;
+        let chunks = 0;
         res.on("data", (chunk) => {
-          /*  chunks++;
-            if (chunks % 10 == 0) {
-              this.db.logger.log(`.`, false, false);
-            }*/
+          chunks++;
+          if (chunks % 10 == 0) {
+            this.db.logger.log(`.`, false, false);
+          }
           content += chunk;
         });
         res.on("end", () => {
           const size = parseInt(res.headers['content-length'], 10);
-          /* this.db.logger.log(` ${size} bytes`, true, false);
-           this.db.logger.flush();*/
+          this.db.logger.log(` ${size} bytes`, true, false);
+          this.db.logger.flush();
           resolve(content);
         });
       });
@@ -60,7 +60,7 @@ export class WebInput implements Input {
   readEachLink(allLinks: string[]): Promise<WebRecord[]> {
     const allContents: WebRecord[] = [];
     const groups = [];
-    const groupSize = 10;
+    const groupSize = 1;
     let group;
     allLinks.forEach((link, index) => {
       if (index % groupSize === 0) {
