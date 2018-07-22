@@ -25,9 +25,9 @@ export class NuforcDatabase implements Database {
   }
 
   init(): Promise<Input> {
-    return this.input.readPage(this.baseUrl + '/ndxevent.html')
+    return this.input.readPage('ndxevent.html')
       .then(webRecord => {
-        const monthsLinks = this.input.getLinks(webRecord.contents, reportLink => reportLink.startsWith('ndxe'));
+        const monthsLinks = this.input.getLinks(webRecord, reportLink => reportLink.startsWith('ndxe'));
         this.logger.log(`Found ${monthsLinks.length} months indexes`);
         const monthsToScan = monthsLinks.slice(400, 402);
         return this.input.readEachLink(monthsToScan)
@@ -35,7 +35,7 @@ export class NuforcDatabase implements Database {
             return monthSummaries.reduce((promise, monthSummary) => {
               return promise
                 .then(input => {
-                  let reportLinks = this.input.getLinks(monthSummary.contents, foundLink => !foundLink.startsWith('http://'));
+                  let reportLinks = this.input.getLinks(monthSummary, foundLink => !foundLink.startsWith('http://'));
                   const monthLabel = this.urlToLabel(monthSummary.source);
                   this.logger.log(`Found ${reportLinks.length} reports for ${monthLabel}`);
                   return this.input.readEachLink(reportLinks)

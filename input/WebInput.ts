@@ -4,11 +4,17 @@ import {Input} from "./Input";
 import {Record} from "./db/RecordReader";
 import {Database} from "./db/Database";
 
+/**
+ * Web page contents and its source url.
+ */
 export interface WebRecord {
   contents: string;
   source: string;
 }
 
+/**
+ * A Web source to read from.
+ */
 export class WebInput implements Input {
   pages: WebRecord[] = [];
   recordIndex = 0;
@@ -35,6 +41,9 @@ export class WebInput implements Input {
   }
 
   readPage(url: string): Promise<WebRecord> {
+    if (!url.startsWith('http')) {
+      url = `${this.baseUrl}/${url}`;
+    }
     return new Promise((resolve, reject) => {
       this.logger.log(`Reading ${url}`, false);
       let content = "";
@@ -80,8 +89,7 @@ export class WebInput implements Input {
         .then(all => {
           const groupPromises = [];
           group.forEach(link => {
-            let url = `${this.baseUrl}/${link}`;
-            groupPromises.push(this.readPage(url)
+            groupPromises.push(this.readPage(link)
               .then(webRecord => {
                 allContents.push(webRecord);
                 if (cb) {
@@ -101,13 +109,13 @@ export class WebInput implements Input {
     }, Promise.resolve([]));
   }
 
-  getLinks(pageContents: string, linkSelection: Function): string[] {
+  getLinks(pageContents: WebRecord, linkSelection: Function): string[] {
     const reports = [];
     let pos = 0;
     let reportLinkStart;
     let done = 0;
     const token = '<a href=';
-    const lowercaseContents = pageContents.toLowerCase();
+    const lowercaseContents = pageContents.contents.toLowerCase();
     do {
       reportLinkStart = lowercaseContents.indexOf(token, pos);
       if (reportLinkStart >= 0) {
@@ -117,7 +125,7 @@ export class WebInput implements Input {
           reportLink = reportLink.substring(1, reportLink.lastIndexOf('"'));
         }
         if (linkSelection(reportLink)) {
-          reports.push(reportLink);
+          reports.push(`${this.baseUrl}/${reportLink}`);
         }
         pos = reportLinkEnd;
         done++;
