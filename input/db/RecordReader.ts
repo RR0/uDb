@@ -14,7 +14,7 @@ export abstract class RecordReader {
   protected _filePos: number;
   protected _recordPos: number;
 
-  constructor(protected _buffer, protected _logger: Logger) {
+  protected constructor(protected _buffer, protected _logger: Logger) {
   }
 
   protected get record(): Record {

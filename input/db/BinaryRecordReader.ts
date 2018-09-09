@@ -13,7 +13,7 @@ export abstract class BinaryRecordReader extends RecordReader {
   private _recordHex: string;
   private unknownOnly: boolean = true;
 
-  constructor(buffer, logger: Logger) {
+  protected constructor(buffer, logger: Logger) {
     super(buffer, logger);
   }
 

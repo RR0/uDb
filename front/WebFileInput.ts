@@ -3,6 +3,9 @@ import {Logger} from "../Logger";
 import {UdbRecordReader} from "../input/db/udb/UdbRecordReader";
 import {Record} from "../input/db/RecordReader";
 
+/**
+ * A FileInput that reads from a webapp.
+ */
 export class WebFileInput implements Input {
   buffer: Uint8Array;
   fileData: ArrayBuffer;

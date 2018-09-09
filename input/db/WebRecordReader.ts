@@ -6,7 +6,7 @@ import {Logger} from "../../Logger";
  */
 export abstract class WebRecordReader extends RecordReader {
 
-  constructor(buffer, logger: Logger) {
+  protected constructor(buffer, logger: Logger) {
     super(buffer, logger);
   }
 

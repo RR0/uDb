@@ -22,38 +22,30 @@ export class Query {
     const recordEnumerator: RecordEnumerator = new RecordEnumerator(this.input, firstIndex);
     try {
       const recordMatcher = new RecordMatcher(matchCriteria, allowEmpty);
-      let recordOutput: RecordOutput;
-
+      let output: RecordOutput;
       let count = 0;
       while (recordEnumerator.hasNext() && count < maxCount) {
         const inputRecord: Record = recordEnumerator.next();
         if (recordMatcher.matches(inputRecord)) {
           let outputRecord: Record;
-          if (!recordOutput) {
-            let outputRecord: Record;
-            if (format && this.recordFormatter) {
-              outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
-            } else {
-              outputRecord = <any>inputRecord;
-            }
-            let outputFormat = OutputFormat[this.format.toLocaleLowerCase()];
-            recordOutput = RecordOutputFactory.getRecordOutput(outputFormat, this.output, outputRecord);
-            this.logger.log(`Writing ${recordOutput}`);
+          if (!output) {
+            output = this.getOutput(inputRecord, format);
+            this.logger.log(`Writing ${output}`);
           }
           if (format && this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(<any>inputRecord);
           } else {
             outputRecord = <any>inputRecord;
           }
-          recordOutput.write(outputRecord);
+          output.write(outputRecord);
           count++ ;
           this.logger.flush();
         } else {
           this.logger.reset();
         }
       }
-      if (recordOutput) {
-        recordOutput.end();
+      if (output) {
+        output.end();
       }
       const processingDuration = Date.now() - processingStart;
       this.logger.autoFlush = true;
@@ -63,5 +55,16 @@ export class Query {
         this.logger.error(e.message);
       }
     }
+  }
+
+  private getOutput(inputRecord: Record, format: boolean) {
+    let outputRecord: Record;
+    if (format && this.recordFormatter) {
+      outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
+    } else {
+      outputRecord = <any>inputRecord;
+    }
+    let outputFormat = OutputFormat[this.format.toLocaleLowerCase()];
+    return RecordOutputFactory.getRecordOutput(outputFormat, this.output, outputRecord);
   }
 }

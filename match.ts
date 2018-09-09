@@ -1,7 +1,7 @@
 import {Record} from "./input/db/RecordReader";
 
 abstract class CriterionMatcher {
-  constructor(private type: string, protected prop: string, protected value: any) {
+  protected constructor(private type: string, protected prop: string, protected value: any) {
   }
 
   getType(): string {
