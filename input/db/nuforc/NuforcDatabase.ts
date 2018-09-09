@@ -27,28 +27,25 @@ export class NuforcDatabase implements Database {
   init(): Promise<Input> {
     return this.input.readPage('ndxevent.html')
       .then(webRecord => {
-        const monthsLinks = this.input.getLinks(webRecord, reportLink => reportLink.startsWith('ndxe'));
-        this.logger.log(`Found ${monthsLinks.length} months indexes`);
-        const monthsToScan = monthsLinks.slice(400, 402);
-        return this.input.readEachLink(monthsToScan)
-          .then((monthSummaries: WebRecord[]) => {
-            return monthSummaries.reduce((promise, monthSummary) => {
-              return promise
-                .then(input => {
-                  let reportLinks = this.input.getLinks(monthSummary, foundLink => !foundLink.startsWith('http://'));
-                  const monthLabel = this.urlToLabel(monthSummary.source);
-                  this.logger.log(`Found ${reportLinks.length} reports for ${monthLabel}`);
-                  return this.input.readEachLink(reportLinks)
-                    .then((reports: WebRecord[]) => {
-                      reports.forEach((report: WebRecord) => {
-                        this.input.addData(report);
-                      });
-                    });
-                })
-                .then(oneContent => {
-                  return this.input;
-                });
-            }, Promise.resolve(this.input));
+        const monthsLinks = this.input.getLinks(webRecord, foundLink => foundLink.startsWith('ndxe'));
+        const monthsToScan = monthsLinks.slice(0, 2);
+        this.logger.log(`Processing ${monthsToScan.length} months indexes`);
+        monthsToScan.forEach(monthToScanUrl => {
+          this.input.enqueueReadPage(monthToScanUrl).done
+            .then(monthSummary => {
+              let reportLinks = this.input.getLinks(monthSummary, foundLink => !foundLink.startsWith('http://'));
+              reportLinks = reportLinks.slice(0, 10);
+              const monthLabel = this.urlToLabel(monthSummary.source);
+              this.logger.log(`Found ${reportLinks.length} reports for ${monthLabel}`);
+              reportLinks.forEach(link => this.input.enqueueReadPage(link).done
+                .then(report => {
+                  this.input.addData(report);
+                }));
+            });
+        });
+        return this.input.run()
+          .then(pages => {
+            return this.input;
           });
       });
   }
@@ -66,7 +63,6 @@ export class NuforcDatabase implements Database {
     let date = monthLabel.substring(monthLabel.indexOf(tok) + tok.length);
     let year = date.substring(0, 4);
     let month = date.substring(4, 6);
-    const d = year + '-' + month;
-    return d;
+    return year + '-' + month;
   }
 }
