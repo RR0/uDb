@@ -39,7 +39,7 @@ export class NuforcDatabase implements Database {
               this.logger.log(`Found ${reportLinks.length} reports for ${monthLabel}`);
               reportLinks.forEach(link => this.input.enqueueReadPage(link).done
                 .then(report => {
-                  this.input.addData(report);
+                  this.logger.log(`read ${link}`)
                 }));
             });
         });

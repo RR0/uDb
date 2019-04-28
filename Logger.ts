@@ -48,6 +48,7 @@ export class Logger {
     if (this.verbose) {
       this.log(msg, lineFeed);
     }
+    return this;
   }
 
   reset() {

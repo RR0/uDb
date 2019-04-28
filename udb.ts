@@ -1,7 +1,4 @@
 import {DatabaseFactory} from "./input/db/DatabaseFactory";
-
-const program = require('commander');
-
 import {Interactive} from "./Interactive";
 import {Logger} from "./Logger";
 import {Memory} from "./output/Memory";
@@ -12,6 +9,8 @@ import {Database} from "./input/db/Database";
 import {UdbDatabase} from "./input/db/udb/UdbDatabase";
 import {NuforcDatabase} from "./input/db/nuforc/NuforcDatabase";
 import {Input} from "./input/Input";
+
+const program = require('commander');
 
 const DB_DEFAULT = 'udb';
 
@@ -38,7 +37,7 @@ logger.onError(msg => {
   process.stderr.write(msg);
 });
 
-const count = program.count;
+const count = parseInt(program.count, 10);
 const matchCriteria = program.match;
 
 db = DatabaseFactory.create(program.database || DB_DEFAULT, logger, program);
@@ -54,9 +53,9 @@ db.init()
     let maxCount = count || (lastIndex - firstIndex + 1);
 
     new Query(input, output, logger, db.recordFormatter(), format.toLocaleLowerCase())
-      .execute(matchCriteria, firstIndex, maxCount, false);
-
-    input.close();
+      .execute(matchCriteria, firstIndex, maxCount, true)
+      .then(() => input.close())
+      .catch(() => input.close());
 
     if (output instanceof Memory) {
       new Interactive(output, logger).start();

@@ -16,16 +16,16 @@ export class Query {
               private recordFormatter: RecordFormatter, private format: string) {
   }
 
-  execute(matchCriteria: string, firstIndex: number, maxCount: number, format:boolean = true, allowEmpty: boolean = true) {
+  async execute(matchCriteria: string, firstIndex: number, maxCount: number, format: boolean = true, allowEmpty: boolean = true): Promise<void> {
     this.logger.logVerbose(`Querying...`);
     const processingStart = Date.now();
-    const recordEnumerator: RecordEnumerator = new RecordEnumerator(this.input, firstIndex);
+    const recordEnumerator: RecordEnumerator = this.input.recordEnumerator(firstIndex, maxCount);
     try {
       const recordMatcher = new RecordMatcher(matchCriteria, allowEmpty);
       let output: RecordOutput;
       let count = 0;
-      while (recordEnumerator.hasNext() && count < maxCount) {
-        const inputRecord: Record = recordEnumerator.next();
+      while (recordEnumerator.hasNext()) {
+        let inputRecord: Record = await recordEnumerator.next();
         if (recordMatcher.matches(inputRecord)) {
           let outputRecord: Record;
           if (!output) {
@@ -38,7 +38,7 @@ export class Query {
             outputRecord = <any>inputRecord;
           }
           output.write(outputRecord);
-          count++ ;
+          count++;
           this.logger.flush();
         } else {
           this.logger.reset();

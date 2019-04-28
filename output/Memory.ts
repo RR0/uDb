@@ -1,6 +1,7 @@
 import {Output} from "./RecordOutput";
 import {Input} from "../input/Input";
 import {Record} from "../input/db/RecordReader";
+import {RecordEnumerator} from "../input/RecordEnumerator";
 
 export class Memory implements Input, Output {
   records = [];
@@ -10,8 +11,8 @@ export class Memory implements Input, Output {
     return this.recordIndex < this.records.length - 1;
   }
 
-  readRecord(): Record {
-    return this.records[this.recordIndex];
+  readRecord(): Promise<Record> {
+    return Promise.resolve(this.records[this.recordIndex]);
   }
 
   goToRecord(recordIndex: number) {
@@ -24,5 +25,9 @@ export class Memory implements Input, Output {
   }
 
   close(): void {
+  }
+
+  recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
+    return new RecordEnumerator(this, firstIndex, maxCount);
   }
 }

@@ -1,6 +1,5 @@
 import {UdbInputRecord} from "./UdbInputRecord";
 import {Logger} from "../../../Logger";
-import {RecordReader} from "../RecordReader";
 import {BinaryRecordReader} from "../BinaryRecordReader";
 
 /**

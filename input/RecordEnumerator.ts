@@ -3,18 +3,21 @@ import {Record} from "./db/RecordReader";
 
 export class RecordEnumerator {
 
-  constructor(private input: Input, private recordIndex: number) {
+  private count = 0;
+
+  constructor(private input: Input, private recordIndex: number, private maxCount: number) {
     this.input.goToRecord(this.recordIndex);
   }
 
   hasNext(): boolean {
-    return this.input.hasNext();
+    return this.count < this.maxCount && this.input.hasNext();
   }
 
-  next() {
+  async next(): Promise<Record> {
     this.input.goToRecord(this.recordIndex);
-    const inputRecord: Record = this.input.readRecord(this.recordIndex);
+    const promise = this.input.readRecord(this.recordIndex);
     this.recordIndex++;
-    return inputRecord;
+    this.count++;
+    return promise;
   }
 }

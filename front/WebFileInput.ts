@@ -2,6 +2,7 @@ import {Input} from "../input/Input";
 import {Logger} from "../Logger";
 import {UdbRecordReader} from "../input/db/udb/UdbRecordReader";
 import {Record} from "../input/db/RecordReader";
+import {RecordEnumerator} from "../input/RecordEnumerator";
 
 /**
  * A FileInput that reads from a webapp.
@@ -30,6 +31,10 @@ export class WebFileInput implements Input {
     });
   }
 
+  recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
+    return new RecordEnumerator(this, firstIndex, maxCount);
+  }
+
   goToRecord(recordIndex) {
     this.filePos = recordIndex * this.recordSize;
   }
@@ -38,11 +43,13 @@ export class WebFileInput implements Input {
     return this.filePos + (this.recordSize * 2) < this.fileSize;
   }
 
-  readRecord(recordIndex: number): Record {
-    this.getBuffer();
-    let inputRecord = this.recordReader.read(this.filePos);
-    inputRecord.id = recordIndex;
-    return inputRecord;
+  readRecord(recordIndex: number): Promise<Record> {
+    return new Promise<Record>((resolve, reject) => {
+      this.getBuffer();
+      let inputRecord = this.recordReader.read(this.filePos);
+      inputRecord.id = recordIndex;
+      resolve(inputRecord);
+    });
   }
 
   close(): void {

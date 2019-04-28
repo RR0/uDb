@@ -2,8 +2,10 @@ import * as fs from "fs";
 import {Input} from "./Input";
 import {Database} from "./db/Database";
 import {Record, RecordReader} from "./db/RecordReader";
+import {RecordEnumerator} from "./RecordEnumerator";
 
 const bops = require("bops");
+const util = require("util");
 
 export class FileInput implements Input {
   filePos: number;
@@ -39,22 +41,36 @@ export class FileInput implements Input {
     });
   }
 
-  goToRecord(recordIndex) {
+  recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
+    return new RecordEnumerator(this, firstIndex, maxCount);
+  }
+
+  goToRecord(recordIndex: number) {
     this.filePos = recordIndex * this.recordSize;
   }
 
   hasNext(): boolean {
-    return this.filePos + this.recordSize < this.fileSize;
+    let has = this.filePos + this.recordSize < this.fileSize;
+    this.db.logger.logVerbose(`hasNext():${this.filePos} + ${this.recordSize} < ${this.fileSize}) = ${has}`).flush();
+    return has;
   }
 
-  readRecord(recordIndex: number): Record {
-    fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
-    let inputRecord = this.recordReader.read(this.filePos);
-    inputRecord.id = recordIndex;
-    return inputRecord;
+  readRecord(recordIndex: number): Promise<Record> {
+    this.db.logger.logVerbose(`readRecord(${recordIndex})`).flush();
+    return new Promise((resolve, reject) => {
+      let bytesRead = fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
+      let inputRecord = this.recordReader.read(this.filePos);
+      inputRecord.id = recordIndex;
+      resolve(inputRecord);
+    });
   }
 
   close() {
-    fs.close(this.fd);
+    fs.close(this.fd, err => {
+      if (err) {
+        console.error('Error while closing', err);
+        throw err;
+      }
+    });
   }
 }

@@ -1,8 +1,9 @@
-const http = require("http");
-
+import {RecordEnumerator} from "./RecordEnumerator";
 import {Input} from "./Input";
 import {Record} from "./db/RecordReader";
 import {Database} from "./db/Database";
+
+const http = require("http");
 
 /**
  * Web page contents and its source url.
@@ -28,7 +29,9 @@ export class WebInput implements Input {
   recordIndex = 0;
   maxConcurrent = 10;
   queue: WebRead[] = [];
-  interval = 100;
+  readIdleDuration = 100;
+  private reading: number;
+  private readPromises: Promise<WebRecord>[];
 
   constructor(private db: Database, private baseUrl: string, private max = 10000000) {
   }
@@ -43,6 +46,7 @@ export class WebInput implements Input {
     read.done = new Promise((resolve, reject) => {
       read.execute = () => this.readPage(url)
         .then(report => {
+          this.addData(report);
           resolve(report);
         })
         .catch(error => reject(error));
@@ -50,33 +54,36 @@ export class WebInput implements Input {
     return this.enqueue(read);
   }
 
+  recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
+    return new RecordEnumerator(this, firstIndex, maxCount);
+  }
+
   run(): Promise<WebRecord[]> {
-    let reading = 0;
+    this.reading = 0;
 
     return new Promise((resolve, reject) => {
-      let readPromises = [];
+      this.readPromises = [];
       const inter = setInterval(() => {
-        if (this.queue.length > 0 || reading > 0) {
-          if (this.queue.length > 0 && reading <= this.maxConcurrent) {
-            let read = this.queue.shift();
-            if (read) {
-              reading++;
-              read.execute();
-              read.done.then(() => {
-                reading--;
-              });
-              readPromises.push(read.done);
-            }
-          } else {
-            Promise.all(readPromises).then(() => {
-              readPromises = [];
-            });
-          }
-        } else {
+        if (!this.fetch(reject)) {
           clearInterval(inter);
           resolve(this.pages);
         }
-      }, this.interval);
+      }, this.readIdleDuration);
+    });
+  }
+
+  readRecord(recordIndex: number): Promise<Record> {
+    return new Promise((resolve, reject) => {
+      const inter = setInterval(() => {
+        let page = this.pages[recordIndex - 1];
+        if (page) {
+          clearInterval(inter);
+          const recordReader = this.db.recordReader(page);
+          let record = recordReader.read(recordIndex);
+          this.removeData(recordIndex);
+          resolve(record);
+        }
+      }, this.readIdleDuration);
     });
   }
 
@@ -92,10 +99,30 @@ export class WebInput implements Input {
     return this.recordIndex < this.pages.length;
   }
 
-  readRecord(recordIndex: number): Record {
-    let page = this.pages[recordIndex - 1];
-    const recordReader = this.db.recordReader(page);
-    return recordReader.read(recordIndex);
+  private fetch(reject) {
+    let remaining = this.queue.length > 0 || this.reading > 0;
+    if (remaining) {
+      if (this.queue.length > 0 && this.reading <= this.maxConcurrent) {
+        let read = this.queue.shift();
+        if (read) {
+          this.reading++;
+          read.execute();
+          read.done
+            .then(() => {
+              this.reading--;
+            })
+            .catch(error => {
+              reject(error);
+            });
+          this.readPromises.push(read.done);
+        }
+      } else {
+        Promise.all(this.readPromises).then(() => {
+          this.readPromises = [];
+        });
+      }
+    }
+    return remaining;
   }
 
   /**
@@ -178,5 +205,9 @@ export class WebInput implements Input {
 
   addData(report: WebRecord) {
     this.pages.push(report);
+  }
+
+  private removeData(recordIndex: number) {
+    this.pages[recordIndex] = null;
   }
 }
