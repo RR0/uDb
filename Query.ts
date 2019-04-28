@@ -1,7 +1,9 @@
+const url = require('url');
+
 import {Input} from "./input/Input";
 import {Logger} from "./Logger";
 import {MatchError, RecordMatcher} from "./match";
-import {OutputFormat, RecordOutputFactory} from "./output/RecordOutputFactory";
+import {OutputFormat, OutputFormatSpec, RecordOutputFactory} from "./output/RecordOutputFactory";
 import {Output, RecordOutput} from "./output/RecordOutput";
 import {Record} from "./input/db/RecordReader";
 import {Util} from "./util";
@@ -64,7 +66,12 @@ export class Query {
     } else {
       outputRecord = <any>inputRecord;
     }
-    let outputFormat = OutputFormat[this.format.toLocaleLowerCase()];
+    let params = url.parse(this.format, {parseQueryString: true}).query;
+    const paramsStart = this.format.indexOf('?');
+    let outputFormat: OutputFormatSpec = {
+      format: OutputFormat[this.format.substring(0, paramsStart > 0 ? paramsStart : undefined).toLocaleLowerCase()],
+      params,
+    };
     return RecordOutputFactory.getRecordOutput(outputFormat, this.output, outputRecord);
   }
 }

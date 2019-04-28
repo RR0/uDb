@@ -16,7 +16,7 @@ export class UdbRecordReader extends BinaryRecordReader {
     let extraBit = firstByte >> 7;
     this.logger.logDebug('extrabit=' + extraBit);
     let sInt = this.readSignedInt(prop);
-    sInt = (sInt >> 1);
+    sInt = sInt >> 1;
     sInt = sInt / 100;
     // logDebug('orig=' + sInt);
     this.record[prop] = sInt * 1.11111111111;
@@ -24,8 +24,8 @@ export class UdbRecordReader extends BinaryRecordReader {
   }
 
 
-  read(filePos: number): UdbInputRecord {
-    const record = <UdbInputRecord>super.read(filePos);
+  read(filePos: number, recordIndex?: number): UdbInputRecord {
+    const record = <UdbInputRecord>super.read(filePos, recordIndex);
 
     this.readSignedInt('year');
     this.readNibbles('unknownLocale', 'locale');

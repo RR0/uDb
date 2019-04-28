@@ -1,7 +1,6 @@
 import {Geo} from "./geo";
 import {Output, RecordOutput} from "../../RecordOutput";
 import {UdbOutputRecord} from "./UdbOutputRecord";
-import WritableStream = NodeJS.WritableStream;
 
 let indent = 0;
 
@@ -13,7 +12,7 @@ function line(str?) {
 
 export class UdbTextRecordOutput implements RecordOutput {
 
-  constructor(private output: Output) {
+  constructor(private output: Output, private params?: any) {
   }
 
   desc(record: UdbOutputRecord) {
@@ -29,10 +28,12 @@ export class UdbTextRecordOutput implements RecordOutput {
       + line(`Date\t\t: ${record.year}${month ? '/' + month : ''}${day ? '/' + day : ''}${time ? ', ' + time : ''}`);
     const relativeAltitude = record.relativeAltitude;
     const elevation = record.elevation;
-    let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '') 
+    let elevationStr = `${elevation || relativeAltitude ? line((elevation ? '\tElevation ' + elevation + ' m' : '')
       + (relativeAltitude ? ', relative altitude ' + relativeAltitude + ' m' : '')) : ''}`;
+    const latLngFormat = this.params.latLng || 'dms';
+    const latLong = latLngFormat === 'dms' ? Geo.ddToDms(record.latitude, record.longitude) : record.latitude + ' ' + record.longitude;
     let location = line('Location\t:')
-      + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${Geo.ddToDms(record.latitude, record.longitude)}`)
+      + line(`\t${record.locale}, ${record.location} (${record.stateOrProvince}, ${record.country}, ${record.continent}), ${latLong}`)
       + elevationStr;
     indent++;
     location += line(`Observer: ${record.locationFlags}`);

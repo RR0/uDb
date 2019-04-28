@@ -2,10 +2,18 @@ const assert = require('assert');
 const geo = require('../build/geo');
 
 describe('geo', function () {
+  describe('DDToDMS', function () {
+    it('should return correct conversion', function () {
+      assert.equal(geo.Geo.ddToDms(33.35, -3.59), `3º35'24" E 33º21'00" N`);
+      let fixFactor = 1.11111111111;
+      assert.equal(geo.Geo.ddToDms(33.35 * fixFactor, -3.59 * fixFactor), `3º59'20" E 37º03'20" N`);
+      assert.equal(geo.Geo.ddToDms(37.20712, -3.16259), `3º09'45.324" E 37º12'25.632" N`);
+    });
+  });
   describe('getLocale', function () {
     it('should return known locale', function () {
-      assert.equal('Metropolis', geo.Geo.getLocale({locale: 0}));
-      assert.equal('Road + rails', geo.Geo.getLocale({locale: 20}));
+      assert.equal(geo.Geo.getLocale({locale: 0}), 'Metropolis');
+      assert.equal(geo.Geo.getLocale({locale: 20}), 'Road + rails');
     });
     it('should return unknown locale', function () {
       assert.equal('locale#21', geo.Geo.getLocale({locale: 21}));

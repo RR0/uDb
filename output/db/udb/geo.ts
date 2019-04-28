@@ -32,7 +32,17 @@ const statesOrProvinces = {
 };
 
 export class Geo {
-  private static getDms(val) {
+  static ddToDms(lat: number, lng: number) {
+    let latResult = Geo.getDms(lat) + ' ';
+    latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
+
+    let lngResult = Geo.getDms(lng) + ' ';
+    lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
+
+    return lngResult + ' ' + latResult;
+  }
+
+  private static getDms(val: number) {
     val = Math.abs(val);
 
     let valDeg = Math.floor(val);
@@ -51,16 +61,6 @@ export class Geo {
     result += (valMin < 10 ? '0' + valMin : valMin) + "'"; // 40º36'
     result += (valSec < 10 ? '0' + valSec : valSec) + '"'; // 40º36'4.331"
     return result;
-  }
-
-  static ddToDms(lat, lng) {
-    let latResult = Geo.getDms(lat) + ' ';
-    latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
-
-    let lngResult = Geo.getDms(lng) + ' ';
-    lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
-
-    return lngResult + ' ' + latResult;
   }
 
   static getLocale(record) {

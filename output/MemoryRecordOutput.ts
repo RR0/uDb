@@ -3,13 +3,15 @@ import {Record} from "../input/db/RecordReader";
 
 export class MemoryRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private sortedRecord) {
+  constructor(private output: Output, private sortedRecord, params: any) {
   }
 
   desc(record) {
     const sorted = <Record>{};
     for (let prop in this.sortedRecord) {
-      sorted[prop] = record[prop];
+      if (this.sortedRecord.hasOwnProperty(prop)) {
+        sorted[prop] = record[prop];
+      }
     }
     return sorted;
   }
@@ -19,5 +21,6 @@ export class MemoryRecordOutput implements RecordOutput {
     this.output.write(this.desc(record));
   }
 
-  end() {}
+  end() {
+  }
 }

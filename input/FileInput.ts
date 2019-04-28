@@ -59,7 +59,7 @@ export class FileInput implements Input {
     this.db.logger.logVerbose(`readRecord(${recordIndex})`).flush();
     return new Promise((resolve, reject) => {
       let bytesRead = fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
-      let inputRecord = this.recordReader.read(this.filePos);
+      let inputRecord = this.recordReader.read(this.filePos, recordIndex);
       inputRecord.id = recordIndex;
       resolve(inputRecord);
     });

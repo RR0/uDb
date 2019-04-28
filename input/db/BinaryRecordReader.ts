@@ -102,8 +102,8 @@ export abstract class BinaryRecordReader extends RecordReader {
   }
 
 
-  read(filePos: number): Record {
-    let record = super.read(filePos);
+  read(filePos: number, recordIndex?: number): Record {
+    let record = super.read(filePos, recordIndex);
     this._recordHex = '';
     return record;
   }

@@ -37,14 +37,14 @@ export abstract class RecordReader {
     return this._filePos;
   }
 
-  read(filePos: number): Record {
-    const record: Record = this._record = this.createRecord();
+  read(filePos: number, recordIndex?: number): Record {
+    const record: Record = this._record = this.createRecord(recordIndex);
     this._recordPos = 0;
     this._filePos = filePos;
     return record;
   }
 
-  protected createRecord(): Record {
-    return <Record>{};
+  protected createRecord(id?: number): Record {
+    return <Record>{id};
   }
 }

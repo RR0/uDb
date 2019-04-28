@@ -3,7 +3,12 @@ import {Record} from "../input/db/RecordReader";
 
 export class CsvRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private sortedRecord: Record, private separator: string = ',') {
+  private separator: string = ',';
+
+  constructor(private output: Output, private sortedRecord: Record, params?: any) {
+    if (params) {
+      this.separator = params.separator;
+    }
     const headerRecord = {};
     for (let prop in this.sortedRecord) {
       headerRecord[prop] = prop;

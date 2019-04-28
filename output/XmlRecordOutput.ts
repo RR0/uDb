@@ -1,10 +1,11 @@
 import {Output, RecordOutput} from "./RecordOutput";
 import {Record} from "../input/db/RecordReader";
+
 const json2xml = require('json2xml');
 
 export class XmlRecordOutput implements RecordOutput {
 
-  constructor(private output: Output, private sortedRecord: Record) {
+  constructor(private output: Output, private sortedRecord: Record, params: any) {
     this.output.write('<?xml version="1.0" encoding="UTF-8"?>\n<udb>\n')
   }
 

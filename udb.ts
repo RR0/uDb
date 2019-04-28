@@ -52,7 +52,7 @@ db.init()
     let lastIndex = 10000000;
     let maxCount = count || (lastIndex - firstIndex + 1);
 
-    new Query(input, output, logger, db.recordFormatter(), format.toLocaleLowerCase())
+    new Query(input, output, logger, db.recordFormatter(), format)
       .execute(matchCriteria, firstIndex, maxCount, true)
       .then(() => input.close())
       .catch(() => input.close());
