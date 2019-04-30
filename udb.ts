@@ -21,7 +21,8 @@ program
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/db/udb/data/WM.VCE')
   .option('-c, --count <maxCount>', 'Maximum number of records to output.')
   .option('-m, --match <field=value>[&field=value...][|field=value...]', 'Output records that match the criteria.')
-  .option('-f, --format <default|csv|xml> [csvSeparator]', 'Format of the output')
+  .option('-f, --format <default|csv|xml>[?params]', 'Format of the output. default params are latLng=dms|dd, csv' +
+    ' params are separator')
   .option('-o, --out <outputFile|memory>', 'Name of the file to output. "memory" will enter interactive mode.')
   .option('-v, --verbose', 'Displays detailed processing information.')
   .option('--debug', 'Displays debug info.')

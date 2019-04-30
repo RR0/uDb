@@ -89,4 +89,8 @@ export class UdbTextRecordOutput implements RecordOutput {
 
   end() {
   }
+
+  toString() {
+    return 'console';
+  }
 }

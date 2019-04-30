@@ -34,10 +34,10 @@ const statesOrProvinces = {
 export class Geo {
   static ddToDms(lat: number, lng: number) {
     let latResult = Geo.getDms(lat) + ' ';
-    latResult += !lng ? 'Q' : lat > 0 ? 'N' : 'S';
+    latResult += !lat ? 'Q' : lat > 0 ? 'N' : 'S';
 
     let lngResult = Geo.getDms(lng) + ' ';
-    lngResult += !lng ? 'Z' : lng > 0 ? 'W' : 'E';
+    lngResult += !lng ? 'Z' : lng > 0 ? 'E' : 'W';
 
     return lngResult + ' ' + latResult;
   }
