@@ -14,12 +14,13 @@ export class UdbRecordReader extends BinaryRecordReader {
   readLatLong(prop) {
     let firstByte = this.buffer[this.recordPos + 1];
     let extraBit = firstByte >> 7;
-    this.logger.logDebug('extrabit=' + extraBit);
     let sInt = this.readSignedInt(prop);
     sInt = sInt >> 1;
     sInt = sInt / 100;
-    // logDebug('orig=' + sInt);
     this.record[prop] = sInt * 1.11111111111;
+    if (prop === 'longitude') {
+      this.record[prop] *= -1.00;
+    }
     return sInt;
   }
 

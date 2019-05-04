@@ -8,6 +8,7 @@ export class FileOutput implements Output {
   constructor(out: string) {
     this.writeStream = fs.createWriteStream(out, {flags: 'w'});
   }
+
   write(object: any) {
     this.writeStream.write(object);
   }

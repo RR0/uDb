@@ -15,7 +15,7 @@ const program = require('commander');
 const DB_DEFAULT = 'udb';
 
 program
-  .version('1.0.1')
+  .version('1.0.2')
   .option('-db, --database <udb|nuforc> [source]', `Database to read (defaults to ${DB_DEFAULT}).\nOptional source, depending on database, can default to ${UdbDatabase.DATA_FILE_DEFAULT} or ${NuforcDatabase.URL_DEFAULT})`)
   .option('-s, --sources [sourcesFile]', 'Sources file to read. Defaults to ./input/db/udb/data/usources.txt')
   .option('-wm, --worldmap [wmFile]', 'World map file to read. Defaults to ./input/db/udb/data/WM.VCE')

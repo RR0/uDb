@@ -51,12 +51,12 @@ export class FileInput implements Input {
 
   hasNext(): boolean {
     let has = this.filePos + this.recordSize < this.fileSize;
-    this.db.logger.logVerbose(`hasNext():${this.filePos} + ${this.recordSize} < ${this.fileSize}) = ${has}`).flush();
+    // this.db.logger.logVerbose(`hasNext():${this.filePos} + ${this.recordSize} < ${this.fileSize}) = ${has}`).flush();
     return has;
   }
 
   readRecord(recordIndex: number): Promise<Record> {
-    this.db.logger.logVerbose(`readRecord(${recordIndex})`).flush();
+    // this.db.logger.logVerbose(`readRecord(${recordIndex})`).flush();
     return new Promise((resolve, reject) => {
       let bytesRead = fs.readSync(this.fd, this.buffer, 0, this.recordSize, this.filePos);
       let inputRecord = this.recordReader.read(this.filePos, recordIndex);

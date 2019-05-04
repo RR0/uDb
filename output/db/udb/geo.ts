@@ -39,7 +39,7 @@ export class Geo {
     let lngResult = Geo.getDms(lng) + ' ';
     lngResult += !lng ? 'Z' : lng > 0 ? 'E' : 'W';
 
-    return lngResult + ' ' + latResult;
+    return `${latResult} ${lngResult}`;
   }
 
   private static getDms(val: number) {

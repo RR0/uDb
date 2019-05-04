@@ -24,4 +24,8 @@ export class XmlRecordOutput implements RecordOutput {
   end() {
     this.output.write('</udb>')
   }
+
+  toString() {
+    return 'XML output to ' + this.output;
+  }
 }

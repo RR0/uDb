@@ -1,12 +1,12 @@
-import {FileInput} from "../FileInput";
 import {RecordFormatter} from "../../output/db/RecordFormatter";
 import {Logger} from "../../Logger";
 import {RecordReader} from "./RecordReader";
+import {Input} from "../Input";
 
 export interface Database {
   logger: Logger;
 
-  init(): Promise<FileInput>;
+  init(): Promise<Input>;
 
   recordFormatter(): RecordFormatter;
 

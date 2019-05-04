@@ -18,7 +18,7 @@ export class WorldMap {
         let position = 0;
         let recordSize = 6;
         let count = 0;
-        const buffer = new Buffer(recordSize);
+        const buffer = Buffer.alloc(recordSize);
         while (position < fileSize) {
           if ((position + recordSize) > fileSize) {
             let recordSize = fileSize - position;

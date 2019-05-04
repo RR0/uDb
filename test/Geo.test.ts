@@ -1,56 +1,55 @@
-const assert = require('assert');
-const geo = require('../build/geo');
+import {Geo} from "../output/db/udb/geo";
+import {expect} from 'chai';
 
 describe('geo', function () {
   describe('DDToDMS', function () {
     it('should return correct conversion', function () {
-      assert.equal(geo.Geo.ddToDms(33.35, 3.59), `3º35'24" W 33º21'00" N`);
-
-      let fixFactor = 1.11111111111;
-      assert.equal(geo.Geo.ddToDms(33.35 * fixFactor, -3.59 * fixFactor), `3º59'20" E 37º03'20" N`);
-      assert.equal(geo.Geo.ddToDms(37.20712, -3.16259), `3º09'45.324" E 37º12'25.632" N`);
+      expect(Geo.ddToDms(31, 46.17)).to.eq(`31º00'00" N 46º10'12" E`); // #1: Iraq
+      expect(Geo.ddToDms(37.06, -3.99)).to.eq(`37º03'36" N 3º59'24" W`); // #18094: Spain
+      expect(Geo.ddToDms(-34.62, -58.44)).to.eq(`34º37'12" S 58º26'24" W`); // Buenos Aires
+      expect(Geo.ddToDms(-33.7, 117.56)).to.eq(`33º42'00" S 117º33'36" E`); // Australia
     });
   });
-  describe('getLocale', function () {
-    it('should return known locale', function () {
-      assert.equal(geo.Geo.getLocale({locale: 0}), 'Metropolis');
-      assert.equal(geo.Geo.getLocale({locale: 20}), 'Road + rails');
+  describe('getLocale', () => {
+    it('should return known locale', () => {
+      expect(Geo.getLocale({locale: 0})).to.eq('Metropolis');
+      expect(Geo.getLocale({locale: 20})).to.eq('Road + rails');
     });
     it('should return unknown locale', function () {
-      assert.equal('locale#21', geo.Geo.getLocale({locale: 21}));
+      expect('locale#21').to.eq(Geo.getLocale({locale: 21}));
     });
   });
   describe('getElevation', function () {
     it('should return known elevation', function () {
-      assert.equal('200', geo.Geo.getElevation({elevation: 200}));
+      expect(Geo.getElevation({elevation: 200})).to.eq(200);
     });
     it('should return unknown elevation', function () {
-      assert.equal('', geo.Geo.getElevation({elevation: -99}));
+      expect(Geo.getElevation({elevation: -99})).to.eq('');
     });
   });
   describe('getRelativeAltitude', function () {
     it('should return known relative altitude', function () {
-      assert.equal('20', geo.Geo.getRelativeAltitude({relativeAltitude: 20}));
+      expect(Geo.getRelativeAltitude({relativeAltitude: 20})).to.eq(20);
     });
     it('should return unknown elevation', function () {
-      assert.equal('', geo.Geo.getRelativeAltitude({relativeAltitude: 999}));
+      expect('').to.eq(Geo.getRelativeAltitude({relativeAltitude: 999}));
     });
   });
   describe('getContinent', function () {
     it('should return known continent', function () {
-      let continent0 = geo.Geo.getContinent(0);
-      assert.equal('North America', continent0.name);
-      assert.equal('Actual Continent including Central America', continent0.description);
-      assert.equal(10, Object.keys(continent0.countries).length);
+      let continent0 = Geo.getContinent(0);
+      expect('North America').to.eq(continent0.name);
+      expect('Actual Continent including Central America').to.eq(continent0.description);
+      expect(10).to.eq(Object.keys(continent0.countries).length);
 
-      let continent11 = geo.Geo.getContinent(11);
-      assert.equal('Space', continent11.name);
-      assert.equal(11, Object.keys(continent11.countries).length);
+      let continent11 = Geo.getContinent(11);
+      expect('Space').to.eq(continent11.name);
+      expect(11).to.eq(Object.keys(continent11.countries).length);
     });
-    it('should return unknown continent', function () {
-      let unknownContinent = geo.Geo.getContinent(12);
-      assert.equal('continent#12', unknownContinent.name);
-      assert.equal(0, Object.keys(unknownContinent.countries).length);
+    it('should return unknown continent', () => {
+      let unknownContinent = Geo.getContinent(12);
+      expect('continent#12').to.eq(unknownContinent.name);
+      expect(0).to.eq(Object.keys(unknownContinent.countries).length);
     });
   });
   describe('getCountry', function () {
@@ -155,12 +154,12 @@ describe('geo', function () {
       }
     };
     it('should return known country', function () {
-      let country = geo.Geo.getCountry(continent0, 1);
-      assert.equal('Canada', country.name);
-      assert.equal(13, Object.keys(country.statesOrProvinces).length);
+      let country = Geo.getCountry(continent0, 1);
+      expect('Canada', country.name);
+      expect(13).to.eq(Object.keys(country.statesOrProvinces).length);
     });
     it('should return unknown country', function () {
-      assert.deepEqual({name: 'country#11'}, geo.Geo.getCountry(continent0, 11));
+      expect({name: 'country#11'}).to.deep.eq(Geo.getCountry(continent0, 11));
     });
   });
 });

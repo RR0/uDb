@@ -6,7 +6,7 @@ export class CsvRecordOutput implements RecordOutput {
   private separator: string = ',';
 
   constructor(private output: Output, private sortedRecord: Record, params?: any) {
-    if (params) {
+    if (params.separator) {
       this.separator = params.separator;
     }
     const headerRecord = {};
@@ -19,7 +19,7 @@ export class CsvRecordOutput implements RecordOutput {
   static csvValue(value) {
     if (typeof value === 'string') {
       value = value.replace(/"/g, '""');  // Escape quotes in value
-      value = '"' + value + '"';
+      value = `"${value}"`;
     }
     return value;
   }
@@ -46,6 +46,6 @@ export class CsvRecordOutput implements RecordOutput {
   end() {}
 
   toString() {
-    return `CVS format in ${this.output}`;
+    return `CVS output in ${this.output}`;
   }
 }
