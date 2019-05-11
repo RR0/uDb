@@ -15,8 +15,11 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install npm
+          name: Install
           command: npm install
+      - run:
+          name: Build
+          command: npm build
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -26,6 +29,9 @@ jobs:
       - image: circleci/node:10.11.0
     steps:
       - checkout
+      - run:
+          name: Install
+          command: npm install
       - run:
           name: Test
           command: npm test
