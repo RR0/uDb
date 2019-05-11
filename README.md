@@ -15,9 +15,8 @@ A simple [form is available online](http://rr0.org/udb) to query the database us
 
 1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
 1. Install the dependencies: `npm install`
-1. Install node typings: `node node_modules/typings/dist/bin.js install dt~node --global --save-dev`
 1. Build the software: `npm run build`
-1. Run the software: `npm run run`
+1. Run the software: `npm run cli`
 
 ## Usage
 
