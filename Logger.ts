@@ -1,11 +1,13 @@
 export class Logger {
-  protected logMsg : string;
+  DEBUG: boolean;
   private _autoFlush: boolean;
   private logCb: Function;
   private logError: Function;
+  verbose: boolean;
+  prefix: string;
+  protected logMsg: string;
 
-  /*@ngInject*/
-  constructor(private DEBUG: boolean, private verbose: boolean, private prefix: string) {
+  constructor() {
     this.reset();
   }
 
@@ -26,7 +28,7 @@ export class Logger {
       this.logMsg += '\n';
       msg = msg.substring(1);
     }
-    this.logMsg += (withPrefix ? this.prefix : '') + msg + (lineFeed ? '\n' : '');
+    this.logMsg += (withPrefix && this.prefix ? this.prefix : '') + msg + (lineFeed ? '\n' : '');
     if (this._autoFlush) {
       this.flush(cb);
     }

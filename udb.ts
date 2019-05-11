@@ -30,7 +30,10 @@ program
 
 let db: Database;
 
-const logger = new Logger(program.debug, program.verbose, "udb: ");
+const logger = new Logger();
+logger.DEBUG = program.debug;
+logger.verbose = program.verbose;
+logger.prefix = 'udb: ';
 logger.onLog(msg => {
   process.stdout.write(msg);
 });

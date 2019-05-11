@@ -30,4 +30,8 @@ export class Memory implements Input, Output {
   recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
     return new RecordEnumerator(this, firstIndex, maxCount);
   }
+
+  toString() {
+    return 'Memory';
+  }
 }

@@ -23,4 +23,8 @@ export class MemoryRecordOutput implements RecordOutput {
 
   end() {
   }
+
+  toString() {
+    return 'Memory record output';
+  }
 }

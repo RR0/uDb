@@ -1,4 +1,5 @@
 import {Logger} from "../Logger";
+import {UdbService} from "./UdbService";
 
 export class UdbController {
 
@@ -7,7 +8,7 @@ export class UdbController {
   private logs = 'Loading...';
 
   /*@ngInject*/
-  constructor($scope, private udbService, logger: Logger) {
+  constructor($scope, private udbService: UdbService, logger: Logger) {
     this.matchCriteria = '';
     logger.onLog(msg => {
       $scope.$applyAsync(() => {
@@ -21,17 +22,21 @@ export class UdbController {
     });
   }
 
+  $onInit = () => {
+  };  // Workarounds tsc weak type error about not implementing IController
+
   timeLink(year) {
-    const milenium = Math.floor(year / 1000);
+    const millennium = Math.floor(year / 1000);
     const centuries = year % 1000;
     const century = Math.floor(centuries / 100);
     const decades = centuries % 100;
     const decade = Math.floor(decades / 10);
     const y = decades % 10;
-    return `/time/${milenium}/${century}/${decade}/${y}`;
+    return `/time/${millennium}/${century}/${decade}/${y}`;
   }
 
-  search() {
-    this.matchResults = this.udbService.match(this.matchCriteria).pages;
+  async search() {
+    let memory = await this.udbService.match(this.matchCriteria);
+    this.matchResults = memory.records;
   }
 }

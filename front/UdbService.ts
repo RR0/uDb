@@ -50,19 +50,17 @@ export class WebReadLine {
 }
 
 export class UdbService {
-  private sources: Sources;
+  private readonly sources: Sources = new Sources();
+  private readonly memory: Memory = new Memory();
   private format: string = 'memory';
   private firstIndex: number = 1;
   private maxCount: number = 1000000;
-  private memory: Memory;
 
-  private recordFormatter;
+  private recordFormatter = new UdbRecordFormatter(this.sources);
 
   /*@ngInject*/
   constructor(private logger: Logger, private webFileInput: WebFileInput, private $http, private webReadLine: WebReadLine) {
-    this.memory = new Memory();
-    this.sources = new Sources();
-    this.recordFormatter = new UdbRecordFormatter(this.sources);
+    logger.verbose = true;
   }
 
   load(sourcesFilename: string, dataFilename: string) {
@@ -97,9 +95,9 @@ export class UdbService {
     });
   }
 
-  match(matchCriteria) {
-    let results = new Memory();
-    new Query(this.memory, results, this.logger, null, this.format)
+  async match(matchCriteria): Promise<Memory> {
+    const results = new Memory();
+    await new Query(this.memory, results, this.logger, null, this.format)
       .execute(matchCriteria, this.firstIndex, this.maxCount, false, false);
     return results;
   }

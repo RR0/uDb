@@ -80,7 +80,7 @@ export class MatchError extends Error {
   }
 }
 export class RecordMatcher {
-  private matchers = [];
+  private matchers: CriterionMatcher[] = [];
 
   constructor(private criteria = '', private allowEmpty = true) {
     const andCriterions = criteria.split('&');

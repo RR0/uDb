@@ -32,7 +32,7 @@ export class Query {
           let outputRecord: Record;
           if (!output) {
             output = this.getOutput(inputRecord, format);
-            this.logger.log(`Writing ${output}`);
+            this.logger.logDebug(`Writing ${output}`);
           }
           if (format && this.recordFormatter) {
             outputRecord = this.recordFormatter.formatData(<any>inputRecord);
@@ -59,7 +59,7 @@ export class Query {
     }
   }
 
-  private getOutput(inputRecord: Record, format: boolean) {
+  private getOutput(inputRecord: Record, format: boolean): RecordOutput {
     let outputRecord: Record;
     if (format && this.recordFormatter) {
       outputRecord = this.recordFormatter.formatProperties(Util.copy(inputRecord));
