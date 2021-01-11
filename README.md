@@ -374,11 +374,16 @@ Last but not least, I want to thank [Isaac Koi](http://www.isaackoi.com) for his
 This work could not have been possible without him, who managed to run the old software, perform an textual export of the data, 
 and got the permission from Larry's nephew (the holder of Larry's Power of Attorney) to share Larry's work.
 
-Since then this project has been credited by Adam Kehoe's paper "[Analyzing The Nearly Lost Hatch Database: 18,123
+Since then, this project has been credited by Adam Kehoe's paper "[Analyzing The Nearly Lost Hatch Database: 18,123
  case files](https://blog.adamkehoe.com/hatch-udatabase)".
 
 ## Errata
 
+Please note that some data from this database are incorrect:
+
 * The Jaboticatubas case year is [1976](https://rr0.org/time/1/9/7/6/08/), not 1968. 
   This is particularly to note important to note, as Hatch ranked this case highly in both credibility and
+   strangeness. 
+* The "Pinheiro" case ([Colares sightings](https://rr0.org/science/crypto/ufo/enquete/dossier/Colares/)) month is July
+ (7) 1977, not March (3). This is particularly to note important to note, as Hatch ranked this case highly in both credibility and
    strangeness. 
