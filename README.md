@@ -15,9 +15,8 @@ A simple [form is available online](http://rr0.org/udb) to query the database us
 ## Setup
 
 1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
-1. Install the dependencies: `npm install`
-1. Build the software: `npm run build`
-1. Run the software: `npm run cli`
+1. Install uDb: `npm install -g @rr0/udb`
+1. Run the software: `udb --help`
 
 ## Usage
 
@@ -361,7 +360,7 @@ You can use any [InputRecord](https://github.com/RR0/uDb/blob/master/input/Input
 
 See [opened issues](https://github.com/RR0/uDb/issues).
 
-## Acknowdlegments
+## Acknowledgments
 
 First I would like to thank Larry Hatch for his invaluable work in building this huge quality database.
 
@@ -374,3 +373,12 @@ who notified a longitude inversion error.
 Last but not least, I want to thank [Isaac Koi](http://www.isaackoi.com) for his restless efforts in collecting and sharing UFO data with the permission of their owners.
 This work could not have been possible without him, who managed to run the old software, perform an textual export of the data, 
 and got the permission from Larry's nephew (the holder of Larry's Power of Attorney) to share Larry's work.
+
+Since then this project has been credited by Adam Kehoe's paper "[Analyzing The Nearly Lost Hatch Database: 18,123
+ case files](https://blog.adamkehoe.com/hatch-udatabase)".
+
+## Errata
+
+* The Jaboticatubas case year is [1976](https://rr0.org/time/1/9/7/6/08/), not 1968. 
+  This is particularly to note important to note, as Hatch ranked this case highly in both credibility and
+   strangeness. 
