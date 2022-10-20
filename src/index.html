@@ -1,0 +1,114 @@
+<!--#include virtual="/header-start.html" -->
+<title>*U* UFO Database</title>
+<!--#include virtual="/header-end.html" -->
+<style>
+  tbody {
+    display: table-row-group !important;
+    width: auto !important;
+  }
+
+  .criteria {
+    font-family: monospace, Courier;
+  }
+
+  thead {
+    display: table-header-group !important;
+    width: auto !important;
+  }
+
+  tr {
+    display: table-row !important;
+    width: auto !important;
+  }
+
+  th, td {
+    display: table-cell !important;
+    width: auto !important;
+  }
+
+  .log {
+    height: 3em;
+    overflow: auto;
+  }
+
+  label input {
+    width: 77vw;
+  }
+
+  nav {
+    background: white;
+  }
+</style>
+<p>This is the web front of <a href="https://github.com/RR0/uDb">uDb</a>, a project to make <a
+    href="http://web.archive.org/web/20060701162044/http://www.larryhatch.net/">Larry Hatch database</a> available
+  again.
+</p>
+<hr/>
+<script src="../build/webUdb.js" type="module"></script>
+<div>
+  <form action="javascript:submitIt()" id="searchForm">
+    <label>Match criteria <input type="search"/></label> <input type="submit" value="Search">
+  </form>
+  <p>Supported operators are equal (<code>=</code>), not equal (<code>!=</code> or <code><></code>), below
+    (<code><</code> or <code><=</code>), above (<code>></code> or <code>>=</code>). They can be combined using AND
+    (<code>&</code>) or OR (<code>|</code>) logical operators.
+  </p>
+  <p>For example, <code>year=1972&month=8|month=7&country=France</code> will list cases that occurred on August of 1972,
+    or in July of any year in France.
+  </p>
+  <div id="logs"></div>
+  <output id="matchResult"></output>
+</div>
+<script>
+  const form = document.getElementById("searchForm")
+  const logs = document.getElementById("logs")
+  const result = document.getElementById("matchResult")
+  const criteria = document.querySelector("#searchForm input")
+  const onLog = msg => {
+    console.log(msg)
+    msg = msg.replace(/\n/g, "<br/>")
+    logs.innerHTML = msg
+  }
+
+  function submitIt() {
+    const logger = udbController.logger
+    logger.onLog(onLog)
+
+    udbController.search(criteria.value).then(records => {
+      if (records.length > 0) {
+        const heading = records[0]
+        const table = document.createElement("table")
+        const thead = document.createElement("thead")
+        const tr = document.createElement("tr")
+        for (const p in heading) {
+          const th = document.createElement("th")
+          th.textContent = p
+          tr.appendChild(th)
+        }
+        thead.appendChild(tr)
+        table.appendChild(thead)
+        const tbody = document.createElement("tbody")
+        table.appendChild(tbody)
+        for (const record of records) {
+          const tr = document.createElement("tr")
+          for (const p in record) {
+            const td = document.createElement("td")
+            let value = record[p]
+            if (p === "year") {
+              value = `<a href="${udbController.timeLink(value)}">${value}</a>`
+            }
+            td.innerHTML = value
+            tr.appendChild(td)
+          }
+          thead.appendChild(tr)
+        }
+        result.replaceChildren(table)
+      } else {
+        result.innerText = "No result"
+      }
+    })
+  }
+
+  form.onsubmit = submitIt
+</script>
+<!--#include virtual="/footer.html" -->

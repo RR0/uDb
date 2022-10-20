@@ -1,0 +1,7 @@
+/.idea/
+.circleci
+/src
+/src/input
+/src/output
+/test
+*.patch

@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "module": "ES2020",
+    "target": "ES2015",
+    "removeComments": true,
+    "preserveConstEnums": true,
     "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -14,7 +16,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "src"
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "**/*.ts"
