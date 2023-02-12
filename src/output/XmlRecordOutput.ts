@@ -1,5 +1,5 @@
-import {Output, RecordOutput} from "./RecordOutput.js"
-import {UdbRecord} from "../input/db/UdbRecord.js"
+import {Output, RecordOutput} from "./RecordOutput"
+import {UdbRecord} from "../input/db/UdbRecord"
 
 import * as json2xml from "json2xml"
 

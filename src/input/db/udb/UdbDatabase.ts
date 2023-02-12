@@ -1,13 +1,13 @@
-import {FileInput} from "../../FileInput.js"
-import {Logger} from "../../../Logger.js"
-import {WorldMap} from "./WorldMap.js"
+import {FileInput} from "../../FileInput"
+import {Logger} from "../../../Logger"
+import {WorldMap} from "./WorldMap"
 import * as fs from "fs"
-import {Sources} from "./Sources.js"
-import {UdbRecordFormatter} from "../../../output/db/udb/UdbRecordFormatter.js"
-import {RecordFormatter} from "../../../output/db/RecordFormatter.js"
-import {Database} from "../Database.js"
-import {RecordReader} from "../RecordReader.js"
-import {UdbRecordReader} from "./UdbRecordReader.js"
+import {Sources} from "./Sources"
+import {UdbRecordFormatter} from "../../../output/db/udb/UdbRecordFormatter"
+import {RecordFormatter} from "../../../output/db/RecordFormatter"
+import {Database} from "../Database"
+import {RecordReader} from "../RecordReader"
+import {UdbRecordReader} from "./UdbRecordReader"
 
 let readline = require("readline")
 

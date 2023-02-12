@@ -1,5 +1,5 @@
-import {Input} from "./Input.js"
-import {UdbRecord} from "./db/UdbRecord.js"
+import {Input} from "./Input"
+import {UdbRecord} from "./db/UdbRecord"
 
 export class RecordEnumerator {
 

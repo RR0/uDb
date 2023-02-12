@@ -9,8 +9,8 @@
     "build": "tsc",
     "build:web": "rm -Rf build && tsc --project tsconfig-web.json",
     "test": "jest",
-    "cli": "ts-node $NODE_DEBUG_OPTION -- src/udb.ts",
-    "cli:dev": "ts-node-dev $NODE_DEBUG_OPTION --trace-warnings --trace-deprecation -- src/udb.ts"
+    "cli": "ts-node $NODE_DEBUG_OPTION -- src/udb.ts --help",
+    "cli:dev": "ts-node-dev $NODE_DEBUG_OPTION --trace-warnings --trace-deprecation -- src/udb.ts -c 10"
   },
   "repository": {
     "type": "git",

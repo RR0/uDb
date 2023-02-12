@@ -1,7 +1,7 @@
-import {Logger} from "../../Logger.js"
-import {Util} from "../../util.js"
-import {RecordReader} from "./RecordReader.js"
-import {UdbRecord} from "./UdbRecord.js"
+import {Logger} from "../../Logger"
+import {Util} from "../../util"
+import {RecordReader} from "./RecordReader"
+import {UdbRecord} from "./UdbRecord"
 
 /**
  * Creates an InputRecord from a raw binary record.

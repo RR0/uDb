@@ -1,6 +1,6 @@
-import {Geo} from "./geo.js"
-import {Output, RecordOutput} from "../../RecordOutput.js"
-import {UdbOutputRecord} from "./UdbOutputRecord.js"
+import {Geo} from "./geo"
+import {Output, RecordOutput} from "../../RecordOutput"
+import {UdbOutputRecord} from "./UdbOutputRecord"
 
 let indent = 0
 

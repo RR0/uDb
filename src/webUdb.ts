@@ -1,7 +1,7 @@
-import {UdbService, WebReadLine} from "./UdbService.js"
-import {WebFileInput} from "./WebFileInput.js"
-import {Logger} from "./Logger.js"
-import {UdbController} from "./UdbController.js"
+import {UdbService, WebReadLine} from "./UdbService"
+import {WebFileInput} from "./WebFileInput"
+import {Logger} from "./Logger"
+import {UdbController} from "./UdbController"
 
 const logger = new Logger(false, true)
 const webFileInput = new WebFileInput(logger)

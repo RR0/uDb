@@ -1,8 +1,8 @@
-import {Input} from "./input/Input.js"
-import {Logger} from "./Logger.js"
-import {UdbRecordReader} from "./input/db/udb/UdbRecordReader.js"
-import {RecordEnumerator} from "./input/RecordEnumerator.js"
-import {UdbRecord} from "./input/db/UdbRecord.js"
+import {Input} from "./input/Input"
+import {Logger} from "./Logger"
+import {UdbRecordReader} from "./input/db/udb/UdbRecordReader"
+import {RecordEnumerator} from "./input/RecordEnumerator"
+import {UdbRecord} from "./input/db/UdbRecord"
 
 /**
  * A FileInput that reads from a webapp.

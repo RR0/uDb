@@ -1,11 +1,11 @@
-import {Util} from "../../../util.js"
-import {Geo} from "./geo.js"
-import {Time} from "./time.js"
-import {Flags} from "./flags.js"
-import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord.js"
-import {UdbOutputRecord} from "./UdbOutputRecord.js"
-import {Sources} from "../../../input/db/udb/Sources.js"
-import {RecordFormatter} from "../RecordFormatter.js"
+import {Util} from "../../../util"
+import {Geo} from "./geo"
+import {Time} from "./time"
+import {Flags} from "./flags"
+import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord"
+import {UdbOutputRecord} from "./UdbOutputRecord"
+import {Sources} from "../../../input/db/udb/Sources"
+import {RecordFormatter} from "../RecordFormatter"
 
 /**
  * Formats input records as output records.

@@ -1,13 +1,13 @@
-import {UdbRecord} from "./input/db/UdbRecord.js"
+import {UdbRecord} from "./input/db/UdbRecord"
 
-import {Input} from "./input/Input.js"
-import {Logger} from "./Logger.js"
-import {MatchError, RecordMatcher} from "./match.js"
-import {OutputFormat, OutputFormatSpec, RecordOutputFactory} from "./output/RecordOutputFactory.js"
-import {Output, RecordOutput} from "./output/RecordOutput.js"
-import {Util} from "./util.js"
-import {RecordEnumerator} from "./input/RecordEnumerator.js"
-import {RecordFormatter} from "./output/db/RecordFormatter.js"
+import {Input} from "./input/Input"
+import {Logger} from "./Logger"
+import {MatchError, RecordMatcher} from "./match"
+import {OutputFormat, OutputFormatSpec, RecordOutputFactory} from "./output/RecordOutputFactory"
+import {Output, RecordOutput} from "./output/RecordOutput"
+import {Util} from "./util"
+import {RecordEnumerator} from "./input/RecordEnumerator"
+import {RecordFormatter} from "./output/db/RecordFormatter"
 
 export enum Format {
   memory = "memory",

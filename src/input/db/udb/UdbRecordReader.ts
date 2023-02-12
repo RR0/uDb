@@ -1,6 +1,6 @@
-import {UdbInputRecord} from "./UdbInputRecord.js"
-import {Logger} from "../../../Logger.js"
-import {BinaryRecordReader} from "../BinaryRecordReader.js"
+import {UdbInputRecord} from "./UdbInputRecord"
+import {Logger} from "../../../Logger"
+import {BinaryRecordReader} from "../BinaryRecordReader"
 
 /**
  * Creates an Udb InputRecord from a raw binary record buffer.

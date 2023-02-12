@@ -1,10 +1,10 @@
-import {Sources} from "./input/db/udb/Sources.js"
-import {Logger} from "./Logger.js"
-import {Memory} from "./output/Memory.js"
-import {UdbRecordFormatter} from "./output/db/udb/UdbRecordFormatter.js"
-import {Format, Query} from "./Query.js"
-import {WebFileInput} from "./WebFileInput.js"
-import {ReadInterface} from "./input/db/ReadInterface.js"
+import {Sources} from "./input/db/udb/Sources"
+import {Logger} from "./Logger"
+import {Memory} from "./output/Memory"
+import {UdbRecordFormatter} from "./output/db/udb/UdbRecordFormatter"
+import {Format, Query} from "./Query"
+import {WebFileInput} from "./WebFileInput"
+import {ReadInterface} from "./input/db/ReadInterface"
 
 export class WebReadLine implements ReadInterface {
   lineCb: Function

@@ -1,7 +1,7 @@
-import {Output} from "./RecordOutput.js"
-import {Input} from "../input/Input.js"
-import {RecordEnumerator} from "../input/RecordEnumerator.js"
-import {UdbRecord} from "../input/db/UdbRecord.js"
+import {Output} from "./RecordOutput"
+import {Input} from "../input/Input"
+import {RecordEnumerator} from "../input/RecordEnumerator"
+import {UdbRecord} from "../input/db/UdbRecord"
 
 export class Memory implements Input, Output<UdbRecord> {
   records: UdbRecord[] = []
