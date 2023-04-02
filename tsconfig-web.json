@@ -15,7 +15,7 @@
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "src",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -25,7 +25,7 @@
     "**/*.ts"
   ],
   "exclude": [
-    "./build",
+    "./dist",
     "./node_modules"
   ]
 }

@@ -1,13 +1,14 @@
 {
   "name": "@rr0/udb",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "UFO database reader",
-  "main": "udb.js",
+  "exports": "./dist/udb.js",
   "scripts": {
     "clean": "rm -Rf node_modules && rm package-lock.json",
-    "prebuild": "npm install && rm -Rf build",
+    "prebuild": "npm install && rm -Rf dist",
     "build": "tsc",
-    "build:web": "rm -Rf build && tsc --project tsconfig-web.json",
+    "build:web": "rm -Rf dist && tsc --project tsconfig-web.json",
+    "prepublishOnly": "npm run build && npm run test",
     "test": "jest",
     "cli": "ts-node $NODE_DEBUG_OPTION -- src/udb.ts --help",
     "cli:dev": "ts-node-dev $NODE_DEBUG_OPTION --trace-warnings --trace-deprecation -- src/udb.ts -c 10"

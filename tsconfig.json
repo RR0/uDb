@@ -13,14 +13,15 @@
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
-    "outDir": "./build",
+    "outDir": "./dist",
     "baseUrl": "src"
   },
   "include": [
     "**/*.ts"
   ],
   "exclude": [
-    "./build",
+    "./jest.config.cjs",
+    "./dist",
     "./node_modules"
   ]
 }
