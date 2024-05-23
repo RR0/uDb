@@ -2,7 +2,7 @@
   "name": "@rr0/udb",
   "type": "module",
   "author": "Jérôme Beau <rr0@rr0.org> (https://rr0.org/udb)",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "UFO database reader",
   "exports": {
     ".": "./dist/index.js",
