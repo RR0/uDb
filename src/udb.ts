@@ -1,15 +1,9 @@
-import {DatabaseFactory} from "./input/db/DatabaseFactory"
-import {Interactive} from "./Interactive"
-import {Logger} from "./Logger"
-import {Memory} from "./output/Memory"
-import {OutputFactory} from "./output/OutputFactory"
-import {Format, Query} from "./Query"
-import {Database} from "./input/db/Database"
-import {UdbDatabase} from "./input/db/udb/UdbDatabase"
-import {NuforcDatabase} from "./input/db/nuforc/NuforcDatabase"
-import {Input} from "./input/Input"
-
-const program = require("commander")
+import { Database, DatabaseFactory, Input, NuforcDatabase, UdbDatabase } from "./input"
+import { Interactive } from "./Interactive"
+import { Logger } from "./Logger"
+import { Memory, OutputFactory } from "./output"
+import { Format, Query } from "./Query"
+import program from "commander"
 
 const DB_DEFAULT = "udb"
 
@@ -65,4 +59,3 @@ OutputFactory.create(program.out).then(output => {
       logger.error(err.toString())
     })
 })
-

@@ -1,7 +1,8 @@
-/.idea/
-.circleci
-/src
-/src/input
-/src/output
-/test
-*.patch
+.idea/**/*
+.circleci/*
+jest*.*
+*.test.*
+**/*Test.*
+test/**/*
+src/**/*
+dist/test/**/*

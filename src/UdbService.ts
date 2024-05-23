@@ -1,12 +1,12 @@
-import {Sources} from "./input/db/udb/Sources"
-import {Logger} from "./Logger"
-import {Memory} from "./output/Memory"
-import {UdbRecordFormatter} from "./output/db/udb/UdbRecordFormatter"
-import {Format, Query} from "./Query"
-import {WebFileInput} from "./WebFileInput"
-import {ReadInterface} from "./input/db/ReadInterface"
+import { ReadInterface, Sources } from "./input"
+import { Logger } from "./Logger"
+import { Memory } from "./output"
+import { UdbRecordFormatter } from "./output/db/udb/UdbRecordFormatter"
+import { Format, Query } from "./Query"
+import { WebFileInput } from "./WebFileInput"
 
 export class WebReadLine implements ReadInterface {
+
   lineCb: Function
   closeCb: Function
   private data: string

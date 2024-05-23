@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
     "declaration": true,
+    "module": "ES2020",
+    "target": "ES2018",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "lib": [
-      "ES2020",
-      "dom"
+      "DOM",
+      "ES2020"
     ],
-    "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./dist/",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "src"
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "**/*.ts"
+    "src"
   ],
   "exclude": [
+    "test/**/*.*",
     "./jest.config.cjs",
     "./dist",
     "./node_modules"

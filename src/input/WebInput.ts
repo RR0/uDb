@@ -1,9 +1,7 @@
-import {RecordEnumerator} from "./RecordEnumerator"
-import {Input} from "./Input"
-import {Database} from "./db/Database"
-import {UdbRecord} from "./db/UdbRecord"
-
-const http = require("http")
+import { RecordEnumerator } from "./RecordEnumerator"
+import { Input } from "./Input"
+import { Database, UdbRecord } from "./db"
+import http from "http"
 
 /**
  * Web page contents and its source url.
@@ -25,51 +23,51 @@ export type WebRead = {
 export class WebInput implements Input {
   //static KB = 1000;
 
-  pages: WebRecord[] = [];
-  recordIndex = 0;
-  maxConcurrent = 10;
-  queue: WebRead[] = [];
-  readIdleDuration = 100;
-  private reading: number;
-  private readPromises: Promise<WebRecord>[];
+  pages: WebRecord[] = []
+  recordIndex = 0
+  maxConcurrent = 10
+  queue: WebRead[] = []
+  readIdleDuration = 100
+  private reading: number
+  private readPromises: Promise<WebRecord>[]
 
   constructor(private db: Database, private baseUrl: string, private max = 10000000) {
   }
 
   enqueue(read: WebRead): WebRead {
-    this.queue.push(read);
-    return read;
+    this.queue.push(read)
+    return read
   }
 
   enqueueReadPage(url: string) {
-    let read: WebRead = {};
+    let read: WebRead = {}
     read.done = new Promise((resolve, reject) => {
       read.execute = () => this.readPage(url)
         .then(report => {
-          this.addData(report);
-          resolve(report);
+          this.addData(report)
+          resolve(report)
         })
-        .catch(error => reject(error));
-    });
-    return this.enqueue(read);
+        .catch(error => reject(error))
+    })
+    return this.enqueue(read)
   }
 
   recordEnumerator(firstIndex: number, maxCount: number): RecordEnumerator {
-    return new RecordEnumerator(this, firstIndex, maxCount);
+    return new RecordEnumerator(this, firstIndex, maxCount)
   }
 
   run(): Promise<WebRecord[]> {
-    this.reading = 0;
+    this.reading = 0
 
     return new Promise((resolve, reject) => {
-      this.readPromises = [];
+      this.readPromises = []
       const inter = setInterval(() => {
         if (!this.fetch(reject)) {
-          clearInterval(inter);
-          resolve(this.pages);
+          clearInterval(inter)
+          resolve(this.pages)
         }
-      }, this.readIdleDuration);
-    });
+      }, this.readIdleDuration)
+    })
   }
 
   readRecord(recordIndex: number): Promise<UdbRecord> {
@@ -83,46 +81,46 @@ export class WebInput implements Input {
           this.removeData(recordIndex)
           resolve(record)
         }
-      }, this.readIdleDuration);
-    });
+      }, this.readIdleDuration)
+    })
   }
 
   protected get logger() {
-    return this.db.logger;
+    return this.db.logger
   }
 
   goToRecord(recordIndex: number) {
-    this.recordIndex = recordIndex;
+    this.recordIndex = recordIndex
   }
 
   hasNext(): boolean {
-    return this.recordIndex < this.pages.length;
+    return this.recordIndex < this.pages.length
   }
 
   private fetch(reject) {
-    let remaining = this.queue.length > 0 || this.reading > 0;
+    let remaining = this.queue.length > 0 || this.reading > 0
     if (remaining) {
       if (this.queue.length > 0 && this.reading <= this.maxConcurrent) {
-        let read = this.queue.shift();
+        let read = this.queue.shift()
         if (read) {
-          this.reading++;
-          read.execute();
+          this.reading++
+          read.execute()
           read.done
             .then(() => {
-              this.reading--;
+              this.reading--
             })
             .catch(error => {
-              reject(error);
-            });
-          this.readPromises.push(read.done);
+              reject(error)
+            })
+          this.readPromises.push(read.done)
         }
       } else {
         Promise.all(this.readPromises).then(() => {
-          this.readPromises = [];
-        });
+          this.readPromises = []
+        })
       }
     }
-    return remaining;
+    return remaining
   }
 
   /**
@@ -133,32 +131,32 @@ export class WebInput implements Input {
    */
   readPage(url: string): Promise<WebRecord> {
     return new Promise<WebRecord>((resolve, reject) => {
-      url = this.absoluteUrl(url);
-      this.logger.log(`Reading ${url}`/*, false*/);
-      let content = "";
+      url = this.absoluteUrl(url)
+      this.logger.log(`Reading ${url}`/*, false*/)
+      let content = ""
       const req = http.get(url, res => {
-        const size = parseInt(res.headers['content-length'], 10);
+        const size = parseInt(res.headers["content-length"], 10)
         // this.logger.log(` (${(size / WebInput.KB).toFixed(1)} KB) `, false, false);
-        res.setEncoding("utf8");
+        res.setEncoding("utf8")
         //let chunks = 0;
         res.on("data", (chunk) => {
           /*chunks++;
           if (chunks % 10 == 0) {
             this.logger.log(`.`, false, false);
           }*/
-          content += chunk;
-        });
+          content += chunk
+        })
         res.on("error", error => {
-          reject(`Could not read ${url}: ${error}`);
-        });
+          reject(`Could not read ${url}: ${error}`)
+        })
         res.on("end", () => {
           //   this.logger.log(' OK', true, false);
           //    this.logger.flush();
-          resolve(<WebRecord>{contents: content, source: url});
-        });
-      });
-      req.end();
-    });
+          resolve(<WebRecord>{contents: content, source: url})
+        })
+      })
+      req.end()
+    })
   }
 
   /**
@@ -169,45 +167,45 @@ export class WebInput implements Input {
    * @returns The array of found links.
    */
   getLinks(pageContents: WebRecord, linkCheck: LinkCheck): string[] {
-    const reports = [];
-    let pos = 0;
-    let reportLinkStart;
-    let done = 0;
-    const token = '<a href=';
-    const lowercaseContents = pageContents.contents.toLowerCase();
+    const reports = []
+    let pos = 0
+    let reportLinkStart
+    let done = 0
+    const token = "<a href="
+    const lowercaseContents = pageContents.contents.toLowerCase()
     do {
-      reportLinkStart = lowercaseContents.indexOf(token, pos);
+      reportLinkStart = lowercaseContents.indexOf(token, pos)
       if (reportLinkStart >= 0) {
-        const reportLinkEnd = lowercaseContents.indexOf('>', reportLinkStart);
-        let reportLink = lowercaseContents.substring(reportLinkStart + token.length, reportLinkEnd).trim();
-        if (reportLink.charAt(0) === '"') {
-          reportLink = reportLink.substring(1, reportLink.lastIndexOf('"'));
+        const reportLinkEnd = lowercaseContents.indexOf(">", reportLinkStart)
+        let reportLink = lowercaseContents.substring(reportLinkStart + token.length, reportLinkEnd).trim()
+        if (reportLink.charAt(0) === "\"") {
+          reportLink = reportLink.substring(1, reportLink.lastIndexOf("\""))
         }
         if (linkCheck(reportLink)) {
-          reports.push(this.absoluteUrl(reportLink));
+          reports.push(this.absoluteUrl(reportLink))
         }
-        pos = reportLinkEnd;
-        done++;
+        pos = reportLinkEnd
+        done++
       }
-    } while (reportLinkStart >= 0 && done <= this.max);
-    return reports;
+    } while (reportLinkStart >= 0 && done <= this.max)
+    return reports
   }
 
   private absoluteUrl(url: string) {
-    if (!url.startsWith('http')) {
-      url = `${this.baseUrl}/${url}`;
+    if (!url.startsWith("http")) {
+      url = `${this.baseUrl}/${url}`
     }
-    return url;
+    return url
   }
 
   close(): void {
   }
 
   addData(report: WebRecord) {
-    this.pages.push(report);
+    this.pages.push(report)
   }
 
   private removeData(recordIndex: number) {
-    this.pages[recordIndex] = null;
+    this.pages[recordIndex] = null
   }
 }

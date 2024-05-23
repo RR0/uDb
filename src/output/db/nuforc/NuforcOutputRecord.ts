@@ -1,4 +1,4 @@
-import {UdbRecord} from "../../../input/db/UdbRecord"
+import {UdbRecord} from "../../../input"
 
 export interface NuforcOutputRecord extends UdbRecord {
 }

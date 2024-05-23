@@ -1,5 +1,5 @@
 import {Output, RecordOutput} from "./RecordOutput"
-import {UdbRecord} from "../input/db/UdbRecord"
+import {UdbRecord} from "../input"
 
 export class CsvRecordOutput implements RecordOutput<UdbRecord> {
 

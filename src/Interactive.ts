@@ -1,9 +1,7 @@
 import * as readline from "readline"
-import {Logger} from "./Logger"
-import {Format, Query} from "./Query"
-import {Memory} from "./output/Memory"
-import {Output} from "./output/RecordOutput"
-import {OutputFactory} from "./output/OutputFactory"
+import { Logger } from "./Logger"
+import { Format, Query } from "./Query"
+import { Memory, Output, OutputFactory } from "./output"
 
 export class Interactive {
   private firstIndex: number = 1

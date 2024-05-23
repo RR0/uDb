@@ -1,15 +1,14 @@
-import {FileInput} from "../../FileInput"
-import {Logger} from "../../../Logger"
-import {WorldMap} from "./WorldMap"
+import { FileInput } from "../../FileInput"
+import { Logger } from "../../../Logger"
+import { WorldMap } from "./WorldMap"
 import * as fs from "fs"
-import {Sources} from "./Sources"
-import {UdbRecordFormatter} from "../../../output/db/udb/UdbRecordFormatter"
-import {RecordFormatter} from "../../../output/db/RecordFormatter"
-import {Database} from "../Database"
-import {RecordReader} from "../RecordReader"
-import {UdbRecordReader} from "./UdbRecordReader"
-
-let readline = require("readline")
+import { Sources } from "./Sources"
+import { UdbRecordFormatter } from "../../../output/db/udb/UdbRecordFormatter"
+import { RecordFormatter } from "../../../output"
+import { Database } from "../Database"
+import { RecordReader } from "../RecordReader"
+import { UdbRecordReader } from "./UdbRecordReader"
+import readline from "readline"
 
 export class UdbDatabase implements Database {
   static DATA_FILE_DEFAULT = "data/udb/input/U.RND"
