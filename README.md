@@ -354,7 +354,12 @@ will output records about cases that occurred on August 12th, 1972.
 
 will output records #12 and #256.
 
-You can use any [InputRecord](https://github.com/RR0/uDb/blob/master/input/InputRecord.ts) property in a matching criteria.
+You can use any [UdbInputRecord](https://github.com/RR0/uDb/blob/master/src/input/db/udb/UdbInputRecord.ts) property in a matching criteria.
+
+## Web integration
+
+For convenience, a [WebUdb](https://github.com/RR0/uDb/blob/master/src/web/WebUdb.ts) instance is provided to fetch data from a browser.
+See an [example integration](https://github.com/RR0/rr0.org/tree/master/udb) into the [RR0.org](https://rr0.org) 
 
 ## To do
 

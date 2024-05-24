@@ -11,8 +11,8 @@ import {
   OutputFactory,
   Query,
   UdbDatabase
-} from "../src"
-import { Interactive } from "../src/Interactive"
+} from "../dist"
+import { Interactive } from "../dist/Interactive"
 
 const DB_DEFAULT = "udb"
 
