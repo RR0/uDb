@@ -359,7 +359,7 @@ You can use any [UdbInputRecord](https://github.com/RR0/uDb/blob/master/src/inpu
 ## Web integration
 
 For convenience, a [WebUdb](https://github.com/RR0/uDb/blob/master/src/web/WebUdb.ts) instance is provided to fetch data from a browser.
-See an [example integration](https://github.com/RR0/rr0.org/tree/master/udb) into the [RR0.org](https://rr0.org) 
+See an [example integration](https://github.com/RR0/rr0.org/tree/master/udb) into the [RR0.org](https://rr0.org/udb/index.html) 
 
 ## To do
 

@@ -1,26 +1,14 @@
 #!/usr/bin/env tsx
 
 import program from "commander"
-import {
-  Database,
-  DatabaseFactory,
-  Format,
-  Input,
-  Logger, Memory,
-  NuforcDatabase,
-  OutputFactory,
-  Query,
-  UdbDatabase
-} from "../dist"
+import { Database, DatabaseFactory, Format, Input, Logger, Memory, NuforcDatabase, OutputFactory, Query } from "../dist"
 import { Interactive } from "../dist/Interactive"
 import { version } from "../package.json"
-
-const DB_DEFAULT = "udb"
 
 program
   .version(version)
   .option("-db, --database <udb|nuforc> [source]",
-    `Database to read (defaults to ${DB_DEFAULT}).\nOptional source, depending on database, can default to ${UdbDatabase.DATA_FILE_DEFAULT} or ${NuforcDatabase.URL_DEFAULT})`)
+    `Database to read (defaults to udb).\nOptional source, depending on database, can default to ${DatabaseFactory.UDB_DATA_FILE_DEFAULT} or ${NuforcDatabase.URL_DEFAULT})`)
   .option("-s, --sources [sourcesFile]", "Sources file to read. Defaults to ../data/udb/input/usources.txt")
   .option("-wm, --worldmap [wmFile]", "World map file to read. Defaults to ../data/udb/input/data/WM.VCE")
   .option("-c, --count <maxCount>", "Maximum number of records to output.")
@@ -45,7 +33,8 @@ logger.onError(msg => {
 const count = parseInt(program.count, 10)
 const matchCriteria = program.match
 
-db = DatabaseFactory.create(program.database || DB_DEFAULT, logger, program)
+const dbType = program.database || "udb"
+db = DatabaseFactory.create(dbType, logger, program)
 
 const format = Format[program.format] || Format.default
 OutputFactory.create(program.out).then(output => {

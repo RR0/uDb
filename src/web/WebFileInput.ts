@@ -32,7 +32,7 @@ export class WebFileInput implements Input {
     return new RecordEnumerator(this, firstIndex, maxCount)
   }
 
-  goToRecord(recordIndex) {
+  goToRecord(recordIndex: number) {
     this.filePos = recordIndex * this.recordSize
   }
 

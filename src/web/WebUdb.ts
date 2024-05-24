@@ -34,7 +34,6 @@ export class WebUdb {
     const webFileInput = new WebFileInput(logger)
     const webReadLine = new WebReadLine()
     const udbService = new UdbService(logger, webFileInput, webReadLine)
-    const win = window as any
-    win.udbController = this.controller = new UdbController(udbService, logger, config.data.dir)
+    this.controller = new UdbController(udbService, logger, config.data.dir)
   }
 }

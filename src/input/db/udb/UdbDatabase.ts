@@ -5,25 +5,23 @@ import * as fs from "fs"
 import { Sources } from "./Sources"
 import { UdbRecordFormatter } from "../../../output/db/udb/UdbRecordFormatter"
 import { RecordFormatter } from "../../../output"
-import { Database } from "../Database"
+import { Database, DatabaseConfig } from "../Database"
 import { RecordReader } from "../RecordReader"
 import { UdbRecordReader } from "./UdbRecordReader"
 import readline from "readline"
-import { FileUtil } from "../../../FileUtil"
+
+export interface UdbDatabaseConfig extends DatabaseConfig {
+  sourcesFile: string
+  dataFile: string
+  worldMap: string
+}
 
 export class UdbDatabase implements Database {
-  static DATA_FILE_DEFAULT = "../data/udb/input/U.RND"
 
-  private readonly sourcesFile: string
-  private readonly dataFile: string
-  private readonly worldMap: string
-  private vm: WorldMap
-  private sources: Sources
+  protected vm: WorldMap
+  protected sources: Sources
 
-  constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = FileUtil.getPath(program.sourcesFile || "../data/udb/input/usources.txt")
-    this.dataFile = FileUtil.getPath(program.source || UdbDatabase.DATA_FILE_DEFAULT)
-    this.worldMap = FileUtil.getPath(program.wmFile || "../data/udb/input/WM.VCE")
+  constructor(name: string, protected _logger: Logger, protected config: UdbDatabaseConfig) {
   }
 
   get logger(): Logger {
@@ -32,13 +30,13 @@ export class UdbDatabase implements Database {
 
   async init(): Promise<FileInput> {
     this.vm = new WorldMap(this._logger)
-    const count = await this.vm.open(this.worldMap)
+    const count = await this.vm.open(this.config.worldMap)
     this._logger.logVerbose(`Read ${count} WM records.\n`)
 
     this.sources = new Sources()
-    this._logger.logVerbose("Reading sources:" + this.sourcesFile)
+    this._logger.logVerbose("Reading sources:" + this.config.sourcesFile)
     const sourcesReader = readline.createInterface({
-      input: fs.createReadStream(this.sourcesFile)
+      input: fs.createReadStream(this.config.sourcesFile)
     })
     await this.sources.open(sourcesReader)
     this._logger.logVerbose(`- ${Object.keys(this.sources.primaryReferences).length} primary references`)
@@ -50,7 +48,7 @@ export class UdbDatabase implements Database {
 
     const input: FileInput = new FileInput(this)
 
-    await input.open(this.dataFile)
+    await input.open(this.config.dataFile)
     return input
   }
 

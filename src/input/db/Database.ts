@@ -1,7 +1,10 @@
-import {RecordFormatter} from "../../output/db/RecordFormatter"
-import {Logger} from "../../Logger"
-import {RecordReader} from "./RecordReader"
-import {Input} from "../Input"
+import { RecordFormatter } from "../../output"
+import { Logger } from "../../Logger"
+import { RecordReader } from "./RecordReader"
+import { Input } from "../Input"
+
+export interface DatabaseConfig {
+}
 
 export interface Database {
   logger: Logger;
