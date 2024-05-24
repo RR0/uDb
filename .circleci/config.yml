@@ -23,7 +23,7 @@ jobs:
             - node_modules
   test:
     docker:
-      - image: circleci/node:10.11.0
+      - image: circleci/node:12.22.7
     steps:
       - checkout
       - run:
