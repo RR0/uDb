@@ -9,7 +9,7 @@ import { Database } from "../Database"
 import { RecordReader } from "../RecordReader"
 import { UdbRecordReader } from "./UdbRecordReader"
 import readline from "readline"
-import { Util } from "../../../Util"
+import { FileUtil } from "../../../FileUtil"
 
 export class UdbDatabase implements Database {
   static DATA_FILE_DEFAULT = "../data/udb/input/U.RND"
@@ -21,9 +21,9 @@ export class UdbDatabase implements Database {
   private sources: Sources
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = Util.getPath(program.sourcesFile || "../data/udb/input/usources.txt")
-    this.dataFile = Util.getPath(program.source || UdbDatabase.DATA_FILE_DEFAULT)
-    this.worldMap = Util.getPath(program.wmFile || "../data/udb/input/WM.VCE")
+    this.sourcesFile = FileUtil.getPath(program.sourcesFile || "../data/udb/input/usources.txt")
+    this.dataFile = FileUtil.getPath(program.source || UdbDatabase.DATA_FILE_DEFAULT)
+    this.worldMap = FileUtil.getPath(program.wmFile || "../data/udb/input/WM.VCE")
   }
 
   get logger(): Logger {

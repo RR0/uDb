@@ -1,7 +1,3 @@
-import { fileURLToPath } from "url"
-import { dirname } from "path"
-import * as path from "node:path"
-
 export class Util {
 
   static forEachBit(flagsByte, cb) {
@@ -37,9 +33,4 @@ export class Util {
     return newObj
   }
 
-  static getPath(somePath: string): string {
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname = dirname(__filename)
-    return path.resolve(__dirname, somePath)
-  }
 }
