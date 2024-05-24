@@ -1,9 +1,10 @@
 #!/usr/bin/env tsx
 
 import program from "commander"
-import { Database, DatabaseFactory, Format, Input, Logger, Memory, OutputFactory, Query } from "../dist"
+import { Database, Format, Input, Logger, Memory, OutputFactory, Query } from "../dist"
 import { Interactive } from "../dist/Interactive"
 import { version } from "../package.json"
+import { DatabaseFactory } from "../src/input/db/DatabaseFactory"
 
 program
   .version(version)
@@ -20,7 +21,6 @@ program
   .option("--debug", "Displays debug info.")
   .parse(process.argv)
 
-let db: Database
 
 const logger = new Logger(program.debug, program.verbose, "udb: ")
 logger.onLog(msg => {
@@ -34,7 +34,7 @@ const count = parseInt(program.count, 10)
 const matchCriteria = program.match
 
 const dbType = program.database || "udb"
-db = DatabaseFactory.create(dbType, logger, program)
+const db: Database = DatabaseFactory.create(dbType, logger, program)
 
 const format = Format[program.format] || Format.default
 OutputFactory.create(program.out).then(output => {
