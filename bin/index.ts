@@ -1,9 +1,18 @@
-import { Database, DatabaseFactory, Input, NuforcDatabase, UdbDatabase } from "./input"
-import { Interactive } from "./Interactive"
-import { Logger } from "./Logger"
-import { Memory, OutputFactory } from "./output"
-import { Format, Query } from "./Query"
+#!/usr/bin/env tsx
+
 import program from "commander"
+import {
+  Database,
+  DatabaseFactory,
+  Format,
+  Input,
+  Logger, Memory,
+  NuforcDatabase,
+  OutputFactory,
+  Query,
+  UdbDatabase
+} from "../src"
+import { Interactive } from "../src/Interactive"
 
 const DB_DEFAULT = "udb"
 

@@ -14,7 +14,7 @@ A simple [form is available online](http://rr0.org/udb) to query the database us
 
 ## Setup
 
-1. Install [node](https://nodejs.org) 7.6.0 or later on your computer.
+1. Make sure to have [node](https://nodejs.org) 18.18.0 or later installed on your computer.
 1. Install uDb: `npm install -g @rr0/udb`
 1. Run the software: `udb --help`
 
