@@ -1,5 +1,5 @@
 import {Logger} from "../../Logger"
-import {Util} from "../../util"
+import {Util} from "../../Util"
 import {RecordReader} from "./RecordReader"
 import {UdbRecord} from "./UdbRecord"
 

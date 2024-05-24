@@ -1,4 +1,4 @@
-import {UdbRecord} from "./input/db/UdbRecord"
+import {UdbRecord} from "./input"
 
 abstract class CriterionMatcher {
   protected constructor(private type: string, protected prop: string, protected value: any) {

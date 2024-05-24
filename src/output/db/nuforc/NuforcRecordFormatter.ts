@@ -1,4 +1,4 @@
-import {Util} from "../../../util"
+import {Util} from "../../../Util"
 import {NuforcInputRecord} from "../../../input"
 import {NuforcOutputRecord} from "./NuforcOutputRecord"
 import {RecordFormatter} from "../RecordFormatter"

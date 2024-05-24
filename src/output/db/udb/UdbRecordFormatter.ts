@@ -1,4 +1,4 @@
-import {Util} from "../../../util"
+import {Util} from "../../../Util"
 import {Geo} from "./geo"
 import {Time} from "./time"
 import {Flags} from "./flags"

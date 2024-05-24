@@ -1,13 +1,8 @@
-import {UdbRecord} from "./input/db/UdbRecord"
-
-import {Input} from "./input/Input"
-import {Logger} from "./Logger"
-import {MatchError, RecordMatcher} from "./match"
-import {OutputFormat, OutputFormatSpec, RecordOutputFactory} from "./output/RecordOutputFactory"
-import {Output, RecordOutput} from "./output/RecordOutput"
-import {Util} from "./util"
-import {RecordEnumerator} from "./input/RecordEnumerator"
-import {RecordFormatter} from "./output/db/RecordFormatter"
+import { Input, RecordEnumerator, UdbRecord } from "./input"
+import { Logger } from "./Logger"
+import { MatchError, RecordMatcher } from "./match"
+import { Output, OutputFormat, OutputFormatSpec, RecordFormatter, RecordOutput, RecordOutputFactory } from "./output"
+import { Util } from "./Util"
 
 export enum Format {
   memory = "memory",

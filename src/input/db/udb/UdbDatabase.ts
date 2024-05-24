@@ -9,9 +9,10 @@ import { Database } from "../Database"
 import { RecordReader } from "../RecordReader"
 import { UdbRecordReader } from "./UdbRecordReader"
 import readline from "readline"
+import { Util } from "../../../Util"
 
 export class UdbDatabase implements Database {
-  static DATA_FILE_DEFAULT = "data/udb/input/U.RND"
+  static DATA_FILE_DEFAULT = "../data/udb/input/U.RND"
 
   private readonly sourcesFile: string
   private readonly dataFile: string
@@ -20,9 +21,9 @@ export class UdbDatabase implements Database {
   private sources: Sources
 
   constructor(name: string, private _logger: Logger, program: any) {
-    this.sourcesFile = program.sourcesFile || "data/udb/input/usources.txt"
-    this.dataFile = program.source || UdbDatabase.DATA_FILE_DEFAULT
-    this.worldMap = program.wmFile || "data/udb/input/WM.VCE"
+    this.sourcesFile = Util.getPath(program.sourcesFile || "../data/udb/input/usources.txt")
+    this.dataFile = Util.getPath(program.source || UdbDatabase.DATA_FILE_DEFAULT)
+    this.worldMap = Util.getPath(program.wmFile || "../data/udb/input/WM.VCE")
   }
 
   get logger(): Logger {
