@@ -4,7 +4,7 @@ import program from "commander"
 import { Database, Format, Input, Logger, Memory, OutputFactory, Query } from "../dist"
 import { Interactive } from "../dist/Interactive"
 import { version } from "../package.json"
-import { DatabaseFactory } from "../src/input/db/DatabaseFactory"
+import { DatabaseFactory } from "../dist/input/db/DatabaseFactory"
 
 program
   .version(version)
