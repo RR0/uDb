@@ -5,19 +5,31 @@ import { UdbController } from "./UdbController"
 
 export type WebUdbConfig = {
   log: {
-    debug: false,
-    verbose: false,
-    prefix: undefined
+    debug: boolean,
+    verbose: boolean,
+    prefix: string
   }
   data: {
-    dir: "./"
+    dir: string
   }
 }
 
 export class WebUdb {
   readonly controller: UdbController
 
-  constructor(config: WebUdbConfig) {
+  readonly defaultConfig: WebUdbConfig = {
+    log: {
+      debug: false,
+      verbose: false,
+      prefix: undefined
+    },
+    data: {
+      dir: "./"
+    }
+  }
+
+  constructor(userConfig: Partial<WebUdbConfig> = {}) {
+    const config = Object.assign(this.defaultConfig, userConfig)
     const logger = new Logger(config.log.debug, config.log.verbose, config.log.prefix)
     const webFileInput = new WebFileInput(logger)
     const webReadLine = new WebReadLine()
