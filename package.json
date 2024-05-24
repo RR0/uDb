@@ -24,8 +24,8 @@
     "build": "rm -Rf dist && tsc --project tsconfig.prod.json",
     "prepublishOnly": "npm run build && npm run test",
     "test": "jest",
-    "cli": "tsx $NODE_DEBUG_OPTION -- src/udb.ts --help",
-    "cli:dev": "tsx $NODE_DEBUG_OPTION src/udb.ts -c 10"
+    "cli": "npx . --help",
+    "cli:dev": "npx . -c 10"
   },
   "bin": {
     "udb": "bin/index.ts"
