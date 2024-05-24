@@ -7,6 +7,7 @@ import { FileUtil } from "../../FileUtil"
 export class DatabaseFactory {
 
   static readonly UDB_DATA_FILE_DEFAULT = "../data/udb/input/U.RND"
+  static readonly NUFORC_URL_DEFAULT = "http://www.nuforc.org/webreports"
 
   static create(name: string, logger: Logger, program: any): Database {
     switch (name) {
@@ -19,7 +20,7 @@ export class DatabaseFactory {
         return new UdbDatabase(name, logger, udbConfig)
       case "nuforc":
         const config: NuforcDatabaseConfig = {
-          baseUrl: FileUtil.getPath(program.source || "http://www.nuforc.org/webreports"),
+          baseUrl: FileUtil.getPath(program.source || DatabaseFactory.NUFORC_URL_DEFAULT),
           count: parseInt(program.count, 10)
         }
         return new NuforcDatabase(name, logger, config)
