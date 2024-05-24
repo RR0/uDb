@@ -1,5 +1,5 @@
-import { Input, RecordEnumerator, UdbRecord, UdbRecordReader } from "./input"
-import { Logger } from "./Logger"
+import { Input, RecordEnumerator, UdbRecord, UdbRecordReader } from "../input"
+import { Logger } from "../Logger"
 
 /**
  * A FileInput that reads from a webapp.

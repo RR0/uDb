@@ -1,9 +1,9 @@
-import { ReadInterface, Sources } from "./input"
-import { Logger } from "./Logger"
-import { Memory } from "./output"
-import { UdbRecordFormatter } from "./output/db/udb/UdbRecordFormatter"
-import { Format, Query } from "./Query"
 import { WebFileInput } from "./WebFileInput"
+import { ReadInterface, Sources } from "../input"
+import { Memory } from "../output"
+import { Format, Query } from "../Query"
+import { UdbRecordFormatter } from "../output/db/udb/UdbRecordFormatter"
+import { Logger } from "../Logger"
 
 export class WebReadLine implements ReadInterface {
 
@@ -20,7 +20,7 @@ export class WebReadLine implements ReadInterface {
     return this
   }
 
-  on(eventName, cb) {
+  on(eventName: string, cb) {
     switch (eventName) {
       case "line":
         this.lineCb = cb
@@ -33,7 +33,7 @@ export class WebReadLine implements ReadInterface {
     return this
   }
 
-  private read() {
+  protected read() {
     this.pos = 0
     let end: boolean
     do {
@@ -60,7 +60,7 @@ export class UdbService {
 
   private recordFormatter = new UdbRecordFormatter(this.sources)
 
-  constructor(private logger: Logger, private webFileInput: WebFileInput, private webReadLine: WebReadLine) {
+  constructor(protected logger: Logger, protected webFileInput: WebFileInput, protected webReadLine: WebReadLine) {
   }
 
   async load(sourcesFilename: string, dataFilename: string) {
@@ -68,7 +68,7 @@ export class UdbService {
     await this.loadData(dataFilename)
   }
 
-  async match(matchCriteria): Promise<Memory> {
+  async match(matchCriteria: string): Promise<Memory> {
     const results = new Memory()
     await new Query(this.memory, results, this.logger, null, this.format)
       .execute(matchCriteria, this.firstIndex, this.maxCount, false, false)
@@ -98,7 +98,7 @@ export class UdbService {
     }
   }
 
-  private async loadData(dataFilename: string) {
+  protected async loadData(dataFilename: string) {
     const firstIndex = 1
     this.logger.logVerbose(`\nReading cases from #${firstIndex}:`)
     await this.webFileInput.open(dataFilename)
