@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import program from "commander"
+import { program } from "commander"
 import { Database, Format, Input, Logger, Memory, OutputFactory, Query } from "../dist"
 import { Interactive } from "../dist/Interactive"
 import { version } from "../package.json"
@@ -19,10 +19,11 @@ program
   .option("-o, --out <outputFile|memory>", "Name of the file to output. \"memory\" will enter interactive mode.")
   .option("-v, --verbose", "Displays detailed processing information.")
   .option("--debug", "Displays debug info.")
-  .parse(process.argv)
+  .parse()
 
+const opts = program.opts()
 
-const logger = new Logger(program.debug, program.verbose, "udb: ")
+const logger = new Logger(opts.debug, opts.verbose, "udb: ")
 logger.onLog(msg => {
   process.stdout.write(msg)
 })
@@ -30,31 +31,30 @@ logger.onError(msg => {
   process.stderr.write(msg)
 })
 
-const count = parseInt(program.count, 10)
-const matchCriteria = program.match
+const count = parseInt(opts.count, 10)
+const matchCriteria = opts.match
 
-const dbType = program.database || "udb"
+const dbType = opts.database || "udb"
 const db: Database = DatabaseFactory.create(dbType, logger, program)
 
-const format = Format[program.format] || Format.default
-OutputFactory.create(program.out).then(output => {
-  db.init()
-    .then((input: Input) => {
-      const firstIndex = 1
-      logger.logVerbose(`\nReading cases from #${firstIndex}:`)
-      let lastIndex = 10000000
-      let maxCount = count || (lastIndex - firstIndex + 1)
-
-      new Query(input, output, logger, db.recordFormatter(), format)
+const format = Format[opts.format] || Format.default
+OutputFactory.create(opts.out).then(async (output) => {
+  try {
+    const input: Input = await db.init()
+    const firstIndex = 1
+    logger.logVerbose(`\nReading cases from #${firstIndex}:`)
+    let lastIndex = 10000000
+    let maxCount = count || (lastIndex - firstIndex + 1)
+    try {
+      await new Query(input, output, logger, db.recordFormatter(), format)
         .execute(matchCriteria, firstIndex, maxCount, true)
-        .then(() => input.close())
-        .catch(() => input.close())
-
-      if (output instanceof Memory) {
-        new Interactive(output, logger).start()
-      }
-    })
-    .catch(err => {
-      logger.error(err.toString())
-    })
+    } finally {
+      input.close()
+    }
+    if (output instanceof Memory) {
+      new Interactive(output, logger).start()
+    }
+  } catch (err) {
+    logger.error(err.toString())
+  }
 })
