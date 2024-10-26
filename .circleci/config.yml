@@ -1,49 +1,29 @@
-machine:
-  node:
-    version: 18
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
 
-version: 2
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  node: circleci/node@5.0.2
+
 jobs:
-  build:
-    docker:
-      - image: cimg/node:18.18.0
+  build_and_test: # this can be any name you choose
+    executor: node/default # use the default executor defined within the orb
     steps:
       - checkout
+      - node/install-packages:
+          pkg-manager: npm
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          command: npm run test
+          name: Run tests
       - run:
-          name: Install
-          command: npm install
-      - run:
-          name: Build
           command: npm run build
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-  test:
-    docker:
-      - image: cimg/node:18.18.0
-    steps:
-      - checkout
-      - run:
-          name: Install
-          command: npm install
-      - run:
-          name: Test
-          command: npm test
+          name: Build app
 
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  version: 2
-  build_and_test:
+  build_test: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+      - build_and_test
