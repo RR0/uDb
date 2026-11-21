@@ -1,3 +1,3 @@
-export * from "./NuforcDatabase"
-export * from "./NuforcInputRecord"
-export * from "./NuforcRecordReader"
+export * from "./NuforcDatabase.js"
+export * from "./NuforcInputRecord.js"
+export * from "./NuforcRecordReader.js"

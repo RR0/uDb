@@ -1,4 +1,4 @@
-import {UdbRecord} from "../UdbRecord"
+import {UdbRecord} from "../UdbRecord.js"
 
 export interface UdbInputRecord extends UdbRecord {
   /**
@@ -7,15 +7,20 @@ export interface UdbInputRecord extends UdbRecord {
   year: number;
 
   /**
-   * Byte
+   * Terrain code (0-20), 1 byte.
    */
   locale: number;
 
   /**
-   * 4 bits
+   * High nibble of the month byte.
+   *
+   * Set (to 1) on 73 records only, which are nearly all non-UFO "context" events
+   * (astronomers' lunar observations, space missions, A-bomb tests, Sputnik, Apollo 11, Chernobyl...).
+   * Probably the "tagged" status of a record (tagged records are displayed with a green background in *U*),
+   * but this has not been confirmed with the original software.
+   * 3 other records have values 4, 8 and 10.
    */
   unknownMonth: number;
-  unknownLocale: number;
 
   /**
    * 4 bits
@@ -23,7 +28,7 @@ export interface UdbInputRecord extends UdbRecord {
   month: number;
 
   /**
-   * 3 bits
+   * 3 high bits of the 11-bits reference index ("pinpoint": page, issue, case number...).
    */
   refIndexHigh: number;
 
@@ -45,24 +50,23 @@ export interface UdbInputRecord extends UdbRecord {
   ymdt: number;
 
   /**
-   * Duration in minutes.
+   * Duration in minutes (0-32000).
    *
-   * 1 byte
+   * Signed int (only 7 records need the high byte, such as 1440 min = 24 hours).
    */
   duration: number;
 
   /**
-   * 1 byte
-   */
-  unknown1: number;
-
-  /**
-   * 11 bits of signed int
+   * Decimal degrees, positive is East.
+   *
+   * Stored as a signed int counting units of 20 seconds of arc, positive is West.
    */
   longitude: number;
 
   /**
-   * 11 bits of signed int
+   * Decimal degrees, positive is North.
+   *
+   * Stored as a signed int counting units of 20 seconds of arc.
    */
   latitude: number;
 
@@ -77,7 +81,7 @@ export interface UdbInputRecord extends UdbRecord {
   relativeAltitude: number;
 
   /**
-   * 1 byte
+   * 1 byte, always 0 (padding).
    */
   unknown2: number;
 
@@ -97,7 +101,7 @@ export interface UdbInputRecord extends UdbRecord {
   stateOrProvince: string;
 
   /**
-   * 1 byte
+   * 1 byte, always 0 (end of the 3-chars state/province string).
    */
   unknown3: number;
 
@@ -155,7 +159,10 @@ export interface UdbInputRecord extends UdbRecord {
   ref: number;
 
   /**
-   * 1 byte
+   * Low 8 bits of the reference index, then (once read) the full 11-bits index.
+   *
+   * How it is displayed (page, issue, volume/issue, case number, etc.) depends on the reference only.
+   * @see Sources.getPinpoint
    */
   refIndex: number;
 

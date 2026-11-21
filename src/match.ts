@@ -1,4 +1,4 @@
-import {UdbRecord} from "./input"
+import {UdbRecord} from "./input/index.js"
 
 abstract class CriterionMatcher {
   protected constructor(private type: string, protected prop: string, protected value: any) {

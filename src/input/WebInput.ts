@@ -1,6 +1,6 @@
-import { RecordEnumerator } from "./RecordEnumerator"
-import { Input } from "./Input"
-import { Database, UdbRecord } from "./db"
+import { RecordEnumerator } from "./RecordEnumerator.js"
+import { Input } from "./Input.js"
+import { Database, UdbRecord } from "./db/index.js"
 import http from "http"
 
 /**

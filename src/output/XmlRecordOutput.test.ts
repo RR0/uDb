@@ -1,16 +1,18 @@
-import {XmlRecordOutput} from "./XmlRecordOutput"
+import {describe, expect, it} from "vitest"
+import {Writable} from "node:stream"
+import {XmlRecordOutput} from "./XmlRecordOutput.js"
 
-const stream = require("stream")
-
-class MemoryWritable extends stream.Writable {
+class MemoryWritable extends Writable {
+  contents: string
 
   constructor(options?) {
     super(options)
     this.contents = ""
   }
 
-  write(chunk) {
+  write(chunk): boolean {
     this.contents += chunk
+    return true
   }
 }
 
@@ -25,7 +27,7 @@ describe("xml", function () {
         location: "loc"
       }
       const output = new MemoryWritable()
-      const outputFormat = new XmlRecordOutput(output, record)
+      const outputFormat = new XmlRecordOutput(output as any, record)
       outputFormat.write(record)
       outputFormat.end()
       expect(output.contents).toBe("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<udb>\n" +
@@ -38,7 +40,7 @@ describe("xml", function () {
         field: "<somewhere>"
       }
       const output = new MemoryWritable()
-      const outputFormat = new XmlRecordOutput(output, record)
+      const outputFormat = new XmlRecordOutput(output as any, record)
       outputFormat.write(record)
       outputFormat.end()
       expect(output.contents).toBe("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<udb>\n" +

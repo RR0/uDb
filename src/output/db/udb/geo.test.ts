@@ -1,4 +1,5 @@
-import {Geo} from "./geo"
+import {describe, expect, it} from "vitest"
+import {Geo} from "./geo.js"
 
 describe('geo', function () {
   describe('DDToDMS', function () {

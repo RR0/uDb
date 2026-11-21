@@ -1,11 +1,11 @@
-import {Util} from "../../../Util"
-import {Geo} from "./geo"
-import {Time} from "./time"
-import {Flags} from "./flags"
-import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord"
-import {UdbOutputRecord} from "./UdbOutputRecord"
-import {Sources} from "../../../input/db/udb/Sources"
-import {RecordFormatter} from "../RecordFormatter"
+import {Util} from "../../../Util.js"
+import {Geo} from "./geo.js"
+import {Time} from "./time.js"
+import {Flags} from "./flags.js"
+import {UdbInputRecord} from "../../../input/db/udb/UdbInputRecord.js"
+import {UdbOutputRecord} from "./UdbOutputRecord.js"
+import {Sources} from "../../../input/db/udb/Sources.js"
+import {RecordFormatter} from "../RecordFormatter.js"
 
 /**
  * Formats input records as output records.
@@ -29,10 +29,8 @@ export class UdbRecordFormatter implements RecordFormatter {
 
   formatProperties(record: UdbInputRecord): UdbOutputRecord {
     delete record.unknownMonth;
-    delete record.unknownLocale;
     delete record.refIndexHigh;
     delete record.ymdt;
-    delete record.unknown1;
     delete record.unknown2;
     delete record.unknown3;
     delete record.continentCode;
@@ -63,8 +61,8 @@ export class UdbRecordFormatter implements RecordFormatter {
 
       record.stateOrProvince = Geo.getStateOrProvince(country, record);
     }
-    record.longitude = parseFloat(record.longitude.toFixed(2));
-    record.latitude = parseFloat(record.latitude.toFixed(2));
+    record.longitude = parseFloat(record.longitude.toFixed(6));
+    record.latitude = parseFloat(record.latitude.toFixed(6));
     record.locale = Geo.getLocale(record);
     record.year = Time.getYear(record);
     record.month = Time.getMonth(record);

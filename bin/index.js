@@ -1,17 +1,20 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env node
 
 import { program } from "commander"
-import { Database, Format, Input, Logger, Memory, OutputFactory, Query } from "../dist"
-import { Interactive } from "../dist/Interactive"
-import { version } from "../package.json"
-import { DatabaseFactory } from "../dist/input/db/DatabaseFactory"
+import { readFileSync } from "node:fs"
+import { Format, Logger, Memory, OutputFactory, Query } from "../dist/index.js"
+import { Interactive } from "../dist/Interactive.js"
+import { DatabaseFactory } from "../dist/input/db/DatabaseFactory.js"
+
+const { version } = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"))
 
 program
   .version(version)
-  .option("-db, --database <udb|nuforc> [source]",
-    `Database to read (defaults to udb).\nOptional source, depending on database, can default to ${DatabaseFactory.UDB_DATA_FILE_DEFAULT} or ${DatabaseFactory.NUFORC_URL_DEFAULT})`)
-  .option("-s, --sources [sourcesFile]", "Sources file to read. Defaults to ../data/udb/input/usources.txt")
-  .option("-wm, --worldmap [wmFile]", "World map file to read. Defaults to ../data/udb/input/data/WM.VCE")
+  .option("-d, --database <udb|nuforc>", "Database to read (defaults to udb).")
+  .option("--source <file|url>",
+    `Database source. Defaults to ${DatabaseFactory.UDB_DATA_FILE_DEFAULT} for udb, ${DatabaseFactory.NUFORC_URL_DEFAULT} for nuforc.`)
+  .option("-s, --sources <sourcesFile>", `Sources file to read. Defaults to ${DatabaseFactory.UDB_SOURCES_FILE_DEFAULT}`)
+  .option("-w, --worldmap <wmFile>", `World map file to read. Defaults to ${DatabaseFactory.UDB_WORLD_MAP_FILE_DEFAULT}`)
   .option("-c, --count <maxCount>", "Maximum number of records to output.")
   .option("-m, --match <field=value>[&field=value...][|field=value...]", "Output records that match the criteria.")
   .option("-f, --format <default|csv|xml>[?params]", "Format of the output. default params are latLng=dms|dd, csv" +
@@ -35,16 +38,16 @@ const count = parseInt(opts.count, 10)
 const matchCriteria = opts.match
 
 const dbType = opts.database || "udb"
-const db: Database = DatabaseFactory.create(dbType, logger, program)
+const db = DatabaseFactory.create(dbType, logger, opts)
 
-const format = Format[opts.format] || Format.default
+const format = opts.format || Format.default
 OutputFactory.create(opts.out).then(async (output) => {
   try {
-    const input: Input = await db.init()
+    const input = await db.init()
     const firstIndex = 1
     logger.logVerbose(`\nReading cases from #${firstIndex}:`)
-    let lastIndex = 10000000
-    let maxCount = count || (lastIndex - firstIndex + 1)
+    const lastIndex = 10000000
+    const maxCount = count || (lastIndex - firstIndex + 1)
     try {
       await new Query(input, output, logger, db.recordFormatter(), format)
         .execute(matchCriteria, firstIndex, maxCount, true)

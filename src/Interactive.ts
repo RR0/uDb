@@ -1,7 +1,7 @@
 import * as readline from "readline"
-import { Logger } from "./Logger"
-import { Format, Query } from "./Query"
-import { Memory, Output, OutputFactory } from "./output"
+import { Logger } from "./Logger.js"
+import { Format, Query } from "./Query.js"
+import { Memory, Output, OutputFactory } from "./output/index.js"
 
 export class Interactive {
   private firstIndex: number = 1

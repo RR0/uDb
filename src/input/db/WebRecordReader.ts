@@ -1,5 +1,5 @@
-import {RecordReader} from "./RecordReader"
-import {Logger} from "../../Logger"
+import {RecordReader} from "./RecordReader.js"
+import {Logger} from "../../Logger.js"
 
 /**
  * Creates an InputRecord from a web page content.

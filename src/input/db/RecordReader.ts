@@ -1,5 +1,5 @@
-import {Logger} from "../../Logger"
-import {UdbRecord} from "./UdbRecord"
+import {Logger} from "../../Logger.js"
+import {UdbRecord} from "./UdbRecord.js"
 
 /**
  * Creates an InputRecord from a raw binary record.

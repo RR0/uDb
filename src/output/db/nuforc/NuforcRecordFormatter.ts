@@ -1,7 +1,7 @@
-import {Util} from "../../../Util"
-import {NuforcInputRecord} from "../../../input"
-import {NuforcOutputRecord} from "./NuforcOutputRecord"
-import {RecordFormatter} from "../RecordFormatter"
+import {Util} from "../../../Util.js"
+import {NuforcInputRecord} from "../../../input/index.js"
+import {NuforcOutputRecord} from "./NuforcOutputRecord.js"
+import {RecordFormatter} from "../RecordFormatter.js"
 
 /**
  * Formats input records as output records.

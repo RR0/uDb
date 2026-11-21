@@ -1,7 +1,7 @@
 import * as fs from "fs"
-import { Input } from "./Input"
-import { Database, RecordReader, UdbRecord } from "./db"
-import { RecordEnumerator } from "./RecordEnumerator"
+import { Input } from "./Input.js"
+import { Database, RecordReader, UdbRecord } from "./db/index.js"
+import { RecordEnumerator } from "./RecordEnumerator.js"
 
 import bops from "bops"
 

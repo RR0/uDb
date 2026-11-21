@@ -1,5 +1,5 @@
-import {Output, RecordOutput} from "./RecordOutput"
-import {UdbRecord} from "../input"
+import {Output, RecordOutput} from "./RecordOutput.js"
+import {UdbRecord} from "../input/index.js"
 
 export enum OutputFormat {
   xml,
@@ -25,19 +25,19 @@ export class RecordOutputFactory {
     let recordOutput: RecordOutput<any>
     switch (formatSpec.format) {
       case OutputFormat.csv:
-        const {CsvRecordOutput} = await import("./CsvRecordOutput")
+        const {CsvRecordOutput} = await import("./CsvRecordOutput.js")
         recordOutput = new CsvRecordOutput(output, sortedRecord, formatSpec.params)
         break
       case OutputFormat.xml:
-        const {XmlRecordOutput} = await import("./XmlRecordOutput")
+        const {XmlRecordOutput} = await import("./XmlRecordOutput.js")
         recordOutput = new XmlRecordOutput(output, sortedRecord)
         break
       case OutputFormat.memory:
-        const {MemoryRecordOutput} = await import("./MemoryRecordOutput")
+        const {MemoryRecordOutput} = await import("./MemoryRecordOutput.js")
         recordOutput = new MemoryRecordOutput(output, sortedRecord, formatSpec.params)
         break
       default:
-        const {UdbTextRecordOutput} = await import("./db/udb/UdbTextRecordOutput")
+        const {UdbTextRecordOutput} = await import("./db/udb/UdbTextRecordOutput.js")
         recordOutput = new UdbTextRecordOutput(output, formatSpec.params)
     }
     return recordOutput

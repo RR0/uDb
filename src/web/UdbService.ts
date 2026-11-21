@@ -1,9 +1,9 @@
-import { WebFileInput } from "./WebFileInput"
-import { ReadInterface, Sources } from "../input"
-import { Memory } from "../output"
-import { Format, Query } from "../Query"
-import { UdbRecordFormatter } from "../output/db/udb/UdbRecordFormatter"
-import { Logger } from "../Logger"
+import { WebFileInput } from "./WebFileInput.js"
+import { ReadInterface, Sources } from "../input/index.js"
+import { Memory } from "../output/index.js"
+import { Format, Query } from "../Query.js"
+import { UdbRecordFormatter } from "../output/db/udb/UdbRecordFormatter.js"
+import { Logger } from "../Logger.js"
 
 export class WebReadLine implements ReadInterface {
 

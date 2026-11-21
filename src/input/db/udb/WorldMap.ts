@@ -1,6 +1,6 @@
 import * as fs from "fs"
-import { Logger } from "../../../Logger"
-import { Util } from "../../../Util"
+import { Logger } from "../../../Logger.js"
+import { Util } from "../../../Util.js"
 
 export class WorldMap {
 

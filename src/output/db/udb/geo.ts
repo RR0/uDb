@@ -47,7 +47,7 @@ export class Geo {
 
     let valDeg = Math.floor(val);
     let valMin = Math.floor((val - valDeg) * 60);
-    let valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000;
+    let valSec = Math.round((val - valDeg - valMin / 60) * 3600);  // *U* coordinates have a 20 seconds resolution
 
     if (valSec >= 60) {
       valMin++;

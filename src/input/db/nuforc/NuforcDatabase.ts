@@ -1,11 +1,11 @@
-import { Input } from "../../Input"
+import { Input } from "../../Input.js"
 
-import { Logger } from "../../../Logger"
-import { Database, DatabaseConfig } from "../Database"
-import { RecordReader } from "../RecordReader"
-import { NuforcRecordReader } from "./NuforcRecordReader"
-import { WebInput, WebRecord } from "../../WebInput"
-import { NuforcRecordFormatter, RecordFormatter } from "../../../output"
+import { Logger } from "../../../Logger.js"
+import { Database, DatabaseConfig } from "../Database.js"
+import { RecordReader } from "../RecordReader.js"
+import { NuforcRecordReader } from "./NuforcRecordReader.js"
+import { WebInput, WebRecord } from "../../WebInput.js"
+import { NuforcRecordFormatter, RecordFormatter } from "../../../output/index.js"
 
 export interface NuforcDatabaseConfig extends DatabaseConfig {
   baseUrl: string

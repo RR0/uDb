@@ -1,4 +1,4 @@
-import {UdbRecord} from "../../input"
+import {UdbRecord} from "../../input/index.js"
 
 export interface RecordFormatter {
   formatProperties(record: UdbRecord): UdbRecord;

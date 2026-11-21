@@ -1,6 +1,6 @@
 import * as fs from "fs"
 import {WriteStream} from "fs"
-import {Output} from "./RecordOutput"
+import {Output} from "./RecordOutput.js"
 
 export class FileOutput implements Output<any> {
   private writeStream: WriteStream

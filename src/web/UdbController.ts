@@ -1,6 +1,6 @@
-import { UdbService } from "./UdbService"
-import { Logger } from "../Logger"
-import { UdbRecord } from "../input"
+import { UdbService } from "./UdbService.js"
+import { Logger } from "../Logger.js"
+import { UdbRecord } from "../input/index.js"
 
 export class UdbController {
 

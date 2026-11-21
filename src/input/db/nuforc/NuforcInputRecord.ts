@@ -1,4 +1,4 @@
-import {UdbRecord} from "../UdbRecord"
+import {UdbRecord} from "../UdbRecord.js"
 
 export interface NuforcInputRecord extends UdbRecord {
   source: string;

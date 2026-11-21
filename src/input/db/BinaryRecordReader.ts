@@ -1,7 +1,7 @@
-import {Logger} from "../../Logger"
-import {Util} from "../../Util"
-import {RecordReader} from "./RecordReader"
-import {UdbRecord} from "./UdbRecord"
+import {Logger} from "../../Logger.js"
+import {Util} from "../../Util.js"
+import {RecordReader} from "./RecordReader.js"
+import {UdbRecord} from "./UdbRecord.js"
 
 /**
  * Creates an InputRecord from a raw binary record.
@@ -44,7 +44,7 @@ export abstract class BinaryRecordReader extends RecordReader {
   readString(length: number, prop: string) {
     let str = '';
     for (let i = this._recordPos; i < this._recordPos + length; i++) {
-      str += String.fromCharCode(this._buffer[i]);
+      str += BinaryRecordReader.cp437Char(this._buffer[i]);
     }
     this._record[prop] = BinaryRecordReader.validString(Util.trimZeroEnd(str)).trim();
     this.logReadPos(prop);
@@ -93,8 +93,31 @@ export abstract class BinaryRecordReader extends RecordReader {
     return sInt;
   }
 
+  /**
+   * Characters 0x80-0xFF of the MS-DOS code page 437 (the one *U* used).
+   */
+  private static readonly CP437_HIGH = "ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢£¥₧ƒáíóúñÑªº¿⌐¬½¼¡«»░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀αßΓπΣσµτΦΘΩδ∞φε∩≡±≥≤⌠⌡÷≈°∙·√ⁿ²■ "
+
+  /**
+   * Control codes that MS-DOS displayed as glyphs and that *U* uses in texts (mostly 0x18 = ↑ and 0x19 = ↓).
+   */
+  private static readonly CP437_LOW: { [code: number]: string } = {0x18: "↑", 0x19: "↓", 0x1A: "→", 0x1B: "←"}
+
+  /**
+   * Decodes a byte as a MS-DOS code page 437 character.
+   */
+  static cp437Char(byte: number): string {
+    if (byte >= 0x80) {
+      return BinaryRecordReader.CP437_HIGH.charAt(byte - 0x80)
+    }
+    return BinaryRecordReader.CP437_LOW[byte] || String.fromCharCode(byte)
+  }
+
+  /**
+   * Replaces characters that are invalid in XML 1.0 by spaces.
+   */
   static validString(str: string) {
-    const invalidXmlChars = /[^\x09\x0A\x0D\x20-\xFF]/g;
+    const invalidXmlChars = /[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/g;
     return str ? str.replace(invalidXmlChars, ' ') : '';
   }
 

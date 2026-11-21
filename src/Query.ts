@@ -1,8 +1,8 @@
-import { Input, RecordEnumerator, UdbRecord } from "./input"
-import { Logger } from "./Logger"
-import { MatchError, RecordMatcher } from "./match"
-import { Output, OutputFormat, OutputFormatSpec, RecordFormatter, RecordOutput, RecordOutputFactory } from "./output"
-import { Util } from "./Util"
+import { Input, RecordEnumerator, UdbRecord } from "./input/index.js"
+import { Logger } from "./Logger.js"
+import { MatchError, RecordMatcher } from "./match.js"
+import { Output, OutputFormat, OutputFormatSpec, RecordFormatter, RecordOutput, RecordOutputFactory } from "./output/index.js"
+import { Util } from "./Util.js"
 
 export enum Format {
   memory = "memory",

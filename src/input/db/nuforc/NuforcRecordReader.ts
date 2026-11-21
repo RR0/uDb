@@ -1,7 +1,7 @@
-import {NuforcInputRecord} from "./NuforcInputRecord"
-import {Logger} from "../../../Logger"
-import {WebRecordReader} from "../WebRecordReader"
-import {WebRecord} from "../../WebInput"
+import {NuforcInputRecord} from "./NuforcInputRecord.js"
+import {Logger} from "../../../Logger.js"
+import {WebRecordReader} from "../WebRecordReader.js"
+import {WebRecord} from "../../WebInput.js"
 
 /**
  * Creates an Udb InputRecord from a web page.

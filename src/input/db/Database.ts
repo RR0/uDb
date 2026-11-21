@@ -1,7 +1,7 @@
-import { RecordFormatter } from "../../output"
-import { Logger } from "../../Logger"
-import { RecordReader } from "./RecordReader"
-import { Input } from "../Input"
+import { RecordFormatter } from "../../output/index.js"
+import { Logger } from "../../Logger.js"
+import { RecordReader } from "./RecordReader.js"
+import { Input } from "../Input.js"
 
 export interface DatabaseConfig {
 }

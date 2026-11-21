@@ -1,20 +1,25 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "module": "ES2020",
-    "target": "ES2018",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "target": "ES2022",
+    "moduleResolution": "nodenext",
     "lib": [
-      "ES2020"
+      "ES2022",
+      "DOM"
     ],
     "outDir": "./dist/",
     "sourceMap": true,
-    "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "node"
+    ],
+    "strict": false,
+    "rootDir": "./src"
   },
   "include": [
     "src"

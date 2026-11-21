@@ -1,3 +1,3 @@
-export * from "./nuforc"
-export * from "./udb"
-export * from "./RecordFormatter"
+export * from "./nuforc/index.js"
+export * from "./udb/index.js"
+export * from "./RecordFormatter.js"

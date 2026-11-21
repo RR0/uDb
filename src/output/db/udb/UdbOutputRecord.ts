@@ -1,4 +1,4 @@
-import {UdbRecord} from "../../../input/db/UdbRecord"
+import {UdbRecord} from "../../../input/db/UdbRecord.js"
 
 export interface UdbOutputRecord extends UdbRecord {
   year: string | number;

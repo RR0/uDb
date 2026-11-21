@@ -1,2 +1,2 @@
-export * from "./NuforcOutputRecord"
-export * from "./NuforcRecordFormatter"
+export * from "./NuforcOutputRecord.js"
+export * from "./NuforcRecordFormatter.js"

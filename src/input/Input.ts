@@ -1,5 +1,5 @@
-import {RecordEnumerator} from "./RecordEnumerator"
-import {UdbRecord} from "./db/UdbRecord"
+import {RecordEnumerator} from "./RecordEnumerator.js"
+import {UdbRecord} from "./db/UdbRecord.js"
 
 export interface Input {
   readRecord(recordIndex: number): Promise<UdbRecord>;

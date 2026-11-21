@@ -1,5 +1,5 @@
-import {Output, RecordOutput} from "./RecordOutput"
-import {UdbRecord} from "../input/db/UdbRecord"
+import {Output, RecordOutput} from "./RecordOutput.js"
+import {UdbRecord} from "../input/db/UdbRecord.js"
 
 export class MemoryRecordOutput implements RecordOutput<UdbRecord> {
 

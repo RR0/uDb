@@ -1,7 +1,7 @@
-import { Logger } from "../Logger"
-import { WebFileInput } from "./WebFileInput"
-import { UdbService, WebReadLine } from "./UdbService"
-import { UdbController } from "./UdbController"
+import { Logger } from "../Logger.js"
+import { WebFileInput } from "./WebFileInput.js"
+import { UdbService, WebReadLine } from "./UdbService.js"
+import { UdbController } from "./UdbController.js"
 
 export type WebUdbConfig = {
   log: {

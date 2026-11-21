@@ -1,5 +1,5 @@
-import {Output, RecordOutput} from "./RecordOutput"
-import {UdbRecord} from "../input"
+import {Output, RecordOutput} from "./RecordOutput.js"
+import {UdbRecord} from "../input/index.js"
 import json2xml from "json2xml"
 
 export class XmlRecordOutput implements RecordOutput<Record<string, any>> {

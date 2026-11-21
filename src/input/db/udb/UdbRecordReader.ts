@@ -1,6 +1,6 @@
-import {UdbInputRecord} from "./UdbInputRecord"
-import {Logger} from "../../../Logger"
-import {BinaryRecordReader} from "../BinaryRecordReader"
+import {UdbInputRecord} from "./UdbInputRecord.js"
+import {Logger} from "../../../Logger.js"
+import {BinaryRecordReader} from "../BinaryRecordReader.js"
 
 /**
  * Creates an Udb InputRecord from a raw binary record buffer.
@@ -11,31 +11,33 @@ export class UdbRecordReader extends BinaryRecordReader {
     super(buffer, logger)
   }
 
-  readLatLong(prop) {
-    let firstByte = this.buffer[this.recordPos + 1];
-    let extraBit = firstByte >> 7;
-    let sInt = this.readSignedInt(prop);
-    sInt = sInt >> 1;
-    sInt = sInt / 100;
-    this.record[prop] = sInt * 1.11111111111;
-    if (prop === 'longitude') {
-      this.record[prop] *= -1.00;
+  /**
+   * Reads a longitude or latitude.
+   *
+   * It is stored as a signed 16 bits integer counting units of 20 seconds of arc (1/180 degree),
+   * as the *U* manual states that "seconds are rounded to the nearest 20 seconds".
+   * Positive longitudes are West.
+   */
+  readLatLong(prop: "longitude" | "latitude") {
+    const sInt = this.readSignedInt(prop)
+    let degrees = sInt / 180
+    if (prop === "longitude") {
+      degrees = -degrees
     }
-    return sInt;
+    this.record[prop] = degrees
+    return sInt
   }
-
 
   read(filePos: number, recordIndex?: number): UdbInputRecord {
     const record = <UdbInputRecord>super.read(filePos, recordIndex);
 
     this.readSignedInt('year');
-    this.readNibbles('unknownLocale', 'locale');
+    this.readByte('locale');
     this.readNibbles('unknownMonth', 'month');
     this.readByteBits('refIndexHigh', 5, 'day');
     this.readByte('time');
     this.readByte('ymdt');
-    this.readByte('duration');
-    this.readByte('unknown1');
+    this.readSignedInt('duration');
     this.readLatLong('longitude');
     this.readLatLong('latitude');
     this.readSignedInt('elevation');
@@ -72,7 +74,7 @@ export class UdbRecordReader extends BinaryRecordReader {
     this.readByte('ref');
 
     this.readByte('refIndex');
-    record.refIndex = (record.refIndexHigh << 8) + record.refIndex;
+    record.refIndex = (record.refIndexHigh << 8) + record.refIndex;  // 11 bits
 
     this.readNibbles('strangeness', 'credibility');
 
