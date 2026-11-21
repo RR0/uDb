@@ -1,5 +1,6 @@
 # \*U* UFO database reader
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/RR0/uDb/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/RR0/uDb/tree/master)
+[![Test](https://github.com/RR0/uDb/actions/workflows/test.yml/badge.svg)](https://github.com/RR0/uDb/actions/workflows/test.yml)
+[![npm](https://img.shields.io/npm/v/@rr0/udb)](https://www.npmjs.com/package/@rr0/udb)
 
 This is a [node](https://nodejs.org) application to read binary data file of the [\*U* UFO database](http://web.archive.org/web/20060701162044/http://www.larryhatch.net/).
 
