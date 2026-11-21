@@ -1,0 +1,45 @@
+# Publishes the package to npm when a version tag is pushed (v3.0.0 for the version 3.0.0 of package.json), through npm's Trusted
+# Publishing: npm checks that the publication comes from this repository and this workflow (OpenID Connect), so no token is stored
+# anywhere, and the package carries its provenance. Set up once on npmjs.com, in the package's settings: a trusted publisher for the
+# repository RR0/uDb and the workflow file publish.yml, allowed to publish directly. The owner's go is the tag: one is pushed only
+# when they ask for the release.
+#
+# The tests are not run again here: a tag is pushed on a commit already tested locally (npm test).
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  # The OpenID Connect token npm reads to know who publishes.
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      # A tag that does not name the version of package.json would publish another version than the one tagged.
+      - name: The tag names the package's version
+        if: github.ref_type == 'tag'
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "The tag $GITHUB_REF_NAME does not name the package's version $version" >&2
+            exit 1
+          fi
+      # Trusted Publishing needs a recent npm.
+      - run: npm install --global npm@latest
+      - run: npm ci
+      # The build script's own prebuild runs npm install again: tsc is called as the build script does it, without it.
+      - run: rm -Rf dist && npx tsc --project tsconfig.prod.json
+      # Verbose: what the exchange of the OpenID Connect token for a publishing one said, when it fails, is only said at that level.
+      - run: npm publish --access public --ignore-scripts --loglevel verbose
